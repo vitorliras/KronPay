@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace KronPay.Infra.Data.Mappings.Configuration
 {
-    public class TypeTransactionMap : IEntityTypeConfiguration<TypeTransaction>
+    public class TypePaymentMethodMap : IEntityTypeConfiguration<TypePaymentMethod>
     {
-        public void Configure(EntityTypeBuilder<TypeTransaction> builder)
+        public void Configure(EntityTypeBuilder<TypePaymentMethod> builder)
         {
-            builder.ToTable("type_transaction");
+            builder.ToTable("type_payment_method");
 
             builder.HasKey(x => x.Code);
 

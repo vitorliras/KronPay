@@ -7,9 +7,9 @@ namespace KronPay.Infra.Data.Seeds
     {
         public static List<TypeTransaction> Data =>
         [
-            new TypeTransaction('I', "Income"),
-            new TypeTransaction('E', "Expense"),
-            new TypeTransaction('V', "Investment")
+            new TypeTransaction("I", "Income"),
+            new TypeTransaction("E", "Expense"),
+            new TypeTransaction("V", "Investment")
         ];
     }
 }
