@@ -5,7 +5,7 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("Users");
+        builder.ToTable("users");
 
         builder.HasKey(x => x.Id);
 
@@ -15,7 +15,7 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
         builder.OwnsOne(x => x.Name, name =>
         {
             name.Property(n => n.Value)
-                .HasColumnName("Name")
+                .HasColumnName("name")
                 .IsRequired()
                 .HasMaxLength(60);
         });
@@ -23,7 +23,7 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
         builder.OwnsOne(x => x.Username, username =>
         {
             username.Property(u => u.Value)
-                .HasColumnName("Username")
+                .HasColumnName("username")
                 .IsRequired()
                 .HasMaxLength(20);
 
@@ -34,7 +34,7 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
         builder.OwnsOne(x => x.Email, email =>
         {
             email.Property(e => e.Value)
-                .HasColumnName("Email")
+                .HasColumnName("email")
                 .IsRequired()
                 .HasMaxLength(150);
 
@@ -45,7 +45,7 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
         builder.OwnsOne(x => x.Cpf, cpf =>
         {
             cpf.Property(c => c.Value)
-                .HasColumnName("Cpf")
+                .HasColumnName("cpf")
                 .IsRequired()
                 .HasMaxLength(14);
 
@@ -56,7 +56,7 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
         builder.OwnsOne(x => x.Phone, phone =>
         {
             phone.Property(p => p.Value)
-                .HasColumnName("Phone")
+                .HasColumnName("phone")
                 .HasMaxLength(20);
         });
 

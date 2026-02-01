@@ -11,15 +11,15 @@ namespace KronPay.Infra.Data.Mappings.Configuration
         {
             builder.ToTable("type_transaction");
 
-            builder.HasKey(x => x.Codigo);
+            builder.HasKey(x => x.Code);
 
-            builder.Property(x => x.Codigo)
-                .HasColumnName("codigo")
+            builder.Property(x => x.Code)
+                .HasColumnName("code")
                 .HasColumnType("char(1)")
                 .IsRequired();
 
-            builder.Property(x => x.Descricao)
-                .HasColumnName("descricao")
+            builder.Property(x => x.Description)
+                .HasColumnName("description")
                 .HasMaxLength(100)
                 .IsRequired();
         }

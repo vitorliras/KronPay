@@ -9,7 +9,6 @@ public sealed class AppDbContextFactory
 {
     public AppDbContext CreateDbContext(string[] args)
     {
-        // Caminho da API (um nível acima do Infrastructure)
         var basePath = Path.Combine(
             Directory.GetCurrentDirectory(),
             "..",

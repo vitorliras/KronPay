@@ -123,6 +123,9 @@
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Invalid Credential</value>
   </data>
+  <data name="InvalidDescription" xml:space="preserve">
+    <value>Invalid description</value>
+  </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Invalid Email</value>
   </data>

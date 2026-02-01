@@ -79,6 +79,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Descrição Inválida.
+        /// </summary>
+        public static string InvalidDescription {
+            get {
+                return ResourceManager.GetString("InvalidDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Email inválido.
         /// </summary>
         public static string InvalidEmail {

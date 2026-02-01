@@ -21,38 +21,253 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("KronPay.Domain.Entities.Configuration.TypeTransaction", b =>
+            modelBuilder.Entity("Domain.Entities.CategoryItem", b =>
                 {
-                    b.Property<string>("Codigo")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(1)")
-                        .HasColumnName("codigo");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
-                    b.Property<string>("Descricao")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("active");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)")
+                        .HasColumnName("description");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("category_item", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Configuration.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("active");
+
+                    b.Property<string>("CodTypeTransaction")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("cod_type_transaction");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodTypeTransaction");
+
+                    b.HasIndex("UserId", "Description")
+                        .IsUnique();
+
+                    b.ToTable("category", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("active");
+
+                    b.Property<string>("CodTypePaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("cod_type_payment_method");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(440)
+                        .HasColumnType("nvarchar(440)")
+                        .HasColumnName("description");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodTypePaymentMethod");
+
+                    b.HasIndex("UserId", "Description")
+                        .IsUnique();
+
+                    b.ToTable("payment_method", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.CreditCard", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("active");
+
+                    b.Property<short>("ClosingDay")
+                        .HasColumnType("smallint")
+                        .HasColumnName("closing_day");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<decimal>("CreditLimit")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("credit_limit");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasColumnName("descricao");
+                        .HasColumnName("description");
 
-                    b.HasKey("Codigo");
+                    b.Property<short>("DueDay")
+                        .HasColumnType("smallint")
+                        .HasColumnName("due_day");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "Description")
+                        .IsUnique();
+
+                    b.ToTable("credit_card", (string)null);
+                });
+
+            modelBuilder.Entity("KronPay.Domain.Entities.Configuration.TypePaymentMethod", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("char(1)")
+                        .HasColumnName("code");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("description");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("type_payment_method", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Code = "R",
+                            Description = "Receipt"
+                        },
+                        new
+                        {
+                            Code = "P",
+                            Description = "payment"
+                        });
+                });
+
+            modelBuilder.Entity("KronPay.Domain.Entities.Configuration.TypeTransaction", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("char(1)")
+                        .HasColumnName("code");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("description");
+
+                    b.HasKey("Code");
 
                     b.ToTable("type_transaction", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Codigo = "I",
-                            Descricao = "Income"
+                            Code = "I",
+                            Description = "Income"
                         },
                         new
                         {
-                            Codigo = "E",
-                            Descricao = "Expense"
+                            Code = "E",
+                            Description = "Expense"
                         },
                         new
                         {
-                            Codigo = "V",
-                            Descricao = "Investment"
+                            Code = "V",
+                            Description = "Investment"
                         });
                 });
 
@@ -80,7 +295,55 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.CategoryItem", b =>
+                {
+                    b.HasOne("Domain.Entities.Configuration.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Configuration.Category", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Configuration.TypeTransaction", null)
+                        .WithMany()
+                        .HasForeignKey("CodTypeTransaction")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Configuration.TypePaymentMethod", null)
+                        .WithMany()
+                        .HasForeignKey("CodTypePaymentMethod")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.CreditCard", b =>
+                {
+                    b.HasOne("User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("User", b =>
@@ -94,14 +357,14 @@ namespace Infrastructure.Migrations
                                 .IsRequired()
                                 .HasMaxLength(150)
                                 .HasColumnType("nvarchar(150)")
-                                .HasColumnName("Email");
+                                .HasColumnName("email");
 
                             b1.HasKey("UserId");
 
                             b1.HasIndex("Value")
                                 .IsUnique();
 
-                            b1.ToTable("Users");
+                            b1.ToTable("users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -116,14 +379,14 @@ namespace Infrastructure.Migrations
                                 .IsRequired()
                                 .HasMaxLength(14)
                                 .HasColumnType("nvarchar(14)")
-                                .HasColumnName("Cpf");
+                                .HasColumnName("cpf");
 
                             b1.HasKey("UserId");
 
                             b1.HasIndex("Value")
                                 .IsUnique();
 
-                            b1.ToTable("Users");
+                            b1.ToTable("users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -138,11 +401,11 @@ namespace Infrastructure.Migrations
                                 .IsRequired()
                                 .HasMaxLength(20)
                                 .HasColumnType("nvarchar(20)")
-                                .HasColumnName("Phone");
+                                .HasColumnName("phone");
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -157,11 +420,11 @@ namespace Infrastructure.Migrations
                                 .IsRequired()
                                 .HasMaxLength(60)
                                 .HasColumnType("nvarchar(60)")
-                                .HasColumnName("Name");
+                                .HasColumnName("name");
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");
@@ -176,14 +439,14 @@ namespace Infrastructure.Migrations
                                 .IsRequired()
                                 .HasMaxLength(20)
                                 .HasColumnType("nvarchar(20)")
-                                .HasColumnName("Username");
+                                .HasColumnName("username");
 
                             b1.HasKey("UserId");
 
                             b1.HasIndex("Value")
                                 .IsUnique();
 
-                            b1.ToTable("Users");
+                            b1.ToTable("users");
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");

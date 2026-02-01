@@ -2,15 +2,15 @@
 {
     public class TypeTransaction
     {
-        public char Codigo { get; private set; }
-        public string Descricao { get; private set; }
+        public string Code { get; private set; }
+        public string Description { get; private set; }
 
         protected TypeTransaction() { }
 
-        public TypeTransaction(char codigo, string descricao)
+        public TypeTransaction(string code, string description)
         {
-            Codigo = codigo;
-            Descricao = descricao;
+            Code = code;
+            Description = description;
         }
     }
 }
