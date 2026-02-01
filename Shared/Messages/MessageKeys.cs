@@ -16,5 +16,9 @@ public static class MessageKeys
     public const string InvalidPhone = nameof(InvalidPhone);
     public const string InvalidCpf = nameof(InvalidCpf);
     public const string InvalidDescription = nameof(InvalidDescription);
+    public const string CategoryNotFound = nameof(CategoryNotFound);
+    public const string OperationFailed = nameof(OperationFailed);
+    public const string DescriptionAlreadyExists = nameof(DescriptionAlreadyExists);
+    public const string ExistsAnotherRegister = nameof(ExistsAnotherRegister);
 
 }

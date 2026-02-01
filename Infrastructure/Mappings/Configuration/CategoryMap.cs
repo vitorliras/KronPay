@@ -29,7 +29,7 @@ public sealed class CategoryMap : IEntityTypeConfiguration<Category>
 
         builder.Property(x => x.Description)
             .HasColumnName("description")
-            .HasMaxLength(40)
+            .HasMaxLength(30)
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)

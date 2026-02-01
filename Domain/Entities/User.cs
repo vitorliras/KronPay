@@ -37,6 +37,7 @@ public sealed class User
         Phone = phone;
         PasswordHash = passwordHash;
         UserType = userType;
+        CreatedAt = DateTime.UtcNow;
     }
 
     public void RegisterAccess()

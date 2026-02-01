@@ -1,6 +1,7 @@
 ﻿using Api.Contracts.Errors;
 using Domain.Exceptions;
 using Microsoft.Extensions.Localization;
+using Shared.Resources;
 using System.Net;
 
 namespace Api.Middlewares;
@@ -8,14 +9,14 @@ namespace Api.Middlewares;
 public sealed class ExceptionHandlingMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly IStringLocalizer _localizer;
+    private readonly IStringLocalizer<Messages>  _localizer;
 
     public ExceptionHandlingMiddleware(
         RequestDelegate next,
-        IStringLocalizerFactory factory)
+        IStringLocalizerFactory factory, IStringLocalizer<Messages> localizer)
     {
         _next = next;
-        _localizer = factory.Create("Messages", "Shared");
+        _localizer =  localizer;
     }
 
     public async Task InvokeAsync(HttpContext context)

@@ -35,7 +35,7 @@ public sealed class CreditCardMap : IEntityTypeConfiguration<CreditCard>
 
         builder.Property(x => x.Description)
             .HasColumnName("description")
-            .HasMaxLength(100)
+            .HasMaxLength(30)
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)

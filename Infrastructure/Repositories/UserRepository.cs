@@ -1,6 +1,7 @@
 ﻿using Domain.interfaces;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Shared.Results;
 
 namespace Infra.Persistence.Repositories;
 
@@ -31,15 +32,15 @@ public sealed class UserRepository : IUserRepository
             .FirstOrDefaultAsync(u => u.Username.Value == username);
     }
 
-    public async Task AddAsync(User user)
+    public async Task<bool> AddAsync(User user)
     {
-        await _context.Users.AddAsync(user);
-        await _context.SaveChangesAsync();
+        var result = await _context.Users.AddAsync(user);
+        return  result.State == EntityState.Added;
     }
 
-    public async Task UpdateAsync(User user)
+    public bool Update(User user)
     {
-        _context.Users.Update(user);
-        await _context.SaveChangesAsync();
+        var result =  _context.Users.Update(user);
+        return result.State == EntityState.Modified;
     }
 }

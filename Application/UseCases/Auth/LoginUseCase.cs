@@ -1,6 +1,8 @@
 ﻿using Application.Abstractions.Auth;
 using Application.DTOs.Auth;
+using Application.DTOs.Users;
 using Domain.interfaces;
+using Domain.Interfaces;
 using Shared.Localization;
 using Shared.Results;
 
@@ -11,16 +13,14 @@ public sealed class LoginUseCase
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenService _tokenService;
+    private readonly IUnitOfWork _uow;
 
-
-    public LoginUseCase(
-        IUserRepository userRepository,
-        IPasswordHasher passwordHasher,
-        ITokenService tokenService)
+    public LoginUseCase( IUserRepository userRepository,IPasswordHasher passwordHasher,ITokenService tokenService, IUnitOfWork uow)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
+        _uow = uow;
     }
 
     public async Task<ResultT<LoginResponse>> ExecuteAsync(LoginRequest request)
@@ -37,7 +37,13 @@ public sealed class LoginUseCase
 
         user.RegisterAccess();
 
-        await _userRepository.UpdateAsync(user);
+        var result = _userRepository.Update(user);
+        if (!result)
+            return ResultT<LoginResponse>.Failure(MessageKeys.OperationFailed);
+
+        var uow = await _uow.CommitAsync();
+        if (!uow)
+            return ResultT<LoginResponse>.Failure(MessageKeys.OperationFailed);
 
         return ResultT<LoginResponse>.Success(new LoginResponse
         {

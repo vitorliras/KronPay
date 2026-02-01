@@ -16,7 +16,6 @@ public sealed class CategoryItem
 
     public CategoryItem(
         int categoryId,
-        int userId,
         string description)
     {
         if (string.IsNullOrWhiteSpace(description))
