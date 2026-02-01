@@ -1,29 +1,26 @@
 ﻿using Domain.Exceptions;
 using Shared.Localization;
 
-namespace Domain.ValueObjects;
-
 public sealed class Email
 {
-    public string Value { get; private set; }
+    public string Value { get; }
 
-    private Email() { }
+    protected Email() { } 
 
-    private Email(string address)
+    public Email(string value)
     {
-        Value = address;
-    }
-
-    public static Email Create(string address)
-    {
-        if (string.IsNullOrWhiteSpace(address))
+        if (string.IsNullOrWhiteSpace(value))
             throw new DomainException(MessageKeys.InvalidEmail);
 
-        if (!address.Contains("@"))
+        if (!value.Contains("@"))
             throw new DomainException(MessageKeys.InvalidEmail);
 
-        return new Email(address.Trim().ToLower());
+        Value = value.Trim().ToLower();
     }
 
-    public override string ToString() => Value;
+    public override bool Equals(object? obj)
+        => obj is Email other && Value == other.Value;
+
+    public override int GetHashCode()
+        => Value.GetHashCode();
 }

@@ -29,7 +29,7 @@ public sealed class PaymentMethodMap : IEntityTypeConfiguration<PaymentMethod>
 
         builder.Property(x => x.Description)
             .HasColumnName("description")
-            .HasMaxLength(440)
+            .HasMaxLength(30)
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)

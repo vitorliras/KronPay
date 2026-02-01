@@ -36,10 +36,9 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
             email.Property(e => e.Value)
                 .HasColumnName("email")
                 .IsRequired()
-                .HasMaxLength(150);
+                .HasMaxLength(80);
 
-            email.HasIndex(e => e.Value)
-                .IsUnique();
+            email.HasIndex(e => e.Value).IsUnique();
         });
 
         builder.OwnsOne(x => x.Cpf, cpf =>

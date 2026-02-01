@@ -27,10 +27,12 @@ public sealed class AppDbContext : DbContext
     {
 
         #region User
-        modelBuilder.Owned<Email>();
-        modelBuilder.Owned<Cpf>();
-        modelBuilder.Owned<Phone>();
-        modelBuilder.Owned<Name>();
+        //modelBuilder.Owned<Email>();
+        //modelBuilder.Owned<Cpf>();
+        //modelBuilder.Owned<Phone>();
+        //modelBuilder.Owned<Name>();
+        modelBuilder.ApplyConfiguration(new UserMapping());
+
         #endregion
 
         #region TypeTransaction

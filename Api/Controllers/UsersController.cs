@@ -24,6 +24,7 @@ public class UsersController : ControllerBase
         _useCase = useCase;
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Create(
     CreateUserRequest request,

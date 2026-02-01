@@ -61,6 +61,33 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Categoria não encontrado.
+        /// </summary>
+        public static string CategoryNotFound {
+            get {
+                return ResourceManager.GetString("CategoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Descrição já existe.
+        /// </summary>
+        public static string DescriptionAlreadyExists {
+            get {
+                return ResourceManager.GetString("DescriptionAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Existe registro vinculado a esse, logo não pode ser desativado.
+        /// </summary>
+        public static string ExistsAnotherRegister {
+            get {
+                return ResourceManager.GetString("ExistsAnotherRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cpf inválido.
         /// </summary>
         public static string InvalidCpf {
@@ -151,11 +178,29 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Operação falhou.
+        /// </summary>
+        public static string OperationFailed {
+            get {
+                return ResourceManager.GetString("OperationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter caractere especial..
         /// </summary>
         public static string SpecialCharacter {
             get {
                 return ResourceManager.GetString("SpecialCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ERRO INESPERADO.
+        /// </summary>
+        public static string UNEXPECTED_ERROR {
+            get {
+                return ResourceManager.GetString("UNEXPECTED_ERROR", resourceCulture);
             }
         }
         

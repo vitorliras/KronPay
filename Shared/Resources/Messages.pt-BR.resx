@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>Categoria não encontrado</value>
+  </data>
+  <data name="DescriptionAlreadyExists" xml:space="preserve">
+    <value>Descrição já existe</value>
+  </data>
+  <data name="ExistsAnotherRegister" xml:space="preserve">
+    <value>Existe registro vinculado a esse, logo não pode ser desativado</value>
+  </data>
   <data name="InvalidCpf" xml:space="preserve">
     <value>Cpf inválido</value>
   </data>
@@ -147,8 +156,14 @@
   <data name="NotSequencialNumberPassword" xml:space="preserve">
     <value>A senha não pode conter números em sequência.</value>
   </data>
+  <data name="OperationFailed" xml:space="preserve">
+    <value>Operação falhou</value>
+  </data>
   <data name="SpecialCharacter" xml:space="preserve">
     <value>A senha deve conter caractere especial.</value>
+  </data>
+  <data name="UNEXPECTED_ERROR" xml:space="preserve">
+    <value>ERRO INESPERADO</value>
   </data>
   <data name="UppercaseLetterPassword" xml:space="preserve">
     <value>A senha deve conter letra maiúscula.</value>
