@@ -25,7 +25,7 @@ public sealed class CreateCategoryUseCase
         var category = await _categoryRepository.GetByDescriptionAsync(request.Description, request.UserId);
 
         if (category is not null)
-            return ResultT<CategoryResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
+            return ResultT<CategoryResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
          category = new Category(
             request.UserId,
@@ -35,11 +35,11 @@ public sealed class CreateCategoryUseCase
         
         var result = await _categoryRepository.AddAsync(category);
         if (!result)
-            return ResultT<CategoryResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultT<CategoryResponse>.Failure("", MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<CategoryResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultT<CategoryResponse>.Failure("", MessageKeys.OperationFailed);
 
         return ResultT<CategoryResponse>.Success(
             new CategoryResponse(

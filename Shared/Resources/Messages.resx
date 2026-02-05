@@ -159,6 +159,9 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Operação falhou</value>
   </data>
+  <data name="PaymentMethodNotFound" xml:space="preserve">
+    <value>Metodo de pagamento não enontrado</value>
+  </data>
   <data name="SpecialCharacter" xml:space="preserve">
     <value>A senha deve conter caractere especial.</value>
   </data>

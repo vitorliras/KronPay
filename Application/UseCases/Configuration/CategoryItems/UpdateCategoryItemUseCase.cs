@@ -24,22 +24,22 @@ public sealed class UpdateCategoryItemUseCase
         var category = await _categoryRepository.GetByDescriptionAsync(request.Description, request.CategoryId);
 
         if (category is not null)
-            return ResultT<CategoryItemResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
+            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
          category = await _categoryRepository.GetByIdAsync(request.Id, request.CategoryId);
         if (category is null)
-            return ResultT<CategoryItemResponse>.Failure(MessageKeys.CategoryNotFound);
+            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.CategoryNotFound);
 
 
         category.UpdateDescription(request.Description);
 
-        var result =  _categoryRepository.UpdateAsync(category);
+        var result =  _categoryRepository.Update(category);
         if (!result)
-            return ResultT<CategoryItemResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<CategoryItemResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.OperationFailed);
 
         return ResultT<CategoryItemResponse>.Success(
             new CategoryItemResponse(

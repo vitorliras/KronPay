@@ -1,5 +1,6 @@
 ﻿using Application.Abstractions;
 using Application.DTOs.Configuration.Categories;
+using Application.DTOs.Configuration.Category;
 using Domain.Interfaces;
 using Shared.Localization;
 using Shared.Results;
@@ -23,22 +24,22 @@ public sealed class UpdateCategoryUseCase
         var category = await _categoryRepository.GetByDescriptionAsync(request.Description, request.UserId);
 
         if (category is not null)
-            return ResultT<CategoryResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
+            return ResultT<CategoryResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
          category = await _categoryRepository.GetByIdAsync(request.Id, request.UserId);
 
         if (category is null)
-            return ResultT<CategoryResponse>.Failure(MessageKeys.CategoryNotFound);
+            return ResultT<CategoryResponse>.Failure("", MessageKeys.CategoryNotFound);
 
         category.UpdateDescription(request.Description);
 
-        var result =  _categoryRepository.UpdateAsync(category);
+        var result =  _categoryRepository.Update(category);
         if (!result)
-            return ResultT<CategoryResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultT<CategoryResponse>.Failure("", MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<CategoryResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultT<CategoryResponse>.Failure("", MessageKeys.OperationFailed);
 
         return ResultT<CategoryResponse>.Success(
             new CategoryResponse(
