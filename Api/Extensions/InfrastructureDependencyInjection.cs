@@ -3,6 +3,7 @@ using Application.Executors;
 using Application.Pipelines;
 using Application.UseCases.Auth;
 using Application.UseCases.Categories;
+using Application.UseCases.PaymentMethods;
 using Domain.interfaces;
 using Domain.Interfaces;
 using Infra.Persistence.Repositories;
@@ -42,6 +43,12 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<GetAllCategoryItemsUseCase>();
         services.AddScoped<GetCategoryItemByIdUseCase>();
 
+        services.AddScoped<CreatePaymentMethodUseCase>();
+        services.AddScoped<UpdatePaymentMethodUseCase>();
+        services.AddScoped<DeactivatePaymentMethodUseCase>();
+        services.AddScoped<GetAllPaymentMethodUseCase>();
+        services.AddScoped<GetPaymentMethodByIdUseCase>();
+
         #endregion
 
         #region Repositories
@@ -52,6 +59,7 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICategoryItemRepository, CategoryItemRepository>();
+        services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
         services.AddScoped<LoginUseCase>();
 
         #endregion

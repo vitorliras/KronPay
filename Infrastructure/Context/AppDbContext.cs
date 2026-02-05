@@ -16,6 +16,7 @@ public sealed class AppDbContext : DbContext
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<CategoryItem> CategoryItems => Set<CategoryItem>();
     public DbSet<CreditCard> CreditCards => Set<CreditCard>();
+    public DbSet<PaymentMethod> PaymentMethods => Set<PaymentMethod>();
 
 
     public AppDbContext(DbContextOptions<AppDbContext> options)

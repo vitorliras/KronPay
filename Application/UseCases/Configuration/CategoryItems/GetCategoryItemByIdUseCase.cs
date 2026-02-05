@@ -23,7 +23,7 @@ public sealed class GetCategoryItemByIdUseCase
         var category = await _repository.GetByIdAsync(request.Id, request.CategoryId);
 
         if (category is null)
-            return ResultT<CategoryItemResponse>.Failure(MessageKeys.CategoryNotFound);
+            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.CategoryNotFound);
 
         return ResultT<CategoryItemResponse>.Success(
             new CategoryItemResponse(

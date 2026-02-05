@@ -187,6 +187,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Metodo de pagamento não enontrado.
+        /// </summary>
+        public static string PaymentMethodNotFound {
+            get {
+                return ResourceManager.GetString("PaymentMethodNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter caractere especial..
         /// </summary>
         public static string SpecialCharacter {

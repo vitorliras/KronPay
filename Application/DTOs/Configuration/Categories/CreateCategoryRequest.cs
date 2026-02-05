@@ -1,7 +1,7 @@
 ﻿namespace Application.DTOs.Configuration.Categories;
 
-public sealed record UpdateCategoryRequest(
-    int Id,
+public sealed record CreateCategoryRequest(
     int UserId,
-    string Description
+    string Description,
+    string CodTypeTransaction
 );

@@ -21,7 +21,7 @@ public sealed class CategoryRepository : ICategoryRepository
         return  result.State == EntityState.Added;
     }
 
-    public  bool UpdateAsync(Category category)
+    public  bool Update(Category category)
     {
         var result = _context.Categories.Update(category);
         return result.State == EntityState.Modified;
