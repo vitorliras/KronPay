@@ -23,7 +23,7 @@ public sealed class CreditCard
         string description,
         short dueDay,
         short closingDay,
-        int creditLimit)
+        decimal creditLimit)
     {
         if (string.IsNullOrWhiteSpace(description))
             throw new DomainException(MessageKeys.InvalidDescription);

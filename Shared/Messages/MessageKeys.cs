@@ -21,5 +21,6 @@ public static class MessageKeys
     public const string DescriptionAlreadyExists = nameof(DescriptionAlreadyExists);
     public const string ExistsAnotherRegister = nameof(ExistsAnotherRegister);
     public const string PaymentMethodNotFound = nameof(PaymentMethodNotFound);
+    public const string CreditCardNotFound = nameof(CreditCardNotFound);
 
 }

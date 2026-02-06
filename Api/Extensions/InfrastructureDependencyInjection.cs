@@ -3,12 +3,13 @@ using Application.Executors;
 using Application.Pipelines;
 using Application.UseCases.Auth;
 using Application.UseCases.Categories;
+using Application.UseCases.creditCards;
+using Application.UseCases.CreditCards;
 using Application.UseCases.PaymentMethods;
 using Domain.interfaces;
 using Domain.Interfaces;
 using Infra.Persistence.Repositories;
 using Infra.Security;
-using Infrastructure.Context;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +50,12 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<GetAllPaymentMethodUseCase>();
         services.AddScoped<GetPaymentMethodByIdUseCase>();
 
+        services.AddScoped<CreateCreditCardUseCase>();
+        services.AddScoped<UpdateCreditCardUseCase>();
+        services.AddScoped<DeactivateCreditCardUseCase>();
+        services.AddScoped<GetAllCreditCardUseCase>();
+        services.AddScoped<GetCreditCardByIdUseCase>();
+
         #endregion
 
         #region Repositories
@@ -60,6 +67,7 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICategoryItemRepository, CategoryItemRepository>();
         services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
+        services.AddScoped<ICreditCardRepository, CreditCardRepository>();
         services.AddScoped<LoginUseCase>();
 
         #endregion

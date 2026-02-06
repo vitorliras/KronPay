@@ -9,30 +9,30 @@ namespace Application.UseCases.PaymentMethods;
 public sealed class UpdatePaymentMethodUseCase
     : IUseCase<UpdatePaymentMethodRequest, PaymentMethodResponse>
 {
-    private readonly IPaymentMethodRepository _categoryRepository;
+    private readonly IPaymentMethodRepository _paymentMethodRepository;
     private readonly IUnitOfWork _uow;
 
-    public UpdatePaymentMethodUseCase(IPaymentMethodRepository categoryRepository, IUnitOfWork uow)
+    public UpdatePaymentMethodUseCase(IPaymentMethodRepository paymentMethodRepository, IUnitOfWork uow)
     {
-        _categoryRepository = categoryRepository;
+        _paymentMethodRepository = paymentMethodRepository;
         _uow = uow;
     }
 
     public async Task<ResultT<PaymentMethodResponse>> ExecuteAsync(UpdatePaymentMethodRequest request)
     {
-        var category = await _categoryRepository.GetByDescriptionAsync(request.Description, request.UserId);
+        var paymentMethod = await _paymentMethodRepository.GetByDescriptionAsync(request.Description, request.UserId);
 
-        if (category is not null)
+        if (paymentMethod is not null)
             return ResultT<PaymentMethodResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
-         category = await _categoryRepository.GetByIdAsync(request.Id, request.UserId);
+         paymentMethod = await _paymentMethodRepository.GetByIdAsync(request.Id, request.UserId);
 
-        if (category is null)
+        if (paymentMethod is null)
             return ResultT<PaymentMethodResponse>.Failure("", MessageKeys.PaymentMethodNotFound);
 
-        category.UpdateDescription(request.Description);
+        paymentMethod.UpdateDescription(request.Description);
 
-        var result =  _categoryRepository.Update(category);
+        var result =  _paymentMethodRepository.Update(paymentMethod);
         if (!result)
             return ResultT<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
 
@@ -42,10 +42,10 @@ public sealed class UpdatePaymentMethodUseCase
 
         return ResultT<PaymentMethodResponse>.Success(
             new PaymentMethodResponse(
-                category.Id,
-                category.Description,
-                category.CodTypePaymentMethod,
-                category.Active
+                paymentMethod.Id,
+                paymentMethod.Description,
+                paymentMethod.CodTypePaymentMethod,
+                paymentMethod.Active
             )
         );
     }
