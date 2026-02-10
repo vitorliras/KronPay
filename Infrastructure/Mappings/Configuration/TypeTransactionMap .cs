@@ -20,7 +20,7 @@ namespace KronPay.Infra.Data.Mappings.Configuration
 
             builder.Property(x => x.Description)
                 .HasColumnName("description")
-                .HasMaxLength(100)
+                .HasMaxLength(20)
                 .IsRequired();
         }
     }

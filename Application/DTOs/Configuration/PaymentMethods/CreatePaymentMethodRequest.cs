@@ -2,6 +2,5 @@
 
 public sealed record CreatePaymentMethodRequest(
     int UserId,
-    string Description,
-    string CodTypePaymentMethod
+    string Description
 );

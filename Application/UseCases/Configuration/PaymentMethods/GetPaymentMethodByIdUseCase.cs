@@ -27,7 +27,6 @@ public sealed class GetPaymentMethodByIdUseCase
             new PaymentMethodResponse(
                 category.Id,
                 category.Description,
-                category.CodTypePaymentMethod,
                 category.Active
             )
         );

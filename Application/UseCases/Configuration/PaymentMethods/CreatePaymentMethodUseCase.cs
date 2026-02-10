@@ -28,8 +28,7 @@ public sealed class CreatePaymentMethodUseCase
 
          paymentMethod = new PaymentMethod(
             request.UserId,
-            request.Description,
-            request.CodTypePaymentMethod
+            request.Description
         );
         
         var result = await _paymentMethodRepository.AddAsync(paymentMethod);
@@ -44,7 +43,6 @@ public sealed class CreatePaymentMethodUseCase
             new PaymentMethodResponse(
                 paymentMethod.Id,
                 paymentMethod.Description,
-                paymentMethod.CodTypePaymentMethod,
                 paymentMethod.Active
             )
         );

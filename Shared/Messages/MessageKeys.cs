@@ -22,5 +22,14 @@ public static class MessageKeys
     public const string ExistsAnotherRegister = nameof(ExistsAnotherRegister);
     public const string PaymentMethodNotFound = nameof(PaymentMethodNotFound);
     public const string CreditCardNotFound = nameof(CreditCardNotFound);
+    public const string InvalidInstallments = nameof(InvalidInstallments);
+    public const string InvalidGroupType = nameof(InvalidGroupType);
+    public const string InvalidAmount = nameof(InvalidAmount);
+    public const string InvalidTypeTransaction = nameof(InvalidTypeTransaction);
+    public const string TransactionNotFound = nameof(TransactionNotFound);
+    public const string OperationSuccess = nameof(OperationSuccess);
+
+
+
 
 }

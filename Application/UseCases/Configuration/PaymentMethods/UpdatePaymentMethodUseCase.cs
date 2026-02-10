@@ -44,7 +44,6 @@ public sealed class UpdatePaymentMethodUseCase
             new PaymentMethodResponse(
                 paymentMethod.Id,
                 paymentMethod.Description,
-                paymentMethod.CodTypePaymentMethod,
                 paymentMethod.Active
             )
         );

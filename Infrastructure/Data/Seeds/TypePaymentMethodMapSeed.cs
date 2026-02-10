@@ -1,14 +1,14 @@
-﻿using KronPay.Domain.Entities;
-using KronPay.Domain.Entities.Configuration;
+﻿using Domain.Entities.Transactions;
 
 namespace KronPay.Infra.Data.Seeds
 {
-    public static class TypePaymentMethodMapSeed
+    public static class StatusTransactionMapSeed
     {
-        public static List<TypePaymentMethod> Data =>
+        public static List<StatusTransaction> Data =>
         [
-            new TypePaymentMethod("R", "Receipt"),
-            new TypePaymentMethod("P", "payment")
+            new StatusTransaction("O", "Open"),
+            new StatusTransaction("P", "Paid"),
+            new StatusTransaction("C", "Canceled")
         ];
     }
 }

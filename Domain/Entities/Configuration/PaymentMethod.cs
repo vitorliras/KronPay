@@ -8,7 +8,6 @@ public sealed class PaymentMethod
     public int Id { get; private set; }
     public int UserId { get; private set; }
     public string Description { get; private set; }
-    public string CodTypePaymentMethod { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public bool Active { get; private set; }
     public DateTime? DeactivatedAt { get; private set; }
@@ -17,15 +16,13 @@ public sealed class PaymentMethod
 
     public PaymentMethod(
         int userId,
-        string description,
-        string codTypePaymentMethod)
+        string description)
     {
         if (string.IsNullOrWhiteSpace(description))
             throw new DomainException(MessageKeys.InvalidDescription);
 
         UserId = userId;
         Description = description.Trim();
-        CodTypePaymentMethod = codTypePaymentMethod;
         CreatedAt = DateTime.UtcNow;
         Active = true;
         DeactivatedAt = null;

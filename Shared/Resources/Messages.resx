@@ -159,6 +159,9 @@
   <data name="OperationFailed" xml:space="preserve">
     <value>Operação falhou</value>
   </data>
+  <data name="OperationSuccess" xml:space="preserve">
+    <value>Sucesso na operação</value>
+  </data>
   <data name="PaymentMethodNotFound" xml:space="preserve">
     <value>Metodo de pagamento não enontrado</value>
   </data>

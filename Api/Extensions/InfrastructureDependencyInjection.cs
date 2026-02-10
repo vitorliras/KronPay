@@ -8,10 +8,12 @@ using Application.UseCases.CreditCards;
 using Application.UseCases.PaymentMethods;
 using Domain.interfaces;
 using Domain.Interfaces;
+using Domain.Interfaces.Transactions;
 using Infra.Persistence.Repositories;
 using Infra.Security;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.Transactions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Extensions;
@@ -27,37 +29,6 @@ public static class InfrastructureDependencyInjection
                 configuration.GetConnectionString("DefaultConnection")
             ));
 
-        services.AddScoped<UseCaseExecutor>();
-        services.AddScoped(typeof(ValidationPipeline<,>));
-
-        #region Use Cases
-
-        services.AddScoped<CreateCategoryUseCase>();
-        services.AddScoped<UpdateCategoryUseCase>();
-        services.AddScoped<DeactivateCategoryUseCase>();
-        services.AddScoped<GetAllCategoriesUseCase>();
-        services.AddScoped<GetCategoryByIdUseCase>();
-
-        services.AddScoped<CreateCategoryItemUseCase>();
-        services.AddScoped<UpdateCategoryItemUseCase>();
-        services.AddScoped<DeactivateCategoryItemUseCase>();
-        services.AddScoped<GetAllCategoryItemsUseCase>();
-        services.AddScoped<GetCategoryItemByIdUseCase>();
-
-        services.AddScoped<CreatePaymentMethodUseCase>();
-        services.AddScoped<UpdatePaymentMethodUseCase>();
-        services.AddScoped<DeactivatePaymentMethodUseCase>();
-        services.AddScoped<GetAllPaymentMethodUseCase>();
-        services.AddScoped<GetPaymentMethodByIdUseCase>();
-
-        services.AddScoped<CreateCreditCardUseCase>();
-        services.AddScoped<UpdateCreditCardUseCase>();
-        services.AddScoped<DeactivateCreditCardUseCase>();
-        services.AddScoped<GetAllCreditCardUseCase>();
-        services.AddScoped<GetCreditCardByIdUseCase>();
-
-        #endregion
-
         #region Repositories
 
         services.AddScoped<IUserRepository, UserRepository>();
@@ -68,7 +39,8 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<ICategoryItemRepository, CategoryItemRepository>();
         services.AddScoped<IPaymentMethodRepository, PaymentMethodRepository>();
         services.AddScoped<ICreditCardRepository, CreditCardRepository>();
-        services.AddScoped<LoginUseCase>();
+        services.AddScoped<ITransactionRepository, TransactionRepository>();
+        services.AddScoped<ITransactionGroupRepository, TransactionGroupRepository>();
 
         #endregion
 

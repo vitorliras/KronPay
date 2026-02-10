@@ -23,7 +23,6 @@ public sealed class GetAllPaymentMethodUseCase
             new PaymentMethodResponse(
                 c.Id,
                 c.Description,
-                c.CodTypePaymentMethod,
                 c.Active
             ));
 

@@ -3,6 +3,5 @@
 public sealed record PaymentMethodResponse(
     int Id,
     string Description,
-    string CodTypePaymentMethod,
     bool Active
 );
