@@ -187,6 +187,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sucesso na operação.
+        /// </summary>
+        public static string OperationSuccess {
+            get {
+                return ResourceManager.GetString("OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Metodo de pagamento não enontrado.
         /// </summary>
         public static string PaymentMethodNotFound {

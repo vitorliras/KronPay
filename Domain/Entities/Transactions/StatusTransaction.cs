@@ -1,13 +1,13 @@
-﻿namespace KronPay.Domain.Entities.Configuration
+﻿namespace Domain.Entities.Transactions
 {
-    public class TypePaymentMethod
+    public class StatusTransaction
     {
         public string Code { get; private set; }
         public string Description { get; private set; }
 
-        protected TypePaymentMethod() { }
+        protected StatusTransaction() { }
 
-        public TypePaymentMethod(string code, string description)
+        public StatusTransaction(string code, string description)
         {
             Code = code;
             Description = description;

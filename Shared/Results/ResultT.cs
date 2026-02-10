@@ -17,10 +17,10 @@ public sealed class ResultT<T>
         ErrorMessage = errorMessage;
     }
 
-    public static ResultT<T> Success(T value, string? message = null)
+    public static ResultT<T> Success(T value, string? message = null, bool success = true)
         => new(true, value, null, message);
 
-    public static ResultT<T> Failure(string code, string? message = null)
+    public static ResultT<T> Failure(string code, string? message = null, bool success = false)
         => new(false, default, code, message);
 }
 

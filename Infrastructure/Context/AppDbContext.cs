@@ -1,8 +1,8 @@
 ﻿using Domain.Entities;
 using Domain.Entities.Configuration;
-using Domain.ValueObjects;
-using Domain.ValueObjects.User;
+using Domain.Entities.Transactions;
 using Infrastructure.Mappings;
+using Infrastructure.Mappings.Transactions;
 using KronPay.Domain.Entities.Configuration;
 using KronPay.Infra.Data.Mappings.Configuration;
 using KronPay.Infra.Data.Seeds;
@@ -17,6 +17,9 @@ public sealed class AppDbContext : DbContext
     public DbSet<CategoryItem> CategoryItems => Set<CategoryItem>();
     public DbSet<CreditCard> CreditCards => Set<CreditCard>();
     public DbSet<PaymentMethod> PaymentMethods => Set<PaymentMethod>();
+    public DbSet<Transaction> Transactions => Set<Transaction>();
+
+    public DbSet<TransactionGroup> TransactionsGroups => Set<TransactionGroup>();
 
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
@@ -27,23 +30,17 @@ public sealed class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
 
-        #region User
-        //modelBuilder.Owned<Email>();
-        //modelBuilder.Owned<Cpf>();
-        //modelBuilder.Owned<Phone>();
-        //modelBuilder.Owned<Name>();
+    
         modelBuilder.ApplyConfiguration(new UserMapping());
-
-        #endregion
 
         #region TypeTransaction
         modelBuilder.ApplyConfiguration(new TypeTransactionMap());
         modelBuilder.Entity<TypeTransaction>().HasData(TypeTransactionSeed.Data);
         #endregion
 
-        #region TypePaymentMethod
-        modelBuilder.ApplyConfiguration(new TypePaymentMethodMap());
-        modelBuilder.Entity<TypePaymentMethod>().HasData(TypePaymentMethodMapSeed.Data);
+        #region StatusTransaction
+        modelBuilder.ApplyConfiguration(new StatusTransactionMap());
+        modelBuilder.Entity<StatusTransaction>().HasData(StatusTransactionMapSeed.Data);
         #endregion
 
         modelBuilder.ApplyConfiguration(new CategoryMap());
@@ -52,7 +49,9 @@ public sealed class AppDbContext : DbContext
 
         modelBuilder.ApplyConfiguration(new CreditCardMap());
 
+        modelBuilder.ApplyConfiguration(new TransactionMap());
 
+        modelBuilder.ApplyConfiguration(new TransactionGroupMap());
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }

@@ -125,7 +125,7 @@ namespace Infrastructure.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("active");
 
-                    b.Property<string>("CodTypePaymentMethod")
+                    b.Property<string>("CodStatusTransaction")
                         .IsRequired()
                         .HasColumnType("char(1)")
                         .HasColumnName("cod_type_payment_method");
@@ -150,7 +150,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CodTypePaymentMethod");
+                    b.HasIndex("CodStatusTransaction");
 
                     b.HasIndex("UserId", "Description")
                         .IsUnique();
@@ -211,7 +211,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("credit_card", (string)null);
                 });
 
-            modelBuilder.Entity("KronPay.Domain.Entities.Configuration.TypePaymentMethod", b =>
+            modelBuilder.Entity("KronPay.Domain.Entities.Configuration.StatusTransaction", b =>
                 {
                     b.Property<string>("Code")
                         .HasColumnType("char(1)")
@@ -327,9 +327,9 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
                 {
-                    b.HasOne("KronPay.Domain.Entities.Configuration.TypePaymentMethod", null)
+                    b.HasOne("KronPay.Domain.Entities.Configuration.StatusTransaction", null)
                         .WithMany()
-                        .HasForeignKey("CodTypePaymentMethod")
+                        .HasForeignKey("CodStatusTransaction")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

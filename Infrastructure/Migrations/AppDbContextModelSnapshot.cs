@@ -122,11 +122,6 @@ namespace Infrastructure.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("active");
 
-                    b.Property<string>("CodTypePaymentMethod")
-                        .IsRequired()
-                        .HasColumnType("char(1)")
-                        .HasColumnName("cod_type_payment_method");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at");
@@ -146,8 +141,6 @@ namespace Infrastructure.Migrations
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CodTypePaymentMethod");
 
                     b.HasIndex("UserId", "Description")
                         .IsUnique();
@@ -208,7 +201,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("credit_card", (string)null);
                 });
 
-            modelBuilder.Entity("KronPay.Domain.Entities.Configuration.TypePaymentMethod", b =>
+            modelBuilder.Entity("Domain.Entities.Transactions.StatusTransaction", b =>
                 {
                     b.Property<string>("Code")
                         .HasColumnType("char(1)")
@@ -216,25 +209,145 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("description");
 
                     b.HasKey("Code");
 
-                    b.ToTable("type_payment_method", (string)null);
+                    b.ToTable("status_transaction", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Code = "R",
-                            Description = "Receipt"
+                            Code = "O",
+                            Description = "Open"
                         },
                         new
                         {
                             Code = "P",
-                            Description = "payment"
+                            Description = "Paid"
+                        },
+                        new
+                        {
+                            Code = "C",
+                            Description = "Canceled"
                         });
+                });
+
+            modelBuilder.Entity("Domain.Entities.Transactions.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("amount");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
+
+                    b.Property<int?>("CategoryItemId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_item_id");
+
+                    b.Property<string>("CodTypeTransaction")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("cod_type_transaction");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("status");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("transaction_date");
+
+                    b.Property<int?>("TransactionGroupId")
+                        .HasColumnType("int")
+                        .HasColumnName("transaction_group_id");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CodTypeTransaction");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("TransactionDate");
+
+                    b.HasIndex("TransactionGroupId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("transaction", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Transactions.TransactionGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("active");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("end_date");
+
+                    b.Property<short?>("Installments")
+                        .HasColumnType("smallint")
+                        .HasColumnName("installments");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("start_date");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("type");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Active");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("transaction_group", (string)null);
                 });
 
             modelBuilder.Entity("KronPay.Domain.Entities.Configuration.TypeTransaction", b =>
@@ -245,8 +358,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasColumnName("description");
 
                     b.HasKey("Code");
@@ -324,12 +437,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
                 {
-                    b.HasOne("KronPay.Domain.Entities.Configuration.TypePaymentMethod", null)
-                        .WithMany()
-                        .HasForeignKey("CodTypePaymentMethod")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -344,6 +451,34 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Transactions.Transaction", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Configuration.TypeTransaction", null)
+                        .WithMany()
+                        .HasForeignKey("CodTypeTransaction")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Transactions.StatusTransaction", null)
+                        .WithMany()
+                        .HasForeignKey("Status")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Transactions.TransactionGroup", "TransactionGroup")
+                        .WithMany()
+                        .HasForeignKey("TransactionGroupId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("TransactionGroup");
                 });
 
             modelBuilder.Entity("User", b =>

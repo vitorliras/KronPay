@@ -22,11 +22,6 @@ public sealed class PaymentMethodMap : IEntityTypeConfiguration<PaymentMethod>
             .HasColumnName("user_id")
             .IsRequired();
 
-        builder.Property(x => x.CodTypePaymentMethod)
-            .HasColumnName("cod_type_payment_method")
-            .HasColumnType("char(1)")
-            .IsRequired();
-
         builder.Property(x => x.Description)
             .HasColumnName("description")
             .HasMaxLength(30)
@@ -48,12 +43,6 @@ public sealed class PaymentMethodMap : IEntityTypeConfiguration<PaymentMethod>
         builder.HasOne<User>()
             .WithMany()
             .HasForeignKey(x => x.UserId)
-            .OnDelete(DeleteBehavior.Restrict);
-
-        builder.HasOne<TypePaymentMethod>()
-            .WithMany()
-            .HasForeignKey(x => x.CodTypePaymentMethod)
-            .HasPrincipalKey(x => x.Code)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(x => new { x.UserId, x.Description })
