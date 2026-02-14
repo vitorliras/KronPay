@@ -8,7 +8,8 @@ namespace KronPay.Infra.Data.Seeds
         [
             new StatusTransaction("O", "Open"),
             new StatusTransaction("P", "Paid"),
-            new StatusTransaction("C", "Canceled")
+            new StatusTransaction("C", "Canceled"),
+            new StatusTransaction("E", "Expired")
         ];
     }
 }

@@ -12,9 +12,9 @@ public sealed class ValidationPipeline<TRequest, TResponse>
         _validators = validators;
     }
 
-    public async Task<ResultT<TResponse>> ValidateAsync(
+    public async Task<ResultEntity<TResponse>> ValidateAsync(
         TRequest request,
-        Func<Task<ResultT<TResponse>>> next)
+        Func<Task<ResultEntity<TResponse>>> next)
     {
         if (!_validators.Any())
             return await next();
@@ -28,7 +28,7 @@ public sealed class ValidationPipeline<TRequest, TResponse>
 
         if (failures.Any())
         {
-            return ResultT<TResponse>.Failure(failures.First().ErrorMessage);
+            return ResultEntity<TResponse>.Failure(failures.First().ErrorMessage);
         }
 
         return await next();

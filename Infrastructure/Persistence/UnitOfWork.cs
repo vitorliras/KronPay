@@ -11,11 +11,14 @@ public sealed class UnitOfWork : IUnitOfWork
         _context = context;
     }
 
-    public async Task<bool> CommitAsync()
+    public async Task<bool> CommitAsync(CancellationToken? cancellationToken = null)
     {
         try
         {
-            return await _context.SaveChangesAsync() > 0;
+            if (cancellationToken == null)
+                return await _context.SaveChangesAsync() > 0;
+            else
+                return await _context.SaveChangesAsync((CancellationToken)cancellationToken) > 0;
 
         }
         catch (Exception e)

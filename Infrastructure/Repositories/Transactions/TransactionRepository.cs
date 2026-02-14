@@ -144,6 +144,17 @@ namespace Infrastructure.Repositories.Transactions
             return Task.FromResult(result.State == EntityState.Deleted);
         }
 
+        public Task<bool> DeleteRangeAsync(IEnumerable<Transaction> transactions)
+        {
+            _context.Transactions.RemoveRange(transactions);
+
+            var allMarkedAsDeleted = transactions.All(t =>
+                _context.Entry(t).State == EntityState.Deleted);
+
+            return Task.FromResult(allMarkedAsDeleted);
+        }
+
+
         public async Task<bool> DeleteFutureByGroupAsync(int transactionGroupId, int userId, DateTime fromDate)
         {
             var transactions = await _context.Transactions

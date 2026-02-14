@@ -1,7 +1,7 @@
 ﻿using Domain.Exceptions;
 using Shared.Localization;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Configuration;
 
 public sealed class CategoryItem
 {

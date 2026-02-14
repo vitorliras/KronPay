@@ -18,21 +18,21 @@ public sealed class DeactivateCategoryItemUseCase
         _categoryRepository = categoryRepository;
         _uow = uow;
     }
-    public async Task<ResultT<Unit>> ExecuteAsync(DeactivateCategoryItemRequest request)
+    public async Task<ResultEntity<Unit>> ExecuteAsync(DeactivateCategoryItemRequest request)
     {
         var category = await _categoryRepository.GetByIdAsync(request.Id, request.CategoryId);
         if (category is null)
-            return ResultT<Unit>.Failure("", MessageKeys.CategoryNotFound);
+            return ResultEntity<Unit>.Failure("", MessageKeys.CategoryNotFound);
 
         category.Deactivate();
         var result = _categoryRepository.Update(category);
         if (!result)
-            return ResultT<Unit>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure("", MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<Unit>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure("", MessageKeys.OperationFailed);
 
-        return ResultT<Unit>.Success(Unit.Value);
+        return ResultEntity<Unit>.Success(Unit.Value, MessageKeys.OperationSuccess);
     }
 }

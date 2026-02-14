@@ -28,26 +28,26 @@ public sealed class CreateUserUseCase
         _uow = uow;
     }
 
-    public async Task<ResultT<UserResponse>> ExecuteAsync(CreateUserRequest request)
+    public async Task<ResultEntity<UserResponse>> ExecuteAsync(CreateUserRequest request)
     {
         try
         {
             var existingUser = await _userRepository.GetByEmailAsync(request.Email);
             if (existingUser is not null)
             {
-                return ResultT<UserResponse>.Failure("",MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure("",MessageKeys.UserAlreadyExists);
             }
 
             existingUser = await _userRepository.GetByCpfAsync(request.Cpf);
             if (existingUser is not null)
             {
-                return ResultT<UserResponse>.Failure("", MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure("", MessageKeys.UserAlreadyExists);
             }
 
             existingUser = await _userRepository.GetByUsernameAsync(request.Username);
             if (existingUser is not null)
             {
-                return ResultT<UserResponse>.Failure("", MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure("", MessageKeys.UserAlreadyExists);
             }
 
             var name = Name.Create(request.Name);
@@ -72,14 +72,14 @@ public sealed class CreateUserUseCase
 
             var result = await _userRepository.AddAsync(user);
             if (!result)
-                return ResultT<UserResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<UserResponse>.Failure(MessageKeys.OperationFailed);
 
             var uow = await _uow.CommitAsync();
             if (!uow)
-                return ResultT<UserResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<UserResponse>.Failure(MessageKeys.OperationFailed);
 
 
-            return ResultT<UserResponse>.Success(
+            return ResultEntity<UserResponse>.Success(
                 new UserResponse(
                     user.Id,
                     user.Name.Value,
@@ -91,7 +91,7 @@ public sealed class CreateUserUseCase
         }
         catch (Exception e)
         {
-            return ResultT<UserResponse>.Failure("", e.Message);
+            return ResultEntity<UserResponse>.Failure("", e.Message);
         }
        
     }

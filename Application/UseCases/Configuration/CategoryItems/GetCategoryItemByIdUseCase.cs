@@ -18,20 +18,20 @@ public sealed class GetCategoryItemByIdUseCase
         _repository = repository;
     }
 
-    public async Task<ResultT<CategoryItemResponse>> ExecuteAsync(GetCategoryItemByIdRequest request)
+    public async Task<ResultEntity<CategoryItemResponse>> ExecuteAsync(GetCategoryItemByIdRequest request)
     {
         var category = await _repository.GetByIdAsync(request.Id, request.CategoryId);
 
         if (category is null)
-            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.CategoryNotFound);
+            return ResultEntity<CategoryItemResponse>.Failure("", MessageKeys.CategoryNotFound);
 
-        return ResultT<CategoryItemResponse>.Success(
+        return ResultEntity<CategoryItemResponse>.Success(
             new CategoryItemResponse(
                 category.Id,
                 category.Description,
                 category.CategoryId,
                 category.Active
-            )
+            ), MessageKeys.OperationSuccess
         );
     }
 }

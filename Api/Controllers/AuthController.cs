@@ -32,16 +32,16 @@ public sealed class AuthController : ControllerBase
     {
         var result = await _loginUseCase.ExecuteAsync(request);
 
-        if (result.IsFailure)
+        if (!result.IsSuccess)
         {
-            var message = _localizer[result.ErrorCode].Value;
+            result.Message = _localizer[result.ErrorCode];
 
             return Unauthorized(new
             {
-                message
+                result
             });
         }
 
-        return Ok(result.Value);
+        return Ok(result);
     }
 }

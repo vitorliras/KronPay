@@ -20,12 +20,12 @@ public sealed class CreateCategoryUseCase
         _uow = uow;
     }
 
-    public async Task<ResultT<CategoryResponse>> ExecuteAsync(CreateCategoryRequest request)
+    public async Task<ResultEntity<CategoryResponse>> ExecuteAsync(CreateCategoryRequest request)
     {
         var category = await _categoryRepository.GetByDescriptionAsync(request.Description, request.UserId);
 
         if (category is not null)
-            return ResultT<CategoryResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
+            return ResultEntity<CategoryResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
          category = new Category(
             request.UserId,
@@ -35,19 +35,20 @@ public sealed class CreateCategoryUseCase
         
         var result = await _categoryRepository.AddAsync(category);
         if (!result)
-            return ResultT<CategoryResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<CategoryResponse>.Failure("", MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<CategoryResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<CategoryResponse>.Failure("", MessageKeys.OperationFailed);
 
-        return ResultT<CategoryResponse>.Success(
+        return ResultEntity<CategoryResponse>.Success(
             new CategoryResponse(
                 category.Id,
                 category.Description,
                 category.CodTypeTransaction,
                 category.Active
             )
+           , MessageKeys.OperationSuccess
         );
     }
 }

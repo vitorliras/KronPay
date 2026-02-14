@@ -2,6 +2,7 @@
 using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Configuration.Category;
 using Domain.Interfaces;
+using Shared.Localization;
 using Shared.Results;
 
 namespace Application.UseCases.Categories;
@@ -16,7 +17,7 @@ public sealed class GetAllCategoriesUseCase
         _repository = repository;
     }
 
-    public async Task<ResultT<IEnumerable<CategoryResponse>>> ExecuteAsync(GetAllCategoriesRequest request)
+    public async Task<ResultEntity<IEnumerable<CategoryResponse>>> ExecuteAsync(GetAllCategoriesRequest request)
     {
         var categories = await _repository.GetAllAsync(request.UserId);
 
@@ -28,6 +29,6 @@ public sealed class GetAllCategoriesUseCase
                 c.Active
             ));
 
-        return ResultT<IEnumerable<CategoryResponse>>.Success(response);
+        return ResultEntity<IEnumerable<CategoryResponse>>.Success(response, MessageKeys.OperationSuccess);
     }
 }

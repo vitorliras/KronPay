@@ -28,6 +28,7 @@ public static class MessageKeys
     public const string InvalidTypeTransaction = nameof(InvalidTypeTransaction);
     public const string TransactionNotFound = nameof(TransactionNotFound);
     public const string OperationSuccess = nameof(OperationSuccess);
+    public const string UnsupportedFileFormat = nameof(UnsupportedFileFormat);
 
 
 

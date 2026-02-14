@@ -21,44 +21,6 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.CategoryItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("bit")
-                        .HasColumnName("active");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int")
-                        .HasColumnName("category_id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("created_at");
-
-                    b.Property<DateTime?>("DeactivatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("deactivated_at");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .HasColumnName("description");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("category_item", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Configuration.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -105,6 +67,44 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("category", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Configuration.CategoryItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("active");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("description");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("category_item", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
@@ -232,6 +232,11 @@ namespace Infrastructure.Migrations
                         {
                             Code = "C",
                             Description = "Canceled"
+                        },
+                        new
+                        {
+                            Code = "E",
+                            Description = "Expired"
                         });
                 });
 
@@ -271,6 +276,13 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasColumnName("description");
 
+                    b.Property<int>("IdPaymentMethod")
+                        .HasColumnType("int")
+                        .HasColumnName("id_payment_method");
+
+                    b.Property<short?>("Installments")
+                        .HasColumnType("smallint");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("char(1)")
@@ -290,7 +302,13 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CategoryItemId");
+
                     b.HasIndex("CodTypeTransaction");
+
+                    b.HasIndex("IdPaymentMethod");
 
                     b.HasIndex("Status");
 
@@ -411,15 +429,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.CategoryItem", b =>
-                {
-                    b.HasOne("Domain.Entities.Configuration.Category", null)
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Domain.Entities.Configuration.Category", b =>
                 {
                     b.HasOne("KronPay.Domain.Entities.Configuration.TypeTransaction", null)
@@ -432,6 +441,15 @@ namespace Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Configuration.CategoryItem", b =>
+                {
+                    b.HasOne("Domain.Entities.Configuration.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
@@ -455,9 +473,26 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Transactions.Transaction", b =>
                 {
+                    b.HasOne("Domain.Entities.Configuration.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Configuration.CategoryItem", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("KronPay.Domain.Entities.Configuration.TypeTransaction", null)
                         .WithMany()
                         .HasForeignKey("CodTypeTransaction")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Configuration.PaymentMethod", null)
+                        .WithMany()
+                        .HasForeignKey("IdPaymentMethod")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

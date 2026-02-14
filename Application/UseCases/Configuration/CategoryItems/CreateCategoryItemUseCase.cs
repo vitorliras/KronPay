@@ -22,30 +22,30 @@ public sealed class CreateCategoryItemUseCase
         _uow = uow;
     }
 
-    public async Task<ResultT<CategoryItemResponse>> ExecuteAsync(CreateCategoryItemRequest request)
+    public async Task<ResultEntity<CategoryItemResponse>> ExecuteAsync(CreateCategoryItemRequest request)
     {
         var categoryItem = await _categoryItemRepository.GetByDescriptionAsync(request.Description, request.CategoryId);
 
         if (categoryItem is not null)
-            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
+            return ResultEntity<CategoryItemResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
         categoryItem = new CategoryItem(request.CategoryId, request.Description);
 
         var result = await _categoryItemRepository.AddAsync(categoryItem);
         if (!result)
-            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<CategoryItemResponse>.Failure("", MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<CategoryItemResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<CategoryItemResponse>.Failure("", MessageKeys.OperationFailed);
 
-        return ResultT<CategoryItemResponse>.Success(
+        return ResultEntity<CategoryItemResponse>.Success(
             new CategoryItemResponse(
                 categoryItem.Id,
                 categoryItem.Description,
                 categoryItem.CategoryId,
                 categoryItem.Active
-            )
+            ), MessageKeys.OperationSuccess
         );
     }
 }

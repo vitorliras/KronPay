@@ -1,4 +1,5 @@
-﻿using Api.Extensions;
+﻿using Api.DTOs.Transactions;
+using Api.Extensions;
 using Application.DTOs.Transactions;
 using Application.Executors;
 using Application.Pipelines;
@@ -16,34 +17,44 @@ public sealed class TransactionsController : ControllerBase
 {
     private readonly UseCaseExecutor _executor;
     private readonly CreateTransactionUseCase _create;
+    private readonly CreateTransactionRangeUseCase _createRange;
     private readonly UpdateTransactionUseCase _update;
     private readonly ChangeStatusTransactionUseCase _changeStatus;
     private readonly DeleteTransactionUseCase _delete;
+    private readonly DeleteTransactionRangeUseCase _deleteRange;
     private readonly GetTransactionsByIdGroupUseCase _getAllByGroup;
     private readonly GetTransactionsByMonthUseCase _getAllByMonth;
     private readonly GetTransactionsByYearUseCase _getAllByYear;
+    private readonly ImportTransactionsUseCase _import;
     private readonly IStringLocalizer<Messages> _localizer;
 
     public TransactionsController(
         UseCaseExecutor executor,
         CreateTransactionUseCase create,
+        CreateTransactionRangeUseCase createRange,
         UpdateTransactionUseCase update,
         ChangeStatusTransactionUseCase changeStatus,
         DeleteTransactionUseCase delete,
+        DeleteTransactionRangeUseCase deleteRange,
         GetTransactionsByIdGroupUseCase getAllByGroup,
         GetTransactionsByMonthUseCase getAllByMonth,
         GetTransactionsByYearUseCase getAllByYear,
+        ImportTransactionsUseCase import,
         IStringLocalizer<Messages> localizer)
     {
         _executor = executor;
         _create = create;
+        _createRange = createRange;
         _update = update;
         _changeStatus = changeStatus;
         _delete = delete;
+        _deleteRange = deleteRange;
         _getAllByGroup = getAllByGroup;
         _getAllByMonth = getAllByMonth;
         _getAllByYear = getAllByYear;
+        _getAllByYear = getAllByYear;
         _localizer = localizer;
+        _import = import;
     }
 
     [HttpGet("[action]")]
@@ -107,6 +118,21 @@ public sealed class TransactionsController : ControllerBase
         return result.ToActionResult(_localizer);
     }
 
+    [HttpPost("[action]")]
+    public async Task<IActionResult> CreateRange(
+       TransactionRangeRequest request,
+       [FromServices] ValidationPipeline<TransactionRangeRequest, TransactionRangeResponse> pipeline)
+    {
+
+        var result = await _executor.ExecuteAsync(
+            request,
+            _createRange,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
     [HttpPut("[action]")]
     public async Task<IActionResult> Update(
         UpdateTransactionRequest request,
@@ -149,5 +175,49 @@ public sealed class TransactionsController : ControllerBase
 
         return result.ToActionResult(_localizer);
     }
+
+    [HttpDelete("[action]")]
+    public async Task<IActionResult> DeleteRange(
+       TransactionRangeRequest request,
+       [FromServices] ValidationPipeline<TransactionRangeRequest, TransactionRangeResponse> pipeline)
+    {
+
+        var result = await _executor.ExecuteAsync(
+            request,
+            _deleteRange,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("[action]")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Import(
+        [FromForm] ImportTransactionsFormRequest form,
+        [FromServices] ValidationPipeline<ImportTransactionsRequest, ImportTransactionsResponse> pipeline)
+    {
+        if (form.File is null || form.File.Length == 0)
+            return BadRequest("File is required");
+
+        await using var stream = form.File.OpenReadStream();
+
+        var request = new ImportTransactionsRequest(
+            form.UserId,
+            stream,
+            form.File.FileName,
+            form.Preview,
+            form.UseAi
+        );
+
+        var result = await _executor.ExecuteAsync(
+            request,
+            _import,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
 
 }
