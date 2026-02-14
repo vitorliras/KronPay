@@ -18,34 +18,34 @@ public sealed class UpdatePaymentMethodUseCase
         _uow = uow;
     }
 
-    public async Task<ResultT<PaymentMethodResponse>> ExecuteAsync(UpdatePaymentMethodRequest request)
+    public async Task<ResultEntity<PaymentMethodResponse>> ExecuteAsync(UpdatePaymentMethodRequest request)
     {
         var paymentMethod = await _paymentMethodRepository.GetByDescriptionAsync(request.Description, request.UserId);
 
         if (paymentMethod is not null)
-            return ResultT<PaymentMethodResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
+            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
          paymentMethod = await _paymentMethodRepository.GetByIdAsync(request.Id, request.UserId);
 
         if (paymentMethod is null)
-            return ResultT<PaymentMethodResponse>.Failure("", MessageKeys.PaymentMethodNotFound);
+            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.PaymentMethodNotFound);
 
         paymentMethod.UpdateDescription(request.Description);
 
         var result =  _paymentMethodRepository.Update(paymentMethod);
         if (!result)
-            return ResultT<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
 
-        return ResultT<PaymentMethodResponse>.Success(
+        return ResultEntity<PaymentMethodResponse>.Success(
             new PaymentMethodResponse(
                 paymentMethod.Id,
                 paymentMethod.Description,
                 paymentMethod.Active
-            )
+            ), MessageKeys.OperationSuccess
         );
     }
 }

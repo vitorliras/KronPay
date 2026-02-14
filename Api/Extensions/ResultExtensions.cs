@@ -6,35 +6,18 @@ namespace Api.Extensions;
 
 public static class ResultExtensions
 {
-    public static IActionResult ToActionResult(
-        this Shared.Results.Result result,
-        IStringLocalizer localizer)
-    {
-        if (result.IsSuccess)
-            return new OkResult();
-
-        var error = new ApiErrorResponse
-        {
-            Code = result.Error!.Code,
-            Message = localizer[result.Error.Code]
-        };
-
-        return new BadRequestObjectResult(error);
-    }
-
     public static IActionResult ToActionResult<T>(
-        this Shared.Results.ResultT<T> result,
+        this Shared.Results.ResultEntity<T> result,
         IStringLocalizer localizer)
     {
-        if (result.IsSuccess)
-            return new OkObjectResult(result.Value);
+        if (result.Message != null)
+            result.Message = localizer[result.Message];
 
-        var error = new ApiErrorResponse
-        {
-            Code = result.ErrorCode,
-            Message = localizer[result.ErrorMessage]
-        };
+        if (result.IsSuccess) {
+            
+            return new OkObjectResult(result);
+        }
 
-        return new BadRequestObjectResult(error);
+        return new BadRequestObjectResult(result);
     }
 }

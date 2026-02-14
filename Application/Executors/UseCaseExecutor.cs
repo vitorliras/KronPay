@@ -6,7 +6,7 @@ namespace Application.Executors;
 
 public sealed class UseCaseExecutor
 {
-    public async Task<ResultT<TResponse>> ExecuteAsync<TRequest, TResponse>(
+    public async Task<ResultEntity<TResponse>> ExecuteAsync<TRequest, TResponse>(
         TRequest request,
         IUseCase<TRequest, TResponse> useCase,
         ValidationPipeline<TRequest, TResponse> pipeline)
@@ -16,4 +16,5 @@ public sealed class UseCaseExecutor
             () => useCase.ExecuteAsync(request)
         );
     }
+
 }

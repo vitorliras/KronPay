@@ -17,7 +17,7 @@ public sealed class GetTransactionsByMonthUseCase
         _transactionRepository = transactionRepository;
     }
 
-    public async Task<ResultT<IEnumerable<TransactionFullResponse>>> ExecuteAsync(
+    public async Task<ResultEntity<IEnumerable<TransactionFullResponse>>> ExecuteAsync(
         GetTransactionsByMonthRequest request)
     {
         var transactions = await _transactionRepository
@@ -37,7 +37,7 @@ public sealed class GetTransactionsByMonthUseCase
             t.CreatedAt
         ));
 
-        return ResultT<IEnumerable<TransactionFullResponse>>.Success(
+        return ResultEntity<IEnumerable<TransactionFullResponse>>.Success(
             response,
             MessageKeys.OperationSuccess
         );

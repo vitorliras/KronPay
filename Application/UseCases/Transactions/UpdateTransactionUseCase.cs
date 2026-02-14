@@ -21,13 +21,13 @@ public sealed class UpdateTransactionUseCase
         _uow = uow;
     }
 
-    public async Task<ResultT<TransactionResponse>> ExecuteAsync(UpdateTransactionRequest request)
+    public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(UpdateTransactionRequest request)
     {
         var transaction = await _transactionRepository
             .GetByIdAsync(request.Id, request.UserId);
 
         if (transaction is null)
-            return ResultT<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);
+            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);
 
         var affected = 1;
 
@@ -45,7 +45,7 @@ public sealed class UpdateTransactionUseCase
                     });
 
             if (!result)
-                return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
 
             affected = (
                 await _transactionRepository
@@ -63,21 +63,19 @@ public sealed class UpdateTransactionUseCase
             transaction.VerifyCategory( request.CategoryId, request.CategoryItemId);
 
             if (!await _transactionRepository.UpdateAsync(transaction))
-                return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
         }
 
         if (!await _uow.CommitAsync())
-            return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
 
-        return ResultT<TransactionResponse>.Success(
+        return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(
                 transaction.Id,
                 transaction.Description,
                 transaction.TransactionGroupId ?? 0,
-                affected,
-                MessageKeys.OperationSuccess,
-                true
-            )
+                affected
+            ), MessageKeys.OperationSuccess
         );
     }
 }

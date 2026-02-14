@@ -19,6 +19,8 @@ namespace Domain.Interfaces.Transactions
         Task<bool> DeleteAsync(Transaction transaction);
         Task<bool> DeleteFutureByGroupAsync(int transactionGroupId, int userId, DateTime fromDate);
         Task<bool> DeleteByGroupAsync(int transactionGroupId, int userId);
+        Task<bool> DeleteRangeAsync(IEnumerable<Transaction> transactions);
+
     }
 
 

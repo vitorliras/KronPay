@@ -18,7 +18,7 @@ public class ValidationPipelineTests
 
     //    var result = await pipeline.ValidateAsync(
     //        new CreateUserRequest("", ""),
-    //        () => Task.FromResult(Shared.Results.ResultT<object>.Success(null!))
+    //        () => Task.FromResult(Shared.Results.ResultEntity<object>.Success(null!))
     //    );
 
     //    result.IsFailure.ShouldBeTrue();

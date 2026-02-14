@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.DTOs.Configuration.CreditCards;
 using Domain.Interfaces;
+using Shared.Localization;
 using Shared.Results;
 
 namespace Application.UseCases.CreditCards;
@@ -15,7 +16,7 @@ public sealed class GetAllCreditCardUseCase
         _repository = repository;
     }
 
-    public async Task<ResultT<IEnumerable<CreditCardResponse>>> ExecuteAsync(GetAllCreditCardsRequest request)
+    public async Task<ResultEntity<IEnumerable<CreditCardResponse>>> ExecuteAsync(GetAllCreditCardsRequest request)
     {
         var creditCards = await _repository.GetAllAsync(request.UserId);
 
@@ -29,6 +30,6 @@ public sealed class GetAllCreditCardUseCase
                 creditCard.Active
             ));
 
-        return ResultT<IEnumerable<CreditCardResponse>>.Success(response);
+        return ResultEntity<IEnumerable<CreditCardResponse>>.Success(response, MessageKeys.OperationSuccess);
     }
 }

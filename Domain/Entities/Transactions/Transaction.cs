@@ -18,9 +18,11 @@ public sealed class Transaction
 
     public int CategoryId { get; private set; }
     public int? CategoryItemId { get; private set; }
+    public short? Installments { get; private set; }
+    public int? IdPaymentMethod { get; private set; }
 
     public int? TransactionGroupId { get; private set; }
-    public TransactionGroup? TransactionGroup { get; private set; } 
+    public TransactionGroup? TransactionGroup { get; private set; }
 
     public DateTime CreatedAt { get; private set; }
 
@@ -34,7 +36,9 @@ public sealed class Transaction
         string codTypeTransaction,
         int categoryId,
         int? categoryItemId = null,
-        TransactionGroup? transactionGroup = null) 
+        short? installments = null,
+        int? idPaymentMethod = null,
+        TransactionGroup? transactionGroup = null)
     {
         if (amount <= 0)
             throw new DomainException(MessageKeys.InvalidAmount);
@@ -50,19 +54,23 @@ public sealed class Transaction
         TransactionDate = transactionDate;
         Description = description.Trim();
         CodTypeTransaction = codTypeTransaction;
-
         CategoryId = categoryId;
         CategoryItemId = categoryItemId;
-
-        TransactionGroup = transactionGroup; 
-
-        Status = "O";
+        Installments = installments;
+        IdPaymentMethod = idPaymentMethod;
+        TransactionGroup = transactionGroup;
         CreatedAt = DateTime.UtcNow;
+
+        if (CreatedAt.Date > transactionDate.Date)
+            Status = "E";
+        else
+            Status = "O";
     }
 
     public void Paid() => Status = "P";
     public void Cancel() => Status = "C";
     public void Open() => Status = "O";
+    public void Expired() => Status = "E";
 
     public void VerifyAmount(decimal newAmount)
     {
@@ -82,7 +90,7 @@ public sealed class Transaction
 
     public void VerifyCategory(int categoryId, int? categoryIdItem)
     {
-        if (categoryId <=0)
+        if (categoryId <= 0)
             throw new DomainException(MessageKeys.InvalidAmount);
 
         CategoryId = categoryId;

@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Transactions;
+﻿using Domain.Entities.Configuration;
+using Domain.Entities.Transactions;
 using KronPay.Domain.Entities.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -45,6 +46,11 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
             .HasColumnType("char(1)")
             .IsRequired();
 
+        builder.Property(x => x.IdPaymentMethod)
+            .HasColumnName("id_payment_method")
+            .HasColumnType("int")
+            .IsRequired();
+
         builder.HasOne<TypeTransaction>()
             .WithMany()
             .HasForeignKey(x => x.CodTypeTransaction)
@@ -57,14 +63,16 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
             .IsRequired();
 
         builder.Property(x => x.CategoryId)
-            .HasColumnName("category_id")
-            .IsRequired();
+            .HasColumnName("category_id");
 
         builder.Property(x => x.CategoryItemId)
             .HasColumnName("category_item_id");
 
         builder.Property(x => x.TransactionGroupId)
             .HasColumnName("transaction_group_id");
+
+        builder.Property(x => x.CodTypeTransaction)
+            .HasColumnName("cod_type_transaction");
 
         builder.HasOne(x => x.TransactionGroup)
              .WithMany()
@@ -75,6 +83,24 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
             .WithMany()
             .HasForeignKey(x => x.Status)
             .HasPrincipalKey(x => x.Code)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<PaymentMethod>()
+            .WithMany()
+            .HasForeignKey(x => x.IdPaymentMethod)
+            .HasPrincipalKey(x => x.Id)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Category>()
+            .WithMany()
+            .HasForeignKey(x => x.CategoryId)
+            .HasPrincipalKey(x => x.Id)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<CategoryItem>()
+            .WithMany()
+            .HasForeignKey(x => x.CategoryItemId)
+            .HasPrincipalKey(x => x.Id)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.Property(x => x.CreatedAt)

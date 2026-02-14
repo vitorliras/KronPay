@@ -26,7 +26,7 @@ public sealed class CreateTransactionUseCase
         _uow = uow;
     }
 
-    public async Task<ResultT<TransactionResponse>> ExecuteAsync(
+    public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(
         CreateTransactionRequest request)
     {
         TransactionGroup? group = null;
@@ -41,7 +41,7 @@ public sealed class CreateTransactionUseCase
 
             var groupResult = await _groupRepository.AddAsync(group);
             if (!groupResult)
-                return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
         }
 
         if (request.RecurrenceType == "I")
@@ -53,7 +53,7 @@ public sealed class CreateTransactionUseCase
 
             var groupResult = await _groupRepository.AddAsync(group);
             if (!groupResult)
-                return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
         }
 
         var transactions = new List<Transaction>();
@@ -68,6 +68,8 @@ public sealed class CreateTransactionUseCase
                 request.CodTypeTransaction,
                 request.CategoryId,
                 request.CategoryItemId,
+                null,
+                request.idMethodPayment,
                 group
             ));
         }
@@ -82,6 +84,8 @@ public sealed class CreateTransactionUseCase
                 if (group.EndDate.HasValue && date > group.EndDate.Value)
                     break;
 
+                short installment = (short)(i + 1);
+
                 transactions.Add(new Transaction(
                     request.UserId,
                     request.Amount,
@@ -90,6 +94,8 @@ public sealed class CreateTransactionUseCase
                     request.CodTypeTransaction,
                     request.CategoryId,
                     request.CategoryItemId,
+                    installment,
+                    request.idMethodPayment,
                     group
                 ));
             }
@@ -100,23 +106,21 @@ public sealed class CreateTransactionUseCase
             : await _transactionRepository.AddRangeAsync(transactions);
 
         if (!addResult)
-            return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
 
         var committed = await _uow.CommitAsync();
         if (!committed)
-            return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
 
         var mainTransaction = transactions.First();
 
-        return ResultT<TransactionResponse>.Success(
+        return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(
                 mainTransaction.Id,
                 mainTransaction.Description,
                 mainTransaction.TransactionGroupId ?? 0,
-                transactions.Count,
-                MessageKeys.OperationSuccess,
-                true
-            )
+                transactions.Count
+            ), MessageKeys.OperationSuccess
 
         );
     }

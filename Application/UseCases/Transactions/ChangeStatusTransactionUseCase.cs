@@ -21,13 +21,13 @@ public sealed class ChangeStatusTransactionUseCase
         _uow = uow;
     }
 
-    public async Task<ResultT<TransactionResponse>> ExecuteAsync(ChangeStatusTransactionRequest request)
+    public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(ChangeStatusTransactionRequest request)
     {
         var transaction = await _transactionRepository
             .GetByIdAsync(request.Id, request.UserId);
 
         if (transaction is null)
-            return ResultT<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);
+            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);
 
         else
         {
@@ -36,21 +36,19 @@ public sealed class ChangeStatusTransactionUseCase
             if (request.Status.Equals("O"))  transaction.Open();
 
             if (!await _transactionRepository.UpdateAsync(transaction))
-                return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
         }
 
         if (!await _uow.CommitAsync())
-            return ResultT<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
 
-        return ResultT<TransactionResponse>.Success(
+        return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(
                 transaction.Id,
                 transaction.Description,
                 transaction.TransactionGroupId ?? 0,
-                1,
-                MessageKeys.OperationSuccess,
-                true
-            )
+                1
+            ), MessageKeys.OperationSuccess
         );
     }
 }

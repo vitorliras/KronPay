@@ -17,14 +17,14 @@ public sealed class GetCreditCardByIdUseCase
         _repository = repository;
     }
 
-    public async Task<ResultT<CreditCardResponse>> ExecuteAsync(CreditCardIdRequest request)
+    public async Task<ResultEntity<CreditCardResponse>> ExecuteAsync(CreditCardIdRequest request)
     {
         var creditCard = await _repository.GetByIdAsync(request.Id, request.UserId);
 
         if (creditCard is null)
-            return ResultT<CreditCardResponse>.Failure("", MessageKeys.CreditCardNotFound);
+            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.CreditCardNotFound);
 
-        return ResultT<CreditCardResponse>.Success(
+        return ResultEntity<CreditCardResponse>.Success(
             new CreditCardResponse(
                 creditCard.Id,
                 creditCard.Description,
@@ -32,7 +32,7 @@ public sealed class GetCreditCardByIdUseCase
                 creditCard.ClosingDay,
                 creditCard.CreditLimit,
                 creditCard.Active
-            )
+            ), MessageKeys.OperationSuccess
         );
     }
 }

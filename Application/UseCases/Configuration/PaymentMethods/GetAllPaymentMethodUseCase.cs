@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.DTOs.Configuration.PaymentMethods;
 using Domain.Interfaces;
+using Shared.Localization;
 using Shared.Results;
 
 namespace Application.UseCases.PaymentMethods;
@@ -15,7 +16,7 @@ public sealed class GetAllPaymentMethodUseCase
         _repository = repository;
     }
 
-    public async Task<ResultT<IEnumerable<PaymentMethodResponse>>> ExecuteAsync(GetAllPaymentMethodsRequest request)
+    public async Task<ResultEntity<IEnumerable<PaymentMethodResponse>>> ExecuteAsync(GetAllPaymentMethodsRequest request)
     {
         var categories = await _repository.GetAllAsync(request.UserId);
 
@@ -26,6 +27,6 @@ public sealed class GetAllPaymentMethodUseCase
                 c.Active
             ));
 
-        return ResultT<IEnumerable<PaymentMethodResponse>>.Success(response);
+        return ResultEntity<IEnumerable<PaymentMethodResponse>>.Success(response, MessageKeys.OperationSuccess);
     }
 }

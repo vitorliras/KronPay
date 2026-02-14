@@ -1,5 +1,4 @@
-﻿using Application.DTOs.Transactions;
-using Application.Executors;
+﻿using Application.Executors;
 using Application.Pipelines;
 using Application.UseCases.Auth;
 using Application.UseCases.Categories;
@@ -53,6 +52,10 @@ public static class DependencyInjection
         services.AddScoped<GetTransactionsByIdGroupUseCase>();
         services.AddScoped<GetTransactionsByMonthUseCase>();
         services.AddScoped<GetTransactionsByYearUseCase>();
+        services.AddScoped<ImportTransactionsUseCase>();
+        services.AddScoped<CreateTransactionRangeUseCase>();
+        services.AddScoped<DeleteTransactionRangeUseCase>();
+
 
         return services;
     }

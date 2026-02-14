@@ -23,15 +23,15 @@ public sealed class LoginUseCase
         _uow = uow;
     }
 
-    public async Task<ResultT<LoginResponse>> ExecuteAsync(LoginRequest request)
+    public async Task<ResultEntity<LoginResponse>> ExecuteAsync(LoginRequest request)
     {
         var user = await _userRepository.GetByEmailAsync(request.Email);
 
         if (user is null)
-            return ResultT<LoginResponse>.Failure(MessageKeys.UsernameOrPasswordIsIncorrect);
+            return ResultEntity<LoginResponse>.Failure(MessageKeys.UsernameOrPasswordIsIncorrect);
 
         if (!_passwordHasher.Verify(request.Password, user.PasswordHash))
-            return ResultT<LoginResponse>.Failure(MessageKeys.UsernameOrPasswordIsIncorrect); 
+            return ResultEntity<LoginResponse>.Failure(MessageKeys.UsernameOrPasswordIsIncorrect); 
 
         var token = _tokenService.GenerateToken(user);
 
@@ -39,13 +39,13 @@ public sealed class LoginUseCase
 
         var result = _userRepository.Update(user);
         if (!result)
-            return ResultT<LoginResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<LoginResponse>.Failure(MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<LoginResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<LoginResponse>.Failure(MessageKeys.OperationFailed);
 
-        return ResultT<LoginResponse>.Success(new LoginResponse
+        return ResultEntity<LoginResponse>.Success(new LoginResponse
         {
             AccessToken = token,
             ExpiresAt = _tokenService.GetExpiration()

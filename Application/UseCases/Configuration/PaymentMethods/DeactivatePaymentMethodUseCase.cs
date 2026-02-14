@@ -17,21 +17,21 @@ public sealed class DeactivatePaymentMethodUseCase
         _paymentMethodRepository = paymentMethodRepository;
         _uow = uow;
     }
-    public async Task<ResultT<Unit>> ExecuteAsync(PaymentMethodIdRequest request)
+    public async Task<ResultEntity<Unit>> ExecuteAsync(PaymentMethodIdRequest request)
     {
         var paymentMethodItem = await _paymentMethodRepository.GetByIdAsync(request.Id, request.UserId);
         if (paymentMethodItem is null)
-            return ResultT<Unit>.Failure("", MessageKeys.PaymentMethodNotFound);
+            return ResultEntity<Unit>.Failure("", MessageKeys.PaymentMethodNotFound);
 
         paymentMethodItem.Deactivate();
         var result = _paymentMethodRepository.Update(paymentMethodItem);
         if (!result)
-            return ResultT<Unit>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure("", MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultT<Unit>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure("", MessageKeys.OperationFailed);
 
-        return ResultT<Unit>.Success(Unit.Value);
+        return ResultEntity<Unit>.Success(Unit.Value, MessageKeys.OperationSuccess);
     }
 }

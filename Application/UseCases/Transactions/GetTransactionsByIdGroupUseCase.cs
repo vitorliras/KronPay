@@ -17,7 +17,7 @@ public sealed class GetTransactionsByIdGroupUseCase
         _transactionRepository = transactionRepository;
     }
 
-    public async Task<ResultT<IEnumerable<TransactionFullResponse>>> ExecuteAsync(
+    public async Task<ResultEntity<IEnumerable<TransactionFullResponse>>> ExecuteAsync(
         GetTransactionsByGroupRequest request)
     {
         var transactions = await _transactionRepository
@@ -38,7 +38,7 @@ public sealed class GetTransactionsByIdGroupUseCase
         ));
 
 
-        return ResultT<IEnumerable<TransactionFullResponse>>.Success(
+        return ResultEntity<IEnumerable<TransactionFullResponse>>.Success(
             response,
             MessageKeys.OperationSuccess
         );

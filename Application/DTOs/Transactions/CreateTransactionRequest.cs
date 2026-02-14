@@ -10,5 +10,6 @@ public sealed record CreateTransactionRequest(
     DateTime? EndDate,          
     short Installments,
     int CategoryId,
-    int? CategoryItemId
+    int? CategoryItemId,
+    int? idMethodPayment
 );

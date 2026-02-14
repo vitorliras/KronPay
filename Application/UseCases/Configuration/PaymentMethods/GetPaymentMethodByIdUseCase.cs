@@ -16,19 +16,19 @@ public sealed class GetPaymentMethodByIdUseCase
         _repository = repository;
     }
 
-    public async Task<ResultT<PaymentMethodResponse>> ExecuteAsync(PaymentMethodIdRequest request)
+    public async Task<ResultEntity<PaymentMethodResponse>> ExecuteAsync(PaymentMethodIdRequest request)
     {
         var category = await _repository.GetByIdAsync(request.Id, request.UserId);
 
         if (category is null)
-            return ResultT<PaymentMethodResponse>.Failure("", MessageKeys.PaymentMethodNotFound);
+            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.PaymentMethodNotFound);
 
-        return ResultT<PaymentMethodResponse>.Success(
+        return ResultEntity<PaymentMethodResponse>.Success(
             new PaymentMethodResponse(
                 category.Id,
                 category.Description,
                 category.Active
-            )
+            ), MessageKeys.OperationSuccess
         );
     }
 }
