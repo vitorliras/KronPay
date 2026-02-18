@@ -1,21 +1,13 @@
 using Api.Extensions;
 using Api.Middlewares;
 using Application;
-using Application.Abstractions.Auth;
-using Application.UseCases.Auth;
-using Infra.Security;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Globalization;
 using System.Text;
-
-
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,16 +68,25 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<AcceptLanguageHeaderOperationFilter>();
 });
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular",
+        policy =>
+        {
+            policy
+                .WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
+        });
+});
 
 builder.Services.AddApplication();
 
 var autoMigrate = builder.Configuration
     .GetValue<bool>("Database:AutoMigrate");
 
-
 var app = builder.Build();
-
 
 if (autoMigrate)
 {
@@ -120,21 +121,26 @@ localizationOptions.RequestCultureProviders.Insert(
 
 app.UseRequestLocalization(localizationOptions);
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseCors("AllowAngular");
+
+app.UseMiddleware<AccessHeaderMiddleware>();
+
 app.UseAuthentication();
+
 app.UseAuthorization();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-
 app.MapControllers();
 
 app.Run();
+

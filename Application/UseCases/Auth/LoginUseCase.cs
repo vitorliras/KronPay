@@ -3,6 +3,7 @@ using Application.DTOs.Auth;
 using Application.DTOs.Users;
 using Domain.interfaces;
 using Domain.Interfaces;
+using KronPay.Domain.Entities.Users;
 using Shared.Localization;
 using Shared.Results;
 
@@ -45,10 +46,14 @@ public sealed class LoginUseCase
         if (!uow)
             return ResultEntity<LoginResponse>.Failure(MessageKeys.OperationFailed);
 
+        var type = await _userRepository.GetTypeUserByCode(user.UserType);
+
         return ResultEntity<LoginResponse>.Success(new LoginResponse
         {
             AccessToken = token,
-            ExpiresAt = _tokenService.GetExpiration()
-        }, MessageKeys.InvalidEmail);
+            ExpiresAt = _tokenService.GetExpiration(),
+            User = user.Username.Value,
+            TypeUser = type.Description
+        }, MessageKeys.OperationSuccess);
     }
 }

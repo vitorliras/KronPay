@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using Domain.Entities.Configuration;
+﻿using Domain.Entities.Configuration;
+using KronPay.Domain.Entities.Users;
 using KronPay.Domain.Entities.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

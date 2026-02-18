@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using KronPay.Domain.Entities.Users;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public sealed class UserMapping : IEntityTypeConfiguration<User>
@@ -60,17 +61,28 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
         });
 
         builder.Property(x => x.PasswordHash)
+            .HasColumnName("password_hash")
             .IsRequired()
             .HasMaxLength(200);
 
         builder.Property(x => x.UserType)
-            .IsRequired()
-            .HasConversion<int>();
+            .HasColumnName("cod_user_type")
+            .HasColumnType("char(1)")
+            .IsRequired();
 
         builder.Property(x => x.CreatedAt)
+            .HasColumnName("created_at")
             .IsRequired();
 
         builder.Property(x => x.LastAccessAt)
+            .HasColumnName("last_Access_at")
             .IsRequired(false);
+
+        builder.HasOne<TypeUser>()
+            .WithMany()
+            .HasForeignKey(x => x.UserType)
+            .HasPrincipalKey(x => x.Code)
+            .OnDelete(DeleteBehavior.Restrict);
+
     }
 }

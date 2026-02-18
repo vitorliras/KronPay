@@ -1,4 +1,5 @@
-﻿using Application.DTOs.Auth;
+﻿using Api.Extensions;
+using Application.DTOs.Auth;
 using Application.UseCases.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,16 +33,7 @@ public sealed class AuthController : ControllerBase
     {
         var result = await _loginUseCase.ExecuteAsync(request);
 
-        if (!result.IsSuccess)
-        {
-            result.Message = _localizer[result.ErrorCode];
+        return result.ToActionResult(_localizer);
 
-            return Unauthorized(new
-            {
-                result
-            });
-        }
-
-        return Ok(result);
     }
 }
