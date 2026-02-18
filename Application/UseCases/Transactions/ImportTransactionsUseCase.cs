@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.Abstractions.Import;
 using Application.DTOs.Transactions;
 using Domain.Entities.Transactions;
@@ -16,19 +17,22 @@ public sealed class ImportTransactionsUseCase
     private readonly ITransactionAiClassifier _aiClassifier;
     private readonly ITransactionAiBatchClassifier _batchAiClassifier;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ICurrentUserService _currentUser;
 
     public ImportTransactionsUseCase(
         IEnumerable<ITransactionImportParser> parsers,
         ITransactionRepository transactionRepository,
         ITransactionAiClassifier aiClassifier,
         ITransactionAiBatchClassifier batchAiClassifier,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        ICurrentUserService currentUser)
     {
         _parsers = parsers;
         _transactionRepository = transactionRepository;
         _aiClassifier = aiClassifier;
         _unitOfWork = unitOfWork;
         _batchAiClassifier = batchAiClassifier;
+        _currentUser = currentUser;
     }
 
     //public async Task<ResultEntity<ImportTransactionsResponse>> ExecuteAsync(ImportTransactionsRequest request)
@@ -42,7 +46,7 @@ public sealed class ImportTransactionsUseCase
 
     //    var importedTransactions = (await parser.ParseAsync(
     //        request.FileStream,
-    //        request.UserId)).ToList();
+    //        userId)).ToList();
 
     //    var totalRead = importedTransactions.Count;
     //    var totalImported = 0;
@@ -57,7 +61,7 @@ public sealed class ImportTransactionsUseCase
     //            var updated = imported;
 
     //            var suggestion = await _aiClassifier.SuggestAsync(
-    //                request.UserId,
+    //                userId,
     //                imported.Description,
     //                imported.Amount,
     //                request.UseAi
@@ -88,7 +92,7 @@ public sealed class ImportTransactionsUseCase
     //            if (!request.Preview)
     //            {
     //                transactions.Add(new Domain.Entities.Transactions.Transaction(
-    //                    userId: request.UserId,
+    //                    userId: userId,
     //                    amount: updated.Amount,
     //                    transactionDate: updated.TransactionDate,
     //                    description: updated.Description,
@@ -142,13 +146,15 @@ public sealed class ImportTransactionsUseCase
     public async Task<ResultEntity<ImportTransactionsResponse>> ExecuteAsync(
     ImportTransactionsRequest request)
     {
+        var userId = _currentUser.UserId;
+
         var parser = _parsers.FirstOrDefault(p => p.CanParse(request.FileName));
         if (parser is null)
             return ResultEntity<ImportTransactionsResponse>.Failure("", MessageKeys.OperationFailed);
 
         var importedTransactions = (await parser.ParseAsync(
             request.FileStream,
-            request.UserId)).ToList();
+            userId)).ToList();
 
         var totalRead = importedTransactions.Count;
         var totalImported = 0;
@@ -170,7 +176,7 @@ public sealed class ImportTransactionsUseCase
             try
             {
                 suggestions = await _batchAiClassifier.SuggestBatchAsync(
-                    request.UserId,
+                    userId,
                     batch,
                     request.UseAi
                 );
@@ -214,7 +220,7 @@ public sealed class ImportTransactionsUseCase
                     if (!request.Preview)
                     {
                         transactionsToSave.Add(new Domain.Entities.Transactions.Transaction(
-                            userId: request.UserId,
+                            userId: userId,
                             amount: updated.Amount,
                             transactionDate: updated.TransactionDate,
                             description: updated.Description,

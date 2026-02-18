@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Configuration.Category;
 using Domain.Interfaces;
@@ -12,21 +13,25 @@ public sealed class UpdateCategoryUseCase
 {
     private readonly ICategoryRepository _categoryRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
-    public UpdateCategoryUseCase(ICategoryRepository categoryRepository, IUnitOfWork uow)
+    public UpdateCategoryUseCase(ICategoryRepository categoryRepository, IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _categoryRepository = categoryRepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<CategoryResponse>> ExecuteAsync(UpdateCategoryRequest request)
     {
-        var category = await _categoryRepository.GetByDescriptionAsync(request.Description, request.UserId);
+        var userId = _currentUser.UserId;
+
+        var category = await _categoryRepository.GetByDescriptionAsync(request.Description, userId);
 
         if (category is not null)
             return ResultEntity<CategoryResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
-         category = await _categoryRepository.GetByIdAsync(request.Id, request.UserId);
+         category = await _categoryRepository.GetByIdAsync(request.Id, userId);
 
         if (category is null)
             return ResultEntity<CategoryResponse>.Failure("", MessageKeys.CategoryNotFound);

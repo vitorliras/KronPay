@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Transactions;
 using Domain.Entities.Transactions;
 using Domain.Interfaces;
@@ -15,21 +16,28 @@ public sealed class CreateTransactionRangeUseCase
 {
     private readonly ITransactionRepository _transactionRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly ICurrentUserService _currentUser;
 
     public CreateTransactionRangeUseCase(
-        ITransactionRepository transactionRepository,
-        IUnitOfWork unitOfWork)
+        ITransactionRepository transactionRepository,IUnitOfWork unitOfWork, ICurrentUserService currentUser)
     {
         _transactionRepository = transactionRepository;
         _unitOfWork = unitOfWork;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<TransactionRangeResponse>> ExecuteAsync(TransactionRangeRequest request)
     {
+        var userId = _currentUser.UserId;
 
         if (request.Transactions is null || !request.Transactions.Any())
         {
             return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.OperationFailed);
+        }
+
+        foreach (var transaction in request.Transactions)
+        {
+            transaction.SetUser(userId);
         }
 
         var added = await _transactionRepository.AddRangeAsync(request.Transactions);

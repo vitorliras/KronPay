@@ -203,7 +203,6 @@ public sealed class TransactionsController : ControllerBase
         await using var stream = form.File.OpenReadStream();
 
         var request = new ImportTransactionsRequest(
-            form.UserId,
             stream,
             form.File.FileName,
             form.Preview,

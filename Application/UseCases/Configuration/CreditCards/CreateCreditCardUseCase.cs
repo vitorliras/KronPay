@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.CreditCards;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -12,23 +13,28 @@ public sealed class CreateCreditCardUseCase
 {
     private readonly ICreditCardRepository _creditCardRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
-    public CreateCreditCardUseCase(ICreditCardRepository creditCardrepository, IUnitOfWork uow)
+    public CreateCreditCardUseCase(ICreditCardRepository creditCardrepository, IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _creditCardRepository = creditCardrepository;
         _uow = uow;
+        _currentUser = currentUser;
+
     }
 
     public async Task<ResultEntity<CreditCardResponse>> ExecuteAsync(CreateCreditCardRequest request)
     {
-        var creditCard = await _creditCardRepository.GetByDescriptionAsync(request.Description, request.UserId);
+        var userId = _currentUser.UserId;
+
+        var creditCard = await _creditCardRepository.GetByDescriptionAsync(request.Description, userId);
 
         if (creditCard is not null)
             return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
          creditCard = new CreditCard(
             0,
-            request.UserId,
+            userId,
             request.Description,
             request.DueDay,
             request.ClosingDay,

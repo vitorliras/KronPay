@@ -17,4 +17,10 @@ public sealed class UseCaseExecutor
         );
     }
 
+    public async Task<ResultEntity<TResponse>> ExecuteAsync<TResponse>(
+        IUseCaseWithoutRequest<TResponse> useCase)
+    {
+        return await useCase.ExecuteAsync();
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.CreditCards;
 using Domain.Interfaces;
 using Shared.Localization;
@@ -11,21 +12,25 @@ public sealed class UpdateCreditCardUseCase
 {
     private readonly ICreditCardRepository _creditCardRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
-    public UpdateCreditCardUseCase(ICreditCardRepository creditCardRepository, IUnitOfWork uow)
+    public UpdateCreditCardUseCase(ICreditCardRepository creditCardRepository, IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _creditCardRepository = creditCardRepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<CreditCardResponse>> ExecuteAsync(UpdateCreditCardRequest request)
     {
-        var creditCard = await _creditCardRepository.GetByDescriptionAsync(request.Description, request.UserId);
+        var userId = _currentUser.UserId;
+
+        var creditCard = await _creditCardRepository.GetByDescriptionAsync(request.Description, userId);
 
         if (creditCard is not null)
             return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
-         creditCard = await _creditCardRepository.GetByIdAsync(request.Id, request.UserId);
+         creditCard = await _creditCardRepository.GetByIdAsync(request.Id, userId);
 
         if (creditCard is null)
             return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.CreditCardNotFound);

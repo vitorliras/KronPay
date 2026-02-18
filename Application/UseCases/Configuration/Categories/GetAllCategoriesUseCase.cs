@@ -1,6 +1,6 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.Categories;
-using Application.DTOs.Configuration.Category;
 using Domain.Interfaces;
 using Shared.Localization;
 using Shared.Results;
@@ -8,18 +8,24 @@ using Shared.Results;
 namespace Application.UseCases.Categories;
 
 public sealed class GetAllCategoriesUseCase
-    : IUseCase<GetAllCategoriesRequest, IEnumerable<CategoryResponse>>
+    : IUseCaseWithoutRequest<IEnumerable<CategoryResponse>>
 {
     private readonly ICategoryRepository _repository;
+    private readonly ICurrentUserService _currentUser;
 
-    public GetAllCategoriesUseCase(ICategoryRepository repository)
+    public GetAllCategoriesUseCase(
+        ICategoryRepository repository,
+        ICurrentUserService currentUser)
     {
         _repository = repository;
+        _currentUser = currentUser;
     }
 
-    public async Task<ResultEntity<IEnumerable<CategoryResponse>>> ExecuteAsync(GetAllCategoriesRequest request)
+    public async Task<ResultEntity<IEnumerable<CategoryResponse>>> ExecuteAsync()
     {
-        var categories = await _repository.GetAllAsync(request.UserId);
+        var userId = _currentUser.UserId;
+
+        var categories = await _repository.GetAllAsync(userId);
 
         var response = categories.Select(c =>
             new CategoryResponse(
@@ -29,6 +35,7 @@ public sealed class GetAllCategoriesUseCase
                 c.Active
             ));
 
-        return ResultEntity<IEnumerable<CategoryResponse>>.Success(response, MessageKeys.OperationSuccess);
+        return ResultEntity<IEnumerable<CategoryResponse>>
+            .Success(response, MessageKeys.OperationSuccess);
     }
 }

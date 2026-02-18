@@ -2,7 +2,6 @@
 
 public sealed record UpdateTransactionRequest(
     int Id,
-    int UserId,
     string Description,
     decimal Amount,
     DateTime TransactionDate,

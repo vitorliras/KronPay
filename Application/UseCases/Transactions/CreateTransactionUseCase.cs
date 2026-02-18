@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Transactions;
 using Domain.Entities.Transactions;
@@ -15,26 +16,31 @@ public sealed class CreateTransactionUseCase
     private readonly ITransactionRepository _transactionRepository;
     private readonly ITransactionGroupRepository _groupRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
     public CreateTransactionUseCase(
         ITransactionRepository transactionRepository,
         ITransactionGroupRepository groupRepository,
-        IUnitOfWork uow)
+        IUnitOfWork uow,
+        ICurrentUserService currentUser)
     {
         _transactionRepository = transactionRepository;
         _groupRepository = groupRepository;
         _uow = uow;
+        _currentUser = currentUser;
+
     }
 
-    public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(
-        CreateTransactionRequest request)
+    public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(CreateTransactionRequest request)
     {
+        var userId = _currentUser.UserId;
+
         TransactionGroup? group = null;
 
         if (request.RecurrenceType == "F")
         {
             group = TransactionGroup.CreateFixed(
-                request.UserId,
+                userId,
                 request.TransactionDate,
                 request.Installments
             );
@@ -47,7 +53,7 @@ public sealed class CreateTransactionUseCase
         if (request.RecurrenceType == "I")
         {
             group = TransactionGroup.CreateInfinite(
-                request.UserId,
+                userId,
                 request.TransactionDate
             );
 
@@ -61,7 +67,7 @@ public sealed class CreateTransactionUseCase
         if (group is null || request.Installments <= 1)
         {
             transactions.Add(new Transaction(
-                request.UserId,
+                userId,
                 request.Amount,
                 request.TransactionDate,
                 request.Description,
@@ -87,7 +93,7 @@ public sealed class CreateTransactionUseCase
                 short installment = (short)(i + 1);
 
                 transactions.Add(new Transaction(
-                    request.UserId,
+                    userId,
                     request.Amount,
                     date,
                     request.Description,

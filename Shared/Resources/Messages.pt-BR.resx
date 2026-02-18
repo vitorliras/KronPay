@@ -174,6 +174,9 @@
   <data name="Expense" xml:space="preserve">
     <value>Despesa</value>
   </data>
+  <data name="ExpiredToken" xml:space="preserve">
+    <value>Login expirado</value>
+  </data>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>Esqueceu sua Senha?</value>
   </data>
@@ -257,6 +260,9 @@
   </data>
   <data name="Reports" xml:space="preserve">
     <value>Relatórios</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Salvar</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Pesquisar</value>

@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.PaymentMethods;
 using Domain.Entities.Configuration;
 using Domain.Interfaces;
@@ -12,22 +13,26 @@ public sealed class CreatePaymentMethodUseCase
 {
     private readonly IPaymentMethodRepository _paymentMethodRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
-    public CreatePaymentMethodUseCase(IPaymentMethodRepository paymentMethodrepository, IUnitOfWork uow)
+    public CreatePaymentMethodUseCase(IPaymentMethodRepository paymentMethodrepository, IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _paymentMethodRepository = paymentMethodrepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<PaymentMethodResponse>> ExecuteAsync(CreatePaymentMethodRequest request)
     {
-        var paymentMethod = await _paymentMethodRepository.GetByDescriptionAsync(request.Description, request.UserId);
+        var userId = _currentUser.UserId;
+
+        var paymentMethod = await _paymentMethodRepository.GetByDescriptionAsync(request.Description, userId);
 
         if (paymentMethod is not null)
             return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
 
          paymentMethod = new PaymentMethod(
-            request.UserId,
+            userId,
             request.Description
         );
         

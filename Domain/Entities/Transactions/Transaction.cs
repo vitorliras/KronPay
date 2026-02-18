@@ -71,6 +71,7 @@ public sealed class Transaction
     public void Cancel() => Status = "C";
     public void Open() => Status = "O";
     public void Expired() => Status = "E";
+    public void SetUser(int userId) => UserId = userId;
 
     public void VerifyAmount(decimal newAmount)
     {

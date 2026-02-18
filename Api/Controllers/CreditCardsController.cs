@@ -42,17 +42,9 @@ public sealed class CreditCardsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(
-        [FromQuery] int userId,
-        [FromServices] ValidationPipeline<GetAllCreditCardsRequest, IEnumerable<CreditCardResponse>> pipeline)
+    public async Task<IActionResult> GetAll()
     {
-        var request = new GetAllCreditCardsRequest(userId);
-
-        var result = await _executor.ExecuteAsync(
-            request,
-            _getAll,
-            pipeline
-        );
+        var result = await _executor.ExecuteAsync(_getAll);
 
         return result.ToActionResult(_localizer);
     }
@@ -63,7 +55,7 @@ public sealed class CreditCardsController : ControllerBase
         [FromQuery] int userId,
         [FromServices] ValidationPipeline<CreditCardIdRequest, CreditCardResponse> pipeline)
     {
-        var request = new CreditCardIdRequest(id, userId);
+        var request = new CreditCardIdRequest(id);
 
         var result = await _executor.ExecuteAsync(
             request,

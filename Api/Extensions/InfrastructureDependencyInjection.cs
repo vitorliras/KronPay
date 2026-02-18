@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Auth;
+using Application.Abstractions.Common;
 using Application.Abstractions.Import;
 using Application.Executors;
 using Application.Pipelines;
@@ -69,8 +70,8 @@ public static class InfrastructureDependencyInjection
 
         services.AddScoped<ITransactionAiClassifier, OpenAiTransactionClassifier>();
         services.AddScoped<ITransactionAiBatchClassifier, TransactionAiClassifier>();
-
-
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 
 

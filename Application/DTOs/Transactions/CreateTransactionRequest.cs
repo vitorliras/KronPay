@@ -1,7 +1,6 @@
 ﻿namespace Application.DTOs.Transactions;
 
 public sealed record CreateTransactionRequest(
-    int UserId,
     string Description,
     decimal Amount,
     DateTime TransactionDate,

@@ -32,10 +32,10 @@ public sealed class ResourcesController : ControllerBase
     }
 
     [HttpGet("[action]")]
-    public IActionResult GetByName(string name)
+    public IActionResult GetByName(string key)
     {
         var message = _localizer
-            .GetAllStrings().Where(n => n.Name == name)
+            .GetAllStrings().Where(n => n.Name == key)
             .ToDictionary(
                 x => x.Name,
                 x => x.Value
