@@ -1,7 +1,6 @@
 ﻿using Domain.interfaces;
-using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
-using Shared.Results;
+using KronPay.Domain.Entities.Users;
 
 namespace Infra.Persistence.Repositories;
 
@@ -42,5 +41,11 @@ public sealed class UserRepository : IUserRepository
     {
         var result =  _context.Users.Update(user);
         return result.State == EntityState.Modified;
+    }
+
+    public async Task<TypeUser?> GetTypeUserByCode(string code)
+    {
+        return await _context.TyoeUsers
+            .FirstOrDefaultAsync(u => u.Code == code);
     }
 }

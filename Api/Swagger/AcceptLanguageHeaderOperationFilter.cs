@@ -19,5 +19,18 @@ public sealed class AcceptLanguageHeaderOperationFilter : IOperationFilter
                 Default = new Microsoft.OpenApi.Any.OpenApiString("pt-BR")
             }
         });
+
+        operation.Parameters.Add(new OpenApiParameter
+        {
+            Name = "X-Access-Key",
+            In = ParameterLocation.Header,
+            Required = false,
+            Description = "Key de acesso",
+            Schema = new OpenApiSchema
+            {
+                Type = "string",
+                Default = new Microsoft.OpenApi.Any.OpenApiString("FSDF4523GKIOP13Y642F526109A")
+            }
+        });
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using KronPay.Domain.Entities.Users;
 namespace Application.Abstractions.Auth;
 
 public interface ITokenService

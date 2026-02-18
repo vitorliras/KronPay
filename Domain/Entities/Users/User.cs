@@ -1,7 +1,7 @@
-﻿using Domain.Enums;
-using Domain.ValueObjects;
+﻿using Domain.ValueObjects;
 using Domain.ValueObjects.User;
-using System.Xml.Linq;
+
+namespace KronPay.Domain.Entities.Users;
 
 public sealed class User
 {
@@ -14,7 +14,7 @@ public sealed class User
     public Cpf Cpf { get; private set; }
     public string PasswordHash { get; private set; }
 
-    public UserType UserType { get; private set; }
+    public string UserType { get; private set; }
 
     public DateTime CreatedAt { get; private set; }
     public DateTime? LastAccessAt { get; private set; }
@@ -28,7 +28,7 @@ public sealed class User
      Cpf cpf,
      Phone phone,
      string passwordHash,
-     UserType userType)
+     string userType)
     {
         Name = name;
         Username = username;

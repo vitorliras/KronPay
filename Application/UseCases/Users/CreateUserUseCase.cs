@@ -1,8 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Auth;
-using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Users;
-using Domain.Enums;
+using KronPay.Domain.Entities.Users;
 using Domain.interfaces;
 using Domain.Interfaces;
 using Domain.ValueObjects;
@@ -67,7 +66,7 @@ public sealed class CreateUserUseCase
                 cpf: cpf,
                 phone: phone,
                 passwordHash: passwordHash,
-                userType: UserType.Default
+                userType: "B"
             );
 
             var result = await _userRepository.AddAsync(user);
@@ -86,7 +85,7 @@ public sealed class CreateUserUseCase
                     user.Username.Value,
                     user.Email.Value
 
-                )
+                ), MessageKeys.OperationSuccess
             );
         }
         catch (Exception e)

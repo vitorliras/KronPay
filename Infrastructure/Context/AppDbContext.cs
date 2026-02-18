@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Entities.Configuration;
+using KronPay.Domain.Entities.Users;
 using Domain.Entities.Transactions;
 using Infrastructure.Mappings;
 using Infrastructure.Mappings.Transactions;
@@ -18,8 +19,8 @@ public sealed class AppDbContext : DbContext
     public DbSet<CreditCard> CreditCards => Set<CreditCard>();
     public DbSet<PaymentMethod> PaymentMethods => Set<PaymentMethod>();
     public DbSet<Transaction> Transactions => Set<Transaction>();
-
     public DbSet<TransactionGroup> TransactionsGroups => Set<TransactionGroup>();
+    public DbSet<TypeUser> TyoeUsers => Set<TypeUser>();
 
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
@@ -41,6 +42,11 @@ public sealed class AppDbContext : DbContext
         #region StatusTransaction
         modelBuilder.ApplyConfiguration(new StatusTransactionMap());
         modelBuilder.Entity<StatusTransaction>().HasData(StatusTransactionMapSeed.Data);
+        #endregion
+
+        #region TypeUser
+        modelBuilder.ApplyConfiguration(new TypeUserMap());
+        modelBuilder.Entity<TypeUser>().HasData(UserTypeSeed.Data);
         #endregion
 
         modelBuilder.ApplyConfiguration(new CategoryMap());

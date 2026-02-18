@@ -402,7 +402,51 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("KronPay.Domain.Entities.Users.TypeUser", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("char(1)")
+                        .HasColumnName("code");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("description");
+
+                    b.HasKey("Code");
+
+                    b.ToTable("type_user", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Code = "A",
+                            Description = "Admin"
+                        },
+                        new
+                        {
+                            Code = "P",
+                            Description = "Premium"
+                        },
+                        new
+                        {
+                            Code = "B",
+                            Description = "Basic"
+                        },
+                        new
+                        {
+                            Code = "V",
+                            Description = "VIP"
+                        },
+                        new
+                        {
+                            Code = "C",
+                            Description = "Corporate"
+                        });
+                });
+
+            modelBuilder.Entity("KronPay.Domain.Entities.Users.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -411,20 +455,27 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
 
                     b.Property<DateTime?>("LastAccessAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("last_Access_at");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("password_hash");
 
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
+                    b.Property<string>("UserType")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("cod_user_type");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserType");
 
                     b.ToTable("users", (string)null);
                 });
@@ -437,7 +488,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("User", null)
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -455,7 +506,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
                 {
-                    b.HasOne("User", null)
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -464,7 +515,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.CreditCard", b =>
                 {
-                    b.HasOne("User", null)
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -507,7 +558,7 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("TransactionGroupId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("User", null)
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -516,8 +567,14 @@ namespace Infrastructure.Migrations
                     b.Navigation("TransactionGroup");
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("KronPay.Domain.Entities.Users.User", b =>
                 {
+                    b.HasOne("KronPay.Domain.Entities.Users.TypeUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserType")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.OwnsOne("Domain.ValueObjects.User.Cpf", "Cpf", b1 =>
                         {
                             b1.Property<int>("UserId")

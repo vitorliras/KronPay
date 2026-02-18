@@ -117,14 +117,71 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Acões</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="AddCategory" xml:space="preserve">
+    <value>adicionar categoria</value>
+  </data>
+  <data name="AddPaymentMethod" xml:space="preserve">
+    <value>Adicionar forma de pagamento</value>
+  </data>
+  <data name="AddSubcategory" xml:space="preserve">
+    <value>Adicionar sub categoria</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Todos</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categorias</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categoria</value>
+  </data>
   <data name="CategoryNotFound" xml:space="preserve">
     <value>Categoria não encontrado</value>
+  </data>
+  <data name="CreditCard" xml:space="preserve">
+    <value>Cartôes de crédito</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Gráficos</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Remover</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descrição</value>
   </data>
   <data name="DescriptionAlreadyExists" xml:space="preserve">
     <value>Descrição já existe</value>
   </data>
+  <data name="DoNotHaveAccount" xml:space="preserve">
+    <value>Não tem uma conta?</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
   <data name="ExistsAnotherRegister" xml:space="preserve">
     <value>Existe registro vinculado a esse, logo não pode ser desativado</value>
+  </data>
+  <data name="Expense" xml:space="preserve">
+    <value>Despesa</value>
+  </data>
+  <data name="ForgotYourPassword" xml:space="preserve">
+    <value>Esqueceu sua Senha?</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Olá</value>
+  </data>
+  <data name="Income" xml:space="preserve">
+    <value>Receita</value>
   </data>
   <data name="InvalidCpf" xml:space="preserve">
     <value>Cpf inválido</value>
@@ -133,7 +190,7 @@
     <value>Credencial errada</value>
   </data>
   <data name="InvalidDescription" xml:space="preserve">
-    <value>Descrição inválida</value>
+    <value>Descrição Inválida</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Email inválido</value>
@@ -147,14 +204,29 @@
   <data name="InvalidUser" xml:space="preserve">
     <value>Usuário Inválido</value>
   </data>
+  <data name="Investment" xml:space="preserve">
+    <value>Investimento</value>
+  </data>
+  <data name="Investments" xml:space="preserve">
+    <value>Investimentos</value>
+  </data>
   <data name="LengthPassword8" xml:space="preserve">
     <value>A senha deve conter no mínimo 8 caracteres.</value>
   </data>
   <data name="LowercaseLetterPassword" xml:space="preserve">
     <value>A senha deve conter letra minúscula.</value>
   </data>
+  <data name="MakeLoginForAccessYourAccount" xml:space="preserve">
+    <value>Faça login para acessar sua conta</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nome</value>
+  </data>
   <data name="NotSequencialNumberPassword" xml:space="preserve">
     <value>A senha não pode conter números em sequência.</value>
+  </data>
+  <data name="Objectives" xml:space="preserve">
+    <value>Objetivos</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
     <value>Operação falhou</value>
@@ -162,11 +234,47 @@
   <data name="OperationSuccess" xml:space="preserve">
     <value>Sucesso na operação</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Senha</value>
+  </data>
+  <data name="PasswordRules" xml:space="preserve">
+    <value>A senha deve conter no mínimo 8 caracteres, letra maiúscula, letra minúscula, caractere especial e não pode conter números sequenciais.</value>
+  </data>
   <data name="PaymentMethodNotFound" xml:space="preserve">
     <value>Metodo de pagamento não enontrado</value>
   </data>
+  <data name="PaymentMethods" xml:space="preserve">
+    <value>Forma de pagamento</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefone</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Cadastra-se</value>
+  </data>
+  <data name="RemindMe" xml:space="preserve">
+    <value>Lembre-me</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>Relatórios</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Pesquisar</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
   <data name="SpecialCharacter" xml:space="preserve">
     <value>A senha deve conter caractere especial.</value>
+  </data>
+  <data name="Subcategories" xml:space="preserve">
+    <value>Sub categorias</value>
+  </data>
+  <data name="Transactions" xml:space="preserve">
+    <value>Trasações</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
   </data>
   <data name="UNEXPECTED_ERROR" xml:space="preserve">
     <value>ERRO INESPERADO</value>
@@ -177,7 +285,13 @@
   <data name="UserAlreadyExists" xml:space="preserve">
     <value>Usuário já existe</value>
   </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nome do usuário</value>
+  </data>
   <data name="UsernameOrPasswordIsIncorrect" xml:space="preserve">
     <value>Usuário ou senha está incorreto</value>
+  </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>Bem vindo de volta</value>
   </data>
 </root>

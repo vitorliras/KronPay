@@ -1,6 +1,7 @@
 ﻿using Domain.Entities.Configuration;
 using Domain.Entities.Transactions;
 using KronPay.Domain.Entities.Configuration;
+using KronPay.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -84,6 +85,12 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
             .HasForeignKey(x => x.Status)
             .HasPrincipalKey(x => x.Code)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<TypeTransaction>()
+           .WithMany()
+           .HasForeignKey(x => x.CodTypeTransaction)
+           .HasPrincipalKey(x => x.Code)
+           .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasOne<PaymentMethod>()
             .WithMany()
