@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Transactions;
 using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
@@ -11,20 +12,22 @@ public sealed class UpdateTransactionUseCase
     : IUseCase<UpdateTransactionRequest, TransactionResponse>
 {
     private readonly ITransactionRepository _transactionRepository;
+    private readonly ICurrentUserService _currentUser;
     private readonly IUnitOfWork _uow;
 
-    public UpdateTransactionUseCase(
-        ITransactionRepository transactionRepository,
-        IUnitOfWork uow)
+    public UpdateTransactionUseCase(ITransactionRepository transactionRepository,IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _transactionRepository = transactionRepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(UpdateTransactionRequest request)
     {
+        var userId = _currentUser.UserId;
+
         var transaction = await _transactionRepository
-            .GetByIdAsync(request.Id, request.UserId);
+            .GetByIdAsync(request.Id, userId);
 
         if (transaction is null)
             return ResultEntity<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);
@@ -36,7 +39,7 @@ public sealed class UpdateTransactionUseCase
             var result = await _transactionRepository
                 .UpdatePendingByGroupAsync(
                     transaction.TransactionGroupId.Value,
-                    request.UserId,
+                    userId,
                     t =>
                     {
                         t.VerifyAmount(request.Amount);
@@ -51,7 +54,7 @@ public sealed class UpdateTransactionUseCase
                 await _transactionRepository
                     .GetFutureByGroupAsync(
                         transaction.TransactionGroupId.Value,
-                        request.UserId,
+                        userId,
                         DateTime.UtcNow
                     )
             ).Count();

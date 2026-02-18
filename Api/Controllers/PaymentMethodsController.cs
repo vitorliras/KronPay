@@ -41,17 +41,9 @@ public sealed class PaymentMethodsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(
-        [FromQuery] int userId,
-        [FromServices] ValidationPipeline<GetAllPaymentMethodsRequest, IEnumerable<PaymentMethodResponse>> pipeline)
+    public async Task<IActionResult> GetAll()
     {
-        var request = new GetAllPaymentMethodsRequest(userId);
-
-        var result = await _executor.ExecuteAsync(
-            request,
-            _getAll,
-            pipeline
-        );
+        var result = await _executor.ExecuteAsync(_getAll);
 
         return result.ToActionResult(_localizer);
     }
@@ -62,7 +54,7 @@ public sealed class PaymentMethodsController : ControllerBase
         [FromQuery] int userId,
         [FromServices] ValidationPipeline<PaymentMethodIdRequest, PaymentMethodResponse> pipeline)
     {
-        var request = new PaymentMethodIdRequest(id, userId);
+        var request = new PaymentMethodIdRequest(id);
 
         var result = await _executor.ExecuteAsync(
             request,

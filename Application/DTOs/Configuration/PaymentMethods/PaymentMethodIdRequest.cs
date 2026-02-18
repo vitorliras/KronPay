@@ -1,5 +1,5 @@
 ﻿
 namespace Application.DTOs.Configuration.PaymentMethods
 {
-    public sealed record PaymentMethodIdRequest(int Id, int UserId);
+    public sealed record PaymentMethodIdRequest(int Id);
 }

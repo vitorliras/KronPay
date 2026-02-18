@@ -1,5 +1,5 @@
 ﻿
 namespace Application.DTOs.Configuration.CreditCards
 {
-    public sealed record CreditCardIdRequest(int Id, int UserId);
+    public sealed record CreditCardIdRequest(int Id);
 }

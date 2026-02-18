@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Transactions;
 using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
@@ -10,21 +11,24 @@ namespace Application.UseCases.Transactions;
 public sealed class ChangeStatusTransactionUseCase
     : IUseCase<ChangeStatusTransactionRequest, TransactionResponse>
 {
+
+    private readonly ICurrentUserService _currentUser;
     private readonly ITransactionRepository _transactionRepository;
     private readonly IUnitOfWork _uow;
 
-    public ChangeStatusTransactionUseCase(
-        ITransactionRepository transactionRepository,
-        IUnitOfWork uow)
+    public ChangeStatusTransactionUseCase(ITransactionRepository transactionRepository, IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _transactionRepository = transactionRepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(ChangeStatusTransactionRequest request)
     {
+        var userId = _currentUser.UserId;
+
         var transaction = await _transactionRepository
-            .GetByIdAsync(request.Id, request.UserId);
+            .GetByIdAsync(request.Id, userId);
 
         if (transaction is null)
             return ResultEntity<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);

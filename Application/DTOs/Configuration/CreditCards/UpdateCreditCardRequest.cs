@@ -2,7 +2,6 @@
 
 public sealed record UpdateCreditCardRequest(
     int Id,
-    int UserId,
     string Description,
     short DueDay,
     short ClosingDay,

@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.CreditCards;
 using Domain.Interfaces;
 using Shared.Localization;
@@ -11,15 +12,21 @@ public sealed class DeactivateCreditCardUseCase
 {
     private readonly ICreditCardRepository _paymentMethodRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
-    public DeactivateCreditCardUseCase(ICreditCardRepository paymentMethodRepository, IUnitOfWork uow)
+
+    public DeactivateCreditCardUseCase(ICreditCardRepository paymentMethodRepository, IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _paymentMethodRepository = paymentMethodRepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
     public async Task<ResultEntity<Unit>> ExecuteAsync(CreditCardIdRequest request)
     {
-        var paymentMethodItem = await _paymentMethodRepository.GetByIdAsync(request.Id, request.UserId);
+        var userId = _currentUser.UserId;
+
+
+        var paymentMethodItem = await _paymentMethodRepository.GetByIdAsync(request.Id, userId);
         if (paymentMethodItem is null)
             return ResultEntity<Unit>.Failure("", MessageKeys.CreditCardNotFound);
 

@@ -42,17 +42,10 @@ public sealed class CategoriesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll(
-        [FromQuery] int userId,
-        [FromServices] ValidationPipeline<GetAllCategoriesRequest, IEnumerable<CategoryResponse>> pipeline)
+    public async Task<IActionResult> GetAll()
     {
-        var request = new GetAllCategoriesRequest(userId);
 
-        var result = await _executor.ExecuteAsync(
-            request,
-            _getAll,
-            pipeline
-        );
+        var result = await _executor.ExecuteAsync(_getAll);
 
         return result.ToActionResult(_localizer);
     }
@@ -63,7 +56,7 @@ public sealed class CategoriesController : ControllerBase
         [FromQuery] int userId,
         [FromServices] ValidationPipeline<GetCategoryByIdRequest, CategoryResponse> pipeline)
     {
-        var request = new GetCategoryByIdRequest(id, userId);
+        var request = new GetCategoryByIdRequest(id);
 
         var result = await _executor.ExecuteAsync(
             request,

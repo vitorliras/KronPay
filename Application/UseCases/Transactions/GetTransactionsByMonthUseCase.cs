@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Transactions;
 using Domain.Interfaces.Transactions;
 using Shared.Localization;
@@ -10,18 +11,21 @@ public sealed class GetTransactionsByMonthUseCase
     : IUseCase<GetTransactionsByMonthRequest, IEnumerable<TransactionFullResponse>>
 {
     private readonly ITransactionRepository _transactionRepository;
+    private readonly ICurrentUserService _currentUser;
 
     public GetTransactionsByMonthUseCase(
-        ITransactionRepository transactionRepository)
+        ITransactionRepository transactionRepository, ICurrentUserService currentUser)
     {
         _transactionRepository = transactionRepository;
+        _currentUser = currentUser;
     }
 
-    public async Task<ResultEntity<IEnumerable<TransactionFullResponse>>> ExecuteAsync(
-        GetTransactionsByMonthRequest request)
+    public async Task<ResultEntity<IEnumerable<TransactionFullResponse>>> ExecuteAsync(GetTransactionsByMonthRequest request)
     {
+        var userId = _currentUser.UserId;
+
         var transactions = await _transactionRepository
-            .GetByMonthAsync(request.UserId, request.Year, request.Month);
+            .GetByMonthAsync(userId, request.Year, request.Month);
 
         var response = transactions.Select(t => new TransactionFullResponse(
             t.Id,

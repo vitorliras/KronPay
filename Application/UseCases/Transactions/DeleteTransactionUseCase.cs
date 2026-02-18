@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Transactions;
 using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
@@ -13,20 +14,25 @@ public sealed class DeleteTransactionUseCase
     private readonly ITransactionRepository _transactionRepository;
     private readonly ITransactionGroupRepository _groupRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
     public DeleteTransactionUseCase(
         ITransactionRepository transactionRepository,
         ITransactionGroupRepository groupRepository,
-        IUnitOfWork uow)
+        IUnitOfWork uow,
+        ICurrentUserService currentUser)
     {
         _transactionRepository = transactionRepository;
         _groupRepository = groupRepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(DeleteTransactionRequest request)
     {
-        var transaction = await _transactionRepository.GetByIdAsync(request.TransactionId, request.UserId);
+        var userId = _currentUser.UserId;
+
+        var transaction = await _transactionRepository.GetByIdAsync(request.TransactionId, userId);
 
         if (transaction is null)
             return ResultEntity<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);
@@ -44,11 +50,11 @@ public sealed class DeleteTransactionUseCase
             if (transaction.TransactionGroupId is not null)
             {
                 var transactions = _transactionRepository.
-                       GetByGroupAsync(transaction.TransactionGroupId.Value, request.UserId).Result.Count();
+                       GetByGroupAsync(transaction.TransactionGroupId.Value, userId).Result.Count();
 
                 if (transactions <= 1)
                 {
-                    var group = await _groupRepository.GetByIdAsync(transaction.TransactionGroupId.Value, request.UserId);
+                    var group = await _groupRepository.GetByIdAsync(transaction.TransactionGroupId.Value, userId);
 
                     if(group is not null)
                     {
@@ -67,12 +73,12 @@ public sealed class DeleteTransactionUseCase
             if (request.FromDate.HasValue)
             {
                 affected = _transactionRepository.
-                    GetFutureByGroupAsync(groupId, request.UserId, request.FromDate.Value).Result.Count();
+                    GetFutureByGroupAsync(groupId, userId, request.FromDate.Value).Result.Count();
 
                 var deleted = await _transactionRepository
                     .DeleteFutureByGroupAsync(
                         groupId,
-                        request.UserId,
+                        userId,
                         request.FromDate.Value
                     );
 
@@ -84,14 +90,14 @@ public sealed class DeleteTransactionUseCase
             else
             {
                 affected = _transactionRepository.
-                   GetByGroupAsync(groupId, request.UserId).Result.Count();
+                   GetByGroupAsync(groupId, userId).Result.Count();
 
-                var deleted = await _transactionRepository.DeleteByGroupAsync(groupId, request.UserId);
+                var deleted = await _transactionRepository.DeleteByGroupAsync(groupId, userId);
 
                 if (!deleted)
                     return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
 
-                var group = await _groupRepository.GetByIdAsync(transaction.TransactionGroupId.Value, request.UserId);
+                var group = await _groupRepository.GetByIdAsync(transaction.TransactionGroupId.Value, userId);
 
                 if (group is not null)
                 {

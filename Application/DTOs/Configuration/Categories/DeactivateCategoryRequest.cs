@@ -1,5 +1,5 @@
 ﻿
 namespace Application.DTOs.Configuration.Categories
 {
-    public sealed record DeactivateCategoryRequest(int Id, int UserId);
+    public sealed record DeactivateCategoryRequest(int Id);
 }

@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Configuration.Category;
 using Domain.Interfaces;
@@ -11,15 +12,19 @@ public sealed class GetCategoryByIdUseCase
     : IUseCase<GetCategoryByIdRequest, CategoryResponse>
 {
     private readonly ICategoryRepository _repository;
+    private readonly ICurrentUserService _currentUser;
 
-    public GetCategoryByIdUseCase(ICategoryRepository repository)
+    public GetCategoryByIdUseCase(ICategoryRepository repository, ICurrentUserService currentUser)
     {
         _repository = repository;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<CategoryResponse>> ExecuteAsync(GetCategoryByIdRequest request)
     {
-        var category = await _repository.GetByIdAsync(request.Id, request.UserId);
+        var userId = _currentUser.UserId;
+
+        var category = await _repository.GetByIdAsync(request.Id, userId);
 
         if (category is null)
             return ResultEntity<CategoryResponse>.Failure("", MessageKeys.CategoryNotFound);
