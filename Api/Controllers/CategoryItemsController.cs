@@ -8,6 +8,7 @@ using Shared.Resources;
 using Shared.Results;
 using Application.UseCases.Categories;
 using Application.DTOs.Configuration.CategoryItems;
+using Application.DTOs.Configuration;
 
 [Authorize]
 [ApiController]
@@ -17,6 +18,7 @@ public sealed class CategoryItemsController : ControllerBase
     private readonly UseCaseExecutor _executor;
     private readonly CreateCategoryItemUseCase _create;
     private readonly UpdateCategoryItemUseCase _update;
+    private readonly DeactivateCategoryItemSelectUseCase _deactivateRange;
     private readonly DeactivateCategoryItemUseCase _deactivate;
     private readonly GetAllCategoryItemsUseCase _getAll;
     private readonly GetCategoryItemByIdUseCase _getById;
@@ -27,6 +29,7 @@ public sealed class CategoryItemsController : ControllerBase
         CreateCategoryItemUseCase create,
         UpdateCategoryItemUseCase update,
         DeactivateCategoryItemUseCase deactivate,
+        DeactivateCategoryItemSelectUseCase deactivateRange,
         GetAllCategoryItemsUseCase getAll,
         GetCategoryItemByIdUseCase getById,
         IStringLocalizer<Messages> localizer)
@@ -35,6 +38,7 @@ public sealed class CategoryItemsController : ControllerBase
         _create = create;
         _update = update;
         _deactivate = deactivate;
+        _deactivateRange = deactivateRange;
         _getAll = getAll;
         _getById = getById;
         _localizer = localizer;
@@ -110,6 +114,21 @@ public sealed class CategoryItemsController : ControllerBase
         var result = await _executor.ExecuteAsync(
             request,
             _deactivate,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpDelete("[Action]")]
+    public async Task<IActionResult> Deactivate(
+    DeactivateCategoryItemSelectRequest request,
+    [FromServices] ValidationPipeline<DeactivateCategoryItemSelectRequest, Unit> pipeline)
+    {
+
+        var result = await _executor.ExecuteAsync(
+            request,
+            _deactivateRange,
             pipeline
         );
 
