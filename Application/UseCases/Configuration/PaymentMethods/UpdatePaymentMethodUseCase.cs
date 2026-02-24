@@ -28,22 +28,22 @@ public sealed class UpdatePaymentMethodUseCase
         var paymentMethod = await _paymentMethodRepository.GetByDescriptionAsync(request.Description, userId);
 
         if (paymentMethod is not null)
-            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
 
          paymentMethod = await _paymentMethodRepository.GetByIdAsync(request.Id, userId);
 
         if (paymentMethod is null)
-            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.PaymentMethodNotFound);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.PaymentMethodNotFound);
 
         paymentMethod.UpdateDescription(request.Description);
 
         var result =  _paymentMethodRepository.Update(paymentMethod);
         if (!result)
-            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<PaymentMethodResponse>.Success(
             new PaymentMethodResponse(

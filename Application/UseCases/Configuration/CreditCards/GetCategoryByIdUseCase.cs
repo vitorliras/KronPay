@@ -26,7 +26,7 @@ public sealed class GetCreditCardByIdUseCase
         var creditCard = await _repository.GetByIdAsync(request.Id, userId);
 
         if (creditCard is null)
-            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.CreditCardNotFound);
+            return ResultEntity<CreditCardResponse>.Failure(MessageKeys.CreditCardNotFound);
 
         return ResultEntity<CreditCardResponse>.Success(
             new CreditCardResponse(

@@ -135,6 +135,9 @@
   <data name="All" xml:space="preserve">
     <value>Todos</value>
   </data>
+  <data name="AreYouSureRemoveData" xml:space="preserve">
+    <value>Você tem certeza que deseja excluir esse dado?</value>
+  </data>
   <data name="Categories" xml:space="preserve">
     <value>Categorias</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Remover</value>
+  </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Deletar categoria</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Descrição</value>
@@ -213,6 +219,9 @@
   <data name="Investments" xml:space="preserve">
     <value>Investimentos</value>
   </data>
+  <data name="ItemItemNotFound" xml:space="preserve">
+    <value>Nenhum registro encontrado. Cadastre um novo para poder consulta-lo.</value>
+  </data>
   <data name="LengthPassword8" xml:space="preserve">
     <value>A senha deve conter no mínimo 8 caracteres.</value>
   </data>
@@ -224,6 +233,9 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Nome</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Não</value>
   </data>
   <data name="NotSequencialNumberPassword" xml:space="preserve">
     <value>A senha não pode conter números em sequência.</value>
@@ -299,5 +311,8 @@
   </data>
   <data name="WelcomeBack" xml:space="preserve">
     <value>Bem vindo de volta</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Sim</value>
   </data>
 </root>

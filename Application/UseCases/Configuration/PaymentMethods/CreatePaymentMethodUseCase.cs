@@ -29,7 +29,7 @@ public sealed class CreatePaymentMethodUseCase
         var paymentMethod = await _paymentMethodRepository.GetByDescriptionAsync(request.Description, userId);
 
         if (paymentMethod is not null)
-            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
 
          paymentMethod = new PaymentMethod(
             userId,
@@ -38,11 +38,11 @@ public sealed class CreatePaymentMethodUseCase
         
         var result = await _paymentMethodRepository.AddAsync(paymentMethod);
         if (!result)
-            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<PaymentMethodResponse>.Success(
             new PaymentMethodResponse(

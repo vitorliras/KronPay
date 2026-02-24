@@ -28,16 +28,16 @@ public sealed class DeactivateCreditCardUseCase
 
         var paymentMethodItem = await _paymentMethodRepository.GetByIdAsync(request.Id, userId);
         if (paymentMethodItem is null)
-            return ResultEntity<Unit>.Failure("", MessageKeys.CreditCardNotFound);
+            return ResultEntity<Unit>.Failure(MessageKeys.CreditCardNotFound);
 
         paymentMethodItem.Deactivate();
         var result = _paymentMethodRepository.Update(paymentMethodItem);
         if (!result)
-            return ResultEntity<Unit>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<Unit>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<Unit>.Success(Unit.Value, MessageKeys.OperationSuccess);
     }

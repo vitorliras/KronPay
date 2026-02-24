@@ -44,4 +44,6 @@ public sealed class Category
 
         Description = description.Trim();
     }
+
+    public void SetCode(string code) => CodTypeTransaction = code;
 }

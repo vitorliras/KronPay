@@ -26,7 +26,7 @@ public sealed class GetPaymentMethodByIdUseCase
         var category = await _repository.GetByIdAsync(request.Id, userId);
 
         if (category is null)
-            return ResultEntity<PaymentMethodResponse>.Failure("", MessageKeys.PaymentMethodNotFound);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.PaymentMethodNotFound);
 
         return ResultEntity<PaymentMethodResponse>.Success(
             new PaymentMethodResponse(

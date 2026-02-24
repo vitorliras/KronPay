@@ -28,22 +28,22 @@ public sealed class UpdateCreditCardUseCase
         var creditCard = await _creditCardRepository.GetByDescriptionAsync(request.Description, userId);
 
         if (creditCard is not null)
-            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
+            return ResultEntity<CreditCardResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
 
          creditCard = await _creditCardRepository.GetByIdAsync(request.Id, userId);
 
         if (creditCard is null)
-            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.CreditCardNotFound);
+            return ResultEntity<CreditCardResponse>.Failure(MessageKeys.CreditCardNotFound);
 
         creditCard.UpdateDescription(request.Description);
 
         var result =  _creditCardRepository.Update(creditCard);
         if (!result)
-            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<CreditCardResponse>.Failure(MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<CreditCardResponse>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<CreditCardResponse>.Success(
             new CreditCardResponse(
