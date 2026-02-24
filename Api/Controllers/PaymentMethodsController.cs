@@ -8,6 +8,7 @@ using Microsoft.Extensions.Localization;
 using Shared.Resources;
 using Shared.Results;
 using Application.UseCases.PaymentMethods;
+using Application.DTOs.Configuration;
 
 [Authorize]
 [ApiController]
@@ -20,6 +21,7 @@ public sealed class PaymentMethodsController : ControllerBase
     private readonly GetAllPaymentMethodUseCase _getAll;
     private readonly GetPaymentMethodByIdUseCase _getById;
     private readonly DeactivatePaymentMethodUseCase _deactivate;
+    private readonly DeactivatePaymentMethodSelectUseCase _deactivateRange;
     private readonly IStringLocalizer<Messages> _localizer;
 
     public PaymentMethodsController(
@@ -27,6 +29,7 @@ public sealed class PaymentMethodsController : ControllerBase
         CreatePaymentMethodUseCase create,
         UpdatePaymentMethodUseCase update,
         DeactivatePaymentMethodUseCase deactivate,
+        DeactivatePaymentMethodSelectUseCase deactivateRange,
         GetAllPaymentMethodUseCase getAll,
         GetPaymentMethodByIdUseCase getById,
         IStringLocalizer<Messages> localizer)
@@ -35,6 +38,7 @@ public sealed class PaymentMethodsController : ControllerBase
         _create = create;
         _update = update;
         _deactivate = deactivate;
+        _deactivateRange = deactivateRange;
         _getAll = getAll;
         _getById = getById;
         _localizer = localizer;
@@ -102,6 +106,21 @@ public sealed class PaymentMethodsController : ControllerBase
         var result = await _executor.ExecuteAsync(
             request,
             _deactivate,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpDelete("[Action]")]
+    public async Task<IActionResult> Deactivate(
+    DeactivatePaymentMethodSelectRequest request,
+    [FromServices] ValidationPipeline<DeactivatePaymentMethodSelectRequest, Unit> pipeline)
+    {
+
+        var result = await _executor.ExecuteAsync(
+            request,
+            _deactivateRange,
             pipeline
         );
 

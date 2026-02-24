@@ -1,4 +1,5 @@
 ﻿using Api.Extensions;
+using Application.DTOs.Configuration;
 using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Configuration.Category;
 using Application.Executors;
@@ -19,6 +20,7 @@ public sealed class CategoriesController : ControllerBase
     private readonly CreateCategoryUseCase _create;
     private readonly UpdateCategoryUseCase _update;
     private readonly DeactivateCategoryUseCase _deactivate;
+    private readonly DeactivateCategorySelectUseCase _deactivateRange;
     private readonly GetAllCategoriesUseCase _getAll;
     private readonly GetCategoryByIdUseCase _getById;
     private readonly IStringLocalizer<Messages> _localizer;
@@ -28,6 +30,7 @@ public sealed class CategoriesController : ControllerBase
         CreateCategoryUseCase create,
         UpdateCategoryUseCase update,
         DeactivateCategoryUseCase deactivate,
+        DeactivateCategorySelectUseCase deactivateRange,
         GetAllCategoriesUseCase getAll,
         GetCategoryByIdUseCase getById,
         IStringLocalizer<Messages> localizer)
@@ -36,6 +39,7 @@ public sealed class CategoriesController : ControllerBase
         _create = create;
         _update = update;
         _deactivate = deactivate;
+        _deactivateRange = deactivateRange;
         _getAll = getAll;
         _getById = getById;
         _localizer = localizer;
@@ -104,6 +108,21 @@ public sealed class CategoriesController : ControllerBase
         var result = await _executor.ExecuteAsync(
             request,
             _deactivate,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpDelete("[Action]")]
+    public async Task<IActionResult> DeactivateRange(
+    DeactivateCategorySelectRequest request,
+    [FromServices] ValidationPipeline<DeactivateCategorySelectRequest, Unit> pipeline)
+    {
+
+        var result = await _executor.ExecuteAsync(
+            request,
+            _deactivateRange,
             pipeline
         );
 
