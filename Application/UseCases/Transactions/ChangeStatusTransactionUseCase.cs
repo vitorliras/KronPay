@@ -31,7 +31,7 @@ public sealed class ChangeStatusTransactionUseCase
             .GetByIdAsync(request.Id, userId);
 
         if (transaction is null)
-            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);
+            return ResultEntity<TransactionResponse>.Failure(MessageKeys.TransactionNotFound);
 
         else
         {
@@ -40,11 +40,11 @@ public sealed class ChangeStatusTransactionUseCase
             if (request.Status.Equals("O"))  transaction.Open();
 
             if (!await _transactionRepository.UpdateAsync(transaction))
-                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
         }
 
         if (!await _uow.CommitAsync())
-            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(

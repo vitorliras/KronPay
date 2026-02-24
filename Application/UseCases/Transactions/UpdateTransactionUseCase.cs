@@ -30,7 +30,7 @@ public sealed class UpdateTransactionUseCase
             .GetByIdAsync(request.Id, userId);
 
         if (transaction is null)
-            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.TransactionNotFound);
+            return ResultEntity<TransactionResponse>.Failure(MessageKeys.TransactionNotFound);
 
         var affected = 1;
 
@@ -48,7 +48,7 @@ public sealed class UpdateTransactionUseCase
                     });
 
             if (!result)
-                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
 
             affected = (
                 await _transactionRepository
@@ -66,11 +66,11 @@ public sealed class UpdateTransactionUseCase
             transaction.VerifyCategory( request.CategoryId, request.CategoryItemId);
 
             if (!await _transactionRepository.UpdateAsync(transaction))
-                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
         }
 
         if (!await _uow.CommitAsync())
-            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(

@@ -40,12 +40,12 @@ public sealed class CategoryItemsController : ControllerBase
         _localizer = localizer;
     }
 
-    [HttpGet]
+    [HttpGet("[action]")]
     public async Task<IActionResult> GetAll(
-        [FromQuery] int userId,
+        [FromQuery] int categoryId,
         [FromServices] ValidationPipeline<GetAllCategoryItemsRequest, IEnumerable<CategoryItemResponse>> pipeline)
     {
-        var request = new GetAllCategoryItemsRequest(userId);
+        var request = new GetAllCategoryItemsRequest(categoryId);
 
         var result = await _executor.ExecuteAsync(
             request,

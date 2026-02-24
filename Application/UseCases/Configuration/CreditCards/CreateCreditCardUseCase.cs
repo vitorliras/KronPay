@@ -30,7 +30,7 @@ public sealed class CreateCreditCardUseCase
         var creditCard = await _creditCardRepository.GetByDescriptionAsync(request.Description, userId);
 
         if (creditCard is not null)
-            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.DescriptionAlreadyExists);
+            return ResultEntity<CreditCardResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
 
          creditCard = new CreditCard(
             0,
@@ -44,11 +44,11 @@ public sealed class CreateCreditCardUseCase
 
         var result = await _creditCardRepository.AddAsync(creditCard);
         if (!result)
-            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<CreditCardResponse>.Failure(MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<CreditCardResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<CreditCardResponse>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<CreditCardResponse>.Success(
             new CreditCardResponse(

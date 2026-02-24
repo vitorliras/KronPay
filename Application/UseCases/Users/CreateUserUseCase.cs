@@ -34,19 +34,19 @@ public sealed class CreateUserUseCase
             var existingUser = await _userRepository.GetByEmailAsync(request.Email);
             if (existingUser is not null)
             {
-                return ResultEntity<UserResponse>.Failure("",MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure(MessageKeys.UserAlreadyExists);
             }
 
             existingUser = await _userRepository.GetByCpfAsync(request.Cpf);
             if (existingUser is not null)
             {
-                return ResultEntity<UserResponse>.Failure("", MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure( MessageKeys.UserAlreadyExists);
             }
 
             existingUser = await _userRepository.GetByUsernameAsync(request.Username);
             if (existingUser is not null)
             {
-                return ResultEntity<UserResponse>.Failure("", MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure( MessageKeys.UserAlreadyExists);
             }
 
             var name = Name.Create(request.Name);
@@ -90,7 +90,7 @@ public sealed class CreateUserUseCase
         }
         catch (Exception e)
         {
-            return ResultEntity<UserResponse>.Failure("", e.Message);
+            return ResultEntity<UserResponse>.Failure( e.Message);
         }
        
     }

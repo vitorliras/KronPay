@@ -30,21 +30,21 @@ public sealed class DeactivateCategoryUseCase
 
         var categoryItems = await _categoryItemRepository.GetAllAsync(request.Id);
 
-        if (categoryItems is not null || categoryItems.Count() > 0)
-            return ResultEntity<Unit>.Failure("", MessageKeys.ExistsAnotherRegister);
+        if (categoryItems is not null && categoryItems.Count() > 0)
+            return ResultEntity<Unit>.Failure(MessageKeys.ExistsAnotherRegister);
 
         var categoryItem = await _categoryRepository.GetByIdAsync(request.Id, userId);
         if (categoryItem is null)
-            return ResultEntity<Unit>.Failure("", MessageKeys.CategoryNotFound);
+            return ResultEntity<Unit>.Failure(MessageKeys.CategoryNotFound);
 
         categoryItem.Deactivate();
         var result = _categoryRepository.Update(categoryItem);
         if (!result)
-            return ResultEntity<Unit>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<Unit>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<Unit>.Success(Unit.Value, MessageKeys.OperationSuccess);
     }

@@ -47,7 +47,7 @@ public sealed class CreateTransactionUseCase
 
             var groupResult = await _groupRepository.AddAsync(group);
             if (!groupResult)
-                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
         }
 
         if (request.RecurrenceType == "I")
@@ -59,7 +59,7 @@ public sealed class CreateTransactionUseCase
 
             var groupResult = await _groupRepository.AddAsync(group);
             if (!groupResult)
-                return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
         }
 
         var transactions = new List<Transaction>();
@@ -112,11 +112,11 @@ public sealed class CreateTransactionUseCase
             : await _transactionRepository.AddRangeAsync(transactions);
 
         if (!addResult)
-            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
 
         var committed = await _uow.CommitAsync();
         if (!committed)
-            return ResultEntity<TransactionResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
 
         var mainTransaction = transactions.First();
 

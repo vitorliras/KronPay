@@ -20,10 +20,10 @@ public sealed class GetCategoryItemByIdUseCase
 
     public async Task<ResultEntity<CategoryItemResponse>> ExecuteAsync(GetCategoryItemByIdRequest request)
     {
-        var category = await _repository.GetByIdAsync(request.Id, request.CategoryId);
+        var category = await _repository.GetByIdAsync(request.Id);
 
         if (category is null)
-            return ResultEntity<CategoryItemResponse>.Failure("", MessageKeys.CategoryNotFound);
+            return ResultEntity<CategoryItemResponse>.Failure(MessageKeys.CategoryNotFound);
 
         return ResultEntity<CategoryItemResponse>.Success(
             new CategoryItemResponse(

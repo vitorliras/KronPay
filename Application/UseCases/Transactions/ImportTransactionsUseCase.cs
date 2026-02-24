@@ -41,7 +41,7 @@ public sealed class ImportTransactionsUseCase
     //    var transactions = new List<Domain.Entities.Transactions.Transaction>();
 
     //    if (parser is null)
-    //        return ResultEntity<ImportTransactionsResponse>.Failure("", MessageKeys.OperationFailed);
+    //        return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
     //    //throw new InvalidOperationException("Formato de arquivo não suportado.");
 
     //    var importedTransactions = (await parser.ParseAsync(
@@ -125,12 +125,12 @@ public sealed class ImportTransactionsUseCase
     //    var add = await _transactionRepository.AddRangeAsync(transactions);
 
     //    if (!add)
-    //        return ResultEntity<ImportTransactionsResponse>.Failure("", MessageKeys.OperationFailed);
+    //        return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
 
     //    var commited = await _unitOfWork.CommitAsync();
 
     //    if (!commited)
-    //        return ResultEntity<ImportTransactionsResponse>.Failure("", MessageKeys.OperationFailed);
+    //        return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
 
     //    return ResultEntity<ImportTransactionsResponse>.Success(
     //        new ImportTransactionsResponse(
@@ -150,7 +150,7 @@ public sealed class ImportTransactionsUseCase
 
         var parser = _parsers.FirstOrDefault(p => p.CanParse(request.FileName));
         if (parser is null)
-            return ResultEntity<ImportTransactionsResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
 
         var importedTransactions = (await parser.ParseAsync(
             request.FileStream,
@@ -253,11 +253,11 @@ public sealed class ImportTransactionsUseCase
 
         var add = await _transactionRepository.AddRangeAsync(transactionsToSave);
         if (!add)
-            return ResultEntity<ImportTransactionsResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
 
         var committed = await _unitOfWork.CommitAsync();
         if (!committed)
-            return ResultEntity<ImportTransactionsResponse>.Failure("", MessageKeys.OperationFailed);
+            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
 
         return ResultEntity<ImportTransactionsResponse>.Success(
             new ImportTransactionsResponse(

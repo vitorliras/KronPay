@@ -115,6 +115,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Você tem certeza que deseja excluir esse dado?.
+        /// </summary>
+        public static string AreYouSureRemoveData {
+            get {
+                return ResourceManager.GetString("AreYouSureRemoveData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Categorias.
         /// </summary>
         public static string Categories {
@@ -165,6 +174,15 @@ namespace Shared.Resources {
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Deletar categoria.
+        /// </summary>
+        public static string DeleteCategory {
+            get {
+                return ResourceManager.GetString("DeleteCategory", resourceCulture);
             }
         }
         
@@ -349,6 +367,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nenhum registro encontrado. Cadastre um novo para poder consulta-lo..
+        /// </summary>
+        public static string ItemItemNotFound {
+            get {
+                return ResourceManager.GetString("ItemItemNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter no mínimo 8 caracteres..
         /// </summary>
         public static string LengthPassword8 {
@@ -381,6 +408,15 @@ namespace Shared.Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -606,6 +642,15 @@ namespace Shared.Resources {
         public static string WelcomeBack {
             get {
                 return ResourceManager.GetString("WelcomeBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sim.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
