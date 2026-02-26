@@ -1,4 +1,5 @@
-﻿using Application.Executors;
+﻿using Application.DTOs.Configuration;
+using Application.Executors;
 using Application.Pipelines;
 using Application.UseCases.Auth;
 using Application.UseCases.Categories;
@@ -26,18 +27,21 @@ public static class DependencyInjection
         services.AddScoped<DeactivateCategoryUseCase>();
         services.AddScoped<GetAllCategoriesUseCase>();
         services.AddScoped<GetCategoryByIdUseCase>();
+        services.AddScoped<DeactivateCategorySelectUseCase>();
 
         services.AddScoped<CreateCategoryItemUseCase>();
         services.AddScoped<UpdateCategoryItemUseCase>();
         services.AddScoped<DeactivateCategoryItemUseCase>();
         services.AddScoped<GetAllCategoryItemsUseCase>();
         services.AddScoped<GetCategoryItemByIdUseCase>();
+        services.AddScoped<DeactivateCategoryItemSelectUseCase>();
 
         services.AddScoped<CreatePaymentMethodUseCase>();
         services.AddScoped<UpdatePaymentMethodUseCase>();
         services.AddScoped<DeactivatePaymentMethodUseCase>();
         services.AddScoped<GetAllPaymentMethodUseCase>();
         services.AddScoped<GetPaymentMethodByIdUseCase>();
+        services.AddScoped<DeactivatePaymentMethodSelectUseCase>();
 
         services.AddScoped<CreateCreditCardUseCase>();
         services.AddScoped<UpdateCreditCardUseCase>();

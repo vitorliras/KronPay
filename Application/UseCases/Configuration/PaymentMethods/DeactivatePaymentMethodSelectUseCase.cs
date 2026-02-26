@@ -24,7 +24,7 @@ public sealed class DeactivatePaymentMethodSelectUseCase
     public async Task<ResultEntity<Unit>> ExecuteAsync(DeactivatePaymentMethodSelectRequest requests)
     {
         var userId = _currentUser.UserId;
-        foreach (var request in requests.Categories)
+        foreach (var request in requests.PaymentMethods)
         {
             var paymentMethodItem = await _paymentMethodRepository.GetByIdAsync(request.Id, userId);
             if (paymentMethodItem is null)

@@ -270,6 +270,9 @@
   <data name="RemindMe" xml:space="preserve">
     <value>Lembre-me</value>
   </data>
+  <data name="RemoveSelected" xml:space="preserve">
+    <value>Remover selecionados</value>
+  </data>
   <data name="Reports" xml:space="preserve">
     <value>Relatórios</value>
   </data>
@@ -278,6 +281,9 @@
   </data>
   <data name="Search" xml:space="preserve">
     <value>Pesquisar</value>
+  </data>
+  <data name="SelectAtLeastOneItemToBeRemoved" xml:space="preserve">
+    <value>Selecione ao menos um item para ser removido</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Configurações</value>

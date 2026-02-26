@@ -3,5 +3,5 @@
 namespace Application.DTOs.Configuration;
 
 public sealed record DeactivatePaymentMethodSelectRequest(
-    IReadOnlyCollection<PaymentMethodIdRequest> Categories
+    IReadOnlyCollection<PaymentMethodIdRequest> PaymentMethods
 );

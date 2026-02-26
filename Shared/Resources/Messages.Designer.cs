@@ -520,6 +520,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Remover selecionados.
+        /// </summary>
+        public static string RemoveSelected {
+            get {
+                return ResourceManager.GetString("RemoveSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Relatórios.
         /// </summary>
         public static string Reports {
@@ -543,6 +552,15 @@ namespace Shared.Resources {
         public static string Search {
             get {
                 return ResourceManager.GetString("Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Selecione ao menos um item para ser removido.
+        /// </summary>
+        public static string SelectAtLeastOneItemToBeRemoved {
+            get {
+                return ResourceManager.GetString("SelectAtLeastOneItemToBeRemoved", resourceCulture);
             }
         }
         

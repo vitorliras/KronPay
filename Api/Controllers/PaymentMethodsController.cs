@@ -112,8 +112,8 @@ public sealed class PaymentMethodsController : ControllerBase
         return result.ToActionResult(_localizer);
     }
 
-    [HttpDelete("[Action]")]
-    public async Task<IActionResult> Deactivate(
+    [HttpDelete("[action]")]
+    public async Task<IActionResult> DeactivateRange(
     DeactivatePaymentMethodSelectRequest request,
     [FromServices] ValidationPipeline<DeactivatePaymentMethodSelectRequest, Unit> pipeline)
     {
