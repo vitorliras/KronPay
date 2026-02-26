@@ -120,9 +120,9 @@ public sealed class CategoryItemsController : ControllerBase
         return result.ToActionResult(_localizer);
     }
 
-    [HttpDelete("[Action]")]
-    public async Task<IActionResult> Deactivate(
-    DeactivateCategoryItemSelectRequest request,
+    [HttpDelete("[action]")]
+    public async Task<IActionResult> DeactivateRange(
+    [FromBody] DeactivateCategoryItemSelectRequest request,
     [FromServices] ValidationPipeline<DeactivateCategoryItemSelectRequest, Unit> pipeline)
     {
 
