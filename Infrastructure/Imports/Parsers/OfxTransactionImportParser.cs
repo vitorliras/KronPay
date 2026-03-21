@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions.Import;
+using Domain.Entities.Configuration;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -9,7 +10,9 @@ public sealed class OfxTransactionImportParser : ITransactionImportParser
 
     public async Task<IEnumerable<ImportedTransactionResponse>> ParseAsync(
         Stream fileStream,
-        int userId)
+        int userId,
+        IEnumerable<PaymentMethod>? paymentMethods = null,
+        IEnumerable<Category>? categories = null)
     {
         using var reader = new StreamReader(fileStream);
         var content = await reader.ReadToEndAsync();
@@ -25,6 +28,8 @@ public sealed class OfxTransactionImportParser : ITransactionImportParser
             var date = ParseDate(block);
             var amount = ParseDecimal(block, "TRNAMT");
             var description = NormalizeDescription(ParseString(block, "NAME"));
+            if(string.IsNullOrEmpty(description))
+                description = NormalizeDescription(ParseString(block, "MEMO"));
 
             result.Add(new ImportedTransactionResponse(
                 date,
@@ -32,7 +37,9 @@ public sealed class OfxTransactionImportParser : ITransactionImportParser
                 description,
                 amount < 0 ? "E" : "I",
                 "P",
-                0,
+                1,
+                null,
+                null,
                 null,
                 null
             ));

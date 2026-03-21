@@ -9,6 +9,7 @@ using Shared.Results;
 using Application.UseCases.Categories;
 using Application.DTOs.Configuration.CategoryItems;
 using Application.DTOs.Configuration;
+using Application.UseCases.PaymentMethods;
 
 [Authorize]
 [ApiController]
@@ -21,6 +22,7 @@ public sealed class CategoryItemsController : ControllerBase
     private readonly DeactivateCategoryItemSelectUseCase _deactivateRange;
     private readonly DeactivateCategoryItemUseCase _deactivate;
     private readonly GetAllCategoryItemsUseCase _getAll;
+    private readonly GetAllCategoryItemByUserUseCase _getAllUser;
     private readonly GetCategoryItemByIdUseCase _getById;
     private readonly IStringLocalizer<Messages> _localizer;
 
@@ -30,6 +32,7 @@ public sealed class CategoryItemsController : ControllerBase
         UpdateCategoryItemUseCase update,
         DeactivateCategoryItemUseCase deactivate,
         DeactivateCategoryItemSelectUseCase deactivateRange,
+        GetAllCategoryItemByUserUseCase getAllUser,
         GetAllCategoryItemsUseCase getAll,
         GetCategoryItemByIdUseCase getById,
         IStringLocalizer<Messages> localizer)
@@ -39,6 +42,7 @@ public sealed class CategoryItemsController : ControllerBase
         _update = update;
         _deactivate = deactivate;
         _deactivateRange = deactivateRange;
+        _getAllUser = getAllUser;
         _getAll = getAll;
         _getById = getById;
         _localizer = localizer;
@@ -73,6 +77,14 @@ public sealed class CategoryItemsController : ControllerBase
             _getById,
             pipeline
         );
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetAllByUser()
+    {
+        var result = await _executor.ExecuteAsync(_getAllUser);
 
         return result.ToActionResult(_localizer);
     }

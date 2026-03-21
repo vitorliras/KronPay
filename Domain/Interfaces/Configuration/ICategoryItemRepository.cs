@@ -10,4 +10,5 @@ public interface ICategoryItemRepository
     Task<CategoryItem?> GetByIdAsync(int id);
     Task<CategoryItem?> GetByDescriptionAsync(string description, int categoryId);
     Task<IEnumerable<CategoryItem>> GetAllAsync(int categoryId);
+    Task<IEnumerable<CategoryItem>> GetAllByUserIdAsync(int userId);
 }

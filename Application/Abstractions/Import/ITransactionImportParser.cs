@@ -1,4 +1,6 @@
 ﻿
+using Domain.Entities.Configuration;
+
 namespace Application.Abstractions.Import
 {
     public interface ITransactionImportParser
@@ -7,7 +9,9 @@ namespace Application.Abstractions.Import
 
         Task<IEnumerable<ImportedTransactionResponse>> ParseAsync(
             Stream fileStream,
-            int userId
+            int userId,
+            IEnumerable<PaymentMethod>? paymentMethods = null,
+            IEnumerable<Category>? categories = null
         );
     }
 }

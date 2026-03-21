@@ -41,12 +41,14 @@ namespace Infrastructure.Repositories.Transactions
         public async Task<Transaction?> GetByIdAsync(int id, int userId)
         {
             return await _context.Transactions
+                .Include(t => t.TransactionGroup)
                 .FirstOrDefaultAsync(t => t.Id == id && t.UserId == userId);
         }
 
         public async Task<IEnumerable<Transaction>> GetByYearAsync(int userId, int year)
         {
             return await _context.Transactions
+                .Include(t => t.TransactionGroup)
                 .Where(t =>
                     t.UserId == userId &&
                     t.TransactionDate.Year == year)
@@ -56,6 +58,7 @@ namespace Infrastructure.Repositories.Transactions
         public async Task<IEnumerable<Transaction>> GetByMonthAsync(int userId, int year, int month)
         {
             return await _context.Transactions
+                .Include(t => t.TransactionGroup)
                 .Where(t =>
                     t.UserId == userId &&
                     t.TransactionDate.Year == year &&
@@ -66,6 +69,7 @@ namespace Infrastructure.Repositories.Transactions
         public async Task<IEnumerable<Transaction>> GetByPeriodAsync(int userId, DateTime startDate, DateTime endDate)
         {
             return await _context.Transactions
+                .Include(t => t.TransactionGroup)
                 .Where(t =>
                     t.UserId == userId &&
                     t.TransactionDate >= startDate &&
@@ -76,6 +80,7 @@ namespace Infrastructure.Repositories.Transactions
         public async Task<IEnumerable<Transaction>> GetByGroupAsync(int transactionGroupId, int userId)
         {
             return await _context.Transactions
+                .Include(t => t.TransactionGroup)
                 .Where(t =>
                     t.TransactionGroupId == transactionGroupId &&
                     t.UserId == userId)
@@ -85,6 +90,7 @@ namespace Infrastructure.Repositories.Transactions
         public async Task<IEnumerable<Transaction>> GetFutureByGroupAsync(int transactionGroupId, int userId, DateTime fromDate)
         {
             return await _context.Transactions
+                .Include(t => t.TransactionGroup)
                 .Where(t =>
                     t.TransactionGroupId == transactionGroupId &&
                     t.UserId == userId &&
@@ -95,6 +101,7 @@ namespace Infrastructure.Repositories.Transactions
         public async Task<IEnumerable<Transaction>> GetAllTransactionAsync(int userId)
         {
             return await _context.Transactions
+                .Include(t => t.TransactionGroup)
                 .Where(t => t.UserId == userId)
                 .ToListAsync();
         }
@@ -124,7 +131,7 @@ namespace Infrastructure.Repositories.Transactions
                 .Where(t =>
                     t.TransactionGroupId == transactionGroupId &&
                     t.UserId == userId &&
-                    t.Status == "P")
+                    (t.Status == "O" || t.Status == "E"))
                 .ToListAsync();
 
             if (!transactions.Any())

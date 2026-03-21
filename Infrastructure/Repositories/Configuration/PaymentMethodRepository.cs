@@ -36,7 +36,9 @@ public sealed class PaymentMethodRepository : IPaymentMethodRepository
     public async Task<IEnumerable<PaymentMethod>> GetAllAsync(int userId)
     {
         return await _context.PaymentMethods
+            .AsNoTracking()
             .Where(x => x.UserId == userId && x.Active)
+            .OrderBy(x => x.Description)
             .ToListAsync();
     }
 

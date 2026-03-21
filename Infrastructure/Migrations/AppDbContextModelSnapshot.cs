@@ -253,7 +253,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("amount");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int")
                         .HasColumnName("category_id");
 
@@ -527,8 +527,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entities.Configuration.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entities.Configuration.CategoryItem", null)
                         .WithMany()

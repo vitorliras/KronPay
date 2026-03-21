@@ -64,6 +64,7 @@ public sealed class UpdateTransactionUseCase
             transaction.VerifyAmount(request.Amount);
             transaction.VerifyDescription(request.Description);
             transaction.VerifyCategory( request.CategoryId, request.CategoryItemId);
+            transaction.SetDate(request.TransactionDate);
 
             if (!await _transactionRepository.UpdateAsync(transaction))
                 return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);

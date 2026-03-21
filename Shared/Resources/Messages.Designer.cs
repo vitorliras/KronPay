@@ -115,11 +115,83 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Somente arquivos CSV ou OFX são permitidos..
+        /// </summary>
+        public static string AllowedFiles {
+            get {
+                return ResourceManager.GetString("AllowedFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Valor.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a ABR.
+        /// </summary>
+        public static string APR {
+            get {
+                return ResourceManager.GetString("APR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Você tem certeza que deseja excluir esse dado?.
         /// </summary>
         public static string AreYouSureRemoveData {
             get {
                 return ResourceManager.GetString("AreYouSureRemoveData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Vai ser removido todos as parcelas referente a essa transação, você tem certeza que deseja excluir as parcelas?.
+        /// </summary>
+        public static string AreYouSureRemoveDataGroup {
+            get {
+                return ResourceManager.GetString("AreYouSureRemoveDataGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Atenção.
+        /// </summary>
+        public static string Atention {
+            get {
+                return ResourceManager.GetString("Atention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Anexar.
+        /// </summary>
+        public static string Attach {
+            get {
+                return ResourceManager.GetString("Attach", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a AGO.
+        /// </summary>
+        public static string AUG {
+            get {
+                return ResourceManager.GetString("AUG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cancelar.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -151,6 +223,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Você alterou uma transação parcelada, deseja modificar esse valor para todas as outras parcelas &lt;b&gt;pendentes&lt;/b&gt;?.
+        /// </summary>
+        public static string ChangeOtherInstallments {
+            get {
+                return ResourceManager.GetString("ChangeOtherInstallments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cartôes de crédito.
         /// </summary>
         public static string CreditCard {
@@ -169,11 +250,56 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Data.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Data da transação .
+        /// </summary>
+        public static string DateTransaction {
+            get {
+                return ResourceManager.GetString("DateTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Data em que você efetuou o pagamento ou irá efetuar o pagamento.
+        /// </summary>
+        public static string DateTransactionInfo {
+            get {
+                return ResourceManager.GetString("DateTransactionInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a DEZ.
+        /// </summary>
+        public static string DEC {
+            get {
+                return ResourceManager.GetString("DEC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Remover.
         /// </summary>
         public static string Delete {
             get {
                 return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Deleteta todas as parcelas futuras dessa parcela.
+        /// </summary>
+        public static string DeleteAllInstallments {
+            get {
+                return ResourceManager.GetString("DeleteAllInstallments", resourceCulture);
             }
         }
         
@@ -214,6 +340,24 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a você deseja usar Inteligencia artificial para decidir qual o tipo e categoria da sua transação?.
+        /// </summary>
+        public static string DoYouWantToUseAi {
+            get {
+                return ResourceManager.GetString("DoYouWantToUseAi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Você deseja apenas vizualizar o anexo para em seguida salvar?.
+        /// </summary>
+        public static string DoYouWantToView {
+            get {
+                return ResourceManager.GetString("DoYouWantToView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Editar.
         /// </summary>
         public static string Edit {
@@ -250,11 +394,29 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Expirado.
+        /// </summary>
+        public static string Expired {
+            get {
+                return ResourceManager.GetString("Expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Login expirado.
         /// </summary>
         public static string ExpiredToken {
             get {
                 return ResourceManager.GetString("ExpiredToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a FEV.
+        /// </summary>
+        public static string FEB {
+            get {
+                return ResourceManager.GetString("FEB", resourceCulture);
             }
         }
         
@@ -282,6 +444,24 @@ namespace Shared.Resources {
         public static string Income {
             get {
                 return ResourceManager.GetString("Income", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Recorrência mensal contínua.
+        /// </summary>
+        public static string InfiniteRecurrence {
+            get {
+                return ResourceManager.GetString("InfiniteRecurrence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Parcelas.
+        /// </summary>
+        public static string Installments {
+            get {
+                return ResourceManager.GetString("Installments", resourceCulture);
             }
         }
         
@@ -349,6 +529,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ano Inválido.
+        /// </summary>
+        public static string InvalidYear {
+            get {
+                return ResourceManager.GetString("InvalidYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Investimento.
         /// </summary>
         public static string Investment {
@@ -372,6 +561,33 @@ namespace Shared.Resources {
         public static string ItemItemNotFound {
             get {
                 return ResourceManager.GetString("ItemItemNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a JAN.
+        /// </summary>
+        public static string JAN {
+            get {
+                return ResourceManager.GetString("JAN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a JUL.
+        /// </summary>
+        public static string JUL {
+            get {
+                return ResourceManager.GetString("JUL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a JUN.
+        /// </summary>
+        public static string JUN {
+            get {
+                return ResourceManager.GetString("JUN", resourceCulture);
             }
         }
         
@@ -403,6 +619,24 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a MAR.
+        /// </summary>
+        public static string MAR {
+            get {
+                return ResourceManager.GetString("MAR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a MAI.
+        /// </summary>
+        public static string MAY {
+            get {
+                return ResourceManager.GetString("MAY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Nome.
         /// </summary>
         public static string Name {
@@ -421,6 +655,24 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não Pagas.
+        /// </summary>
+        public static string NotPaids {
+            get {
+                return ResourceManager.GetString("NotPaids", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Não Recebido.
+        /// </summary>
+        public static string NotReceived {
+            get {
+                return ResourceManager.GetString("NotReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha não pode conter números em sequência..
         /// </summary>
         public static string NotSequencialNumberPassword {
@@ -430,11 +682,38 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a NOV.
+        /// </summary>
+        public static string NOV {
+            get {
+                return ResourceManager.GetString("NOV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Objetivos.
         /// </summary>
         public static string Objectives {
             get {
                 return ResourceManager.GetString("Objectives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a OUT.
+        /// </summary>
+        public static string OCT {
+            get {
+                return ResourceManager.GetString("OCT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pendente.
+        /// </summary>
+        public static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
             }
         }
         
@@ -453,6 +732,33 @@ namespace Shared.Resources {
         public static string OperationSuccess {
             get {
                 return ResourceManager.GetString("OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Ou arraste o arquivo aqui.
+        /// </summary>
+        public static string OrDragFile {
+            get {
+                return ResourceManager.GetString("OrDragFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pago.
+        /// </summary>
+        public static string Paid {
+            get {
+                return ResourceManager.GetString("Paid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pagas.
+        /// </summary>
+        public static string Paids {
+            get {
+                return ResourceManager.GetString("Paids", resourceCulture);
             }
         }
         
@@ -502,6 +808,33 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Recebido.
+        /// </summary>
+        public static string Received {
+            get {
+                return ResourceManager.GetString("Received", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Conta recorrente (sem parcelas).
+        /// </summary>
+        public static string RecurringExpense {
+            get {
+                return ResourceManager.GetString("RecurringExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Use esta opção para despesas que se repetem todos os meses, como assinaturas, e não possuem número fixo de parcelas..
+        /// </summary>
+        public static string RecurringExpenseDesc {
+            get {
+                return ResourceManager.GetString("RecurringExpenseDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Cadastra-se.
         /// </summary>
         public static string Register {
@@ -538,6 +871,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resultado.
+        /// </summary>
+        public static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Salvar.
         /// </summary>
         public static string Save {
@@ -561,6 +903,15 @@ namespace Shared.Resources {
         public static string SelectAtLeastOneItemToBeRemoved {
             get {
                 return ResourceManager.GetString("SelectAtLeastOneItemToBeRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a SET.
+        /// </summary>
+        public static string SEP {
+            get {
+                return ResourceManager.GetString("SEP", resourceCulture);
             }
         }
         
@@ -592,7 +943,25 @@ namespace Shared.Resources {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Trasações.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Transação.
+        /// </summary>
+        public static string Transaction {
+            get {
+                return ResourceManager.GetString("Transaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Transação não encontrada para esse período.
+        /// </summary>
+        public static string TransactionNotFound {
+            get {
+                return ResourceManager.GetString("TransactionNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Transações.
         /// </summary>
         public static string Transactions {
             get {

@@ -4,7 +4,9 @@
     string Description,
     string Type,                 
     string Status,              
-    int CategoryId,
+    int PaymentMethod,
+    int? CategoryId,
     int? CategoryItemId,
-    int? TransactionGroupId
+    int? TransactionGroupId,
+    int? Id
 );

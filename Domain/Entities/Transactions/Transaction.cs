@@ -1,5 +1,6 @@
 ﻿using Domain.Exceptions;
 using Shared.Localization;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Entities.Transactions;
 
@@ -16,7 +17,7 @@ public sealed class Transaction
     public string Status { get; private set; }
     //(Open / Paid / Canceled)
 
-    public int CategoryId { get; private set; }
+    public int? CategoryId { get; private set; }
     public int? CategoryItemId { get; private set; }
     public short? Installments { get; private set; }
     public int? IdPaymentMethod { get; private set; }
@@ -26,6 +27,31 @@ public sealed class Transaction
 
     public DateTime CreatedAt { get; private set; }
 
+    [NotMapped]
+    public string? InstallmentsText
+    {
+        get
+        {
+            if (TransactionGroup == null)
+                return null;
+
+            var start = TransactionGroup.StartDate;
+            var end = TransactionGroup.EndDate;
+
+            var total =
+                ((end.Value.Year - start.Year) * 12) +
+                (end.Value.Month - start.Month) + 1;
+
+            var atual =
+                ((TransactionDate.Year - start.Year) * 12) +
+                (TransactionDate.Month - start.Month) + 1;
+
+            atual = Math.Clamp(atual, 1, total);
+
+            return $"{atual}/{total}";
+        }
+    }
+
     protected Transaction() { }
 
     public Transaction(
@@ -34,7 +60,7 @@ public sealed class Transaction
         DateTime transactionDate,
         string description,
         string codTypeTransaction,
-        int categoryId,
+        int? categoryId = null,
         int? categoryItemId = null,
         short? installments = null,
         int? idPaymentMethod = null,
@@ -72,6 +98,7 @@ public sealed class Transaction
     public void Open() => Status = "O";
     public void Expired() => Status = "E";
     public void SetUser(int userId) => UserId = userId;
+    public void SetDate(DateTime date) => TransactionDate = date;
 
     public void VerifyAmount(decimal newAmount)
     {
@@ -89,11 +116,8 @@ public sealed class Transaction
         Description = description;
     }
 
-    public void VerifyCategory(int categoryId, int? categoryIdItem)
+    public void VerifyCategory(int? categoryId, int? categoryIdItem)
     {
-        if (categoryId <= 0)
-            throw new DomainException(MessageKeys.InvalidAmount);
-
         CategoryId = categoryId;
         CategoryItemId = categoryIdItem;
     }

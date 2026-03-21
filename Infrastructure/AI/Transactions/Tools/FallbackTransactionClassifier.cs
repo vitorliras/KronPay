@@ -35,7 +35,9 @@ public sealed class FallbackTransactionClassifier
 
         var normalized = description.ToUpperInvariant();
 
-        var isInvestment = InvestmentKeywords.Any(k => normalized.Contains(k));
+        var words = normalized.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        var isInvestment = InvestmentKeywords.Any(k => words.Contains(k));
 
         return new TransactionAiSuggestion(
             IsInvestment: isInvestment,

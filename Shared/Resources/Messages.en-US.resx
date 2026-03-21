@@ -135,8 +135,33 @@
   <data name="All" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="AllowedFiles" xml:space="preserve">
+    <value>Only CSV or OFX files are allowed.</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="APR" xml:space="preserve">
+    <value>APR</value>
+  </data>
   <data name="AreYouSureRemoveData" xml:space="preserve">
     <value>Are you sure you want to delete this data?</value>
+  </data>
+  <data name="AreYouSureRemoveDataGroup" xml:space="preserve">
+    <value>All installments related to this transaction will be removed. Are you sure you want to delete the installments?</value>
+    <comment>Va</comment>
+  </data>
+  <data name="Atention" xml:space="preserve">
+    <value>Atention</value>
+  </data>
+  <data name="Attach" xml:space="preserve">
+    <value>Attach</value>
+  </data>
+  <data name="AUG" xml:space="preserve">
+    <value>AUG</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="Categories" xml:space="preserve">
     <value>Categories</value>
@@ -147,14 +172,35 @@
   <data name="CategoryNotFound" xml:space="preserve">
     <value>Category not found</value>
   </data>
+  <data name="ChangeOtherInstallments" xml:space="preserve">
+    <value>You modified an installment transaction; do you want to modify this value for all other &lt;b&gt;pending&lt;/b&gt; installments?</value>
+  </data>
   <data name="CreditCard" xml:space="preserve">
     <value>Credit Cards</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DateTransaction" xml:space="preserve">
+    <value>Trasaction date</value>
+  </data>
+  <data name="DateTransactionInfo" xml:space="preserve">
+    <value>Date on which you made or will make the payment.</value>
+  </data>
+  <data name="DEC" xml:space="preserve">
+    <value>DEC</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="DeleteAllInstallments" xml:space="preserve">
+    <value>auto_awesome
+Você quis dizer: Deletar todas as parcelas futuras dessa parcela
+48
+Delete all future installments of this installment.</value>
   </data>
   <data name="DeleteCategory" xml:space="preserve">
     <value>Delete category</value>
@@ -168,6 +214,12 @@
   <data name="DoNotHaveAccount" xml:space="preserve">
     <value>Do not have account?</value>
   </data>
+  <data name="DoYouWantToUseAi" xml:space="preserve">
+    <value>Do you want to use artificial intelligence to decide the type and category of your transaction?</value>
+  </data>
+  <data name="DoYouWantToView" xml:space="preserve">
+    <value>Do you only want to view the attachment and then save it?</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -180,8 +232,14 @@
   <data name="Expense" xml:space="preserve">
     <value>Expense</value>
   </data>
+  <data name="Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
   <data name="ExpiredToken" xml:space="preserve">
     <value>Expired token</value>
+  </data>
+  <data name="FEB" xml:space="preserve">
+    <value>FEB</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>Forgot your password?</value>
@@ -191,6 +249,12 @@
   </data>
   <data name="Income" xml:space="preserve">
     <value>Income</value>
+  </data>
+  <data name="InfiniteRecurrence" xml:space="preserve">
+    <value>Continuous monthly recurrence</value>
+  </data>
+  <data name="Installments" xml:space="preserve">
+    <value>Installments</value>
   </data>
   <data name="InvalidCpf" xml:space="preserve">
     <value>Invalid cpf</value>
@@ -222,6 +286,15 @@
   <data name="ItemItemNotFound" xml:space="preserve">
     <value>No records found. Please register a new one to be able to view it.</value>
   </data>
+  <data name="JAN" xml:space="preserve">
+    <value>JAN</value>
+  </data>
+  <data name="JUL" xml:space="preserve">
+    <value>JUL</value>
+  </data>
+  <data name="JUN" xml:space="preserve">
+    <value>JUN</value>
+  </data>
   <data name="LengthPassword8" xml:space="preserve">
     <value>The password must contain at least 8 characters.</value>
   </data>
@@ -231,23 +304,53 @@
   <data name="MakeLoginForAccessYourAccount" xml:space="preserve">
     <value>Make login for access your account</value>
   </data>
+  <data name="MAR" xml:space="preserve">
+    <value>MAR</value>
+  </data>
+  <data name="MAY" xml:space="preserve">
+    <value>MAY</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="NotPaids" xml:space="preserve">
+    <value>Not Paids</value>
+  </data>
+  <data name="NotReceived" xml:space="preserve">
+    <value>Not Received</value>
+  </data>
   <data name="NotSequencialNumberPassword" xml:space="preserve">
     <value>The password cannot coantain sequencial number</value>
   </data>
+  <data name="NOV" xml:space="preserve">
+    <value>NOV</value>
+  </data>
   <data name="Objectives" xml:space="preserve">
     <value>Objectives</value>
+  </data>
+  <data name="OCT" xml:space="preserve">
+    <value>OCT</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
   </data>
   <data name="OperationFailed" xml:space="preserve">
     <value>Operation falied</value>
   </data>
   <data name="OperationSuccess" xml:space="preserve">
     <value>Operation Success</value>
+  </data>
+  <data name="OrDragFile" xml:space="preserve">
+    <value>Or drag the file here.</value>
+  </data>
+  <data name="Paid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="Paids" xml:space="preserve">
+    <value>Paids</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -264,6 +367,15 @@
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
   </data>
+  <data name="Received" xml:space="preserve">
+    <value>Received</value>
+  </data>
+  <data name="RecurringExpense" xml:space="preserve">
+    <value>Recurring account (no installments)</value>
+  </data>
+  <data name="RecurringExpenseDesc" xml:space="preserve">
+    <value>Use this option for expenses that recur every month, such as subscriptions, and do not have a fixed number of installments.</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
@@ -276,6 +388,9 @@
   <data name="Reports" xml:space="preserve">
     <value>Reports</value>
   </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -285,6 +400,9 @@
   <data name="SelectAtLeastOneItemToBeRemoved" xml:space="preserve">
     <value>Select at least one item to be removed.</value>
   </data>
+  <data name="SEP" xml:space="preserve">
+    <value>SEP</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
@@ -293,6 +411,12 @@
   </data>
   <data name="Subcategories" xml:space="preserve">
     <value>Subcategories</value>
+  </data>
+  <data name="Transaction" xml:space="preserve">
+    <value>Transaction</value>
+  </data>
+  <data name="TransactionNotFound" xml:space="preserve">
+    <value>No transaction found for this period.</value>
   </data>
   <data name="Transactions" xml:space="preserve">
     <value>Transactions</value>
