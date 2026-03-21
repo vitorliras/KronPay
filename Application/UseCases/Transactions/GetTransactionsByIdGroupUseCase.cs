@@ -38,9 +38,13 @@ public sealed class GetTransactionsByIdGroupUseCase
             t.CodTypeTransaction,
             t.TransactionDate,
             t.Status,
+            t.IdPaymentMethod,
             t.CategoryId,
+            t.Installments,
             t.CategoryItemId,
             t.TransactionGroupId,
+            t.InstallmentsText,
+            t.TransactionGroup != null ? t.TransactionGroup.Type : string.Empty,
             t.CreatedAt
         ));
 

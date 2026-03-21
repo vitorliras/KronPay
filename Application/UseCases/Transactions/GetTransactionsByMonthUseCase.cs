@@ -27,6 +27,9 @@ public sealed class GetTransactionsByMonthUseCase
         var transactions = await _transactionRepository
             .GetByMonthAsync(userId, request.Year, request.Month);
 
+        if (transactions is null || transactions.Count() <= 0)
+            return ResultEntity<IEnumerable<TransactionFullResponse>>.Failure(MessageKeys.TransactionNotFound);
+
         var response = transactions.Select(t => new TransactionFullResponse(
             t.Id,
             t.UserId,
@@ -35,9 +38,13 @@ public sealed class GetTransactionsByMonthUseCase
             t.CodTypeTransaction,
             t.TransactionDate,
             t.Status,
+            t.IdPaymentMethod,
             t.CategoryId,
+            t.Installments,
             t.CategoryItemId,
             t.TransactionGroupId,
+            t.InstallmentsText,
+            t.TransactionGroup != null ? t.TransactionGroup.Type : string.Empty,
             t.CreatedAt
         ));
 

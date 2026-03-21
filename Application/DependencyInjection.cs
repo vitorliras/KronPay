@@ -35,6 +35,7 @@ public static class DependencyInjection
         services.AddScoped<GetAllCategoryItemsUseCase>();
         services.AddScoped<GetCategoryItemByIdUseCase>();
         services.AddScoped<DeactivateCategoryItemSelectUseCase>();
+        services.AddScoped<GetAllCategoryItemByUserUseCase>();
 
         services.AddScoped<CreatePaymentMethodUseCase>();
         services.AddScoped<UpdatePaymentMethodUseCase>();
@@ -59,6 +60,8 @@ public static class DependencyInjection
         services.AddScoped<ImportTransactionsUseCase>();
         services.AddScoped<CreateTransactionRangeUseCase>();
         services.AddScoped<DeleteTransactionRangeUseCase>();
+        services.AddScoped<ChangeStatusTransactionRangeUseCase>();
+        services.AddScoped<UpdateTransactionRangeUseCase>();
 
 
         return services;

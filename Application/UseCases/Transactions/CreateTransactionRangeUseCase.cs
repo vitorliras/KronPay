@@ -52,9 +52,7 @@ public sealed class CreateTransactionRangeUseCase
 
         return ResultEntity<TransactionRangeResponse>.Success(
             new TransactionRangeResponse(
-                 request.Transactions.Count(),
-                 MessageKeys.OperationSuccess,
-                 true
+                 request.Transactions.Count()
             ), MessageKeys.OperationSuccess
         );
 

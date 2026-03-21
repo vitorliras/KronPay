@@ -37,9 +37,13 @@ public sealed class GetTransactionsByYearUseCase
             t.CodTypeTransaction,
             t.TransactionDate,
             t.Status,
+            t.IdPaymentMethod,
             t.CategoryId,
+            t.Installments,
             t.CategoryItemId,
             t.TransactionGroupId,
+            t.InstallmentsText,
+            t.TransactionGroup != null ? t.TransactionGroup.Type : null,
             t.CreatedAt
         ));
 

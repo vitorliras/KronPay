@@ -20,6 +20,8 @@ public sealed class TransactionsController : ControllerBase
     private readonly CreateTransactionRangeUseCase _createRange;
     private readonly UpdateTransactionUseCase _update;
     private readonly ChangeStatusTransactionUseCase _changeStatus;
+    private readonly ChangeStatusTransactionRangeUseCase _changeStatusRange;
+    private readonly UpdateTransactionRangeUseCase _updateRange;
     private readonly DeleteTransactionUseCase _delete;
     private readonly DeleteTransactionRangeUseCase _deleteRange;
     private readonly GetTransactionsByIdGroupUseCase _getAllByGroup;
@@ -34,11 +36,13 @@ public sealed class TransactionsController : ControllerBase
         CreateTransactionRangeUseCase createRange,
         UpdateTransactionUseCase update,
         ChangeStatusTransactionUseCase changeStatus,
+        ChangeStatusTransactionRangeUseCase changeStatusRange,
         DeleteTransactionUseCase delete,
         DeleteTransactionRangeUseCase deleteRange,
         GetTransactionsByIdGroupUseCase getAllByGroup,
         GetTransactionsByMonthUseCase getAllByMonth,
         GetTransactionsByYearUseCase getAllByYear,
+        UpdateTransactionRangeUseCase updateRange,
         ImportTransactionsUseCase import,
         IStringLocalizer<Messages> localizer)
     {
@@ -51,9 +55,11 @@ public sealed class TransactionsController : ControllerBase
         _deleteRange = deleteRange;
         _getAllByGroup = getAllByGroup;
         _getAllByMonth = getAllByMonth;
+        _changeStatusRange = changeStatusRange;
         _getAllByYear = getAllByYear;
         _getAllByYear = getAllByYear;
         _localizer = localizer;
+        _updateRange = updateRange;
         _import = import;
     }
 
@@ -161,6 +167,34 @@ public sealed class TransactionsController : ControllerBase
         return result.ToActionResult(_localizer);
     }
 
+    [HttpPut("[action]")]
+    public async Task<IActionResult> ChangeStatusRange(
+      ChangeStatusTransactionRangeRequest request,
+      [FromServices] ValidationPipeline<ChangeStatusTransactionRangeRequest, TransactionRangeResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(
+            request,
+            _changeStatusRange,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPut("[action]")]
+    public async Task<IActionResult> UpdateRange(
+      UpdtadeRangeTransaction request,
+      [FromServices] ValidationPipeline<UpdtadeRangeTransaction, TransactionRangeResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(
+            request,
+            _updateRange,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
     [HttpDelete("[action]")]
     public async Task<IActionResult> Delete(
     DeleteTransactionRequest request,
@@ -178,8 +212,8 @@ public sealed class TransactionsController : ControllerBase
 
     [HttpDelete("[action]")]
     public async Task<IActionResult> DeleteRange(
-       TransactionRangeRequest request,
-       [FromServices] ValidationPipeline<TransactionRangeRequest, TransactionRangeResponse> pipeline)
+       DeactivateTransactionSelectRequest request,
+       [FromServices] ValidationPipeline<DeactivateTransactionSelectRequest, TransactionRangeResponse> pipeline)
     {
 
         var result = await _executor.ExecuteAsync(

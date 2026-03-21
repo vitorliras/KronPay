@@ -8,6 +8,5 @@ public sealed record UpdateTransactionRequest(
     bool UpdateGroup,
     string status,
     int CategoryId,
-    int? CategoryItemId,
-    DateTime? FromDate            
+    int? CategoryItemId
 );

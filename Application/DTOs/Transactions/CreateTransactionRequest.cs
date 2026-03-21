@@ -5,10 +5,10 @@ public sealed record CreateTransactionRequest(
     decimal Amount,
     DateTime TransactionDate,
     string CodTypeTransaction,   // E | I | V
-    string RecurrenceType,       // F | I | N 
+    string RecurrenceType,       // F | I 
     DateTime? EndDate,          
     short Installments,
-    int CategoryId,
+    int? CategoryId,
     int? CategoryItemId,
     int? idMethodPayment
 );

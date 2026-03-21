@@ -8,9 +8,13 @@ public sealed record TransactionFullResponse(
     string CodTypeTransaction,
     DateTime TransactionDate,
     string Status,
-    int CategoryId,
-    int? CategorItemyId,
+    int?  IdPaymentMethod,
+    int? CategoryId,
+    int? Installments,
+    int? categoryItemId,
     int? TransactionGroupId,
+    string? InstallmentsText,
+    string? TypeGroup,
     DateTime CreatedAt
 );
 

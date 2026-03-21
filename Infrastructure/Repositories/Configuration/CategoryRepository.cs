@@ -36,7 +36,9 @@ public sealed class CategoryRepository : ICategoryRepository
     public async Task<IEnumerable<Category>> GetAllAsync(int userId)
     {
         return await _context.Categories
+            .AsNoTracking()
             .Where(x => x.UserId == userId && x.Active)
+            .OrderBy(x => x.Description)
             .ToListAsync();
     }
 

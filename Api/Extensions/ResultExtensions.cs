@@ -18,6 +18,6 @@ public static class ResultExtensions
             return new OkObjectResult(result);
         }
 
-        return new BadRequestObjectResult(result);
+        return new OkObjectResult(result);
     }
 }
