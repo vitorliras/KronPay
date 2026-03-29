@@ -61,6 +61,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Acumulado.
+        /// </summary>
+        public static string Accumulated {
+            get {
+                return ResourceManager.GetString("Accumulated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Acões.
         /// </summary>
         public static string Actions {
@@ -133,6 +142,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resumo Anual.
+        /// </summary>
+        public static string AnnualSummary {
+            get {
+                return ResourceManager.GetString("AnnualSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a ABR.
         /// </summary>
         public static string APR {
@@ -183,6 +201,15 @@ namespace Shared.Resources {
         public static string AUG {
             get {
                 return ResourceManager.GetString("AUG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Melhor mês.
+        /// </summary>
+        public static string BestMonth {
+            get {
+                return ResourceManager.GetString("BestMonth", resourceCulture);
             }
         }
         
@@ -376,6 +403,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Evolução do investimento do ano.
+        /// </summary>
+        public static string EvolutionInvestment {
+            get {
+                return ResourceManager.GetString("EvolutionInvestment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Existe registro vinculado a esse, logo não pode ser desativado.
         /// </summary>
         public static string ExistsAnotherRegister {
@@ -439,11 +475,38 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Maior despesa.
+        /// </summary>
+        public static string HigherExpense {
+            get {
+                return ResourceManager.GetString("HigherExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Maior receita.
+        /// </summary>
+        public static string HigherIncome {
+            get {
+                return ResourceManager.GetString("HigherIncome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Receita.
         /// </summary>
         public static string Income {
             get {
                 return ResourceManager.GetString("Income", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Receitas x Despesas por mês.
+        /// </summary>
+        public static string IncomeVsExpensePerMonth {
+            get {
+                return ResourceManager.GetString("IncomeVsExpensePerMonth", resourceCulture);
             }
         }
         
@@ -637,11 +700,47 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Mês.
+        /// </summary>
+        public static string Month {
+            get {
+                return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resumo Mensal.
+        /// </summary>
+        public static string MonthlySummary {
+            get {
+                return ResourceManager.GetString("MonthlySummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Movimentação por dia.
+        /// </summary>
+        public static string MovementPerDay {
+            get {
+                return ResourceManager.GetString("MovementPerDay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Nome.
         /// </summary>
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Meses negativos.
+        /// </summary>
+        public static string NegativeMonths {
+            get {
+                return ResourceManager.GetString("NegativeMonths", resourceCulture);
             }
         }
         
@@ -804,6 +903,15 @@ namespace Shared.Resources {
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Meses positivos.
+        /// </summary>
+        public static string PositiveMonths {
+            get {
+                return ResourceManager.GetString("PositiveMonths", resourceCulture);
             }
         }
         
@@ -1029,6 +1137,15 @@ namespace Shared.Resources {
         public static string WelcomeBack {
             get {
                 return ResourceManager.GetString("WelcomeBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Pior mês.
+        /// </summary>
+        public static string WorstMonth {
+            get {
+                return ResourceManager.GetString("WorstMonth", resourceCulture);
             }
         }
         
