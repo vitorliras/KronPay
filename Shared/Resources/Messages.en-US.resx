@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accumulated" xml:space="preserve">
+    <value>Accumulated</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Amount" xml:space="preserve">
     <value>Amount</value>
   </data>
+  <data name="AnnualSummary" xml:space="preserve">
+    <value>Annual Summary</value>
+  </data>
   <data name="APR" xml:space="preserve">
     <value>APR</value>
   </data>
@@ -159,6 +165,9 @@
   </data>
   <data name="AUG" xml:space="preserve">
     <value>AUG</value>
+  </data>
+  <data name="BestMonth" xml:space="preserve">
+    <value>Best Month</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -226,6 +235,9 @@ Delete all future installments of this installment.</value>
   <data name="Enter" xml:space="preserve">
     <value>Enter</value>
   </data>
+  <data name="EvolutionInvestment" xml:space="preserve">
+    <value>Yearly Investment Evolution</value>
+  </data>
   <data name="ExistsAnotherRegister" xml:space="preserve">
     <value>There is a record linked to this, so it cannot be deactivated.</value>
   </data>
@@ -247,8 +259,17 @@ Delete all future installments of this installment.</value>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
   </data>
+  <data name="HigherExpense" xml:space="preserve">
+    <value>Higher expense</value>
+  </data>
+  <data name="HigherIncome" xml:space="preserve">
+    <value>Higher income</value>
+  </data>
   <data name="Income" xml:space="preserve">
     <value>Income</value>
+  </data>
+  <data name="IncomeVsExpensePerMonth" xml:space="preserve">
+    <value>Monthly Income vs. Expenses</value>
   </data>
   <data name="InfiniteRecurrence" xml:space="preserve">
     <value>Continuous monthly recurrence</value>
@@ -310,8 +331,20 @@ Delete all future installments of this installment.</value>
   <data name="MAY" xml:space="preserve">
     <value>MAY</value>
   </data>
+  <data name="Month" xml:space="preserve">
+    <value>Month</value>
+  </data>
+  <data name="MonthlySummary" xml:space="preserve">
+    <value>Monthly Summary</value>
+  </data>
+  <data name="MovementPerDay" xml:space="preserve">
+    <value>Moviment per day</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="NegativeMonths" xml:space="preserve">
+    <value>Negative months</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
@@ -366,6 +399,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
+  </data>
+  <data name="PositiveMonths" xml:space="preserve">
+    <value>Positive month</value>
   </data>
   <data name="Received" xml:space="preserve">
     <value>Received</value>
@@ -441,6 +477,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="WelcomeBack" xml:space="preserve">
     <value>Welcome back</value>
+  </data>
+  <data name="WorstMonth" xml:space="preserve">
+    <value>Worst month</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
