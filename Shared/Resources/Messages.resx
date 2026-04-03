@@ -238,6 +238,9 @@
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Email já existe</value>
   </data>
+  <data name="EndSession" xml:space="preserve">
+    <value>Tem certeza que deseja encerrar a sessão?</value>
+  </data>
   <data name="Enter" xml:space="preserve">
     <value>Entrar</value>
   </data>
@@ -339,6 +342,9 @@
   </data>
   <data name="LengthPassword8" xml:space="preserve">
     <value>A senha deve conter no mínimo 8 caracteres.</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Sair</value>
   </data>
   <data name="LowercaseLetterPassword" xml:space="preserve">
     <value>A senha deve conter letra minúscula.</value>

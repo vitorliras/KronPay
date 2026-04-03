@@ -241,6 +241,9 @@ Delete all future installments of this installment.</value>
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Email Already Exists</value>
   </data>
+  <data name="EndSession" xml:space="preserve">
+    <value>Are you sure you want to end the session?</value>
+  </data>
   <data name="Enter" xml:space="preserve">
     <value>Enter</value>
   </data>
@@ -339,6 +342,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="LengthPassword8" xml:space="preserve">
     <value>The password must contain at least 8 characters.</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="LowercaseLetterPassword" xml:space="preserve">
     <value>The password must contain lowercase letter</value>
