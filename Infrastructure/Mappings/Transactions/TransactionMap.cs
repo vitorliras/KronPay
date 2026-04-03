@@ -39,7 +39,7 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
 
         builder.Property(x => x.Description)
             .HasColumnName("description")
-            .HasMaxLength(100)
+            .HasMaxLength(300)
             .IsRequired();
 
         builder.Property(x => x.CodTypeTransaction)

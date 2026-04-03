@@ -17,13 +17,15 @@ public sealed class CreateTransactionRangeUseCase
     private readonly ITransactionRepository _transactionRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICurrentUserService _currentUser;
+    private readonly ICategoryRepository _lol;
 
     public CreateTransactionRangeUseCase(
-        ITransactionRepository transactionRepository,IUnitOfWork unitOfWork, ICurrentUserService currentUser)
+        ITransactionRepository transactionRepository,IUnitOfWork unitOfWork, ICurrentUserService currentUser, ICategoryRepository lol)
     {
         _transactionRepository = transactionRepository;
         _unitOfWork = unitOfWork;
         _currentUser = currentUser;
+        _lol = lol;
     }
 
     public async Task<ResultEntity<TransactionRangeResponse>> ExecuteAsync(TransactionRangeRequest request)

@@ -430,6 +430,9 @@ Delete all future installments of this installment.</value>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SaveAttachInvalid" xml:space="preserve">
+    <value>There are transactions with required fields that are not filled in.</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>

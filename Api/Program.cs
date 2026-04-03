@@ -75,6 +75,7 @@ builder.Services.AddCors(options =>
         {
             policy
                 .WithOrigins("http://localhost:4200")
+                .WithOrigins("http://localhost:8080")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();
@@ -140,7 +141,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+app.UseDefaultFiles(); 
+app.UseStaticFiles(); 
+
 app.MapControllers();
+
+app.MapFallbackToFile("index.html");
 
 app.Run();
 
