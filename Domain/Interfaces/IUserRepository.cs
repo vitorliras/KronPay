@@ -7,6 +7,7 @@ public interface IUserRepository
     Task<TypeUser?> GetTypeUserByCode(string code);
     Task<User?> GetByCpfAsync(string cpf);
     Task<User?> GetByUsernameAsync(string username);
+    Task<User?> GetByIdAsync(int id);
     Task<bool> AddAsync(User user);
     bool Update(User user);
 }
