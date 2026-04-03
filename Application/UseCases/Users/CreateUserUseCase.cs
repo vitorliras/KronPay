@@ -34,19 +34,19 @@ public sealed class CreateUserUseCase
             var existingUser = await _userRepository.GetByEmailAsync(request.Email);
             if (existingUser is not null)
             {
-                return ResultEntity<UserResponse>.Failure(MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure(MessageKeys.EmailAlreadyExists);
             }
 
             existingUser = await _userRepository.GetByCpfAsync(request.Cpf);
             if (existingUser is not null)
             {
-                return ResultEntity<UserResponse>.Failure( MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure( MessageKeys.CpfAlreadyExists);
             }
 
             existingUser = await _userRepository.GetByUsernameAsync(request.Username);
             if (existingUser is not null)
             {
-                return ResultEntity<UserResponse>.Failure( MessageKeys.UserAlreadyExists);
+                return ResultEntity<UserResponse>.Failure( MessageKeys.UsernameAlreadyExists);
             }
 
             var name = Name.Create(request.Name);
@@ -71,11 +71,11 @@ public sealed class CreateUserUseCase
 
             var result = await _userRepository.AddAsync(user);
             if (!result)
-                return ResultEntity<UserResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<UserResponse>.Failure(MessageKeys.InsertFalied);
 
             var uow = await _uow.CommitAsync();
             if (!uow)
-                return ResultEntity<UserResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<UserResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
 
             return ResultEntity<UserResponse>.Success(

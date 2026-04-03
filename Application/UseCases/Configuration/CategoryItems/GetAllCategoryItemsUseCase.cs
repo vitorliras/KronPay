@@ -22,7 +22,7 @@ public sealed class GetAllCategoryItemsUseCase
     public async Task<ResultEntity<IEnumerable<CategoryItemResponse>>> ExecuteAsync(GetAllCategoryItemsRequest request)
     {
         if(request.CategoryId <= 0)
-            return ResultEntity<IEnumerable<CategoryItemResponse>>.Failure(MessageKeys.ItemItemNotFound);
+            return ResultEntity<IEnumerable<CategoryItemResponse>>.Failure(MessageKeys.SubcategoryNotFound);
 
         var categories = await _repository.GetAllAsync(request.CategoryId);
 
@@ -35,7 +35,7 @@ public sealed class GetAllCategoryItemsUseCase
             ));
 
         if(!response.Any())
-            return ResultEntity<IEnumerable<CategoryItemResponse>>.Failure(MessageKeys.ItemItemNotFound);
+            return ResultEntity<IEnumerable<CategoryItemResponse>>.Failure(MessageKeys.SubcategoryNotFound);
 
         return ResultEntity<IEnumerable<CategoryItemResponse>>.Success(response, MessageKeys.OperationSuccess);
     }

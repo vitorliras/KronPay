@@ -45,7 +45,7 @@ public sealed class ImportTransactionsUseCase
 
         var parser = _parsers.FirstOrDefault(p => p.CanParse(request.FileName));
         if (parser is null)
-            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.UnsupportedFileFormat);
 
         var paymentMethods = await _paymentMethodRepository.GetAllAsync(userId);
         var categories = await _categoryRepository.GetAllAsync(userId);
@@ -155,12 +155,12 @@ public sealed class ImportTransactionsUseCase
 
         var add = await _transactionRepository.AddRangeAsync(transactionsToSave);
         if (!add)
-            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.InsertFalied);
 
         var committed = await _unitOfWork.CommitAsync();
         
         if (!committed)
-            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         var responseTransactions = updatedImportedTransactions
             .Select((t, index) => t with

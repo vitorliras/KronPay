@@ -40,11 +40,11 @@ public sealed class CreateCategoryUseCase
         
         var result = await _categoryRepository.AddAsync(category);
         if (!result)
-            return ResultEntity<CategoryResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<CategoryResponse>.Failure(MessageKeys.InsertFalied);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<CategoryResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<CategoryResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<CategoryResponse>.Success(
             new CategoryResponse(

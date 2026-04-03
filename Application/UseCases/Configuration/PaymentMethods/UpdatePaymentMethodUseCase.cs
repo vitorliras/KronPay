@@ -39,11 +39,11 @@ public sealed class UpdatePaymentMethodUseCase
 
         var result =  _paymentMethodRepository.Update(paymentMethod);
         if (!result)
-            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.UpdateFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<PaymentMethodResponse>.Success(
             new PaymentMethodResponse(

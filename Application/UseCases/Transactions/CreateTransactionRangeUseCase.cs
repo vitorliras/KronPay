@@ -34,7 +34,7 @@ public sealed class CreateTransactionRangeUseCase
 
         if (request.Transactions is null || !request.Transactions.Any())
         {
-            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.TransactionNotFound);
         }
 
         foreach (var transaction in request.Transactions)
@@ -45,12 +45,12 @@ public sealed class CreateTransactionRangeUseCase
         var added = await _transactionRepository.AddRangeAsync(request.Transactions);
 
         if (!added)
-            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.InsertFalied);
 
         var uow = await _unitOfWork.CommitAsync();
 
         if (!uow)
-            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<TransactionRangeResponse>.Success(
             new TransactionRangeResponse(

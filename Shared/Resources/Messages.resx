@@ -185,10 +185,13 @@
     <value>Você alterou uma transação parcelada, deseja modificar esse valor para todas as outras parcelas &lt;b&gt;pendentes&lt;/b&gt;?</value>
   </data>
   <data name="CreditCard" xml:space="preserve">
-    <value>Cartôes de crédito</value>
+    <value>Cartões de crédito</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Gráficos</value>
+  </data>
+  <data name="DataPersistenceFailed." xml:space="preserve">
+    <value>Falha ao persistir os dados</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Data</value>
@@ -211,6 +214,9 @@
   <data name="DeleteCategory" xml:space="preserve">
     <value>Deletar categoria</value>
   </data>
+  <data name="DeleteFailed." xml:space="preserve">
+    <value>falha ao fazer a remoção</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Descrição</value>
   </data>
@@ -228,6 +234,9 @@
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Editar</value>
+  </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>Email já existe</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Entrar</value>
@@ -253,6 +262,15 @@
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>Esqueceu sua Senha?</value>
   </data>
+  <data name="GroupDeleteFailed" xml:space="preserve">
+    <value>Falha ao deletar o grupo</value>
+  </data>
+  <data name="GroupInsertonFailed" xml:space="preserve">
+    <value>Falha ao inserir o grupo</value>
+  </data>
+  <data name="GroupUpdateFailed" xml:space="preserve">
+    <value>Falha ao atualizar o grupo</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Olá</value>
   </data>
@@ -270,6 +288,9 @@
   </data>
   <data name="InfiniteRecurrence" xml:space="preserve">
     <value>Recorrência mensal contínua</value>
+  </data>
+  <data name="InsertFalied" xml:space="preserve">
+    <value>Falha ao fazer a inserção</value>
   </data>
   <data name="Installments" xml:space="preserve">
     <value>Parcelas</value>
@@ -304,7 +325,7 @@
   <data name="Investments" xml:space="preserve">
     <value>Investimentos</value>
   </data>
-  <data name="ItemItemNotFound" xml:space="preserve">
+  <data name="ItemNotFound" xml:space="preserve">
     <value>Nenhum registro encontrado. Cadastre um novo para poder consulta-lo.</value>
   </data>
   <data name="JAN" xml:space="preserve">
@@ -451,6 +472,9 @@
   <data name="Subcategories" xml:space="preserve">
     <value>Sub categorias</value>
   </data>
+  <data name="SubcategoryNotFound" xml:space="preserve">
+    <value>Subcategoria não encontrado</value>
+  </data>
   <data name="Transaction" xml:space="preserve">
     <value>Transação</value>
   </data>
@@ -466,6 +490,12 @@
   <data name="UNEXPECTED_ERROR" xml:space="preserve">
     <value>ERRO INESPERADO</value>
   </data>
+  <data name="UnsupportedFileFormat" xml:space="preserve">
+    <value>Formato de arquivo não suportado</value>
+  </data>
+  <data name="UpdateFailed." xml:space="preserve">
+    <value>falha ao fazer a atualização</value>
+  </data>
   <data name="UppercaseLetterPassword" xml:space="preserve">
     <value>A senha deve conter letra maiúscula.</value>
   </data>
@@ -474,6 +504,9 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nome do usuário</value>
+  </data>
+  <data name="UsernameAlreadyExists" xml:space="preserve">
+    <value>Nome do usuário já existe</value>
   </data>
   <data name="UsernameOrPasswordIsIncorrect" xml:space="preserve">
     <value>Usuário ou senha está incorreto</value>

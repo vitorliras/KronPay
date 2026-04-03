@@ -40,11 +40,11 @@ public sealed class LoginUseCase
 
         var result = _userRepository.Update(user);
         if (!result)
-            return ResultEntity<LoginResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<LoginResponse>.Failure(MessageKeys.UpdateFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<LoginResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<LoginResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         var type = await _userRepository.GetTypeUserByCode(user.UserType);
 

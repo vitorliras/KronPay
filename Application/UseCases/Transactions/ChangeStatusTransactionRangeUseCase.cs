@@ -44,14 +44,14 @@ public sealed class ChangeStatusTransactionRangeUseCase
             if (request.Status.Equals("O"))  transaction.Open();
 
             if (!await _transactionRepository.UpdateAsync(transaction))
-                return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.UpdateFailed);
             }
 
         }
 
 
         if (!await _uow.CommitAsync())
-            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<TransactionRangeResponse>.Success(
             new TransactionRangeResponse(

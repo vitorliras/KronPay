@@ -48,7 +48,7 @@ public sealed class UpdateTransactionUseCase
                     });
 
             if (!result)
-                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.GroupUpdateFailed);
 
             affected = (
                 await _transactionRepository
@@ -67,11 +67,11 @@ public sealed class UpdateTransactionUseCase
             transaction.SetDate(request.TransactionDate);
 
             if (!await _transactionRepository.UpdateAsync(transaction))
-                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.UpdateFailed);
         }
 
         if (!await _uow.CommitAsync())
-            return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(

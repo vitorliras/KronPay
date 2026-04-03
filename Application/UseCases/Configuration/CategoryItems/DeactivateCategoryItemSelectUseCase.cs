@@ -29,19 +29,19 @@ public sealed class DeactivateCategoryItemSelectUseCase
         {
             var sub = await _repository.GetByIdAsync(item.Id);
             if (sub == null)
-                return ResultEntity<Unit>.Failure(MessageKeys.CategoryNotFound);
+                return ResultEntity<Unit>.Failure(MessageKeys.SubcategoryNotFound);
 
             sub.Deactivate();
 
             var result = _repository.Update(sub);
 
             if (!result)
-                return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<Unit>.Failure(MessageKeys.UpdateFailed);
         }
 
         var committed = await _uow.CommitAsync();
         if (!committed)
-            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<Unit>.Success(Unit.Value, MessageKeys.OperationSuccess);
     }

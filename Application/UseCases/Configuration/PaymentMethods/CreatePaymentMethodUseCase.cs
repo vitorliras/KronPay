@@ -38,11 +38,11 @@ public sealed class CreatePaymentMethodUseCase
         
         var result = await _paymentMethodRepository.AddAsync(paymentMethod);
         if (!result)
-            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.InsertFalied);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<PaymentMethodResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<PaymentMethodResponse>.Success(
             new PaymentMethodResponse(

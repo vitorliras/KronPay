@@ -40,11 +40,11 @@ public sealed class ChangeStatusTransactionUseCase
             if (request.Status.Equals("O"))  transaction.Open();
 
             if (!await _transactionRepository.UpdateAsync(transaction))
-                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.UpdateFailed);
         }
 
         if (!await _uow.CommitAsync())
-            return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<TransactionResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(

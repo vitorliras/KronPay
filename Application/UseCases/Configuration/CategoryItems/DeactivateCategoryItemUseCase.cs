@@ -22,16 +22,16 @@ public sealed class DeactivateCategoryItemUseCase
     {
         var category = await _categoryRepository.GetByIdAsync(request.Id);
         if (category is null)
-            return ResultEntity<Unit>.Failure(MessageKeys.CategoryNotFound);
+            return ResultEntity<Unit>.Failure(MessageKeys.SubcategoryNotFound);
 
         category.Deactivate();
         var result = _categoryRepository.Update(category);
         if (!result)
-            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.UpdateFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<Unit>.Success(Unit.Value, MessageKeys.OperationSuccess);
     }
