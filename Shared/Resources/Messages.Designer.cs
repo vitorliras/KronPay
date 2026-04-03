@@ -997,6 +997,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Existem transações com campos obrigatórios não preenchidos..
+        /// </summary>
+        public static string SaveAttachInvalid {
+            get {
+                return ResourceManager.GetString("SaveAttachInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Pesquisar.
         /// </summary>
         public static string Search {

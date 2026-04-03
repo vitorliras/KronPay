@@ -426,6 +426,9 @@
   <data name="Save" xml:space="preserve">
     <value>Salvar</value>
   </data>
+  <data name="SaveAttachInvalid" xml:space="preserve">
+    <value>Existem transações com campos obrigatórios não preenchidos.</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Pesquisar</value>
   </data>

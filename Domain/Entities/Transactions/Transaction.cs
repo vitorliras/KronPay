@@ -64,7 +64,9 @@ public sealed class Transaction
         int? categoryItemId = null,
         short? installments = null,
         int? idPaymentMethod = null,
-        TransactionGroup? transactionGroup = null)
+        TransactionGroup? transactionGroup = null,
+        string? status = null
+        )
     {
         if (amount <= 0)
             throw new DomainException(MessageKeys.InvalidAmount);
@@ -87,10 +89,18 @@ public sealed class Transaction
         TransactionGroup = transactionGroup;
         CreatedAt = DateTime.UtcNow;
 
-        if (CreatedAt.Date > transactionDate.Date)
-            Status = "E";
+        if (string.IsNullOrEmpty(status))
+        {
+            if (CreatedAt.Date > transactionDate.Date)
+                Status = "E";
+            else
+                Status = "O";
+
+        }
         else
-            Status = "O";
+        {
+            Status = status;
+        }
     }
 
     public void Paid() => Status = "P";
