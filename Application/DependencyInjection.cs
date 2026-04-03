@@ -19,6 +19,7 @@ public static class DependencyInjection
     {
         services.AddScoped<LoginUseCase>();
         services.AddScoped<UseCaseExecutor>();
+        services.AddScoped<GetUserUseCase>();
         services.AddScoped<CreateUserUseCase>();
         services.AddScoped(typeof(ValidationPipeline<,>));
 

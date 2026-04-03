@@ -1,5 +1,4 @@
 ﻿using Api.Extensions;
-using Application.DTOs.Transactions;
 using Application.DTOs.Users;
 using Application.Executors;
 using Application.Pipelines;
@@ -17,15 +16,19 @@ public class UsersController : ControllerBase
     private readonly UseCaseExecutor _executor;
     private readonly CreateUserUseCase _createUseCase;
     private readonly GetUserUseCase _getUseCase;
+    private readonly IStringLocalizer<Messages> _localizer;
+
 
     public UsersController(
         UseCaseExecutor executor,
         CreateUserUseCase createUseCase,
-        GetUserUseCase getUseCase)
+        GetUserUseCase getUseCase,
+        IStringLocalizer<Messages> localizer)
     {
         _executor = executor;
         _createUseCase = createUseCase;
         _getUseCase = getUseCase;
+        _localizer = localizer;
     }
 
     [AllowAnonymous]
@@ -46,11 +49,11 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetUser([FromServices] IStringLocalizer<Messages> localizer)
+    public async Task<IActionResult> GetUser()  
     {
         var result = await _executor.ExecuteAsync(_getUseCase);
 
-        return result.ToActionResult(localizer);
+        return result.ToActionResult(_localizer);
     }
 
 }

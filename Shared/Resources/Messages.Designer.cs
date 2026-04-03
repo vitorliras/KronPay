@@ -421,6 +421,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Tem certeza que deseja encerrar a sessão?.
+        /// </summary>
+        public static string EndSession {
+            get {
+                return ResourceManager.GetString("EndSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Entrar.
         /// </summary>
         public static string Enter {
@@ -723,6 +732,15 @@ namespace Shared.Resources {
         public static string LengthPassword8 {
             get {
                 return ResourceManager.GetString("LengthPassword8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sair.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
             }
         }
         
