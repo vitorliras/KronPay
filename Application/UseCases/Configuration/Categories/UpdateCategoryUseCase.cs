@@ -41,11 +41,11 @@ public sealed class UpdateCategoryUseCase
 
         var result =  _categoryRepository.Update(category);
         if (!result)
-            return ResultEntity<CategoryResponse>.Failure( MessageKeys.OperationFailed);
+            return ResultEntity<CategoryResponse>.Failure( MessageKeys.UpdateFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<CategoryResponse>.Failure( MessageKeys.OperationFailed);
+            return ResultEntity<CategoryResponse>.Failure( MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<CategoryResponse>.Success(
             new CategoryResponse(

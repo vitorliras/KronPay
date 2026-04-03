@@ -259,7 +259,7 @@ namespace Shared.Resources {
         }
         
         /// <summary>
-        ///   Consulta uma cadeia de caracteres localizada semelhante a Cartôes de crédito.
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Cartões de crédito.
         /// </summary>
         public static string CreditCard {
             get {
@@ -273,6 +273,15 @@ namespace Shared.Resources {
         public static string Dashboard {
             get {
                 return ResourceManager.GetString("Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Falha ao persistir os dados.
+        /// </summary>
+        public static string DataPersistenceFailed_ {
+            get {
+                return ResourceManager.GetString("DataPersistenceFailed.", resourceCulture);
             }
         }
         
@@ -340,6 +349,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a falha ao fazer a remoção.
+        /// </summary>
+        public static string DeleteFailed_ {
+            get {
+                return ResourceManager.GetString("DeleteFailed.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Descrição.
         /// </summary>
         public static string Description {
@@ -390,6 +408,15 @@ namespace Shared.Resources {
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Email já existe.
+        /// </summary>
+        public static string EmailAlreadyExists {
+            get {
+                return ResourceManager.GetString("EmailAlreadyExists", resourceCulture);
             }
         }
         
@@ -466,6 +493,33 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Falha ao deletar o grupo.
+        /// </summary>
+        public static string GroupDeleteFailed {
+            get {
+                return ResourceManager.GetString("GroupDeleteFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Falha ao inserir o grupo.
+        /// </summary>
+        public static string GroupInsertonFailed {
+            get {
+                return ResourceManager.GetString("GroupInsertonFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Falha ao atualizar o grupo.
+        /// </summary>
+        public static string GroupUpdateFailed {
+            get {
+                return ResourceManager.GetString("GroupUpdateFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Olá.
         /// </summary>
         public static string Hello {
@@ -516,6 +570,15 @@ namespace Shared.Resources {
         public static string InfiniteRecurrence {
             get {
                 return ResourceManager.GetString("InfiniteRecurrence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Falha ao fazer a inserção.
+        /// </summary>
+        public static string InsertFalied {
+            get {
+                return ResourceManager.GetString("InsertFalied", resourceCulture);
             }
         }
         
@@ -621,9 +684,9 @@ namespace Shared.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Nenhum registro encontrado. Cadastre um novo para poder consulta-lo..
         /// </summary>
-        public static string ItemItemNotFound {
+        public static string ItemNotFound {
             get {
-                return ResourceManager.GetString("ItemItemNotFound", resourceCulture);
+                return ResourceManager.GetString("ItemNotFound", resourceCulture);
             }
         }
         
@@ -1060,6 +1123,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Subcategoria não encontrado.
+        /// </summary>
+        public static string SubcategoryNotFound {
+            get {
+                return ResourceManager.GetString("SubcategoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Transação.
         /// </summary>
         public static string Transaction {
@@ -1105,6 +1177,24 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Formato de arquivo não suportado.
+        /// </summary>
+        public static string UnsupportedFileFormat {
+            get {
+                return ResourceManager.GetString("UnsupportedFileFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a falha ao fazer a atualização.
+        /// </summary>
+        public static string UpdateFailed_ {
+            get {
+                return ResourceManager.GetString("UpdateFailed.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a A senha deve conter letra maiúscula..
         /// </summary>
         public static string UppercaseLetterPassword {
@@ -1128,6 +1218,15 @@ namespace Shared.Resources {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Nome do usuário já existe.
+        /// </summary>
+        public static string UsernameAlreadyExists {
+            get {
+                return ResourceManager.GetString("UsernameAlreadyExists", resourceCulture);
             }
         }
         

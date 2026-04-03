@@ -190,6 +190,9 @@
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
+  <data name="DataPersistenceFailed." xml:space="preserve">
+    <value>Data Persistence Failed.</value>
+  </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -214,6 +217,9 @@ Delete all future installments of this installment.</value>
   <data name="DeleteCategory" xml:space="preserve">
     <value>Delete category</value>
   </data>
+  <data name="DeleteFailed." xml:space="preserve">
+    <value>Delete Failed.</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -231,6 +237,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value>Email Already Exists</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Enter</value>
@@ -256,6 +265,15 @@ Delete all future installments of this installment.</value>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>Forgot your password?</value>
   </data>
+  <data name="GroupDeleteFailed" xml:space="preserve">
+    <value>Group Delete Failed</value>
+  </data>
+  <data name="GroupInsertonFailed" xml:space="preserve">
+    <value>Group Inserton Failed</value>
+  </data>
+  <data name="GroupUpdateFailed" xml:space="preserve">
+    <value>Group Update Failed</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
   </data>
@@ -273,6 +291,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="InfiniteRecurrence" xml:space="preserve">
     <value>Continuous monthly recurrence</value>
+  </data>
+  <data name="InsertFalied" xml:space="preserve">
+    <value>Insert Falied</value>
   </data>
   <data name="Installments" xml:space="preserve">
     <value>Installments</value>
@@ -304,7 +325,7 @@ Delete all future installments of this installment.</value>
   <data name="Investments" xml:space="preserve">
     <value>Investments</value>
   </data>
-  <data name="ItemItemNotFound" xml:space="preserve">
+  <data name="ItemNotFound" xml:space="preserve">
     <value>No records found. Please register a new one to be able to view it.</value>
   </data>
   <data name="JAN" xml:space="preserve">
@@ -451,6 +472,9 @@ Delete all future installments of this installment.</value>
   <data name="Subcategories" xml:space="preserve">
     <value>Subcategories</value>
   </data>
+  <data name="SubcategoryNotFound" xml:space="preserve">
+    <value>Subcategory Not Found</value>
+  </data>
   <data name="Transaction" xml:space="preserve">
     <value>Transaction</value>
   </data>
@@ -466,6 +490,12 @@ Delete all future installments of this installment.</value>
   <data name="UNEXPECTED_ERROR" xml:space="preserve">
     <value>UNEXPECTED ERROR</value>
   </data>
+  <data name="UnsupportedFileFormat" xml:space="preserve">
+    <value>Unsupported File Format</value>
+  </data>
+  <data name="UpdateFailed." xml:space="preserve">
+    <value>Update Failed.</value>
+  </data>
   <data name="UppercaseLetterPassword" xml:space="preserve">
     <value>The password must contain Uppercase letter</value>
   </data>
@@ -474,6 +504,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="UsernameAlreadyExists" xml:space="preserve">
+    <value>Username Already Exists</value>
   </data>
   <data name="UsernameOrPasswordIsIncorrect" xml:space="preserve">
     <value>Username or password is incorrect</value>

@@ -32,11 +32,11 @@ public sealed class DeactivatePaymentMethodUseCase
         paymentMethodItem.Deactivate();
         var result = _paymentMethodRepository.Update(paymentMethodItem);
         if (!result)
-            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.UpdateFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<Unit>.Success(Unit.Value, MessageKeys.OperationSuccess);
     }

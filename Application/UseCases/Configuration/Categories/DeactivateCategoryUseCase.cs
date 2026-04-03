@@ -40,11 +40,11 @@ public sealed class DeactivateCategoryUseCase
         categoryItem.Deactivate();
         var result = _categoryRepository.Update(categoryItem);
         if (!result)
-            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.UpdateFailed);
 
         var uow = await _uow.CommitAsync();
         if (!uow)
-            return ResultEntity<Unit>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<Unit>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<Unit>.Success(Unit.Value, MessageKeys.OperationSuccess);
     }

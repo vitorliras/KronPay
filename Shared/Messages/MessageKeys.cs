@@ -29,9 +29,19 @@ public static class MessageKeys
     public const string TransactionNotFound = nameof(TransactionNotFound);
     public const string OperationSuccess = nameof(OperationSuccess);
     public const string UnsupportedFileFormat = nameof(UnsupportedFileFormat);
-    public const string ItemItemNotFound = nameof(ItemItemNotFound);
-
-
+    public const string ItemNotFound = nameof(ItemNotFound);
+    public const string UpdateFailed = nameof(UpdateFailed);
+    public const string DeleteFailed = nameof(DeleteFailed);
+    public const string InsertFalied = nameof(InsertFalied);
+    public const string DataPersistenceFailed = nameof(DataPersistenceFailed);
+    public const string SubcategoryNotFound = nameof(SubcategoryNotFound);
+    public const string EmailAlreadyExists = nameof(EmailAlreadyExists);
+    public const string UsernameAlreadyExists = nameof(UsernameAlreadyExists);
+    public const string CpfAlreadyExists = nameof(CpfAlreadyExists);
+    public const string GroupInsertonFailed = nameof(GroupInsertonFailed);
+    public const string GroupUpdateFailed = nameof(GroupUpdateFailed);
+    public const string GroupDeleteFailed = nameof(GroupDeleteFailed);
+    
 
 
 }

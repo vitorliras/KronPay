@@ -43,7 +43,7 @@ public sealed class DeleteTransactionUseCase
         {
             var deleted = await _transactionRepository.DeleteAsync(transaction);
             if (!deleted)
-                return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<TransactionResponse>.Failure(MessageKeys.DeleteFailed);
 
             affected = 1;
 
@@ -60,7 +60,7 @@ public sealed class DeleteTransactionUseCase
                     {
                         deleted = await _groupRepository.DeleteAsync(group);
                         if (!deleted)
-                            return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+                            return ResultEntity<TransactionResponse>.Failure(MessageKeys.GroupDeleteFailed);
                     }
                 }
             }
@@ -83,7 +83,7 @@ public sealed class DeleteTransactionUseCase
                     );
 
                 if (!deleted)
-                    return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+                    return ResultEntity<TransactionResponse>.Failure(MessageKeys.GroupDeleteFailed);
 
 
             }
@@ -95,7 +95,7 @@ public sealed class DeleteTransactionUseCase
                 var deleted = await _transactionRepository.DeleteByGroupAsync(groupId, userId);
 
                 if (!deleted)
-                    return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+                    return ResultEntity<TransactionResponse>.Failure(MessageKeys.DeleteFailed);
 
                 var group = await _groupRepository.GetByIdAsync(transaction.TransactionGroupId.Value, userId);
 
@@ -103,7 +103,7 @@ public sealed class DeleteTransactionUseCase
                 {
                     deleted = await _groupRepository.DeleteAsync(group);
                     if (!deleted)
-                        return ResultEntity<TransactionResponse>.Failure(MessageKeys.OperationFailed);
+                        return ResultEntity<TransactionResponse>.Failure(MessageKeys.GroupDeleteFailed);
                 }
 
             }
@@ -112,7 +112,7 @@ public sealed class DeleteTransactionUseCase
         var committed = await _uow.CommitAsync();
         if (!committed)
             return ResultEntity<TransactionResponse>
-                .Failure(MessageKeys.OperationFailed);
+                .Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(

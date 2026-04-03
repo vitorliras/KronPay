@@ -48,13 +48,13 @@ public sealed class DeleteTransactionRangeUseCase
             var result = await _transactionRepository.DeleteAsync(transaction);
 
             if (!result)
-                return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.OperationFailed);
+                return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.DeleteFailed);
         }
 
         var uow = await _uow.CommitAsync();
 
         if (!uow)
-            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.OperationFailed);
+            return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
         return ResultEntity<TransactionRangeResponse>.Success(
             new TransactionRangeResponse(
