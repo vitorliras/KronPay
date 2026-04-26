@@ -52,6 +52,7 @@ namespace Infrastructure.Repositories.Transactions
                 .Where(t =>
                     t.UserId == userId &&
                     t.TransactionDate.Year == year)
+                .OrderBy(t => t.TransactionDate)
                 .ToListAsync();
         }
 
@@ -63,6 +64,7 @@ namespace Infrastructure.Repositories.Transactions
                     t.UserId == userId &&
                     t.TransactionDate.Year == year &&
                     t.TransactionDate.Month == month)
+                .OrderBy(t => t.TransactionDate)
                 .ToListAsync();
         }
 
@@ -74,6 +76,7 @@ namespace Infrastructure.Repositories.Transactions
                     t.UserId == userId &&
                     t.TransactionDate >= startDate &&
                     t.TransactionDate <= endDate)
+                .OrderBy(t => t.TransactionDate)
                 .ToListAsync();
         }
 
@@ -84,6 +87,7 @@ namespace Infrastructure.Repositories.Transactions
                 .Where(t =>
                     t.TransactionGroupId == transactionGroupId &&
                     t.UserId == userId)
+                .OrderBy(t => t.TransactionDate)
                 .ToListAsync();
         }
 
@@ -95,6 +99,7 @@ namespace Infrastructure.Repositories.Transactions
                     t.TransactionGroupId == transactionGroupId &&
                     t.UserId == userId &&
                     t.TransactionDate >= fromDate)
+                .OrderBy(t => t.TransactionDate)
                 .ToListAsync();
         }
 
@@ -103,6 +108,7 @@ namespace Infrastructure.Repositories.Transactions
             return await _context.Transactions
                 .Include(t => t.TransactionGroup)
                 .Where(t => t.UserId == userId)
+                .OrderBy(t => t.TransactionDate)
                 .ToListAsync();
         }
 
