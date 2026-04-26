@@ -148,7 +148,7 @@ public sealed class ImportTransactionsUseCase
                     TotalRead: totalRead,
                     TotalImported: 0,
                     TotalSkipped: totalRead,
-                    Transactions: updatedImportedTransactions
+                    Transactions: updatedImportedTransactions.OrderBy(x => x.TransactionDate)
                 )
             );
         }
