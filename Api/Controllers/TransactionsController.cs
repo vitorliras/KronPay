@@ -26,6 +26,7 @@ public sealed class TransactionsController : ControllerBase
     private readonly DeleteTransactionRangeUseCase _deleteRange;
     private readonly GetTransactionsByIdGroupUseCase _getAllByGroup;
     private readonly GetTransactionsByMonthUseCase _getAllByMonth;
+    private readonly GetTransactionsDatesUseCase _getByDates;
     private readonly GetTransactionsByYearUseCase _getAllByYear;
     private readonly ImportTransactionsUseCase _import;
     private readonly IStringLocalizer<Messages> _localizer;
@@ -40,6 +41,7 @@ public sealed class TransactionsController : ControllerBase
         DeleteTransactionUseCase delete,
         DeleteTransactionRangeUseCase deleteRange,
         GetTransactionsByIdGroupUseCase getAllByGroup,
+        GetTransactionsDatesUseCase getByDates,
         GetTransactionsByMonthUseCase getAllByMonth,
         GetTransactionsByYearUseCase getAllByYear,
         UpdateTransactionRangeUseCase updateRange,
@@ -55,6 +57,7 @@ public sealed class TransactionsController : ControllerBase
         _deleteRange = deleteRange;
         _getAllByGroup = getAllByGroup;
         _getAllByMonth = getAllByMonth;
+        _getByDates = getByDates;
         _changeStatusRange = changeStatusRange;
         _getAllByYear = getAllByYear;
         _getAllByYear = getAllByYear;
@@ -87,6 +90,21 @@ public sealed class TransactionsController : ControllerBase
         var result = await _executor.ExecuteAsync(
             request,
             _getAllByMonth,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetByDates(
+       [FromQuery] GetTransactionsByDatesRequest request,
+       [FromServices] ValidationPipeline<GetTransactionsByDatesRequest, IEnumerable<TransactionFullResponse>> pipeline)
+    {
+
+        var result = await _executor.ExecuteAsync(
+            request,
+            _getByDates,
             pipeline
         );
 

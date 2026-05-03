@@ -8,6 +8,7 @@ namespace Domain.Interfaces.Transactions
         Task<bool> AddRangeAsync(IEnumerable<Transaction> transactions);
         Task<Transaction?> GetByIdAsync(int id, int userId);
         Task<IEnumerable<Transaction>> GetByMonthAsync(int userId, int year, int month);
+        Task<IEnumerable<Transaction>> GetByDatesAsync(int userId, DateTime startDate, DateTime ? endDate);
         Task<IEnumerable<Transaction>> GetByYearAsync(int userId, int year);
         Task<IEnumerable<Transaction>> GetByPeriodAsync(int userId, DateTime startDate, DateTime endDate);
         Task<IEnumerable<Transaction>> GetByGroupAsync(int transactionGroupId, int userId);

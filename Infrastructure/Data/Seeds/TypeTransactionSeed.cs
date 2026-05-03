@@ -9,7 +9,8 @@ namespace KronPay.Infra.Data.Seeds
         [
             new TypeTransaction("I", "Income"),
             new TypeTransaction("E", "Expense"),
-            new TypeTransaction("V", "Investment")
+            new TypeTransaction("V", "Investment"),
+            new TypeTransaction("R", "Redemption")
         ];
     }
 }

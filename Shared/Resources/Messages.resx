@@ -166,6 +166,9 @@
   <data name="AUG" xml:space="preserve">
     <value>AGO</value>
   </data>
+  <data name="AvaregePerTransaction" xml:space="preserve">
+    <value>Média por transação</value>
+  </data>
   <data name="BestMonth" xml:space="preserve">
     <value>Melhor mês</value>
   </data>
@@ -253,6 +256,9 @@
   <data name="Expense" xml:space="preserve">
     <value>Despesa</value>
   </data>
+  <data name="ExpenseRepot" xml:space="preserve">
+    <value>Relatório de despesa</value>
+  </data>
   <data name="Expired" xml:space="preserve">
     <value>Expirado</value>
   </data>
@@ -282,6 +288,9 @@
   </data>
   <data name="HigherIncome" xml:space="preserve">
     <value>Maior receita</value>
+  </data>
+  <data name="HighestCategory" xml:space="preserve">
+    <value>Maior categoria</value>
   </data>
   <data name="Income" xml:space="preserve">
     <value>Receita</value>
@@ -376,6 +385,9 @@
   <data name="No" xml:space="preserve">
     <value>Não</value>
   </data>
+  <data name="NoCategory" xml:space="preserve">
+    <value>Sem categoria</value>
+  </data>
   <data name="NotPaids" xml:space="preserve">
     <value>Não Pagas</value>
   </data>
@@ -405,6 +417,9 @@
   </data>
   <data name="OrDragFile" xml:space="preserve">
     <value>Ou arraste o arquivo aqui</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Outros</value>
   </data>
   <data name="Paid" xml:space="preserve">
     <value>Pago</value>
@@ -438,6 +453,9 @@
   </data>
   <data name="RecurringExpenseDesc" xml:space="preserve">
     <value>Use esta opção para despesas que se repetem todos os meses, como assinaturas, e não possuem número fixo de parcelas.</value>
+  </data>
+  <data name="Redemption" xml:space="preserve">
+    <value>Resgate</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Cadastra-se</value>
@@ -481,6 +499,9 @@
   <data name="SubcategoryNotFound" xml:space="preserve">
     <value>Subcategoria não encontrado</value>
   </data>
+  <data name="SubtitleExpenseRepot" xml:space="preserve">
+    <value>Informações sobre todas as despesas no período informado</value>
+  </data>
   <data name="Transaction" xml:space="preserve">
     <value>Transação</value>
   </data>
@@ -489,6 +510,9 @@
   </data>
   <data name="Transactions" xml:space="preserve">
     <value>Transações</value>
+  </data>
+  <data name="TransactionsNumber" xml:space="preserve">
+    <value>Quantidade de transações</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tipo</value>

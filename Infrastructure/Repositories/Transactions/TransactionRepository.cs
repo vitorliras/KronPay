@@ -2,6 +2,7 @@
 using Castle.Components.DictionaryAdapter.Xml;
 using Domain.Entities.Transactions;
 using Domain.Interfaces.Transactions;
+using KronPay.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Shared.Results;
 
@@ -64,6 +65,18 @@ namespace Infrastructure.Repositories.Transactions
                     t.UserId == userId &&
                     t.TransactionDate.Year == year &&
                     t.TransactionDate.Month == month)
+                .OrderBy(t => t.TransactionDate)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Transaction>> GetByDatesAsync(int userId, DateTime startDate, DateTime? endDate)
+        {
+            return await _context.Transactions
+                .Include(t => t.TransactionGroup)
+                .Where(t =>
+                    t.UserId == userId &&
+                    t.TransactionDate >= startDate &&
+                    (!endDate.HasValue || t.TransactionDate <= endDate.Value))
                 .OrderBy(t => t.TransactionDate)
                 .ToListAsync();
         }
@@ -200,8 +213,6 @@ namespace Infrastructure.Repositories.Transactions
 
             return transactions.All(t => _context.Entry(t).State == EntityState.Deleted);
         }
-
-      
     }
 
 

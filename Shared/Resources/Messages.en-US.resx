@@ -166,6 +166,9 @@
   <data name="AUG" xml:space="preserve">
     <value>AUG</value>
   </data>
+  <data name="AvaregePerTransaction" xml:space="preserve">
+    <value>Avarege per transaction</value>
+  </data>
   <data name="BestMonth" xml:space="preserve">
     <value>Best Month</value>
   </data>
@@ -256,6 +259,9 @@ Delete all future installments of this installment.</value>
   <data name="Expense" xml:space="preserve">
     <value>Expense</value>
   </data>
+  <data name="ExpenseRepot" xml:space="preserve">
+    <value>Expense Report</value>
+  </data>
   <data name="Expired" xml:space="preserve">
     <value>Expired</value>
   </data>
@@ -285,6 +291,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="HigherIncome" xml:space="preserve">
     <value>Higher income</value>
+  </data>
+  <data name="HighestCategory" xml:space="preserve">
+    <value>Highest category</value>
   </data>
   <data name="Income" xml:space="preserve">
     <value>Income</value>
@@ -376,6 +385,9 @@ Delete all future installments of this installment.</value>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="NoCategory" xml:space="preserve">
+    <value>No Category</value>
+  </data>
   <data name="NotPaids" xml:space="preserve">
     <value>Not Paids</value>
   </data>
@@ -405,6 +417,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="OrDragFile" xml:space="preserve">
     <value>Or drag the file here.</value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>Others</value>
   </data>
   <data name="Paid" xml:space="preserve">
     <value>Paid</value>
@@ -438,6 +453,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="RecurringExpenseDesc" xml:space="preserve">
     <value>Use this option for expenses that recur every month, such as subscriptions, and do not have a fixed number of installments.</value>
+  </data>
+  <data name="Redemption" xml:space="preserve">
+    <value>Redemption</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
@@ -481,6 +499,9 @@ Delete all future installments of this installment.</value>
   <data name="SubcategoryNotFound" xml:space="preserve">
     <value>Subcategory Not Found</value>
   </data>
+  <data name="SubtitleExpenseRepot" xml:space="preserve">
+    <value>Information on all expenses for the selected period</value>
+  </data>
   <data name="Transaction" xml:space="preserve">
     <value>Transaction</value>
   </data>
@@ -489,6 +510,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="Transactions" xml:space="preserve">
     <value>Transactions</value>
+  </data>
+  <data name="TransactionsNumber" xml:space="preserve">
+    <value>Transactions number</value>
   </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>

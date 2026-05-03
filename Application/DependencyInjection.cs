@@ -56,6 +56,7 @@ public static class DependencyInjection
         services.AddScoped<ChangeStatusTransactionUseCase>();
         services.AddScoped<DeleteTransactionUseCase>();
         services.AddScoped<GetTransactionsByIdGroupUseCase>();
+        services.AddScoped<GetTransactionsDatesUseCase>();
         services.AddScoped<GetTransactionsByMonthUseCase>();
         services.AddScoped<GetTransactionsByYearUseCase>();
         services.AddScoped<ImportTransactionsUseCase>();
