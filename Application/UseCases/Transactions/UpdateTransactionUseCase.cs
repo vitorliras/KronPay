@@ -5,6 +5,7 @@ using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
 using Shared.Localization;
 using Shared.Results;
+using System.Transactions;
 
 namespace Application.UseCases.Transactions;
 
@@ -65,6 +66,7 @@ public sealed class UpdateTransactionUseCase
             transaction.VerifyDescription(request.Description);
             transaction.VerifyCategory( request.CategoryId, request.CategoryItemId);
             transaction.SetDate(request.TransactionDate);
+            transaction.VerifyType(request.type);
 
             if (!await _transactionRepository.UpdateAsync(transaction))
                 return ResultEntity<TransactionResponse>.Failure(MessageKeys.UpdateFailed);

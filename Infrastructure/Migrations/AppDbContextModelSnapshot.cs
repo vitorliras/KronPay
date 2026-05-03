@@ -289,7 +289,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("status");
 
                     b.Property<DateTime>("TransactionDate")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime2(0)")
                         .HasColumnName("transaction_date");
 
                     b.Property<int?>("TransactionGroupId")
@@ -399,6 +399,11 @@ namespace Infrastructure.Migrations
                         {
                             Code = "V",
                             Description = "Investment"
+                        },
+                        new
+                        {
+                            Code = "R",
+                            Description = "Redemption"
                         });
                 });
 

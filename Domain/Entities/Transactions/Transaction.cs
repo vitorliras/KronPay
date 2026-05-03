@@ -1,4 +1,5 @@
 ﻿using Domain.Exceptions;
+using KronPay.Domain.Entities.Configuration;
 using Shared.Localization;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -130,5 +131,10 @@ public sealed class Transaction
     {
         CategoryId = categoryId;
         CategoryItemId = categoryIdItem;
+    }
+
+    public void VerifyType(string type)
+    {
+        CodTypeTransaction = type;
     }
 }

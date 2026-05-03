@@ -205,6 +205,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Média por transação.
+        /// </summary>
+        public static string AvaregePerTransaction {
+            get {
+                return ResourceManager.GetString("AvaregePerTransaction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Melhor mês.
         /// </summary>
         public static string BestMonth {
@@ -466,6 +475,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Relatório de despesa.
+        /// </summary>
+        public static string ExpenseRepot {
+            get {
+                return ResourceManager.GetString("ExpenseRepot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Expirado.
         /// </summary>
         public static string Expired {
@@ -552,6 +570,15 @@ namespace Shared.Resources {
         public static string HigherIncome {
             get {
                 return ResourceManager.GetString("HigherIncome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Maior categoria.
+        /// </summary>
+        public static string HighestCategory {
+            get {
+                return ResourceManager.GetString("HighestCategory", resourceCulture);
             }
         }
         
@@ -835,6 +862,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Sem categoria.
+        /// </summary>
+        public static string NoCategory {
+            get {
+                return ResourceManager.GetString("NoCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Não Pagas.
         /// </summary>
         public static string NotPaids {
@@ -921,6 +957,15 @@ namespace Shared.Resources {
         public static string OrDragFile {
             get {
                 return ResourceManager.GetString("OrDragFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Outros.
+        /// </summary>
+        public static string Others {
+            get {
+                return ResourceManager.GetString("Others", resourceCulture);
             }
         }
         
@@ -1020,6 +1065,15 @@ namespace Shared.Resources {
         public static string RecurringExpenseDesc {
             get {
                 return ResourceManager.GetString("RecurringExpenseDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Resgate.
+        /// </summary>
+        public static string Redemption {
+            get {
+                return ResourceManager.GetString("Redemption", resourceCulture);
             }
         }
         
@@ -1150,6 +1204,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Informações sobre todas as despesas no período informado.
+        /// </summary>
+        public static string SubtitleExpenseRepot {
+            get {
+                return ResourceManager.GetString("SubtitleExpenseRepot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Transação.
         /// </summary>
         public static string Transaction {
@@ -1173,6 +1236,15 @@ namespace Shared.Resources {
         public static string Transactions {
             get {
                 return ResourceManager.GetString("Transactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Quantidade de transações.
+        /// </summary>
+        public static string TransactionsNumber {
+            get {
+                return ResourceManager.GetString("TransactionsNumber", resourceCulture);
             }
         }
         

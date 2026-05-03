@@ -35,6 +35,7 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
 
         builder.Property(x => x.TransactionDate)
             .HasColumnName("transaction_date")
+            .HasColumnType("datetime2(0)")
             .IsRequired();
 
         builder.Property(x => x.Description)

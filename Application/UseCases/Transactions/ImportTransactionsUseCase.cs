@@ -101,9 +101,12 @@ public sealed class ImportTransactionsUseCase
                     {
                         if (suggestion.IsInvestment)
                         {
+                            var type = "V";
+                            if (updated.Type.Equals("I"))
+                                type = "R";
                             updated = updated with
                             {
-                                Type = "V",
+                                Type = type,
                                 CategoryId = suggestion.SuggestedCategoryId ?? updated.CategoryId
                             };
                         }
