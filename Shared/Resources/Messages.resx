@@ -175,6 +175,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
+  <data name="CashFlow" xml:space="preserve">
+    <value>Fluxo de caixa</value>
+  </data>
   <data name="Categories" xml:space="preserve">
     <value>Categorias</value>
   </data>
@@ -186,6 +189,12 @@
   </data>
   <data name="ChangeOtherInstallments" xml:space="preserve">
     <value>Você alterou uma transação parcelada, deseja modificar esse valor para todas as outras parcelas &lt;b&gt;pendentes&lt;/b&gt;?</value>
+  </data>
+  <data name="Compare" xml:space="preserve">
+    <value>Comparar</value>
+  </data>
+  <data name="Comparison" xml:space="preserve">
+    <value>Comparação</value>
   </data>
   <data name="CreditCard" xml:space="preserve">
     <value>Cartões de crédito</value>
@@ -241,6 +250,12 @@
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Email já existe</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>Data final</value>
+  </data>
+  <data name="EndDateIsLaterThanStartDate" xml:space="preserve">
+    <value>A data final não pode ser posterior à data inicial</value>
+  </data>
   <data name="EndSession" xml:space="preserve">
     <value>Tem certeza que deseja encerrar a sessão?</value>
   </data>
@@ -256,8 +271,11 @@
   <data name="Expense" xml:space="preserve">
     <value>Despesa</value>
   </data>
-  <data name="ExpenseRepot" xml:space="preserve">
+  <data name="ExpenseReport" xml:space="preserve">
     <value>Relatório de despesa</value>
+  </data>
+  <data name="ExpenseVariation" xml:space="preserve">
+    <value>Variação de despesa</value>
   </data>
   <data name="Expired" xml:space="preserve">
     <value>Expirado</value>
@@ -265,11 +283,17 @@
   <data name="ExpiredToken" xml:space="preserve">
     <value>Login expirado</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportar</value>
+  </data>
   <data name="FEB" xml:space="preserve">
     <value>FEV</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>Esqueceu sua Senha?</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>De</value>
   </data>
   <data name="GroupDeleteFailed" xml:space="preserve">
     <value>Falha ao deletar o grupo</value>
@@ -289,11 +313,20 @@
   <data name="HigherIncome" xml:space="preserve">
     <value>Maior receita</value>
   </data>
+  <data name="highestAmount" xml:space="preserve">
+    <value>Maior valor</value>
+  </data>
   <data name="HighestCategory" xml:space="preserve">
     <value>Maior categoria</value>
   </data>
   <data name="Income" xml:space="preserve">
     <value>Receita</value>
+  </data>
+  <data name="IncomeReport" xml:space="preserve">
+    <value>Relatório de receita</value>
+  </data>
+  <data name="IncomeVariation" xml:space="preserve">
+    <value>Variação de receita</value>
   </data>
   <data name="IncomeVsExpensePerMonth" xml:space="preserve">
     <value>Receitas x Despesas por mês</value>
@@ -334,8 +367,14 @@
   <data name="Investment" xml:space="preserve">
     <value>Investimento</value>
   </data>
+  <data name="InvestmentReport" xml:space="preserve">
+    <value>Relatório de investimento</value>
+  </data>
   <data name="Investments" xml:space="preserve">
     <value>Investimentos</value>
+  </data>
+  <data name="InvestmentVariation" xml:space="preserve">
+    <value>Variação de investimento</value>
   </data>
   <data name="ItemNotFound" xml:space="preserve">
     <value>Nenhum registro encontrado. Cadastre um novo para poder consulta-lo.</value>
@@ -357,6 +396,9 @@
   </data>
   <data name="LowercaseLetterPassword" xml:space="preserve">
     <value>A senha deve conter letra minúscula.</value>
+  </data>
+  <data name="lowestAmount" xml:space="preserve">
+    <value>Menor valor</value>
   </data>
   <data name="MakeLoginForAccessYourAccount" xml:space="preserve">
     <value>Faça login para acessar sua conta</value>
@@ -472,6 +514,9 @@
   <data name="Result" xml:space="preserve">
     <value>Resultado</value>
   </data>
+  <data name="ResultVariation" xml:space="preserve">
+    <value>Variação de resultado</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Salvar</value>
   </data>
@@ -493,14 +538,29 @@
   <data name="SpecialCharacter" xml:space="preserve">
     <value>A senha deve conter caractere especial.</value>
   </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Data inicial</value>
+  </data>
   <data name="Subcategories" xml:space="preserve">
     <value>Sub categorias</value>
   </data>
   <data name="SubcategoryNotFound" xml:space="preserve">
     <value>Subcategoria não encontrado</value>
   </data>
+  <data name="SubtitleComparison" xml:space="preserve">
+    <value>Compare o desempenho financeiro entre os dois meses selecionado</value>
+  </data>
   <data name="SubtitleExpenseRepot" xml:space="preserve">
     <value>Informações sobre todas as despesas no período informado</value>
+  </data>
+  <data name="SubtitleIncomeReport" xml:space="preserve">
+    <value>Informações sobre todas as receitas no período informado</value>
+  </data>
+  <data name="SubtitleInvestmentReport" xml:space="preserve">
+    <value>Informações sobre todas os investementos no período informado</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Para</value>
   </data>
   <data name="Transaction" xml:space="preserve">
     <value>Transação</value>
@@ -540,6 +600,9 @@
   </data>
   <data name="UsernameOrPasswordIsIncorrect" xml:space="preserve">
     <value>Usuário ou senha está incorreto</value>
+  </data>
+  <data name="Variation" xml:space="preserve">
+    <value>Variação</value>
   </data>
   <data name="WelcomeBack" xml:space="preserve">
     <value>Bem vindo de volta</value>

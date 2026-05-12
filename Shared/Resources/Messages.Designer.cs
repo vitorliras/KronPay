@@ -232,6 +232,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Fluxo de caixa.
+        /// </summary>
+        public static string CashFlow {
+            get {
+                return ResourceManager.GetString("CashFlow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Categorias.
         /// </summary>
         public static string Categories {
@@ -264,6 +273,24 @@ namespace Shared.Resources {
         public static string ChangeOtherInstallments {
             get {
                 return ResourceManager.GetString("ChangeOtherInstallments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Comparar.
+        /// </summary>
+        public static string Compare {
+            get {
+                return ResourceManager.GetString("Compare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Comparação.
+        /// </summary>
+        public static string Comparison {
+            get {
+                return ResourceManager.GetString("Comparison", resourceCulture);
             }
         }
         
@@ -430,6 +457,24 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Data final.
+        /// </summary>
+        public static string EndDate {
+            get {
+                return ResourceManager.GetString("EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a A data final não pode ser posterior à data inicial.
+        /// </summary>
+        public static string EndDateIsLaterThanStartDate {
+            get {
+                return ResourceManager.GetString("EndDateIsLaterThanStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Tem certeza que deseja encerrar a sessão?.
         /// </summary>
         public static string EndSession {
@@ -477,9 +522,18 @@ namespace Shared.Resources {
         /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Relatório de despesa.
         /// </summary>
-        public static string ExpenseRepot {
+        public static string ExpenseReport {
             get {
-                return ResourceManager.GetString("ExpenseRepot", resourceCulture);
+                return ResourceManager.GetString("ExpenseReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Variação de despesa.
+        /// </summary>
+        public static string ExpenseVariation {
+            get {
+                return ResourceManager.GetString("ExpenseVariation", resourceCulture);
             }
         }
         
@@ -502,6 +556,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Exportar.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a FEV.
         /// </summary>
         public static string FEB {
@@ -516,6 +579,15 @@ namespace Shared.Resources {
         public static string ForgotYourPassword {
             get {
                 return ResourceManager.GetString("ForgotYourPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a De.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
             }
         }
         
@@ -574,6 +646,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Maior valor.
+        /// </summary>
+        public static string highestAmount {
+            get {
+                return ResourceManager.GetString("highestAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Maior categoria.
         /// </summary>
         public static string HighestCategory {
@@ -588,6 +669,24 @@ namespace Shared.Resources {
         public static string Income {
             get {
                 return ResourceManager.GetString("Income", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Relatório de receita.
+        /// </summary>
+        public static string IncomeReport {
+            get {
+                return ResourceManager.GetString("IncomeReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Variação de receita.
+        /// </summary>
+        public static string IncomeVariation {
+            get {
+                return ResourceManager.GetString("IncomeVariation", resourceCulture);
             }
         }
         
@@ -709,11 +808,29 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Relatório de investimento.
+        /// </summary>
+        public static string InvestmentReport {
+            get {
+                return ResourceManager.GetString("InvestmentReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Investimentos.
         /// </summary>
         public static string Investments {
             get {
                 return ResourceManager.GetString("Investments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Variação de investimento.
+        /// </summary>
+        public static string InvestmentVariation {
+            get {
+                return ResourceManager.GetString("InvestmentVariation", resourceCulture);
             }
         }
         
@@ -777,6 +894,15 @@ namespace Shared.Resources {
         public static string LowercaseLetterPassword {
             get {
                 return ResourceManager.GetString("LowercaseLetterPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Menor valor.
+        /// </summary>
+        public static string lowestAmount {
+            get {
+                return ResourceManager.GetString("lowestAmount", resourceCulture);
             }
         }
         
@@ -1123,6 +1249,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Variação de resultado.
+        /// </summary>
+        public static string ResultVariation {
+            get {
+                return ResourceManager.GetString("ResultVariation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Salvar.
         /// </summary>
         public static string Save {
@@ -1186,6 +1321,15 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Data inicial.
+        /// </summary>
+        public static string StartDate {
+            get {
+                return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Sub categorias.
         /// </summary>
         public static string Subcategories {
@@ -1204,11 +1348,47 @@ namespace Shared.Resources {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Compare o desempenho financeiro entre os dois meses selecionado.
+        /// </summary>
+        public static string SubtitleComparison {
+            get {
+                return ResourceManager.GetString("SubtitleComparison", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a Informações sobre todas as despesas no período informado.
         /// </summary>
         public static string SubtitleExpenseRepot {
             get {
                 return ResourceManager.GetString("SubtitleExpenseRepot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Informações sobre todas as receitas no período informado.
+        /// </summary>
+        public static string SubtitleIncomeReport {
+            get {
+                return ResourceManager.GetString("SubtitleIncomeReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Informações sobre todas os investementos no período informado.
+        /// </summary>
+        public static string SubtitleInvestmentReport {
+            get {
+                return ResourceManager.GetString("SubtitleInvestmentReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Para.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
             }
         }
         
@@ -1326,6 +1506,15 @@ namespace Shared.Resources {
         public static string UsernameOrPasswordIsIncorrect {
             get {
                 return ResourceManager.GetString("UsernameOrPasswordIsIncorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a Variação.
+        /// </summary>
+        public static string Variation {
+            get {
+                return ResourceManager.GetString("Variation", resourceCulture);
             }
         }
         
