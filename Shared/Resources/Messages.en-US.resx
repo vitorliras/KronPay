@@ -175,6 +175,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="CashFlow" xml:space="preserve">
+    <value>Cash flow</value>
+  </data>
   <data name="Categories" xml:space="preserve">
     <value>Categories</value>
   </data>
@@ -186,6 +189,12 @@
   </data>
   <data name="ChangeOtherInstallments" xml:space="preserve">
     <value>You modified an installment transaction; do you want to modify this value for all other &lt;b&gt;pending&lt;/b&gt; installments?</value>
+  </data>
+  <data name="Compare" xml:space="preserve">
+    <value>Compare</value>
+  </data>
+  <data name="Comparison" xml:space="preserve">
+    <value>Comparison</value>
   </data>
   <data name="CreditCard" xml:space="preserve">
     <value>Credit Cards</value>
@@ -244,6 +253,12 @@ Delete all future installments of this installment.</value>
   <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Email Already Exists</value>
   </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End date</value>
+  </data>
+  <data name="EndDateIsLaterThanStartDate" xml:space="preserve">
+    <value>The end date cannot be later than the start date.</value>
+  </data>
   <data name="EndSession" xml:space="preserve">
     <value>Are you sure you want to end the session?</value>
   </data>
@@ -259,8 +274,11 @@ Delete all future installments of this installment.</value>
   <data name="Expense" xml:space="preserve">
     <value>Expense</value>
   </data>
-  <data name="ExpenseRepot" xml:space="preserve">
+  <data name="ExpenseReport" xml:space="preserve">
     <value>Expense Report</value>
+  </data>
+  <data name="ExpenseVariation" xml:space="preserve">
+    <value>Expense  variation</value>
   </data>
   <data name="Expired" xml:space="preserve">
     <value>Expired</value>
@@ -268,11 +286,17 @@ Delete all future installments of this installment.</value>
   <data name="ExpiredToken" xml:space="preserve">
     <value>Expired token</value>
   </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
+  </data>
   <data name="FEB" xml:space="preserve">
     <value>FEB</value>
   </data>
   <data name="ForgotYourPassword" xml:space="preserve">
     <value>Forgot your password?</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
   </data>
   <data name="GroupDeleteFailed" xml:space="preserve">
     <value>Group Delete Failed</value>
@@ -292,11 +316,20 @@ Delete all future installments of this installment.</value>
   <data name="HigherIncome" xml:space="preserve">
     <value>Higher income</value>
   </data>
+  <data name="highestAmount" xml:space="preserve">
+    <value>highest amount</value>
+  </data>
   <data name="HighestCategory" xml:space="preserve">
     <value>Highest category</value>
   </data>
   <data name="Income" xml:space="preserve">
     <value>Income</value>
+  </data>
+  <data name="IncomeReport" xml:space="preserve">
+    <value>Income report</value>
+  </data>
+  <data name="IncomeVariation" xml:space="preserve">
+    <value>Income variation</value>
   </data>
   <data name="IncomeVsExpensePerMonth" xml:space="preserve">
     <value>Monthly Income vs. Expenses</value>
@@ -334,8 +367,14 @@ Delete all future installments of this installment.</value>
   <data name="Investment" xml:space="preserve">
     <value>Investment</value>
   </data>
+  <data name="InvestmentReport" xml:space="preserve">
+    <value>Investment report</value>
+  </data>
   <data name="Investments" xml:space="preserve">
     <value>Investments</value>
+  </data>
+  <data name="InvestmentVariation" xml:space="preserve">
+    <value>Investment variation</value>
   </data>
   <data name="ItemNotFound" xml:space="preserve">
     <value>No records found. Please register a new one to be able to view it.</value>
@@ -357,6 +396,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="LowercaseLetterPassword" xml:space="preserve">
     <value>The password must contain lowercase letter</value>
+  </data>
+  <data name="lowestAmount" xml:space="preserve">
+    <value>lowest amount</value>
   </data>
   <data name="MakeLoginForAccessYourAccount" xml:space="preserve">
     <value>Make login for access your account</value>
@@ -472,6 +514,9 @@ Delete all future installments of this installment.</value>
   <data name="Result" xml:space="preserve">
     <value>Result</value>
   </data>
+  <data name="ResultVariation" xml:space="preserve">
+    <value>Result variation</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -493,14 +538,29 @@ Delete all future installments of this installment.</value>
   <data name="SpecialCharacter" xml:space="preserve">
     <value>The password must contain special character</value>
   </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start date</value>
+  </data>
   <data name="Subcategories" xml:space="preserve">
     <value>Subcategories</value>
   </data>
   <data name="SubcategoryNotFound" xml:space="preserve">
     <value>Subcategory Not Found</value>
   </data>
+  <data name="SubtitleComparison" xml:space="preserve">
+    <value>Compare the financial performance between the two selected months.</value>
+  </data>
   <data name="SubtitleExpenseRepot" xml:space="preserve">
     <value>Information on all expenses for the selected period</value>
+  </data>
+  <data name="SubtitleIncomeReport" xml:space="preserve">
+    <value>Information on all incomes for the selected period</value>
+  </data>
+  <data name="SubtitleInvestmentReport" xml:space="preserve">
+    <value>Information on all investmentfor the selected period</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
   </data>
   <data name="Transaction" xml:space="preserve">
     <value>Transaction</value>
@@ -540,6 +600,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="UsernameOrPasswordIsIncorrect" xml:space="preserve">
     <value>Username or password is incorrect</value>
+  </data>
+  <data name="Variation" xml:space="preserve">
+    <value>Variation</value>
   </data>
   <data name="WelcomeBack" xml:space="preserve">
     <value>Welcome back</value>
