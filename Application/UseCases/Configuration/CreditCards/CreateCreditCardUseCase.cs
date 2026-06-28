@@ -35,6 +35,7 @@ public sealed class CreateCreditCardUseCase
          creditCard = new CreditCard(
             0,
             userId,
+            request.BankId,
             request.Description,
             request.DueDay,
             request.ClosingDay,
@@ -57,6 +58,7 @@ public sealed class CreateCreditCardUseCase
                 creditCard.DueDay,
                 creditCard.ClosingDay,
                 creditCard.CreditLimit,
+                creditCard.BankId,
                 creditCard.Active
             ), MessageKeys.OperationSuccess
 

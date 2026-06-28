@@ -35,6 +35,7 @@ public sealed class GetCreditCardByIdUseCase
                 creditCard.DueDay,
                 creditCard.ClosingDay,
                 creditCard.CreditLimit,
+                creditCard.BankId,
                 creditCard.Active
             ), MessageKeys.OperationSuccess
         );

@@ -116,7 +116,7 @@ public sealed class CategoriesController : ControllerBase
 
     [HttpDelete("[action]")]
     public async Task<IActionResult> DeactivateRange(
-    [FromBody]DeactivateCategorySelectRequest request,
+    [FromBody] DeactivateCategorySelectRequest request,
     [FromServices] ValidationPipeline<DeactivateCategorySelectRequest, Unit> pipeline)
     {
 
@@ -130,3 +130,4 @@ public sealed class CategoriesController : ControllerBase
     }
 
 }
+

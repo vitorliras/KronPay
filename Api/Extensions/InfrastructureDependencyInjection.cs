@@ -1,13 +1,8 @@
 ﻿using Application.Abstractions.Auth;
 using Application.Abstractions.Common;
 using Application.Abstractions.Import;
-using Application.Executors;
-using Application.Pipelines;
-using Application.UseCases.Auth;
-using Application.UseCases.Categories;
-using Application.UseCases.creditCards;
-using Application.UseCases.CreditCards;
-using Application.UseCases.PaymentMethods;
+using Application.Abstractions.Pluggy;
+using Doamain.Interface.Banks;
 using Domain.interfaces;
 using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
@@ -16,8 +11,10 @@ using Infra.Security;
 using Infrastructure.AI;
 using Infrastructure.AI.Transactions;
 using Infrastructure.AI.Transactions.Tools;
+using Infrastructure.Imports.Pluggy;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.Banks;
 using Infrastructure.Repositories.Transactions;
 using Microsoft.EntityFrameworkCore;
 
@@ -48,6 +45,7 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<ITransactionGroupRepository, TransactionGroupRepository>();
         services.AddScoped<ITransactionImportParser, CsvTransactionImportParser>();
         services.AddScoped<ITransactionImportParser, OfxTransactionImportParser>();
+        services.AddScoped<IBankRepository, BankRepository>();
         services.AddScoped<TransactionImportParserResolver>();
 
         #endregion
@@ -72,7 +70,7 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<ITransactionAiBatchClassifier, TransactionAiClassifier>();
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
-
+        services.AddHttpClient<IPluggyService, PluggyService>();
 
 
         return services;

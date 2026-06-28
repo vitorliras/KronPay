@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using KronPay.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Domain.Entities.banks;
 
 namespace Infrastructure.Mappings;
 
@@ -19,6 +20,10 @@ public sealed class CreditCardMap : IEntityTypeConfiguration<CreditCard>
 
         builder.Property(x => x.UserId)
             .HasColumnName("user_id")
+            .IsRequired();
+
+        builder.Property(x => x.BankId)
+            .HasColumnName("bank_id")
             .IsRequired();
 
         builder.Property(x => x.DueDay)
@@ -55,6 +60,11 @@ public sealed class CreditCardMap : IEntityTypeConfiguration<CreditCard>
         builder.HasOne<User>()
             .WithMany()
             .HasForeignKey(x => x.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasOne<Bank>()
+            .WithMany()
+            .HasForeignKey(x => x.BankId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(x => new { x.UserId, x.Description })

@@ -6,5 +6,6 @@ public sealed record CreditCardResponse(
     short DueDay,
     short ClosingDay,
     decimal CreditLimit,
+    int BankId,
     bool Active
 );

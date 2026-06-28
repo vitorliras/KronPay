@@ -7,6 +7,7 @@ public sealed class CreditCard
 {
     public int Id { get; private set; }
     public int UserId { get; private set; }
+    public int BankId { get; private set; }
     public short DueDay { get; private set; }
     public short ClosingDay { get; private set; }
     public decimal CreditLimit { get; private set; }
@@ -20,6 +21,7 @@ public sealed class CreditCard
     public CreditCard(
         int id,
         int userId,
+        int bankId,
         string description,
         short dueDay,
         short closingDay,
@@ -34,8 +36,10 @@ public sealed class CreditCard
         Active = true;
         DueDay = dueDay;
         ClosingDay = closingDay;
+        BankId = bankId;
         CreditLimit = creditLimit;
         DeactivatedAt = null;
+        UserId = userId;
     }
 
     public void Deactivate()
@@ -50,5 +54,12 @@ public sealed class CreditCard
             throw new DomainException(MessageKeys.InvalidDescription);
 
         Description = description.Trim();
+    }
+
+    public void SetBankAndDays(int bankId, short dueDay, short closingDay )
+    {
+        BankId = bankId;
+        DueDay = dueDay;
+        ClosingDay = closingDay;
     }
 }

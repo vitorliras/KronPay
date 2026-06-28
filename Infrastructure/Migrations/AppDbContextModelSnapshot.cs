@@ -163,6 +163,10 @@ namespace Infrastructure.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("active");
 
+                    b.Property<int>("BankId")
+                        .HasColumnType("int")
+                        .HasColumnName("bank_id");
+
                     b.Property<short>("ClosingDay")
                         .HasColumnType("smallint")
                         .HasColumnName("closing_day");
@@ -194,6 +198,8 @@ namespace Infrastructure.Migrations
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BankId");
 
                     b.HasIndex("UserId", "Description")
                         .IsUnique();
@@ -368,6 +374,565 @@ namespace Infrastructure.Migrations
                     b.ToTable("transaction_group", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.banks.Bank", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("active");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("image_url");
+
+                    b.Property<string>("InstitutionUrl")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("institution_url");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("PrimaryColor")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)")
+                        .HasColumnName("primary_color");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("bank", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/804.png",
+                            Name = "99Pay",
+                            PrimaryColor = "#ef294b",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://www.agorainvest.com.br/images/OpenFinance/agora.svg",
+                            Name = "Ágora Investimentos",
+                            PrimaryColor = "#296fa7",
+                            Type = "INVESTMENT"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/883.svg",
+                            Name = "ASA",
+                            PrimaryColor = "#2b56c0",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/230.svg",
+                            Name = "Avenue",
+                            PrimaryColor = "#000000",
+                            Type = "INVESTMENT"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://www.bancobmg.com.br/data/files/8C/A2/7F/0A/FBA318104A94D208970BE9C2/bmg_open_finance.svg",
+                            Name = "Banco Bmg",
+                            PrimaryColor = "#fa6300",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/682.svg",
+                            Name = "Banco BRB",
+                            PrimaryColor = "#003D7C",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://static.digio.com.br/media/logo_81e95ae2ab.svg",
+                            Name = "Banco Digio",
+                            PrimaryColor = "#ff6776",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://www.bb.com.br/docs/pub/inst/img/LogoBB.svg",
+                            Name = "Banco do Brasil",
+                            PrimaryColor = "#1194F6",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/671.svg",
+                            Name = "Banco do Nordeste",
+                            PrimaryColor = "#ef294b",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/742.svg",
+                            Name = "Banco Mercantil",
+                            PrimaryColor = "#ef294b",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/657.svg",
+                            Name = "Banco PAN",
+                            PrimaryColor = "#02afff",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://www.sofisa.com.br/openbanking/logo_sofisa.svg",
+                            Name = "Banco Sofisa",
+                            PrimaryColor = "#004e46",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://banrisul.com.br/bob/data/Simbolo-Banrisul.svg",
+                            Name = "Banrisul",
+                            PrimaryColor = "#0B45E4",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://banco.bradesco/open-finance/logo/icones_vetorial-pf.svg",
+                            Name = "Bradesco",
+                            PrimaryColor = "#e5173f",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/203.svg",
+                            Name = "Bradesco Cartões",
+                            PrimaryColor = "#e5173f",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://banking-public-prd.s3.sa-east-1.amazonaws.com/open-finance/logo/btgbanking/btgbanking.svg",
+                            Name = "BTG Pactual",
+                            PrimaryColor = "#66768F",
+                            Type = "INVESTMENT"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://www.bv.com.br/site/resources/open-finance/logo-bv.svg",
+                            Name = "BV",
+                            PrimaryColor = "#223AD2",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/726.svg",
+                            Name = "C6 Bank",
+                            PrimaryColor = "#FFE45C",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://consentimento.openbanking.caixa.gov.br/assets/images/logomarca_caixa.svg",
+                            Name = "Caixa Econômica Federal",
+                            PrimaryColor = "#296fa7",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/250.svg",
+                            Name = "Cora",
+                            PrimaryColor = "#f51b81",
+                            Type = "BUSINESS_BANK"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/250.svg",
+                            Name = "Conta Simples",
+                            PrimaryColor = "#2DCC68",
+                            Type = "BUSINESS_BANK"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/750.svg",
+                            Name = "Crefisa",
+                            PrimaryColor = "#23b9e2",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/810.svg",
+                            Name = "Dock",
+                            PrimaryColor = "#ef294b",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/239.svg",
+                            Name = "Efí Bank",
+                            PrimaryColor = "#fb6910",
+                            Type = "BUSINESS_BANK"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/271.svg",
+                            Name = "EQI Investimentos",
+                            PrimaryColor = "#DB671F",
+                            Type = "INVESTMENT"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/215.svg",
+                            Name = "Inter",
+                            PrimaryColor = "#fb6910",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://www.itau.com.br/assets/dam/publisher/07_itau_empresas/13_open_banking/logos_regulatorio_bacen/opb_log_reg_bac_itau_img_01.svg",
+                            Name = "Itaú",
+                            PrimaryColor = "#EC7000",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://http2.mlstatic.com/frontend-assets/opb-logos/logo.svg",
+                            Name = "Mercado Pago",
+                            PrimaryColor = "#009ee3",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://nuapp.nubank.com.br/open-banking/logo.svg",
+                            Name = "Nubank",
+                            PrimaryColor = "#8a0fbe",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/692.svg",
+                            Name = "PagBank",
+                            PrimaryColor = "#ef294b",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://picpay.s3.sa-east-1.amazonaws.com/openbanking/picpay-logo-icon-pf.svg",
+                            Name = "PicPay",
+                            PrimaryColor = "#238662",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/205.svg",
+                            Name = "Rico Investimentos",
+                            PrimaryColor = "#ff5200",
+                            Type = "INVESTMENT"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://storage.googleapis.com/inic-data/safra-pf.svg",
+                            Name = "Safra",
+                            PrimaryColor = "#00003C",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cms.santander.com.br/sites/WPS/imagem/img-santander-chama/21-08-06_200409_P_santander_chama.svg",
+                            Name = "Santander",
+                            PrimaryColor = "#cc0000",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://sicoob-openbanking.s3.sa-east-1.amazonaws.com/logo-sicoob.svg",
+                            Name = "Sicoob",
+                            PrimaryColor = "#00AE9D",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://www.sicredi.com.br/openbanking/app/assets/images/shared/logo/logo_sicredi_512.svg",
+                            Name = "Sicredi",
+                            PrimaryColor = "#3FA110",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/787.svg",
+                            Name = "Stone",
+                            PrimaryColor = "#00A868",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/796.svg",
+                            Name = "Toro Investimentos",
+                            PrimaryColor = "#ef294b",
+                            Type = "INVESTMENT"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://www.unicred.com.br/logo.svg",
+                            Name = "Unicred",
+                            PrimaryColor = "#1e5c49",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/291.svg",
+                            Name = "Wise",
+                            PrimaryColor = "#9fe870",
+                            Type = "PERSONAL_BANK"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Active = true,
+                            ImageUrl = "",
+                            InstitutionUrl = "https://cdn.pluggy.ai/assets/connector-icons/202.svg",
+                            Name = "XP Investimentos",
+                            PrimaryColor = "#111111",
+                            Type = "INVESTMENT"
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entities.banks.BankAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("active");
+
+                    b.Property<int>("BankConnectionId")
+                        .HasColumnType("int")
+                        .HasColumnName("bank_connection_id");
+
+                    b.Property<decimal>("CurrentBalance")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("current_balance");
+
+                    b.Property<string>("ExternalAccountId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("external_account_id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankConnectionId");
+
+                    b.ToTable("bank_account", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.banks.BankConnection", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("active");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("ExternalConnectionId")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("external_connection_id");
+
+                    b.Property<string>("InstitutionCode")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasColumnName("institution_code");
+
+                    b.Property<string>("InstitutionName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("institution_name");
+
+                    b.Property<DateTime?>("LastSyncAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("last_sync_at");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Active");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("bank_connection", (string)null);
+                });
+
             modelBuilder.Entity("KronPay.Domain.Entities.Configuration.TypeTransaction", b =>
                 {
                     b.Property<string>("Code")
@@ -520,6 +1085,12 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.CreditCard", b =>
                 {
+                    b.HasOne("Domain.Entities.banks.Bank", null)
+                        .WithMany()
+                        .HasForeignKey("BankId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -569,6 +1140,17 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("TransactionGroup");
+                });
+
+            modelBuilder.Entity("Domain.Entities.banks.BankAccount", b =>
+                {
+                    b.HasOne("Domain.Entities.banks.BankConnection", "BankConnection")
+                        .WithMany("BankAccounts")
+                        .HasForeignKey("BankConnectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BankConnection");
                 });
 
             modelBuilder.Entity("KronPay.Domain.Entities.Users.User", b =>
@@ -697,6 +1279,11 @@ namespace Infrastructure.Migrations
 
                     b.Navigation("Username")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.banks.BankConnection", b =>
+                {
+                    b.Navigation("BankAccounts");
                 });
 #pragma warning restore 612, 618
         }

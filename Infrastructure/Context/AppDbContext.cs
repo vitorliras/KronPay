@@ -1,10 +1,12 @@
 ﻿using Domain.Entities;
+using Domain.Entities.banks;
 using Domain.Entities.Configuration;
-using KronPay.Domain.Entities.Users;
 using Domain.Entities.Transactions;
 using Infrastructure.Mappings;
+using Infrastructure.Mappings.banks;
 using Infrastructure.Mappings.Transactions;
 using KronPay.Domain.Entities.Configuration;
+using KronPay.Domain.Entities.Users;
 using KronPay.Infra.Data.Mappings.Configuration;
 using KronPay.Infra.Data.Seeds;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +23,8 @@ public sealed class AppDbContext : DbContext
     public DbSet<Transaction> Transactions => Set<Transaction>();
     public DbSet<TransactionGroup> TransactionsGroups => Set<TransactionGroup>();
     public DbSet<TypeUser> TyoeUsers => Set<TypeUser>();
-
+    public DbSet<BankConnection> BankConnections { get; set; }
+    public DbSet<Bank> Banks { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -58,6 +61,10 @@ public sealed class AppDbContext : DbContext
         modelBuilder.ApplyConfiguration(new TransactionMap());
 
         modelBuilder.ApplyConfiguration(new TransactionGroupMap());
+
+        modelBuilder.ApplyConfiguration(new BankMap());
+        modelBuilder.Entity<Bank>().HasData(BankSeed.Data);
+
 
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }

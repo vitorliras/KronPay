@@ -36,6 +36,7 @@ public sealed class UpdateCreditCardUseCase
             return ResultEntity<CreditCardResponse>.Failure(MessageKeys.CreditCardNotFound);
 
         creditCard.UpdateDescription(request.Description);
+        creditCard.SetBankAndDays(request.BankId, request.DueDay, request.ClosingDay);
 
         var result =  _creditCardRepository.Update(creditCard);
         if (!result)
@@ -52,6 +53,7 @@ public sealed class UpdateCreditCardUseCase
                 creditCard.DueDay,
                 creditCard.ClosingDay,
                 creditCard.CreditLimit,
+                creditCard.BankId,
                 creditCard.Active
             ), MessageKeys.OperationSuccess
         );
