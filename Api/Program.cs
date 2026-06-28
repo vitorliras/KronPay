@@ -1,6 +1,7 @@
 using Api.Extensions;
 using Api.Middlewares;
 using Application;
+using Application.Configuration.Pluggy;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Localization;
@@ -82,6 +83,8 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.Configure<PluggySettings>(builder.Configuration.GetSection("Pluggy"));
+
 builder.Services.AddApplication();
 
 var autoMigrate = builder.Configuration
@@ -141,8 +144,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseDefaultFiles(); 
-app.UseStaticFiles(); 
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.MapControllers();
 

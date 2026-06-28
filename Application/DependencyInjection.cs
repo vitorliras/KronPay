@@ -2,6 +2,7 @@
 using Application.Executors;
 using Application.Pipelines;
 using Application.UseCases.Auth;
+using Application.UseCases.Banks;
 using Application.UseCases.Categories;
 using Application.UseCases.creditCards;
 using Application.UseCases.CreditCards;
@@ -64,6 +65,10 @@ public static class DependencyInjection
         services.AddScoped<DeleteTransactionRangeUseCase>();
         services.AddScoped<ChangeStatusTransactionRangeUseCase>();
         services.AddScoped<UpdateTransactionRangeUseCase>();
+
+        services.AddScoped<CreateBankConnectionUseCase>();
+        services.AddScoped<GetAllBanksUseCase>();
+
 
 
         return services;

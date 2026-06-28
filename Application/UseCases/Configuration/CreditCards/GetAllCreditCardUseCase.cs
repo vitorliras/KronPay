@@ -32,6 +32,7 @@ public sealed class GetAllCreditCardUseCase
                 creditCard.DueDay,
                 creditCard.ClosingDay,
                 creditCard.CreditLimit,
+                creditCard.BankId,
                 creditCard.Active
             ));
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260621013215_AddBank")]
+    partial class AddBank
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,10 +166,6 @@ namespace Infrastructure.Migrations
                         .HasDefaultValue(true)
                         .HasColumnName("active");
 
-                    b.Property<int>("BankId")
-                        .HasColumnType("int")
-                        .HasColumnName("bank_id");
-
                     b.Property<short>("ClosingDay")
                         .HasColumnType("smallint")
                         .HasColumnName("closing_day");
@@ -198,8 +197,6 @@ namespace Infrastructure.Migrations
                         .HasColumnName("user_id");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BankId");
 
                     b.HasIndex("UserId", "Description")
                         .IsUnique();
@@ -1085,12 +1082,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.CreditCard", b =>
                 {
-                    b.HasOne("Domain.Entities.banks.Bank", null)
-                        .WithMany()
-                        .HasForeignKey("BankId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
