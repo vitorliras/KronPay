@@ -60,7 +60,6 @@ public sealed class TransactionsController : ControllerBase
         _getByDates = getByDates;
         _changeStatusRange = changeStatusRange;
         _getAllByYear = getAllByYear;
-        _getAllByYear = getAllByYear;
         _localizer = localizer;
         _updateRange = updateRange;
         _import = import;
