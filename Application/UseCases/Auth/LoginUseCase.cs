@@ -34,7 +34,7 @@ public sealed class LoginUseCase
         if (!_passwordHasher.Verify(request.Password, user.PasswordHash))
             return ResultEntity<LoginResponse>.Failure(MessageKeys.UsernameOrPasswordIsIncorrect); 
 
-        var token = _tokenService.GenerateToken(user);
+        var tokenResult = _tokenService.GenerateToken(user);
 
         user.RegisterAccess();
 
@@ -50,8 +50,8 @@ public sealed class LoginUseCase
 
         return ResultEntity<LoginResponse>.Success(new LoginResponse
         {
-            AccessToken = token,
-            ExpiresAt = _tokenService.GetExpiration(),
+            AccessToken = tokenResult.Token,
+            ExpiresAt = tokenResult.ExpiresAt,
             User = user.Username.Value,
             TypeUser = type.Description
         }, MessageKeys.OperationSuccess);

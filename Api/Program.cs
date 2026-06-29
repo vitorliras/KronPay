@@ -103,12 +103,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-if (app.Environment.IsDevelopment())
-{
-    await Infrastructure.Persistence.DatabaseInitializer
-        .InitializeAsync(app.Services);
-}
-
 var supportedCultures = new[] { "pt-BR", "en-US", "fr-FR" };
 
 var localizationOptions = new RequestLocalizationOptions

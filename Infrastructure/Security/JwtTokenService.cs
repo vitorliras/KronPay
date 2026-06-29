@@ -12,21 +12,20 @@ namespace Infra.Security;
 public sealed class JwtTokenService : ITokenService
 {
     private readonly IConfiguration _config;
-    private DateTime _expiresAt;
 
     public JwtTokenService(IConfiguration config)
     {
         _config = config;
     }
 
-    public string GenerateToken(User user)
+    public TokenResult GenerateToken(User user)
     {
         var key = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        _expiresAt = DateTime.UtcNow.AddHours(2);
+        var expiresAt = DateTime.UtcNow.AddHours(2);
 
         var claims = new[]
         {
@@ -39,12 +38,12 @@ public sealed class JwtTokenService : ITokenService
             issuer: _config["Jwt:Issuer"],
             audience: _config["Jwt:Audience"],
             claims: claims,
-            expires: _expiresAt,
+            expires: expiresAt,
             signingCredentials: creds
         );
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
-    }
+        var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-    public DateTime GetExpiration() => _expiresAt;
+        return new TokenResult(jwt, expiresAt);
+    }
 }

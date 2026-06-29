@@ -43,10 +43,10 @@ public sealed class UpdateTransactionRangeUseCase
                 if (request.Status.Equals("C")) transaction.Cancel();
                 if (request.Status.Equals("O")) transaction.Open();
 
-                transaction.VerifyAmount(request.Amount);
-                transaction.VerifyDescription(request.Description);
+                transaction.UpdateAmount(request.Amount);
+                transaction.UpdateDescription(request.Description);
                 transaction.SetDate(request.TransactionDate);
-                transaction.VerifyCategory(request.CategoryId, request.CategoryItemId);
+                transaction.UpdateCategory(request.CategoryId, request.CategoryItemId);
 
                 if (!await _transactionRepository.UpdateAsync(transaction))
                     return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.UpdateFailed);

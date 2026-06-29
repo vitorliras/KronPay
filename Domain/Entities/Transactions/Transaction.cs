@@ -111,7 +111,7 @@ public sealed class Transaction
     public void SetUser(int userId) => UserId = userId;
     public void SetDate(DateTime date) => TransactionDate = date;
 
-    public void VerifyAmount(decimal newAmount)
+    public void UpdateAmount(decimal newAmount)
     {
         if (newAmount <= 0)
             throw new DomainException(MessageKeys.InvalidAmount);
@@ -119,7 +119,7 @@ public sealed class Transaction
         Amount = newAmount;
     }
 
-    public void VerifyDescription(string description)
+    public void UpdateDescription(string description)
     {
         if (string.IsNullOrEmpty(description))
             throw new DomainException(MessageKeys.InvalidDescription);
@@ -127,13 +127,13 @@ public sealed class Transaction
         Description = description;
     }
 
-    public void VerifyCategory(int? categoryId, int? categoryIdItem)
+    public void UpdateCategory(int? categoryId, int? categoryIdItem)
     {
         CategoryId = categoryId;
         CategoryItemId = categoryIdItem;
     }
 
-    public void VerifyType(string type)
+    public void UpdateType(string type)
     {
         CodTypeTransaction = type;
     }

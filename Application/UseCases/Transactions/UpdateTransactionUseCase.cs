@@ -43,9 +43,9 @@ public sealed class UpdateTransactionUseCase
                     userId,
                     t =>
                     {
-                        t.VerifyAmount(request.Amount);
-                        t.VerifyDescription(request.Description);
-                        t.VerifyCategory( request.CategoryId, request.CategoryItemId);
+                        t.UpdateAmount(request.Amount);
+                        t.UpdateDescription(request.Description);
+                        t.UpdateCategory( request.CategoryId, request.CategoryItemId);
                     });
 
             if (!result)
@@ -62,11 +62,11 @@ public sealed class UpdateTransactionUseCase
         }
         else
         {
-            transaction.VerifyAmount(request.Amount);
-            transaction.VerifyDescription(request.Description);
-            transaction.VerifyCategory( request.CategoryId, request.CategoryItemId);
+            transaction.UpdateAmount(request.Amount);
+            transaction.UpdateDescription(request.Description);
+            transaction.UpdateCategory( request.CategoryId, request.CategoryItemId);
             transaction.SetDate(request.TransactionDate);
-            transaction.VerifyType(request.type);
+            transaction.UpdateType(request.type);
 
             if (!await _transactionRepository.UpdateAsync(transaction))
                 return ResultEntity<TransactionResponse>.Failure(MessageKeys.UpdateFailed);

@@ -4,6 +4,7 @@ namespace Application.Abstractions.Auth;
 
 public interface ITokenService
 {
-    string GenerateToken(User user);
-    DateTime GetExpiration();
+    TokenResult GenerateToken(User user);
 }
+
+public sealed record TokenResult(string Token, DateTime ExpiresAt);
