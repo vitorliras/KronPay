@@ -366,3 +366,4 @@ FodyWeavers.xsd
 /Api/appsettings.json
 /Api/wwwroot
 /Api/MeuSistemaapi
+*.md
