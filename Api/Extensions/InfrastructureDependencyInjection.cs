@@ -5,7 +5,10 @@ using Application.Abstractions.Pluggy;
 using Doamain.Interface.Banks;
 using Domain.interfaces;
 using Domain.Interfaces;
+using Domain.Interfaces.Card;
 using Domain.Interfaces.Transactions;
+using Domain.Services.Card;
+using Infrastructure.Repositories.Card;
 using Infra.Persistence.Repositories;
 using Infra.Security;
 using Infrastructure.AI;
@@ -47,6 +50,10 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<ITransactionImportParser, OfxTransactionImportParser>();
         services.AddScoped<IBankRepository, BankRepository>();
         services.AddScoped<TransactionImportParserResolver>();
+
+        services.AddScoped<ICardPurchaseRepository, CardPurchaseRepository>();
+        services.AddScoped<ICardInvoiceRepository, CardInvoiceRepository>();
+        services.AddScoped<ICreditCardBillingCalculator, CreditCardBillingCalculator>();
 
         #endregion
 

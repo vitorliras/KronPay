@@ -21,6 +21,255 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Card.CardInstallment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("amount");
+
+                    b.Property<int>("CardInvoiceId")
+                        .HasColumnType("int")
+                        .HasColumnName("card_invoice_id");
+
+                    b.Property<int>("CardPurchaseId")
+                        .HasColumnType("int")
+                        .HasColumnName("card_purchase_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<short>("InstallmentNumber")
+                        .HasColumnType("smallint")
+                        .HasColumnName("installment_number");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("status");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardInvoiceId");
+
+                    b.HasIndex("CardPurchaseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("card_installment", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Card.CardInvoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ClosingDate")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("closing_date");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("CreditCardId")
+                        .HasColumnType("int")
+                        .HasColumnName("credit_card_id");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("due_date");
+
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("paid_at");
+
+                    b.Property<short>("ReferenceMonth")
+                        .HasColumnType("smallint")
+                        .HasColumnName("reference_month");
+
+                    b.Property<short>("ReferenceYear")
+                        .HasColumnType("smallint")
+                        .HasColumnName("reference_year");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("status");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("total_amount");
+
+                    b.Property<int?>("TransactionId")
+                        .HasColumnType("int")
+                        .HasColumnName("transaction_id");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreditCardId");
+
+                    b.HasIndex("TransactionId");
+
+                    b.HasIndex("UserId", "CreditCardId", "ReferenceYear", "ReferenceMonth")
+                        .IsUnique();
+
+                    b.ToTable("card_invoice", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Card.CardPurchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("active");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
+
+                    b.Property<int?>("CategoryItemId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_item_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<int>("CreditCardId")
+                        .HasColumnType("int")
+                        .HasColumnName("credit_card_id");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)")
+                        .HasColumnName("description");
+
+                    b.Property<short>("InstallmentsCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("installments_count");
+
+                    b.Property<string>("Origin")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("origin");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("purchase_date");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("total_amount");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CategoryItemId");
+
+                    b.HasIndex("CreditCardId");
+
+                    b.HasIndex("UserId", "CreditCardId");
+
+                    b.ToTable("card_purchase", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Card.CreditCard", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("active");
+
+                    b.Property<int>("BankId")
+                        .HasColumnType("int")
+                        .HasColumnName("bank_id");
+
+                    b.Property<short>("ClosingDay")
+                        .HasColumnType("smallint")
+                        .HasColumnName("closing_day");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<decimal>("CreditLimit")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("credit_limit");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("description");
+
+                    b.Property<short>("DueDay")
+                        .HasColumnType("smallint")
+                        .HasColumnName("due_day");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankId");
+
+                    b.HasIndex("UserId", "Description")
+                        .IsUnique();
+
+                    b.ToTable("credit_card", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Configuration.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -146,65 +395,6 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("payment_method", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.CreditCard", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Active")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true)
-                        .HasColumnName("active");
-
-                    b.Property<int>("BankId")
-                        .HasColumnType("int")
-                        .HasColumnName("bank_id");
-
-                    b.Property<short>("ClosingDay")
-                        .HasColumnType("smallint")
-                        .HasColumnName("closing_day");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("created_at");
-
-                    b.Property<decimal>("CreditLimit")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("credit_limit");
-
-                    b.Property<DateTime?>("DeactivatedAt")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("deactivated_at");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .HasColumnName("description");
-
-                    b.Property<short>("DueDay")
-                        .HasColumnType("smallint")
-                        .HasColumnName("due_day");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BankId");
-
-                    b.HasIndex("UserId", "Description")
-                        .IsUnique();
-
-                    b.ToTable("credit_card", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Transactions.StatusTransaction", b =>
@@ -1050,6 +1240,87 @@ namespace Infrastructure.Migrations
                     b.ToTable("users", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Card.CardInstallment", b =>
+                {
+                    b.HasOne("Domain.Entities.Card.CardInvoice", null)
+                        .WithMany()
+                        .HasForeignKey("CardInvoiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Card.CardPurchase", null)
+                        .WithMany()
+                        .HasForeignKey("CardPurchaseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Card.CardInvoice", b =>
+                {
+                    b.HasOne("Domain.Entities.Card.CreditCard", null)
+                        .WithMany()
+                        .HasForeignKey("CreditCardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.Transactions.Transaction", null)
+                        .WithMany()
+                        .HasForeignKey("TransactionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Card.CardPurchase", b =>
+                {
+                    b.HasOne("Domain.Entities.Configuration.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entities.Configuration.CategoryItem", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entities.Card.CreditCard", null)
+                        .WithMany()
+                        .HasForeignKey("CreditCardId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Card.CreditCard", b =>
+                {
+                    b.HasOne("Domain.Entities.banks.Bank", null)
+                        .WithMany()
+                        .HasForeignKey("BankId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Entities.Configuration.Category", b =>
                 {
                     b.HasOne("KronPay.Domain.Entities.Configuration.TypeTransaction", null)
@@ -1076,21 +1347,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
                 {
-                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Entities.CreditCard", b =>
-                {
-                    b.HasOne("Domain.Entities.banks.Bank", null)
-                        .WithMany()
-                        .HasForeignKey("BankId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
