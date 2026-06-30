@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Card;
 using Microsoft.EntityFrameworkCore;
 using KronPay.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

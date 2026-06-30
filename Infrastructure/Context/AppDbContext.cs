@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.Card;
 using Domain.Entities.banks;
 using Domain.Entities.Configuration;
 using Domain.Entities.Transactions;
@@ -25,6 +26,9 @@ public sealed class AppDbContext : DbContext
     public DbSet<TypeUser> TyoeUsers => Set<TypeUser>();
     public DbSet<BankConnection> BankConnections { get; set; }
     public DbSet<Bank> Banks { get; set; }
+    public DbSet<CardPurchase> CardPurchases => Set<CardPurchase>();
+    public DbSet<CardInvoice> CardInvoices => Set<CardInvoice>();
+    public DbSet<CardInstallment> CardInstallments => Set<CardInstallment>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
