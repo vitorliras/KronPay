@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Card;
 using Domain.Entities.Configuration;
 
 namespace Domain.Interfaces;

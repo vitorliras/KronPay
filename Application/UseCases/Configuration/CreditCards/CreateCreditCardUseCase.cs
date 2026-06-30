@@ -1,7 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Common;
 using Application.DTOs.Configuration.CreditCards;
-using Domain.Entities;
+using Domain.Entities.Card;
 using Domain.Interfaces;
 using Shared.Localization;
 using Shared.Results;

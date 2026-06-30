@@ -337,6 +337,9 @@
   <data name="InsertFalied" xml:space="preserve">
     <value>Falha ao fazer a inserção</value>
   </data>
+  <data name="CardInvoiceAlreadyPaid" xml:space="preserve">
+    <value>A fatura do cartão já foi paga</value>
+  </data>
   <data name="Installments" xml:space="preserve">
     <value>Parcelas</value>
   </data>

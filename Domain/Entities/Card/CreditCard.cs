@@ -1,7 +1,7 @@
 ﻿using Domain.Exceptions;
 using Shared.Localization;
 
-namespace Domain.Entities;
+namespace Domain.Entities.Card;
 
 public sealed class CreditCard
 {

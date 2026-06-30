@@ -41,6 +41,7 @@ public static class MessageKeys
     public const string GroupInsertonFailed = nameof(GroupInsertonFailed);
     public const string GroupUpdateFailed = nameof(GroupUpdateFailed);
     public const string GroupDeleteFailed = nameof(GroupDeleteFailed);
+    public const string CardInvoiceAlreadyPaid = nameof(CardInvoiceAlreadyPaid);
     
 
 

@@ -340,6 +340,9 @@ Delete all future installments of this installment.</value>
   <data name="InsertFalied" xml:space="preserve">
     <value>Insert Falied</value>
   </data>
+  <data name="CardInvoiceAlreadyPaid" xml:space="preserve">
+    <value>The card invoice has already been paid</value>
+  </data>
   <data name="Installments" xml:space="preserve">
     <value>Installments</value>
   </data>

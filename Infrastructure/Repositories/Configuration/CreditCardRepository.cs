@@ -1,4 +1,4 @@
-﻿using Domain.Entities;
+﻿using Domain.Entities.Card;
 using Domain.Entities.Configuration;
 using Domain.Interfaces;
 using Infrastructure.Context;
