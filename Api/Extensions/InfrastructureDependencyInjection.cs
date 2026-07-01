@@ -5,10 +5,16 @@ using Application.Abstractions.Pluggy;
 using Doamain.Interface.Banks;
 using Domain.interfaces;
 using Domain.Interfaces;
+using Application.Planning;
+using Application.Planning.Flows;
 using Domain.Interfaces.Card;
+using Domain.Interfaces.Planning;
 using Domain.Interfaces.Transactions;
 using Domain.Services.Card;
+using Domain.Services.Planning;
+using Domain.Services.Planning.Rules;
 using Infrastructure.Repositories.Card;
+using Infrastructure.Repositories.Planning;
 using Infra.Persistence.Repositories;
 using Infra.Security;
 using Infrastructure.AI;
@@ -54,6 +60,27 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<ICardPurchaseRepository, CardPurchaseRepository>();
         services.AddScoped<ICardInvoiceRepository, CardInvoiceRepository>();
         services.AddScoped<ICreditCardBillingCalculator, CreditCardBillingCalculator>();
+
+        services.AddScoped<IPlannedCommitmentRepository, PlannedCommitmentRepository>();
+
+        // Planning: motor de projeção + fontes de fluxo (Open/Closed via IEnumerable<IFinancialFlowSource>)
+        services.AddScoped<IFinancialProjectionService, FinancialProjectionService>();
+        services.AddScoped<IFinancialFlowSource, TransactionFlowSource>();
+        services.AddScoped<IFinancialFlowSource, CardInvoiceFlowSource>();
+        services.AddScoped<IFinancialFlowSource, CommitmentFlowSource>();
+        services.AddScoped<IFinancialFlowSource, VariableSpendingFlowSource>();
+        services.AddScoped<IFinancialFlowAggregator, FinancialFlowAggregator>();
+
+        // Planning: estimador de variáveis + regras de viabilidade + avaliador (score/veredito)
+        services.AddScoped<IVariableSpendingEstimator, VariableSpendingEstimator>();
+        services.AddScoped<IViabilityRule, NegativeBalanceRule>();
+        services.AddScoped<IViabilityRule, SafetyReserveRule>();
+        services.AddScoped<IViabilityRule, ConfidenceRule>();
+        services.AddScoped<IViabilityEvaluator, ViabilityEvaluator>();
+
+        // Planning: orquestração compartilhada pelos use cases
+        services.AddScoped<IProjectionRunner, ProjectionRunner>();
+        services.AddScoped<IPurchaseFlowBuilder, PurchaseFlowBuilder>();
 
         #endregion
 
