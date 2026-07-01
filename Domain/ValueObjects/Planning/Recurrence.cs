@@ -3,11 +3,6 @@ using Shared.Localization;
 
 namespace Domain.ValueObjects.Planning;
 
-/// <summary>
-/// Value Object que descreve a repetição de um compromisso previsto e sabe enumerar
-/// suas ocorrências dentro de um intervalo. Periodicidade em code string:
-/// "U" = único/pontual, "M" = mensal, "S" = semanal, "A" = anual.
-/// </summary>
 public sealed class Recurrence
 {
     public string Periodicity { get; }
@@ -27,10 +22,6 @@ public sealed class Recurrence
         EndDate = endDate?.Date;
     }
 
-    /// <summary>
-    /// Datas de ocorrência (apenas a parte de data) dentro de [from, to], respeitando
-    /// a data final da recorrência. Ancorado no dia da <see cref="StartDate"/>.
-    /// </summary>
     public IEnumerable<DateTime> OccurrencesBetween(DateTime from, DateTime to)
     {
         var windowStart = from.Date;

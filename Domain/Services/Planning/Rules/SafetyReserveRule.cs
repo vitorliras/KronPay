@@ -4,10 +4,6 @@ using Shared.Localization;
 
 namespace Domain.Services.Planning.Rules;
 
-/// <summary>
-/// Penalização: o cenário pessimista, mesmo positivo, cai abaixo da reserva de segurança.
-/// Só atua quando há reserva configurada (&gt; 0).
-/// </summary>
 public sealed class SafetyReserveRule : IViabilityRule
 {
     public RuleResult Evaluate(FinancialProjection projection, ProjectionParameters parameters)

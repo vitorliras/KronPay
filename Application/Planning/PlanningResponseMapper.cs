@@ -3,7 +3,6 @@ using Domain.Models.Planning;
 
 namespace Application.Planning;
 
-/// <summary>Mapeia os read models do domínio para os DTOs de resposta (reuso pelos use cases).</summary>
 public static class PlanningResponseMapper
 {
     public static IReadOnlyList<ProjectionMonthResponse> MapMonths(FinancialProjection projection)

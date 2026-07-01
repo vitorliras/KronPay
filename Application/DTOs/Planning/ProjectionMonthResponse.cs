@@ -11,17 +11,3 @@ public sealed record ProjectionMonthResponse(
     decimal EstimatedNet,
     decimal OptimisticClosing,
     decimal PessimisticClosing);
-
-public sealed record ViabilityFindingResponse(
-    string Rule,
-    string Status,
-    int Penalty,
-    bool IsVeto,
-    string MessageKey,
-    int? Year,
-    int? Month);
-
-public sealed record ViabilityResponse(
-    int Score,
-    string Verdict,
-    IReadOnlyList<ViabilityFindingResponse> Findings);

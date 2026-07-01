@@ -361,6 +361,9 @@
   <data name="PlanningNoteLowConfidence" xml:space="preserve">
     <value>Parte da projeção é estimada — confiança reduzida</value>
   </data>
+  <data name="PlannedCommitmentNotFound" xml:space="preserve">
+    <value>Compromisso não encontrado</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filtros</value>
   </data>

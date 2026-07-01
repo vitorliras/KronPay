@@ -4,10 +4,6 @@ using Shared.Localization;
 
 namespace Application.Planning;
 
-/// <summary>
-/// Aplica o veto de <b>limite do cartão</b> à viabilidade. Esse critério não vem da projeção
-/// (depende do limite × uso do cartão), então é aplicado no use case como override.
-/// </summary>
 public static class ViabilityOverrides
 {
     private const int VetoScoreCap = 20;

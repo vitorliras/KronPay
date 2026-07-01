@@ -1,6 +1,5 @@
 namespace Domain.Enums.Planning;
 
-/// <summary>Origem de um fluxo financeiro (para rastreabilidade da projeção).</summary>
 public enum FlowOrigin
 {
     Transaction = 1,

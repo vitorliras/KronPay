@@ -29,7 +29,7 @@ public class CommitmentFlowSourceTests
 
         var flows = (await _sut.GetFlowsAsync(1, from, to)).ToList();
 
-        flows.Count.ShouldBe(3); // jun, jul, ago
+        flows.Count.ShouldBe(3);
         flows.ShouldAllBe(f =>
             f.Direction == FlowDirection.Outflow &&
             f.Amount == 1500m &&

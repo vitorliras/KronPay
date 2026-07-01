@@ -31,8 +31,8 @@ public class CardInvoiceFlowSourceTests
 
         var invoices = new List<CardInvoice>
         {
-            Invoice(2026, 7, new DateTime(2026, 7, 5), 800m),                 // aberta
-            Invoice(2026, 6, new DateTime(2026, 6, 5), 500m, paid: true)      // paga -> ignorada
+            Invoice(2026, 7, new DateTime(2026, 7, 5), 800m),
+            Invoice(2026, 6, new DateTime(2026, 6, 5), 500m, paid: true)
         };
 
         _repo.Setup(r => r.GetByUserAsync(It.IsAny<int>())).ReturnsAsync(invoices);
@@ -54,7 +54,7 @@ public class CardInvoiceFlowSourceTests
 
         var invoices = new List<CardInvoice>
         {
-            Invoice(2026, 5, new DateTime(2026, 5, 20), 300m) // venceu antes da janela, ainda aberta
+            Invoice(2026, 5, new DateTime(2026, 5, 20), 300m)
         };
 
         _repo.Setup(r => r.GetByUserAsync(It.IsAny<int>())).ReturnsAsync(invoices);
@@ -62,6 +62,6 @@ public class CardInvoiceFlowSourceTests
         var flows = (await _sut.GetFlowsAsync(1, from, to)).ToList();
 
         flows.ShouldHaveSingleItem();
-        flows[0].CompetenceDate.ShouldBe(from); // clamp para o início da janela
+        flows[0].CompetenceDate.ShouldBe(from);
     }
 }

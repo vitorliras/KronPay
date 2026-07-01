@@ -364,6 +364,9 @@ Delete all future installments of this installment.</value>
   <data name="PlanningNoteLowConfidence" xml:space="preserve">
     <value>Part of the projection is estimated — reduced confidence</value>
   </data>
+  <data name="PlannedCommitmentNotFound" xml:space="preserve">
+    <value>Commitment not found</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
   </data>

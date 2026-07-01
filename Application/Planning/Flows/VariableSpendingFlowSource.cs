@@ -5,16 +5,6 @@ using Domain.Services.Planning;
 
 namespace Application.Planning.Flows;
 
-/// <summary>
-/// Estima o gasto variável futuro a partir das despesas realizadas dos últimos meses e o
-/// materializa em fluxos de saída com confiança Medium (ou Low quando há pouco histórico).
-/// É esta fonte que ativa a banda de confiança da projeção.
-/// </summary>
-/// <remarks>
-/// Limitação conhecida (ADR 0013): sem classificação fixa×variável no histórico, esta
-/// estimativa pode sobrepor-se a despesas fixas (compromissos) ou a transações futuras já
-/// registradas. Refinamento previsto para elevar a precisão.
-/// </remarks>
 public sealed class VariableSpendingFlowSource : IFinancialFlowSource
 {
     private const int HistoryMonths = 6;

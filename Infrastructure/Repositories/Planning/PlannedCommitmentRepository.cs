@@ -26,7 +26,6 @@ public sealed class PlannedCommitmentRepository : IPlannedCommitmentRepository
         return result.State == EntityState.Modified;
     }
 
-    // Rastreado (sem AsNoTracking): usado para atualização/desativação persistir.
     public async Task<PlannedCommitment?> GetByIdAsync(int id, int userId)
         => await _context.PlannedCommitments
             .FirstOrDefaultAsync(x => x.Id == id && x.UserId == userId);
