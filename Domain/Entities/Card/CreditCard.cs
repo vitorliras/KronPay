@@ -56,10 +56,11 @@ public sealed class CreditCard
         Description = description.Trim();
     }
 
-    public void SetBankAndDays(int bankId, short dueDay, short closingDay )
+    public void SetBankAndDays(int bankId, short dueDay, short closingDay, decimal limit )
     {
         BankId = bankId;
         DueDay = dueDay;
         ClosingDay = closingDay;
+        CreditLimit = limit;
     }
 }
