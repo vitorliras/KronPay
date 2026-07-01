@@ -7,6 +7,7 @@ using Domain.Interfaces.Card;
 using Domain.Interfaces.Transactions;
 using Shared.Localization;
 using Shared.Results;
+using System.Linq;
 
 namespace Application.UseCases.Card.CardInvoices;
 
@@ -48,12 +49,19 @@ public sealed class PayCardInvoiceUseCase
         if (card is null)
             return ResultEntity<CardInvoiceResponse>.Failure(MessageKeys.CreditCardNotFound);
 
+        // Paga apenas as parcelas PENDENTES (não recobra o que já foi quitado num pagamento anterior).
+        var pending = (await _invoiceRepository.GetPendingInstallmentsByInvoiceAsync(invoice.Id, userId)).ToList();
+
+        var amountToPay = pending.Sum(p => p.Amount);
+        if (amountToPay <= 0)
+            return ResultEntity<CardInvoiceResponse>.Failure(MessageKeys.CardInvoiceAlreadyPaid);
+
         var description = $"Fatura {card.Description} - {invoice.ReferenceMonth:00}/{invoice.ReferenceYear}";
 
-        // Transação de saída (caixa) — paga; reusa o domínio de Transaction.
+        // Transação de saída (caixa) — reusa o domínio de Transaction.
         var transaction = new Transaction(
             userId,
-            invoice.TotalAmount,
+            amountToPay,
             DateTime.UtcNow,
             description,
             request.CodTypeTransaction,
@@ -67,8 +75,6 @@ public sealed class PayCardInvoiceUseCase
         if (!await _transactionRepository.AddAsync(transaction))
             return ResultEntity<CardInvoiceResponse>.Failure(MessageKeys.InsertFalied);
 
-        // Quita as parcelas pendentes da fatura (libera o limite no cálculo).
-        var pending = await _invoiceRepository.GetPendingInstallmentsByInvoiceAsync(invoice.Id, userId);
         foreach (var installment in pending)
             installment.Settle();
 
