@@ -47,7 +47,6 @@ public class ViabilityEvaluatorTests
     [Fact]
     public void Abaixo_da_reserva_com_incerteza_cai_para_atencao()
     {
-        // reserva 1500 (pess 900 < reserva) => -25 ; banda (1000-900) => -10 ; score 65 => Atenção
         var result = Evaluator().Evaluate(
             new FinancialProjection(new[] { Month(1000m, 900m) }), Params(reserve: 1500m));
 

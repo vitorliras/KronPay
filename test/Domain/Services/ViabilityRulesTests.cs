@@ -16,7 +16,6 @@ public class ViabilityRulesTests
     private static FinancialProjection Projection(params ProjectionMonth[] months)
         => new(months);
 
-    // ---- NegativeBalanceRule ----
     [Fact]
     public void SaldoNegativo_veta_quando_pessimista_fica_negativo()
     {
@@ -38,7 +37,6 @@ public class ViabilityRulesTests
         result.IsVeto.ShouldBeFalse();
     }
 
-    // ---- SafetyReserveRule ----
     [Fact]
     public void Reserva_avisa_quando_pessimista_fica_abaixo_da_reserva()
     {
@@ -59,7 +57,6 @@ public class ViabilityRulesTests
         result.Status.ShouldBe(RuleStatus.Ok);
     }
 
-    // ---- ConfidenceRule ----
     [Fact]
     public void Confianca_penaliza_quando_ha_banda_no_fim_do_horizonte()
     {

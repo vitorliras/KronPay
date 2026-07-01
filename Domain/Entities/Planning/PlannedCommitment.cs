@@ -3,16 +3,9 @@ using Shared.Localization;
 
 namespace Domain.Entities.Planning;
 
-/// <summary>
-/// Compromisso financeiro previsto (receita ou despesa futura, recorrente ou pontual)
-/// que ainda não é uma <c>Transaction</c>. É a origem dos fluxos de alta confiança da projeção.
-/// </summary>
 public sealed class PlannedCommitment
 {
-    /// <summary>Direção do fluxo: "I" = entrada (inflow), "O" = saída (outflow).</summary>
     private static readonly string[] ValidDirections = { "I", "O" };
-
-    /// <summary>Periodicidade: "U" = único/pontual, "M" = mensal, "S" = semanal, "A" = anual.</summary>
     private static readonly string[] ValidPeriodicities = { "U", "M", "S", "A" };
 
     public int Id { get; private set; }

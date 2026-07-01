@@ -63,7 +63,6 @@ public static class InfrastructureDependencyInjection
 
         services.AddScoped<IPlannedCommitmentRepository, PlannedCommitmentRepository>();
 
-        // Planning: motor de projeção + fontes de fluxo (Open/Closed via IEnumerable<IFinancialFlowSource>)
         services.AddScoped<IFinancialProjectionService, FinancialProjectionService>();
         services.AddScoped<IFinancialFlowSource, TransactionFlowSource>();
         services.AddScoped<IFinancialFlowSource, CardInvoiceFlowSource>();
@@ -71,14 +70,12 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<IFinancialFlowSource, VariableSpendingFlowSource>();
         services.AddScoped<IFinancialFlowAggregator, FinancialFlowAggregator>();
 
-        // Planning: estimador de variáveis + regras de viabilidade + avaliador (score/veredito)
         services.AddScoped<IVariableSpendingEstimator, VariableSpendingEstimator>();
         services.AddScoped<IViabilityRule, NegativeBalanceRule>();
         services.AddScoped<IViabilityRule, SafetyReserveRule>();
         services.AddScoped<IViabilityRule, ConfidenceRule>();
         services.AddScoped<IViabilityEvaluator, ViabilityEvaluator>();
 
-        // Planning: orquestração compartilhada pelos use cases
         services.AddScoped<IProjectionRunner, ProjectionRunner>();
         services.AddScoped<IPurchaseFlowBuilder, PurchaseFlowBuilder>();
 

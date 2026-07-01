@@ -15,7 +15,6 @@ public sealed class VariableSpendingEstimator : IVariableSpendingEstimator
 
         var window = monthlyHistory.TakeLast(MaxWindow).ToList();
 
-        // Média móvel ponderada: meses mais recentes pesam mais.
         decimal weightedSum = 0m, weightTotal = 0m;
         for (var i = 0; i < window.Count; i++)
         {

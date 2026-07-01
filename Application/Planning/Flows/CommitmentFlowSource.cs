@@ -5,10 +5,6 @@ using Domain.ValueObjects.Planning;
 
 namespace Application.Planning.Flows;
 
-/// <summary>
-/// Expande os compromissos previstos (recorrentes/pontuais) do usuário em fluxos comprometidos,
-/// usando o VO <see cref="Recurrence"/> para enumerar as ocorrências dentro da janela.
-/// </summary>
 public sealed class CommitmentFlowSource : IFinancialFlowSource
 {
     private readonly IPlannedCommitmentRepository _commitments;

@@ -32,7 +32,7 @@ public class TransactionFlowSourceTests
 
         var flows = (await _sut.GetFlowsAsync(1, from, to)).ToList();
 
-        flows.Count.ShouldBe(2); // o "P" (realizado) é excluído
+        flows.Count.ShouldBe(2);
         flows.ShouldContain(f => f.Direction == FlowDirection.Inflow && f.Amount == 3000m);
         flows.ShouldContain(f => f.Direction == FlowDirection.Outflow && f.Amount == 200m);
         flows.ShouldAllBe(f => f.Confidence == ConfidenceLevel.High && f.Origin == FlowOrigin.Transaction);
