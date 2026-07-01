@@ -360,6 +360,51 @@
   <data name="OverdueInvoices" xml:space="preserve">
     <value>Faturas em atraso</value>
   </data>
+  <data name="CreditCardReport" xml:space="preserve">
+    <value>Relatório de Cartão de Crédito</value>
+  </data>
+  <data name="SubtitleCreditCardReport" xml:space="preserve">
+    <value>Visão geral dos gastos, limites e faturas dos seus cartões</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Total das faturas</value>
+  </data>
+  <data name="MonthlyAverage" xml:space="preserve">
+    <value>Média mensal</value>
+  </data>
+  <data name="LimitUtilization" xml:space="preserve">
+    <value>Utilização do limite</value>
+  </data>
+  <data name="SpendingEvolution" xml:space="preserve">
+    <value>Evolução dos gastos</value>
+  </data>
+  <data name="SpendingByCard" xml:space="preserve">
+    <value>Gastos por cartão</value>
+  </data>
+  <data name="SpendingByCategory" xml:space="preserve">
+    <value>Gastos por categoria</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Faturas por status</value>
+  </data>
+  <data name="LimitUsageByCard" xml:space="preserve">
+    <value>Utilização do limite por cartão</value>
+  </data>
+  <data name="CardRanking" xml:space="preserve">
+    <value>Ranking de cartões</value>
+  </data>
+  <data name="AllCards" xml:space="preserve">
+    <value>Todos os cartões</value>
+  </data>
+  <data name="Trend" xml:space="preserve">
+    <value>Tendência</value>
+  </data>
+  <data name="Card" xml:space="preserve">
+    <value>Cartão</value>
+  </data>
+  <data name="NoCreditCards" xml:space="preserve">
+    <value>Nenhum cartão de crédito cadastrado</value>
+  </data>
   <data name="Installments" xml:space="preserve">
     <value>Parcelas</value>
   </data>
