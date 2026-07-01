@@ -397,6 +397,74 @@ namespace Infrastructure.Migrations
                     b.ToTable("payment_method", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Planning.PlannedCommitment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasColumnName("active");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("amount");
+
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Direction")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("direction");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("end_date");
+
+                    b.Property<string>("Periodicity")
+                        .IsRequired()
+                        .HasColumnType("char(1)")
+                        .HasColumnName("periodicity");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("start_date");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId", "Active");
+
+                    b.ToTable("planned_commitment", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Transactions.StatusTransaction", b =>
                 {
                     b.Property<string>("Code")
@@ -1242,13 +1310,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Card.CardInstallment", b =>
                 {
-                    b.HasOne("Domain.Entities.Card.CardInvoice", null)
+                    b.HasOne("Domain.Entities.Card.CardInvoice", "CardInvoice")
                         .WithMany()
                         .HasForeignKey("CardInvoiceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Card.CardPurchase", null)
+                    b.HasOne("Domain.Entities.Card.CardPurchase", "CardPurchase")
                         .WithMany()
                         .HasForeignKey("CardPurchaseId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1259,6 +1327,10 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("CardInvoice");
+
+                    b.Navigation("CardPurchase");
                 });
 
             modelBuilder.Entity("Domain.Entities.Card.CardInvoice", b =>
@@ -1269,7 +1341,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.Transactions.Transaction", null)
+                    b.HasOne("Domain.Entities.Transactions.Transaction", "Transaction")
                         .WithMany()
                         .HasForeignKey("TransactionId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -1279,6 +1351,8 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Transaction");
                 });
 
             modelBuilder.Entity("Domain.Entities.Card.CardPurchase", b =>
@@ -1347,6 +1421,20 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
                 {
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Planning.PlannedCommitment", b =>
+                {
+                    b.HasOne("Domain.Entities.Configuration.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")

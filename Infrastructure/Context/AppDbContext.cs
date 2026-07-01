@@ -2,6 +2,7 @@
 using Domain.Entities.Card;
 using Domain.Entities.banks;
 using Domain.Entities.Configuration;
+using Domain.Entities.Planning;
 using Domain.Entities.Transactions;
 using Infrastructure.Mappings;
 using Infrastructure.Mappings.banks;
@@ -29,6 +30,7 @@ public sealed class AppDbContext : DbContext
     public DbSet<CardPurchase> CardPurchases => Set<CardPurchase>();
     public DbSet<CardInvoice> CardInvoices => Set<CardInvoice>();
     public DbSet<CardInstallment> CardInstallments => Set<CardInstallment>();
+    public DbSet<PlannedCommitment> PlannedCommitments => Set<PlannedCommitment>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)

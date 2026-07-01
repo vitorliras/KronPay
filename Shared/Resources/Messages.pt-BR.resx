@@ -342,6 +342,24 @@
   <data name="CreditLimitExceeded" xml:space="preserve">
     <value>O valor estoura o limite do cartão. Aumente o limite para continuar.</value>
   </data>
+  <data name="InvalidDirection" xml:space="preserve">
+    <value>Direção do compromisso inválida</value>
+  </data>
+  <data name="InvalidPeriodicity" xml:space="preserve">
+    <value>Periodicidade do compromisso inválida</value>
+  </data>
+  <data name="InvalidCommitmentPeriod" xml:space="preserve">
+    <value>A data final não pode ser anterior à data inicial</value>
+  </data>
+  <data name="PlanningRiskNegativeBalance" xml:space="preserve">
+    <value>O saldo projetado fica negativo no período</value>
+  </data>
+  <data name="PlanningWarningSafetyReserve" xml:space="preserve">
+    <value>O saldo projetado fica abaixo da sua reserva de segurança</value>
+  </data>
+  <data name="PlanningNoteLowConfidence" xml:space="preserve">
+    <value>Parte da projeção é estimada — confiança reduzida</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filtros</value>
   </data>
