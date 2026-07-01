@@ -346,6 +346,24 @@ Delete all future installments of this installment.</value>
   <data name="CreditLimitExceeded" xml:space="preserve">
     <value>The amount exceeds the card limit. Increase the limit to continue.</value>
   </data>
+  <data name="InvalidDirection" xml:space="preserve">
+    <value>Invalid commitment direction</value>
+  </data>
+  <data name="InvalidPeriodicity" xml:space="preserve">
+    <value>Invalid commitment periodicity</value>
+  </data>
+  <data name="InvalidCommitmentPeriod" xml:space="preserve">
+    <value>The end date cannot be earlier than the start date</value>
+  </data>
+  <data name="PlanningRiskNegativeBalance" xml:space="preserve">
+    <value>The projected balance goes negative during the period</value>
+  </data>
+  <data name="PlanningWarningSafetyReserve" xml:space="preserve">
+    <value>The projected balance falls below your safety reserve</value>
+  </data>
+  <data name="PlanningNoteLowConfidence" xml:space="preserve">
+    <value>Part of the projection is estimated — reduced confidence</value>
+  </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
   </data>

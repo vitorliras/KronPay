@@ -25,16 +25,17 @@ public static class DependencyInjection
         foreach (var type in useCaseTypes)
             services.AddScoped(type);
 
-        // Validators do módulo Card: auto-registro RESTRITO ao namespace
-        // "Application.Validators.Card" — não ativa validators de outros módulos
-        // (ver inconsistência #15 sobre o registro global ainda pendente).
-        var cardValidators = applicationAssembly
+        // Validators auto-registrados de forma RESTRITA aos módulos Card e Planning
+        // (namespaces "Application.Validators.Card"/".Planning") — não ativa validators de
+        // outros módulos (ver inconsistência #15 sobre o registro global ainda pendente).
+        var moduleValidators = applicationAssembly
             .GetTypes()
             .Where(t => t.IsClass && !t.IsAbstract
                 && t.Namespace is not null
-                && t.Namespace.StartsWith("Application.Validators.Card"));
+                && (t.Namespace.StartsWith("Application.Validators.Card")
+                    || t.Namespace.StartsWith("Application.Validators.Planning")));
 
-        foreach (var validatorType in cardValidators)
+        foreach (var validatorType in moduleValidators)
         {
             var validatorInterface = validatorType
                 .GetInterfaces()

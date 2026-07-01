@@ -45,6 +45,15 @@ public sealed class CardInvoiceRepository : ICardInvoiceRepository
             .ThenByDescending(x => x.ReferenceMonth)
             .ToListAsync();
 
+    // Leitura agregada para a projeção financeira: todas as faturas do usuário (todos os cartões).
+    public async Task<IEnumerable<CardInvoice>> GetByUserAsync(int userId)
+        => await _context.CardInvoices
+            .AsNoTracking()
+            .Where(x => x.UserId == userId)
+            .OrderBy(x => x.ReferenceYear)
+            .ThenBy(x => x.ReferenceMonth)
+            .ToListAsync();
+
     public async Task<IEnumerable<CardInstallment>> GetInstallmentsByInvoiceAsync(int invoiceId, int userId)
         => await _context.CardInstallments
             .AsNoTracking()

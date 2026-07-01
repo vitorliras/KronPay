@@ -9,6 +9,7 @@ public interface ICardInvoiceRepository
     bool Update(CardInvoice invoice);
     Task<CardInvoice?> GetByIdAsync(int id, int userId);
     Task<IEnumerable<CardInvoice>> GetByCardAsync(int creditCardId, int userId);
+    Task<IEnumerable<CardInvoice>> GetByUserAsync(int userId);
     Task<IEnumerable<CardInstallment>> GetInstallmentsByInvoiceAsync(int invoiceId, int userId);
     Task<IEnumerable<CardInstallment>> GetPendingInstallmentsByInvoiceAsync(int invoiceId, int userId);
 }

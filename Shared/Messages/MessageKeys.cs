@@ -43,7 +43,13 @@ public static class MessageKeys
     public const string GroupDeleteFailed = nameof(GroupDeleteFailed);
     public const string CardInvoiceAlreadyPaid = nameof(CardInvoiceAlreadyPaid);
     public const string CreditLimitExceeded = nameof(CreditLimitExceeded);
-    
+    public const string InvalidDirection = nameof(InvalidDirection);
+    public const string InvalidPeriodicity = nameof(InvalidPeriodicity);
+    public const string InvalidCommitmentPeriod = nameof(InvalidCommitmentPeriod);
+    public const string PlanningRiskNegativeBalance = nameof(PlanningRiskNegativeBalance);
+    public const string PlanningWarningSafetyReserve = nameof(PlanningWarningSafetyReserve);
+    public const string PlanningNoteLowConfidence = nameof(PlanningNoteLowConfidence);
+
 
 
 }
