@@ -343,6 +343,27 @@ Delete all future installments of this installment.</value>
   <data name="CardInvoiceAlreadyPaid" xml:space="preserve">
     <value>The card invoice has already been paid</value>
   </data>
+  <data name="CreditLimitExceeded" xml:space="preserve">
+    <value>The amount exceeds the card limit. Increase the limit to continue.</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Months</value>
+  </data>
+  <data name="ClearFilters" xml:space="preserve">
+    <value>Clear filters</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Overdue</value>
+  </data>
+  <data name="OverdueInvoices" xml:space="preserve">
+    <value>Overdue invoices</value>
+  </data>
   <data name="Installments" xml:space="preserve">
     <value>Installments</value>
   </data>
@@ -615,5 +636,119 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Cards</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Invoices</value>
+  </data>
+  <data name="NewPurchase" xml:space="preserve">
+    <value>New purchase</value>
+  </data>
+  <data name="Banks" xml:space="preserve">
+    <value>Banks</value>
+  </data>
+  <data name="SearchBank" xml:space="preserve">
+    <value>Search bank...</value>
+  </data>
+  <data name="CardName" xml:space="preserve">
+    <value>Card name</value>
+  </data>
+  <data name="ClosingDay" xml:space="preserve">
+    <value>Closing day</value>
+  </data>
+  <data name="DueDateAuto" xml:space="preserve">
+    <value>Due date (automatic)</value>
+  </data>
+  <data name="CreditLimit" xml:space="preserve">
+    <value>Credit card limit</value>
+  </data>
+  <data name="Closing" xml:space="preserve">
+    <value>Closing</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Due date</value>
+  </data>
+  <data name="Limit" xml:space="preserve">
+    <value>Limit</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total amount</value>
+  </data>
+  <data name="Used" xml:space="preserve">
+    <value>Used</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="DueWord" xml:space="preserve">
+    <value>Due</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pay</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Payment method</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="InvoiceItems" xml:space="preserve">
+    <value>Invoice items</value>
+  </data>
+  <data name="Installment" xml:space="preserve">
+    <value>Installment</value>
+  </data>
+  <data name="NoInvoices" xml:space="preserve">
+    <value>No invoices for this card.</value>
+  </data>
+  <data name="NoItems" xml:space="preserve">
+    <value>No items in this invoice.</value>
+  </data>
+  <data name="PayInvoice" xml:space="preserve">
+    <value>Pay invoice</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Settled" xml:space="preserve">
+    <value>Settled</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SelectBank" xml:space="preserve">
+    <value>Select a bank</value>
+  </data>
+  <data name="CardNameRequired" xml:space="preserve">
+    <value>Card name is required</value>
+  </data>
+  <data name="LimitRequired" xml:space="preserve">
+    <value>Card limit is required</value>
+  </data>
+  <data name="DueDayRequired" xml:space="preserve">
+    <value>Card due day is required</value>
+  </data>
+  <data name="ClosingDayRequired" xml:space="preserve">
+    <value>Closing day is required</value>
+  </data>
+  <data name="DaysMax31" xml:space="preserve">
+    <value>Days cannot be greater than 31</value>
+  </data>
+  <data name="SelectPaymentMethod" xml:space="preserve">
+    <value>Select the payment method</value>
   </data>
 </root>

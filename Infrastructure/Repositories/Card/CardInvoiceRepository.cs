@@ -48,6 +48,7 @@ public sealed class CardInvoiceRepository : ICardInvoiceRepository
     public async Task<IEnumerable<CardInstallment>> GetInstallmentsByInvoiceAsync(int invoiceId, int userId)
         => await _context.CardInstallments
             .AsNoTracking()
+            .Include(x => x.CardPurchase)
             .Where(x => x.CardInvoiceId == invoiceId && x.UserId == userId)
             .OrderBy(x => x.InstallmentNumber)
             .ToListAsync();

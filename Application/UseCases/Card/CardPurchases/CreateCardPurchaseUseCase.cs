@@ -44,6 +44,11 @@ public sealed class CreateCardPurchaseUseCase
         if (card is null)
             return ResultEntity<CardPurchaseResponse>.Failure(MessageKeys.CreditCardNotFound);
 
+        // Validação de limite: o total da compra (parcelado ou não) compromete o limite na hora.
+        var usedLimit = await _purchaseRepository.SumPendingInstallmentsByCardAsync(card.Id, userId);
+        if (usedLimit + request.TotalAmount > card.CreditLimit)
+            return ResultEntity<CardPurchaseResponse>.Failure(MessageKeys.CreditLimitExceeded);
+
         var purchase = new CardPurchase(
             userId,
             card.Id,
@@ -80,6 +85,11 @@ public sealed class CreateCardPurchaseUseCase
 
                 if (!await _invoiceRepository.AddAsync(invoice))
                     return ResultEntity<CardPurchaseResponse>.Failure(MessageKeys.InsertFalied);
+            }
+            else if (invoice.IsPaid)
+            {
+                // Nova compra num ciclo de fatura já paga -> reabre (voltou a ter saldo).
+                invoice.Reopen();
             }
 
             invoice.AddAmount(amounts[i]);

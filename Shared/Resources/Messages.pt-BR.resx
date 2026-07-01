@@ -339,6 +339,27 @@
   <data name="CardInvoiceAlreadyPaid" xml:space="preserve">
     <value>A fatura do cartão já foi paga</value>
   </data>
+  <data name="CreditLimitExceeded" xml:space="preserve">
+    <value>O valor estoura o limite do cartão. Aumente o limite para continuar.</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filtros</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="Months" xml:space="preserve">
+    <value>Meses</value>
+  </data>
+  <data name="ClearFilters" xml:space="preserve">
+    <value>Limpar filtros</value>
+  </data>
+  <data name="Overdue" xml:space="preserve">
+    <value>Vencida</value>
+  </data>
+  <data name="OverdueInvoices" xml:space="preserve">
+    <value>Faturas em atraso</value>
+  </data>
   <data name="Installments" xml:space="preserve">
     <value>Parcelas</value>
   </data>
@@ -611,5 +632,119 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Sim</value>
+  </data>
+  <data name="Cards" xml:space="preserve">
+    <value>Cartões</value>
+  </data>
+  <data name="Invoices" xml:space="preserve">
+    <value>Faturas</value>
+  </data>
+  <data name="NewPurchase" xml:space="preserve">
+    <value>Nova compra</value>
+  </data>
+  <data name="Banks" xml:space="preserve">
+    <value>Bancos</value>
+  </data>
+  <data name="SearchBank" xml:space="preserve">
+    <value>Pesquisar banco...</value>
+  </data>
+  <data name="CardName" xml:space="preserve">
+    <value>Nome do cartão</value>
+  </data>
+  <data name="ClosingDay" xml:space="preserve">
+    <value>Dia do fechamento</value>
+  </data>
+  <data name="DueDateAuto" xml:space="preserve">
+    <value>Vencimento (automático)</value>
+  </data>
+  <data name="CreditLimit" xml:space="preserve">
+    <value>Limite do cartão de crédito</value>
+  </data>
+  <data name="Closing" xml:space="preserve">
+    <value>Fechamento</value>
+  </data>
+  <data name="DueDate" xml:space="preserve">
+    <value>Vencimento</value>
+  </data>
+  <data name="Limit" xml:space="preserve">
+    <value>Limite</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Valor total</value>
+  </data>
+  <data name="Used" xml:space="preserve">
+    <value>Usado</value>
+  </data>
+  <data name="Available" xml:space="preserve">
+    <value>Disponível</value>
+  </data>
+  <data name="DueWord" xml:space="preserve">
+    <value>Vence</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pagar</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Forma de pagamento</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="InvoiceItems" xml:space="preserve">
+    <value>Itens da fatura</value>
+  </data>
+  <data name="Installment" xml:space="preserve">
+    <value>Parcela</value>
+  </data>
+  <data name="NoInvoices" xml:space="preserve">
+    <value>Nenhuma fatura para este cartão.</value>
+  </data>
+  <data name="NoItems" xml:space="preserve">
+    <value>Sem itens nesta fatura.</value>
+  </data>
+  <data name="PayInvoice" xml:space="preserve">
+    <value>Pagar fatura</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Fechada</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pendente</value>
+  </data>
+  <data name="Settled" xml:space="preserve">
+    <value>Quitada</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Cancelada</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SelectBank" xml:space="preserve">
+    <value>Selecione um banco</value>
+  </data>
+  <data name="CardNameRequired" xml:space="preserve">
+    <value>Nome do cartão é obrigatório</value>
+  </data>
+  <data name="LimitRequired" xml:space="preserve">
+    <value>Limite do cartão é obrigatório</value>
+  </data>
+  <data name="DueDayRequired" xml:space="preserve">
+    <value>Vencimento do cartão é obrigatório</value>
+  </data>
+  <data name="ClosingDayRequired" xml:space="preserve">
+    <value>Dia do fechamento é obrigatório</value>
+  </data>
+  <data name="DaysMax31" xml:space="preserve">
+    <value>Os dias não podem ser maiores que 31</value>
+  </data>
+  <data name="SelectPaymentMethod" xml:space="preserve">
+    <value>Selecione a forma de pagamento</value>
   </data>
 </root>

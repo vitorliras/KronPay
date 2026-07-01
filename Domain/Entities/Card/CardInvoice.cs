@@ -68,4 +68,12 @@ public sealed class CardInvoice
         PaidAt = DateTime.UtcNow;
         Transaction = transaction;
     }
+
+    public void Reopen()
+    {
+        Status = "A";
+        PaidAt = null;
+        TransactionId = null;
+        Transaction = null;
+    }
 }
