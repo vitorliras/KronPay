@@ -364,6 +364,51 @@ Delete all future installments of this installment.</value>
   <data name="OverdueInvoices" xml:space="preserve">
     <value>Overdue invoices</value>
   </data>
+  <data name="CreditCardReport" xml:space="preserve">
+    <value>Credit Card Report</value>
+  </data>
+  <data name="SubtitleCreditCardReport" xml:space="preserve">
+    <value>Overview of your cards spending, limits and invoices</value>
+  </data>
+  <data name="TotalInvoices" xml:space="preserve">
+    <value>Total invoices</value>
+  </data>
+  <data name="MonthlyAverage" xml:space="preserve">
+    <value>Monthly average</value>
+  </data>
+  <data name="LimitUtilization" xml:space="preserve">
+    <value>Limit utilization</value>
+  </data>
+  <data name="SpendingEvolution" xml:space="preserve">
+    <value>Spending evolution</value>
+  </data>
+  <data name="SpendingByCard" xml:space="preserve">
+    <value>Spending by card</value>
+  </data>
+  <data name="SpendingByCategory" xml:space="preserve">
+    <value>Spending by category</value>
+  </data>
+  <data name="InvoicesByStatus" xml:space="preserve">
+    <value>Invoices by status</value>
+  </data>
+  <data name="LimitUsageByCard" xml:space="preserve">
+    <value>Limit usage by card</value>
+  </data>
+  <data name="CardRanking" xml:space="preserve">
+    <value>Card ranking</value>
+  </data>
+  <data name="AllCards" xml:space="preserve">
+    <value>All cards</value>
+  </data>
+  <data name="Trend" xml:space="preserve">
+    <value>Trend</value>
+  </data>
+  <data name="Card" xml:space="preserve">
+    <value>Card</value>
+  </data>
+  <data name="NoCreditCards" xml:space="preserve">
+    <value>No credit cards registered</value>
+  </data>
   <data name="Installments" xml:space="preserve">
     <value>Installments</value>
   </data>
