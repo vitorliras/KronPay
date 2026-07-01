@@ -4,10 +4,6 @@ using Shared.Localization;
 
 namespace Domain.Services.Planning.Rules;
 
-/// <summary>
-/// Penalização leve (nunca veto): há incerteza estimada relevante na projeção — quando o
-/// cenário pessimista diverge do esperado (banda não trivial no fim do horizonte).
-/// </summary>
 public sealed class ConfidenceRule : IViabilityRule
 {
     public RuleResult Evaluate(FinancialProjection projection, ProjectionParameters parameters)

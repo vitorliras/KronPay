@@ -1,6 +1,5 @@
 namespace Domain.Enums.Planning;
 
-/// <summary>Resultado de uma regra de viabilidade.</summary>
 public enum RuleStatus
 {
     Ok = 1,

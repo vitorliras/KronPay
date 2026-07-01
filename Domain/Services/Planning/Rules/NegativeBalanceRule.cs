@@ -4,7 +4,6 @@ using Shared.Localization;
 
 namespace Domain.Services.Planning.Rules;
 
-/// <summary>Veto: o cenário pessimista fica negativo em algum mês.</summary>
 public sealed class NegativeBalanceRule : IViabilityRule
 {
     public RuleResult Evaluate(FinancialProjection projection, ProjectionParameters parameters)

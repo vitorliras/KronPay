@@ -43,8 +43,6 @@ public sealed class ProjectionRunner : IProjectionRunner
         return new ProjectionContext(projection, parameters);
     }
 
-    // Saldo inicial = soma das transações realizadas (pagas) até a data de referência.
-    // I = entrada; E e V saem do caixa.
     private async Task<decimal> ComputeInitialBalanceAsync(int userId, DateTime referenceDate)
     {
         var transactions = await _transactions.GetAllTransactionAsync(userId);

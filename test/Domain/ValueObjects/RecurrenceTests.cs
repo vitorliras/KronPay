@@ -26,8 +26,8 @@ public class RecurrenceTests
 
         var occ = sut.OccurrencesBetween(new DateTime(2026, 1, 1), new DateTime(2026, 3, 31)).ToList();
 
-        occ[1].ShouldBe(new DateTime(2026, 2, 28)); // 2026 não é bissexto
-        occ[2].ShouldBe(new DateTime(2026, 3, 31)); // ancora no dia original, não arrasta
+        occ[1].ShouldBe(new DateTime(2026, 2, 28));
+        occ[2].ShouldBe(new DateTime(2026, 3, 31));
     }
 
     [Fact]

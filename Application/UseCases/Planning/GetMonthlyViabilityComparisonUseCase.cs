@@ -11,10 +11,6 @@ using Shared.Results;
 
 namespace Application.UseCases.Planning;
 
-/// <summary>
-/// Ancora a mesma compra em cada mês do horizonte e devolve o score/veredito de cada um,
-/// permitindo comparar "quando comprar" (set ❌ · out ⚠️ · nov ✅).
-/// </summary>
 public sealed class GetMonthlyViabilityComparisonUseCase
     : IUseCase<MonthlyViabilityComparisonRequest, MonthlyViabilityComparisonResponse>
 {

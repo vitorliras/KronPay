@@ -4,12 +4,6 @@ using Domain.Models.Planning;
 
 namespace Application.Planning.Flows;
 
-/// <summary>
-/// Traduz faturas <b>não pagas</b> em saídas comprometidas (vencimento como competência).
-/// Faturas pagas viraram uma <c>Transaction</c> realizada (entra no saldo inicial), então
-/// são ignoradas aqui — evitando dupla contagem cartão↔fatura. Faturas vencidas e ainda em
-/// aberto são ancoradas no início da janela para não se perderem.
-/// </summary>
 public sealed class CardInvoiceFlowSource : IFinancialFlowSource
 {
     private readonly ICardInvoiceRepository _invoices;

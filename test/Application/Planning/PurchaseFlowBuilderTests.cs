@@ -37,7 +37,6 @@ public class PurchaseFlowBuilderTests
     [Fact]
     public void Parcelado_com_cartao_posiciona_nas_faturas_pelo_vencimento()
     {
-        // fechamento 28, vencimento 5 -> compra 10/jun cai na fatura que vence 5/jul, e assim por diante
         var card = new CreditCard(1, 1, 1, "Nubank", (short)5, (short)28, 5000m);
 
         var flows = _sut.Build(card, 300m, new DateTime(2026, 6, 10), installment: true, installmentsCount: 3);

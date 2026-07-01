@@ -36,8 +36,8 @@ public class FinancialProjectionServiceTests
 
         var projection = _sut.Project(flows, Params(500m));
 
-        projection.Months[0].ClosingBalance.ShouldBe(400m); // jun
-        projection.Months[1].OpeningBalance.ShouldBe(400m); // jul herda
+        projection.Months[0].ClosingBalance.ShouldBe(400m);
+        projection.Months[1].OpeningBalance.ShouldBe(400m);
         projection.FinalBalance.ShouldBe(400m);
     }
 
@@ -65,7 +65,7 @@ public class FinancialProjectionServiceTests
         var jun = _sut.Project(flows, Params(500m, spread: 0.15m)).Months[0];
 
         jun.ClosingBalance.ShouldBe(400m);
-        jun.OptimisticClosing.ShouldBe(415m);   // +15% da exposição estimada
+        jun.OptimisticClosing.ShouldBe(415m);
         jun.PessimisticClosing.ShouldBe(385m);
     }
 
