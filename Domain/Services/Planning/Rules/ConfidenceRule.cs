@@ -8,13 +8,9 @@ public sealed class ConfidenceRule : IViabilityRule
 {
     public RuleResult Evaluate(FinancialProjection projection, ProjectionParameters parameters)
     {
-        if (projection.Months.Count == 0)
-            return RuleResult.Ok(nameof(ConfidenceRule));
+        var hasEstimate = projection.Months.Any(m => m.ProbableOutflow > m.PredictedOutflow);
 
-        var last = projection.Months[^1];
-        var band = last.ClosingBalance - last.PessimisticClosing;
-
-        if (band <= 0)
+        if (!hasEstimate)
             return RuleResult.Ok(nameof(ConfidenceRule));
 
         return new RuleResult(

@@ -13,9 +13,8 @@ public sealed class FinancialProjectionService : IFinancialProjectionService
 
         var months = new List<ProjectionMonth>(horizon);
 
-        var opening = parameters.InitialBalance;
-        var optOpening = parameters.InitialBalance;
-        var pessOpening = parameters.InitialBalance;
+        var predictedOpening = parameters.InitialBalance;
+        var probableOpening = parameters.InitialBalance;
 
         for (var i = 0; i < horizon; i++)
         {
@@ -25,46 +24,40 @@ public sealed class FinancialProjectionService : IFinancialProjectionService
                 f.CompetenceDate.Year == bucket.Year &&
                 f.CompetenceDate.Month == bucket.Month);
 
-            decimal inflows = 0m, outflows = 0m, committedNet = 0m, estimatedNet = 0m, estimatedExposure = 0m;
+            decimal inflows = 0m, committedOutflow = 0m, estimatedOutflow = 0m;
 
             foreach (var flow in monthFlows)
             {
                 if (flow.Direction == FlowDirection.Inflow)
+                {
                     inflows += flow.Amount;
-                else
-                    outflows += flow.Amount;
+                    continue;
+                }
 
                 if (flow.IsCommitted)
-                    committedNet += flow.SignedAmount;
+                    committedOutflow += flow.Amount;
                 else
-                {
-                    estimatedNet += flow.SignedAmount;
-                    estimatedExposure += flow.Amount;
-                }
+                    estimatedOutflow += flow.Amount;
             }
 
-            var net = inflows - outflows;
-            var band = parameters.EstimateSpreadRate * estimatedExposure;
+            var predictedOutflow = committedOutflow;
+            var probableOutflow = committedOutflow + estimatedOutflow;
 
-            var closing = opening + net;
-            var optClosing = optOpening + net + band;
-            var pessClosing = pessOpening + net - band;
+            var predictedClosing = predictedOpening + inflows - predictedOutflow;
+            var probableClosing = probableOpening + inflows - probableOutflow;
 
             months.Add(new ProjectionMonth(
                 bucket.Year,
                 bucket.Month,
-                opening,
+                probableOpening,
                 inflows,
-                outflows,
-                closing,
-                committedNet,
-                estimatedNet,
-                optClosing,
-                pessClosing));
+                predictedOutflow,
+                probableOutflow,
+                predictedClosing,
+                probableClosing));
 
-            opening = closing;
-            optOpening = optClosing;
-            pessOpening = pessClosing;
+            predictedOpening = predictedClosing;
+            probableOpening = probableClosing;
         }
 
         return new FinancialProjection(months);
