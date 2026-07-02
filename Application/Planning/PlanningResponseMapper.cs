@@ -9,9 +9,9 @@ public static class PlanningResponseMapper
         => projection.Months
             .Select(m => new ProjectionMonthResponse(
                 m.Year, m.Month,
-                m.OpeningBalance, m.Inflows, m.Outflows, m.ClosingBalance,
-                m.CommittedNet, m.EstimatedNet,
-                m.OptimisticClosing, m.PessimisticClosing))
+                m.OpeningBalance, m.Inflows,
+                m.PredictedOutflow, m.ProbableOutflow,
+                m.PredictedClosing, m.ProbableClosing))
             .ToList();
 
     public static ViabilityResponse Map(ViabilityResult viability)

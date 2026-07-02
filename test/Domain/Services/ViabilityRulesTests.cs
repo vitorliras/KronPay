@@ -10,17 +10,18 @@ public class ViabilityRulesTests
     private static ProjectionParameters Params(decimal reserve = 0m)
         => new(new DateTime(2026, 6, 1), 1, 1000m, SafetyReserve: reserve);
 
-    private static ProjectionMonth Month(int month, decimal closing, decimal pessimistic)
-        => new(2026, month, 0m, 0m, 0m, closing, 0m, 0m, closing, pessimistic);
+    private static ProjectionMonth Month(
+        int month, decimal probableClosing, decimal predictedOutflow = 0m, decimal probableOutflow = 0m)
+        => new(2026, month, 0m, 0m, predictedOutflow, probableOutflow, 0m, probableClosing);
 
     private static FinancialProjection Projection(params ProjectionMonth[] months)
         => new(months);
 
     [Fact]
-    public void SaldoNegativo_veta_quando_pessimista_fica_negativo()
+    public void SaldoNegativo_veta_quando_provavel_fica_negativo()
     {
         var result = new NegativeBalanceRule().Evaluate(
-            Projection(Month(6, 100m, -50m)), Params());
+            Projection(Month(6, -50m)), Params());
 
         result.IsVeto.ShouldBeTrue();
         result.Status.ShouldBe(RuleStatus.Critical);
@@ -31,17 +32,17 @@ public class ViabilityRulesTests
     public void SaldoNegativo_ok_quando_tudo_positivo()
     {
         var result = new NegativeBalanceRule().Evaluate(
-            Projection(Month(6, 100m, 80m)), Params());
+            Projection(Month(6, 80m)), Params());
 
         result.Status.ShouldBe(RuleStatus.Ok);
         result.IsVeto.ShouldBeFalse();
     }
 
     [Fact]
-    public void Reserva_avisa_quando_pessimista_fica_abaixo_da_reserva()
+    public void Reserva_avisa_quando_provavel_fica_abaixo_da_reserva()
     {
         var result = new SafetyReserveRule().Evaluate(
-            Projection(Month(6, 200m, 50m)), Params(reserve: 100m));
+            Projection(Month(6, 50m)), Params(reserve: 100m));
 
         result.Status.ShouldBe(RuleStatus.Warning);
         result.Penalty.ShouldBe(25);
@@ -52,16 +53,16 @@ public class ViabilityRulesTests
     public void Reserva_ignorada_quando_nao_configurada()
     {
         var result = new SafetyReserveRule().Evaluate(
-            Projection(Month(6, 10m, 5m)), Params(reserve: 0m));
+            Projection(Month(6, 5m)), Params(reserve: 0m));
 
         result.Status.ShouldBe(RuleStatus.Ok);
     }
 
     [Fact]
-    public void Confianca_penaliza_quando_ha_banda_no_fim_do_horizonte()
+    public void Confianca_penaliza_quando_ha_estimativa()
     {
         var result = new ConfidenceRule().Evaluate(
-            Projection(Month(6, 100m, 80m)), Params());
+            Projection(Month(6, 100m, predictedOutflow: 0m, probableOutflow: 50m)), Params());
 
         result.Status.ShouldBe(RuleStatus.Warning);
         result.Penalty.ShouldBe(10);
@@ -69,10 +70,10 @@ public class ViabilityRulesTests
     }
 
     [Fact]
-    public void Confianca_ok_quando_nao_ha_banda()
+    public void Confianca_ok_quando_nao_ha_estimativa()
     {
         var result = new ConfidenceRule().Evaluate(
-            Projection(Month(6, 100m, 100m)), Params());
+            Projection(Month(6, 100m, predictedOutflow: 50m, probableOutflow: 50m)), Params());
 
         result.Status.ShouldBe(RuleStatus.Ok);
     }

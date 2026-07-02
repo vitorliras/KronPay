@@ -12,7 +12,7 @@ public sealed class SafetyReserveRule : IViabilityRule
             return RuleResult.Ok(nameof(SafetyReserveRule));
 
         var below = projection.Months.FirstOrDefault(m =>
-            m.PessimisticClosing >= 0 && m.PessimisticClosing < parameters.SafetyReserve);
+            m.ProbableClosing >= 0 && m.ProbableClosing < parameters.SafetyReserve);
 
         if (below is null)
             return RuleResult.Ok(nameof(SafetyReserveRule));

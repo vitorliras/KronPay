@@ -18,7 +18,7 @@ public sealed class TransactionFlowSource : IFinancialFlowSource
         var transactions = await _transactions.GetByPeriodAsync(userId, from, to);
 
         return transactions
-            .Where(t => t.Status == "O")
+            .Where(t => t.Status == "O" && (t.CodTypeTransaction == "I" || t.CodTypeTransaction == "E"))
             .Select(t => new FinancialFlow(
                 t.TransactionDate,
                 MapDirection(t.CodTypeTransaction),

@@ -19,14 +19,15 @@ public class ViabilityEvaluatorTests
     private static ProjectionParameters Params(decimal reserve = 0m)
         => new(new DateTime(2026, 6, 1), 1, 1000m, SafetyReserve: reserve);
 
-    private static ProjectionMonth Month(decimal closing, decimal pessimistic)
-        => new(2026, 6, 0m, 0m, 0m, closing, 0m, 0m, closing, pessimistic);
+    private static ProjectionMonth Month(
+        decimal probableClosing, decimal predictedOutflow = 0m, decimal probableOutflow = 0m)
+        => new(2026, 6, 0m, 0m, predictedOutflow, probableOutflow, 0m, probableClosing);
 
     [Fact]
     public void Projecao_saudavel_da_score_maximo_e_recomendado()
     {
         var result = Evaluator().Evaluate(
-            new FinancialProjection(new[] { Month(1000m, 1000m) }), Params());
+            new FinancialProjection(new[] { Month(1000m) }), Params());
 
         result.Score.ShouldBe(100);
         result.Verdict.ShouldBe(ViabilityVerdict.Recommended);
@@ -37,7 +38,7 @@ public class ViabilityEvaluatorTests
     public void Saldo_negativo_veta_para_risco_com_score_baixo()
     {
         var result = Evaluator().Evaluate(
-            new FinancialProjection(new[] { Month(100m, -50m) }), Params());
+            new FinancialProjection(new[] { Month(-50m) }), Params());
 
         result.Verdict.ShouldBe(ViabilityVerdict.Risk);
         result.Score.ShouldBeLessThanOrEqualTo(20);
@@ -45,10 +46,11 @@ public class ViabilityEvaluatorTests
     }
 
     [Fact]
-    public void Abaixo_da_reserva_com_incerteza_cai_para_atencao()
+    public void Abaixo_da_reserva_com_estimativa_cai_para_atencao()
     {
         var result = Evaluator().Evaluate(
-            new FinancialProjection(new[] { Month(1000m, 900m) }), Params(reserve: 1500m));
+            new FinancialProjection(new[] { Month(900m, predictedOutflow: 0m, probableOutflow: 100m) }),
+            Params(reserve: 1500m));
 
         result.Score.ShouldBe(65);
         result.Verdict.ShouldBe(ViabilityVerdict.Attention);
