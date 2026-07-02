@@ -45,10 +45,12 @@ public sealed class ProjectionRunner : IProjectionRunner
 
     private async Task<decimal> ComputeInitialBalanceAsync(int userId, DateTime referenceDate)
     {
+        //MELHORAR AQUI: criar um repositorio s� para essa lista
         var transactions = await _transactions.GetAllTransactionAsync(userId);
 
         return transactions
-            .Where(t => t.Status == "P" && t.TransactionDate.Date <= referenceDate.Date)
+            .Where(t => t.Status == "P" && t.TransactionDate.Date <= referenceDate.Date
+                && (t.CodTypeTransaction == "I" || t.CodTypeTransaction == "E"))
             .Sum(t => t.CodTypeTransaction == "I" ? t.Amount : -t.Amount);
     }
 }

@@ -9,8 +9,8 @@ public class FinancialProjectionServiceTests
 {
     private readonly FinancialProjectionService _sut = new();
 
-    private static ProjectionParameters Params(decimal initial, int horizon = 3, decimal spread = 0.15m)
-        => new(new DateTime(2026, 6, 15), horizon, initial, SafetyReserve: 0m, EstimateSpreadRate: spread);
+    private static ProjectionParameters Params(decimal initial, int horizon = 3)
+        => new(new DateTime(2026, 6, 15), horizon, initial);
 
     private static FinancialFlow Flow(
         int year, int month, int day,
@@ -20,29 +20,43 @@ public class FinancialProjectionServiceTests
         => new(new DateTime(year, month, day), direction, amount, confidence, FlowOrigin.PlannedCommitment);
 
     [Fact]
-    public void Sem_fluxos_mantem_o_saldo_inicial_em_todos_os_meses()
+    public void Sem_fluxos_mantem_o_saldo_inicial_nos_dois_cenarios()
     {
         var projection = _sut.Project(Array.Empty<FinancialFlow>(), Params(500m));
 
         projection.Months.Count.ShouldBe(3);
-        projection.Months.ShouldAllBe(m => m.ClosingBalance == 500m);
+        projection.Months.ShouldAllBe(m => m.PredictedClosing == 500m && m.ProbableClosing == 500m);
         projection.FinalBalance.ShouldBe(500m);
     }
 
     [Fact]
-    public void Saida_reduz_o_saldo_do_mes_e_propaga_para_os_seguintes()
+    public void Saida_comprometida_reduz_previsto_e_provavel_igualmente()
     {
         var flows = new[] { Flow(2026, 6, 20, FlowDirection.Outflow, 100m) };
 
-        var projection = _sut.Project(flows, Params(500m));
+        var jun = _sut.Project(flows, Params(500m)).Months[0];
 
-        projection.Months[0].ClosingBalance.ShouldBe(400m);
-        projection.Months[1].OpeningBalance.ShouldBe(400m);
-        projection.FinalBalance.ShouldBe(400m);
+        jun.PredictedOutflow.ShouldBe(100m);
+        jun.ProbableOutflow.ShouldBe(100m);
+        jun.PredictedClosing.ShouldBe(400m);
+        jun.ProbableClosing.ShouldBe(400m);
     }
 
     [Fact]
-    public void Separa_comprometido_de_estimado_no_breakdown()
+    public void Saida_estimada_afeta_so_o_provavel()
+    {
+        var flows = new[] { Flow(2026, 6, 20, FlowDirection.Outflow, 100m, ConfidenceLevel.Medium) };
+
+        var jun = _sut.Project(flows, Params(500m)).Months[0];
+
+        jun.PredictedOutflow.ShouldBe(0m);
+        jun.ProbableOutflow.ShouldBe(100m);
+        jun.PredictedClosing.ShouldBe(500m);
+        jun.ProbableClosing.ShouldBe(400m);
+    }
+
+    [Fact]
+    public void Combina_entrada_comprometida_com_saida_estimada()
     {
         var flows = new[]
         {
@@ -52,39 +66,15 @@ public class FinancialProjectionServiceTests
 
         var jun = _sut.Project(flows, Params(0m)).Months[0];
 
-        jun.CommittedNet.ShouldBe(1000m);
-        jun.EstimatedNet.ShouldBe(-300m);
-        jun.ClosingBalance.ShouldBe(700m);
+        jun.Inflows.ShouldBe(1000m);
+        jun.PredictedClosing.ShouldBe(1000m);
+        jun.ProbableClosing.ShouldBe(700m);
     }
 
     [Fact]
-    public void Fluxo_estimado_gera_banda_de_confianca()
+    public void Primeiro_mes_negativo_usa_o_cenario_provavel()
     {
-        var flows = new[] { Flow(2026, 6, 20, FlowDirection.Outflow, 100m, ConfidenceLevel.Medium) };
-
-        var jun = _sut.Project(flows, Params(500m, spread: 0.15m)).Months[0];
-
-        jun.ClosingBalance.ShouldBe(400m);
-        jun.OptimisticClosing.ShouldBe(415m);
-        jun.PessimisticClosing.ShouldBe(385m);
-    }
-
-    [Fact]
-    public void Fluxo_comprometido_nao_gera_banda()
-    {
-        var flows = new[] { Flow(2026, 6, 20, FlowDirection.Outflow, 100m, ConfidenceLevel.High) };
-
-        var jun = _sut.Project(flows, Params(500m)).Months[0];
-
-        jun.OptimisticClosing.ShouldBe(400m);
-        jun.PessimisticClosing.ShouldBe(400m);
-        jun.ClosingBalance.ShouldBe(400m);
-    }
-
-    [Fact]
-    public void Detecta_primeiro_mes_negativo_no_cenario_pessimista()
-    {
-        var flows = new[] { Flow(2026, 7, 10, FlowDirection.Outflow, 100m) };
+        var flows = new[] { Flow(2026, 7, 10, FlowDirection.Outflow, 100m, ConfidenceLevel.Medium) };
 
         var projection = _sut.Project(flows, Params(50m));
 

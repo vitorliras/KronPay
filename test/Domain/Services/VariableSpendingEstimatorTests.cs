@@ -1,3 +1,4 @@
+using Domain.Enums.Planning;
 using Domain.Services.Planning;
 using Shouldly;
 
@@ -8,40 +9,38 @@ public class VariableSpendingEstimatorTests
     private readonly VariableSpendingEstimator _sut = new();
 
     [Fact]
-    public void Sem_historico_retorna_zeros()
+    public void Sem_historico_usa_fixos_vezes_fator_com_confianca_baixa()
     {
-        _sut.Estimate(Array.Empty<decimal>(), 3).ShouldBe(new[] { 0m, 0m, 0m });
+        var result = _sut.Estimate(Array.Empty<decimal>(), fixedMonthlyTotal: 2000m);
+
+        result.MonthlyAmount.ShouldBe(3000m);
+        result.Confidence.ShouldBe(ConfidenceLevel.Low);
     }
 
     [Fact]
-    public void Horizonte_zero_retorna_vazio()
+    public void Tres_ou_mais_meses_usa_media_com_confianca_media()
     {
-        _sut.Estimate(new[] { 100m }, 0).ShouldBeEmpty();
+        var result = _sut.Estimate(new[] { 1000m, 1500m, 500m }, fixedMonthlyTotal: 0m);
+
+        result.MonthlyAmount.ShouldBe(1000m);
+        result.Confidence.ShouldBe(ConfidenceLevel.Medium);
     }
 
     [Fact]
-    public void Historico_estavel_repete_a_media()
+    public void Poucos_meses_usa_media_real_com_confianca_baixa()
     {
-        var result = _sut.Estimate(new[] { 200m, 200m, 200m }, 2);
+        var result = _sut.Estimate(new[] { 1000m, 500m }, fixedMonthlyTotal: 0m);
 
-        result.Count.ShouldBe(2);
-        result.ShouldAllBe(v => v == 200m);
+        result.MonthlyAmount.ShouldBe(750m);
+        result.Confidence.ShouldBe(ConfidenceLevel.Low);
     }
 
     [Fact]
-    public void Pondera_meses_recentes_com_maior_peso()
+    public void Media_e_arredondada_para_duas_casas()
     {
-        var result = _sut.Estimate(new[] { 100m, 200m }, 1);
+        var result = _sut.Estimate(new[] { 1000m, 2000m, 500m }, fixedMonthlyTotal: 0m);
 
-        result[0].ShouldBe(166.67m);
-    }
-
-    [Fact]
-    public void Tendencia_de_alta_e_limitada()
-    {
-        var result = _sut.Estimate(new[] { 100m, 100m, 100m, 300m, 300m, 300m }, 1);
-
-        result[0].ShouldBeGreaterThan(242.86m);
-        result[0].ShouldBeLessThanOrEqualTo(280m);
+        result.MonthlyAmount.ShouldBe(1166.67m);
+        result.Confidence.ShouldBe(ConfidenceLevel.Medium);
     }
 }

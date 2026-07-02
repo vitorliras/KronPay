@@ -1,6 +1,8 @@
+using Domain.Models.Planning;
+
 namespace Domain.Services.Planning;
 
 public interface IVariableSpendingEstimator
 {
-    IReadOnlyList<decimal> Estimate(IReadOnlyList<decimal> monthlyHistory, int horizonMonths);
+    VariableSpendingEstimate Estimate(IReadOnlyList<decimal> variableMonthlyHistory, decimal fixedMonthlyTotal);
 }

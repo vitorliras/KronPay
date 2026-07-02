@@ -5,9 +5,7 @@ public sealed record ProjectionMonth(
     int Month,
     decimal OpeningBalance,
     decimal Inflows,
-    decimal Outflows,
-    decimal ClosingBalance,
-    decimal CommittedNet,
-    decimal EstimatedNet,
-    decimal OptimisticClosing,
-    decimal PessimisticClosing);
+    decimal PredictedOutflow,
+    decimal ProbableOutflow,
+    decimal PredictedClosing,
+    decimal ProbableClosing);
