@@ -6,7 +6,7 @@ namespace Application.Planning;
 
 public static class ViabilityOverrides
 {
-    private const int VetoScoreCap = 20;
+    private const int CardLimitPenalty = 60;
 
     public static ViabilityResult WithCardLimitVeto(ViabilityResult original)
     {
@@ -14,13 +14,12 @@ public static class ViabilityOverrides
         findings.Add(new RuleResult(
             "CardLimitRule",
             RuleStatus.Critical,
-            Penalty: 60,
+            CardLimitPenalty,
             IsVeto: true,
             MessageKeys.CreditLimitExceeded));
 
-        return new ViabilityResult(
-            Math.Min(original.Score, VetoScoreCap),
-            ViabilityVerdict.Risk,
-            findings);
+        var score = Math.Clamp(original.Score - CardLimitPenalty, 0, 100);
+
+        return new ViabilityResult(score, ViabilityVerdict.Risk, findings);
     }
 }

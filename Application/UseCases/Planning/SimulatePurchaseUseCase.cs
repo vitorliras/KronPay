@@ -41,7 +41,7 @@ public sealed class SimulatePurchaseUseCase
     {
         var userId = _currentUser.UserId;
         var horizon = PlanningDefaults.NormalizeHorizon(request.HorizonMonths);
-        var reserve = request.SafetyReserve ?? 0m;
+        var now = DateTime.UtcNow;
 
         CreditCard? card = null;
         var limitExceeded = false;
@@ -62,8 +62,8 @@ public sealed class SimulatePurchaseUseCase
         var purchaseFlows = _flowBuilder.Build(
             card, request.Amount, request.PurchaseDate, request.Installment, request.InstallmentsCount);
 
-        var now = DateTime.UtcNow;
-        var baseContext = await _runner.RunAsync(userId, now, horizon, reserve);
+        var baseContext = await _runner.RunAsync(userId, now, horizon, request.SafetyReserve);
+        var reserve = baseContext.Parameters.SafetyReserve;
         var simulatedContext = await _runner.RunAsync(userId, now, horizon, reserve, purchaseFlows);
 
         var viability = _evaluator.Evaluate(simulatedContext.Projection, simulatedContext.Parameters);
@@ -73,6 +73,7 @@ public sealed class SimulatePurchaseUseCase
         var response = new PurchaseSimulationResponse(
             baseContext.Projection.FinalBalance,
             simulatedContext.Projection.FinalBalance,
+            reserve,
             simulatedContext.Projection.FirstNegativeMonth?.Year,
             simulatedContext.Projection.FirstNegativeMonth?.Month,
             PlanningResponseMapper.Map(viability),

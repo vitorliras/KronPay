@@ -7,4 +7,5 @@ public sealed record ViabilityFindingResponse(
     bool IsVeto,
     string MessageKey,
     int? Year,
-    int? Month);
+    int? Month,
+    IReadOnlyDictionary<string, string> Args);

@@ -71,9 +71,12 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<IFinancialFlowAggregator, FinancialFlowAggregator>();
 
         services.AddScoped<IVariableSpendingEstimator, VariableSpendingEstimator>();
+        services.AddScoped<ISafetyReserveCalculator, SafetyReserveCalculator>();
         services.AddScoped<IViabilityRule, NegativeBalanceRule>();
         services.AddScoped<IViabilityRule, SafetyReserveRule>();
         services.AddScoped<IViabilityRule, ConfidenceRule>();
+        services.AddScoped<IViabilityRule, DecliningBalanceRule>();
+        services.AddScoped<IViabilityRule, LowBufferRule>();
         services.AddScoped<IViabilityEvaluator, ViabilityEvaluator>();
 
         services.AddScoped<IProjectionRunner, ProjectionRunner>();
