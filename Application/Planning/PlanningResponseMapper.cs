@@ -20,6 +20,13 @@ public static class PlanningResponseMapper
             viability.Verdict.ToString(),
             viability.Findings
                 .Select(f => new ViabilityFindingResponse(
-                    f.RuleName, f.Status.ToString(), f.Penalty, f.IsVeto, f.MessageKey, f.Year, f.Month))
+                    f.RuleName,
+                    f.Status.ToString(),
+                    f.Penalty,
+                    f.IsVeto,
+                    f.MessageKey,
+                    f.Year,
+                    f.Month,
+                    f.Args ?? new Dictionary<string, string>()))
                 .ToList());
 }

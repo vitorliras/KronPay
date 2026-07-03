@@ -8,6 +8,6 @@ public interface IProjectionRunner
         int userId,
         DateTime referenceDate,
         int horizonMonths,
-        decimal safetyReserve,
+        decimal? safetyReserve,
         IEnumerable<FinancialFlow>? extraFlows = null);
 }

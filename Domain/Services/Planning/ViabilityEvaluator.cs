@@ -6,8 +6,6 @@ namespace Domain.Services.Planning;
 
 public sealed class ViabilityEvaluator : IViabilityEvaluator
 {
-    private const int VetoScoreCap = 20;
-
     private readonly IEnumerable<IViabilityRule> _rules;
 
     public ViabilityEvaluator(IEnumerable<IViabilityRule> rules)
@@ -23,9 +21,6 @@ public sealed class ViabilityEvaluator : IViabilityEvaluator
 
         var score = Math.Clamp(100 - findings.Sum(f => f.Penalty), 0, 100);
         var hasVeto = findings.Any(f => f.IsVeto);
-
-        if (hasVeto)
-            score = Math.Min(score, VetoScoreCap);
 
         var verdict = hasVeto
             ? ViabilityVerdict.Risk

@@ -10,22 +10,25 @@ public sealed class ProjectionRunner : IProjectionRunner
     private readonly ITransactionRepository _transactions;
     private readonly IFinancialFlowAggregator _aggregator;
     private readonly IFinancialProjectionService _projectionService;
+    private readonly ISafetyReserveCalculator _reserveCalculator;
 
     public ProjectionRunner(
         ITransactionRepository transactions,
         IFinancialFlowAggregator aggregator,
-        IFinancialProjectionService projectionService)
+        IFinancialProjectionService projectionService,
+        ISafetyReserveCalculator reserveCalculator)
     {
         _transactions = transactions;
         _aggregator = aggregator;
         _projectionService = projectionService;
+        _reserveCalculator = reserveCalculator;
     }
 
     public async Task<ProjectionContext> RunAsync(
         int userId,
         DateTime referenceDate,
         int horizonMonths,
-        decimal safetyReserve,
+        decimal? safetyReserve,
         IEnumerable<FinancialFlow>? extraFlows = null)
     {
         var from = new DateTime(referenceDate.Year, referenceDate.Month, 1);
@@ -37,15 +40,18 @@ public sealed class ProjectionRunner : IProjectionRunner
         if (extraFlows is not null)
             flows.AddRange(extraFlows);
 
-        var parameters = new ProjectionParameters(referenceDate, horizonMonths, initialBalance, safetyReserve);
-        var projection = _projectionService.Project(flows, parameters);
+        var draftParameters = new ProjectionParameters(referenceDate, horizonMonths, initialBalance, 0m);
+        var projection = _projectionService.Project(flows, draftParameters);
+
+        var reserve = safetyReserve ?? _reserveCalculator.Calculate(projection);
+        var parameters = draftParameters with { SafetyReserve = reserve };
 
         return new ProjectionContext(projection, parameters);
     }
 
     private async Task<decimal> ComputeInitialBalanceAsync(int userId, DateTime referenceDate)
     {
-        //MELHORAR AQUI: criar um repositorio s� para essa lista
+        //MELHORAR AQUI: criar um repositorio só para essa lista
         var transactions = await _transactions.GetAllTransactionAsync(userId);
 
         return transactions

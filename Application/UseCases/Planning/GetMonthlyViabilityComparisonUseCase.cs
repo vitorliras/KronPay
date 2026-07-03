@@ -41,7 +41,7 @@ public sealed class GetMonthlyViabilityComparisonUseCase
     {
         var userId = _currentUser.UserId;
         var horizon = PlanningDefaults.NormalizeHorizon(request.HorizonMonths);
-        var reserve = request.SafetyReserve ?? 0m;
+        var now = DateTime.UtcNow;
 
         CreditCard? card = null;
         var limitExceeded = false;
@@ -59,7 +59,9 @@ public sealed class GetMonthlyViabilityComparisonUseCase
             }
         }
 
-        var now = DateTime.UtcNow;
+        var baseContext = await _runner.RunAsync(userId, now, horizon, request.SafetyReserve);
+        var reserve = baseContext.Parameters.SafetyReserve;
+
         var firstMonth = new DateTime(now.Year, now.Month, 1);
         var months = new List<MonthViabilityResponse>(horizon);
 
