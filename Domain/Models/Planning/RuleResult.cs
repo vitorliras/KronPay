@@ -9,7 +9,8 @@ public sealed record RuleResult(
     bool IsVeto,
     string MessageKey,
     int? Year = null,
-    int? Month = null)
+    int? Month = null,
+    IReadOnlyDictionary<string, string>? Args = null)
 {
     public static RuleResult Ok(string ruleName)
         => new(ruleName, RuleStatus.Ok, 0, false, string.Empty);

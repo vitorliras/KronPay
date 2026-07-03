@@ -356,16 +356,157 @@ Delete all future installments of this installment.</value>
     <value>The end date cannot be earlier than the start date</value>
   </data>
   <data name="PlanningRiskNegativeBalance" xml:space="preserve">
-    <value>The projected balance goes negative during the period</value>
+    <value>Goes negative in {month} (−{amount})</value>
   </data>
   <data name="PlanningWarningSafetyReserve" xml:space="preserve">
-    <value>The projected balance falls below your safety reserve</value>
+    <value>Falls {amount} below the reserve in {month}</value>
   </data>
   <data name="PlanningNoteLowConfidence" xml:space="preserve">
-    <value>Part of the projection is estimated — reduced confidence</value>
+    <value>{percent}% of the projected outflow is estimated</value>
+  </data>
+  <data name="PlanningWarningDecliningBalance" xml:space="preserve">
+    <value>Your balance drops {amount} over the period</value>
+  </data>
+  <data name="PlanningWarningLowBuffer" xml:space="preserve">
+    <value>At the worst month you have only {months} months of expenses saved</value>
   </data>
   <data name="PlannedCommitmentNotFound" xml:space="preserve">
     <value>Commitment not found</value>
+  </data>
+  <data name="Planning" xml:space="preserve">
+    <value>Planning</value>
+  </data>
+  <data name="FinancialPlanning" xml:space="preserve">
+    <value>Financial Planning</value>
+  </data>
+  <data name="Projection" xml:space="preserve">
+    <value>Projection</value>
+  </data>
+  <data name="Commitments" xml:space="preserve">
+    <value>Commitments</value>
+  </data>
+  <data name="Simulation" xml:space="preserve">
+    <value>Simulation</value>
+  </data>
+  <data name="Direction" xml:space="preserve">
+    <value>Direction</value>
+  </data>
+  <data name="Periodicity" xml:space="preserve">
+    <value>Periodicity</value>
+  </data>
+  <data name="Once" xml:space="preserve">
+    <value>Once</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="Weekly" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="Yearly" xml:space="preserve">
+    <value>Yearly</value>
+  </data>
+  <data name="NewCommitment" xml:space="preserve">
+    <value>New commitment</value>
+  </data>
+  <data name="EditCommitment" xml:space="preserve">
+    <value>Edit commitment</value>
+  </data>
+  <data name="NoCommitments" xml:space="preserve">
+    <value>No commitments registered</value>
+  </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="ConfirmDeactivateCommitment" xml:space="preserve">
+    <value>Deactivate this commitment?</value>
+  </data>
+  <data name="FixedIncome" xml:space="preserve">
+    <value>Fixed income</value>
+  </data>
+  <data name="FixedExpense" xml:space="preserve">
+    <value>Fixed expenses</value>
+  </data>
+  <data name="CurrentBalance" xml:space="preserve">
+    <value>Current balance</value>
+  </data>
+  <data name="ProjectedBalance" xml:space="preserve">
+    <value>Projected balance</value>
+  </data>
+  <data name="FirstRiskMonth" xml:space="preserve">
+    <value>First risk month</value>
+  </data>
+  <data name="MonthlyRoom" xml:space="preserve">
+    <value>Monthly room</value>
+  </data>
+  <data name="NoRisk" xml:space="preserve">
+    <value>No risk</value>
+  </data>
+  <data name="Recommended" xml:space="preserve">
+    <value>Recommended</value>
+  </data>
+  <data name="Attention" xml:space="preserve">
+    <value>Attention</value>
+  </data>
+  <data name="Risk" xml:space="preserve">
+    <value>Risk</value>
+  </data>
+  <data name="HealthyProjection" xml:space="preserve">
+    <value>Healthy outlook</value>
+  </data>
+  <data name="Predicted" xml:space="preserve">
+    <value>Predicted</value>
+  </data>
+  <data name="Probable" xml:space="preserve">
+    <value>Probable</value>
+  </data>
+  <data name="SafetyReserve" xml:space="preserve">
+    <value>Safety reserve</value>
+  </data>
+  <data name="Horizon" xml:space="preserve">
+    <value>Horizon</value>
+  </data>
+  <data name="Simulate" xml:space="preserve">
+    <value>Simulate</value>
+  </data>
+  <data name="PaymentType" xml:space="preserve">
+    <value>Payment type</value>
+  </data>
+  <data name="Cash" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="InstallmentPlan" xml:space="preserve">
+    <value>Installments</value>
+  </data>
+  <data name="WithoutPurchase" xml:space="preserve">
+    <value>Without purchase</value>
+  </data>
+  <data name="WithPurchase" xml:space="preserve">
+    <value>With purchase</value>
+  </data>
+  <data name="PurchaseImpact" xml:space="preserve">
+    <value>Purchase impact</value>
+  </data>
+  <data name="NoBestMonth" xml:space="preserve">
+    <value>No safe month</value>
+  </data>
+  <data name="Inflows" xml:space="preserve">
+    <value>Inflows</value>
+  </data>
+  <data name="PredictedOutflow" xml:space="preserve">
+    <value>Predicted outflow</value>
+  </data>
+  <data name="ProbableOutflow" xml:space="preserve">
+    <value>Probable outflow</value>
+  </data>
+  <data name="PredictedBalance" xml:space="preserve">
+    <value>Predicted balance</value>
+  </data>
+  <data name="ProbableBalance" xml:space="preserve">
+    <value>Probable balance</value>
+  </data>
+  <data name="MonthlyDetails" xml:space="preserve">
+    <value>Month-by-month details</value>
   </data>
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>

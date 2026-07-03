@@ -49,6 +49,8 @@ public static class MessageKeys
     public const string PlanningRiskNegativeBalance = nameof(PlanningRiskNegativeBalance);
     public const string PlanningWarningSafetyReserve = nameof(PlanningWarningSafetyReserve);
     public const string PlanningNoteLowConfidence = nameof(PlanningNoteLowConfidence);
+    public const string PlanningWarningDecliningBalance = nameof(PlanningWarningDecliningBalance);
+    public const string PlanningWarningLowBuffer = nameof(PlanningWarningLowBuffer);
     public const string PlannedCommitmentNotFound = nameof(PlannedCommitmentNotFound);
 
 

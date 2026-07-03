@@ -29,14 +29,14 @@ public sealed class GetFinancialProjectionUseCase
     {
         var userId = _currentUser.UserId;
         var horizon = PlanningDefaults.NormalizeHorizon(request.HorizonMonths);
-        var reserve = request.SafetyReserve ?? 0m;
 
-        var context = await _runner.RunAsync(userId, DateTime.UtcNow, horizon, reserve);
+        var context = await _runner.RunAsync(userId, DateTime.UtcNow, horizon, request.SafetyReserve);
         var viability = _evaluator.Evaluate(context.Projection, context.Parameters);
 
         var response = new FinancialProjectionResponse(
             context.Parameters.InitialBalance,
             context.Projection.FinalBalance,
+            context.Parameters.SafetyReserve,
             context.Projection.FirstNegativeMonth?.Year,
             context.Projection.FirstNegativeMonth?.Month,
             PlanningResponseMapper.Map(viability),
