@@ -3,6 +3,7 @@ using Application.Abstractions.Common;
 using Application.DTOs.Configuration.PaymentMethods;
 using Application.DTOs.Users;
 using Domain.interfaces;
+using Domain.Interfaces.Users;
 using Shared.Localization;
 using Shared.Results;
 
@@ -12,11 +13,16 @@ public sealed class GetUserUseCase
     : IUseCaseWithoutRequest<UserAllDatasResponse>
 {
     private readonly IUserRepository _repository;
+    private readonly IUserProfilePhotoRepository _photoRepository;
     private readonly ICurrentUserService _currentUser;
 
-    public GetUserUseCase(IUserRepository repository, ICurrentUserService currentUser)
+    public GetUserUseCase(
+        IUserRepository repository,
+        IUserProfilePhotoRepository photoRepository,
+        ICurrentUserService currentUser)
     {
         _repository = repository;
+        _photoRepository = photoRepository;
         _currentUser = currentUser;
     }
 
@@ -29,6 +35,7 @@ public sealed class GetUserUseCase
         if (user == null)
             return ResultEntity<UserAllDatasResponse>.Failure(MessageKeys.InvaldUser);
 
+        var hasProfilePhoto = await _photoRepository.ExistsAsync(userId);
 
         return ResultEntity<UserAllDatasResponse>.Success(
                new UserAllDatasResponse(
@@ -37,7 +44,8 @@ public sealed class GetUserUseCase
                    user.Phone.Value,
                    user.Cpf.Value,
                    user.UserType,
-                   user.Email.Value
+                   user.Email.Value,
+                   hasProfilePhoto
                ), MessageKeys.OperationSuccess
            );
     }

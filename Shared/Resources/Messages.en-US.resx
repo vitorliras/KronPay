@@ -988,4 +988,67 @@ Delete all future installments of this installment.</value>
   <data name="PasswordResetBody" xml:space="preserve">
     <value>&lt;p&gt;Your password reset code is &lt;strong&gt;{0}&lt;/strong&gt;. It is valid for 2 minutes.&lt;/p&gt;</value>
   </data>
+  <data name="ConfirmEmailTitle" xml:space="preserve">
+    <value>Confirm your email</value>
+  </data>
+  <data name="ConfirmEmailInstructions" xml:space="preserve">
+    <value>We sent a 6-digit code to your email. Enter it below to confirm your account.</value>
+  </data>
+  <data name="ConfirmationCode" xml:space="preserve">
+    <value>Confirmation code</value>
+  </data>
+  <data name="CodeExpiresIn" xml:space="preserve">
+    <value>Expires in</value>
+  </data>
+  <data name="ResendCode" xml:space="preserve">
+    <value>Resend code</value>
+  </data>
+  <data name="ForgotPasswordInstructions" xml:space="preserve">
+    <value>Enter your email to receive a password reset code.</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirm new password</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Passwords do not match</value>
+  </data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+    <value>Invalid session. Please log in again</value>
+  </data>
+  <data name="RefreshTokenExpired" xml:space="preserve">
+    <value>Session expired. Please log in again</value>
+  </data>
+  <data name="InvalidImageFormat" xml:space="preserve">
+    <value>Invalid image format. Use JPEG, PNG or WebP</value>
+  </data>
+  <data name="ImageTooLarge" xml:space="preserve">
+    <value>Image is too large</value>
+  </data>
+  <data name="ProfilePhotoUpdated" xml:space="preserve">
+    <value>Profile photo updated</value>
+  </data>
+  <data name="ProfilePhotoRemoved" xml:space="preserve">
+    <value>Profile photo removed</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="ProfilePhoto" xml:space="preserve">
+    <value>Profile photo</value>
+  </data>
+  <data name="SelectImage" xml:space="preserve">
+    <value>Select image</value>
+  </data>
+  <data name="ChangePhoto" xml:space="preserve">
+    <value>Change photo</value>
+  </data>
+  <data name="RemovePhoto" xml:space="preserve">
+    <value>Remove photo</value>
+  </data>
 </root>
