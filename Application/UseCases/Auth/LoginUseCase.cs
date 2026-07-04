@@ -32,7 +32,10 @@ public sealed class LoginUseCase
             return ResultEntity<LoginResponse>.Failure(MessageKeys.UsernameOrPasswordIsIncorrect);
 
         if (!_passwordHasher.Verify(request.Password, user.PasswordHash))
-            return ResultEntity<LoginResponse>.Failure(MessageKeys.UsernameOrPasswordIsIncorrect); 
+            return ResultEntity<LoginResponse>.Failure(MessageKeys.UsernameOrPasswordIsIncorrect);
+
+        if (!user.EmailConfirmed)
+            return ResultEntity<LoginResponse>.Failure(MessageKeys.AccountNotConfirmed);
 
         var tokenResult = _tokenService.GenerateToken(user);
 

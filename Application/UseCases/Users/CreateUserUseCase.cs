@@ -1,11 +1,14 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Auth;
+using Application.DTOs.Auth;
 using Application.DTOs.Users;
+using Application.UseCases.Auth;
 using KronPay.Domain.Entities.Users;
 using Domain.interfaces;
 using Domain.Interfaces;
 using Domain.ValueObjects;
 using Domain.ValueObjects.User;
+using Microsoft.Extensions.Logging;
 using Shared.Localization;
 using Shared.Results;
 
@@ -17,14 +20,21 @@ public sealed class CreateUserUseCase
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUnitOfWork _uow;
+    private readonly SendEmailConfirmationCodeUseCase _sendConfirmationCodeUseCase;
+    private readonly ILogger<CreateUserUseCase> _logger;
 
     public CreateUserUseCase(
         IUserRepository userRepository,
-        IPasswordHasher passwordHasher, IUnitOfWork uow)
+        IPasswordHasher passwordHasher,
+        IUnitOfWork uow,
+        SendEmailConfirmationCodeUseCase sendConfirmationCodeUseCase,
+        ILogger<CreateUserUseCase> logger)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _uow = uow;
+        _sendConfirmationCodeUseCase = sendConfirmationCodeUseCase;
+        _logger = logger;
     }
 
     public async Task<ResultEntity<UserResponse>> ExecuteAsync(CreateUserRequest request)
@@ -77,6 +87,7 @@ public sealed class CreateUserUseCase
             if (!uow)
                 return ResultEntity<UserResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
+            await SendConfirmationCodeBestEffort(user.Id, user.Email.Value);
 
             return ResultEntity<UserResponse>.Success(
                 new UserResponse(
@@ -92,6 +103,24 @@ public sealed class CreateUserUseCase
         {
             return ResultEntity<UserResponse>.Failure( e.Message);
         }
-       
+
+    }
+
+    private async Task SendConfirmationCodeBestEffort(int userId, string email)
+    {
+        try
+        {
+            var result = await _sendConfirmationCodeUseCase.ExecuteAsync(
+                new SendEmailConfirmationCodeRequest(userId, email));
+
+            if (!result.IsSuccess)
+                _logger.LogError(
+                    "Não foi possível enviar o código de confirmação ao criar o usuário {UserId}: {Message}",
+                    userId, result.Message);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Falha inesperada ao disparar o código de confirmação para o usuário {UserId}.", userId);
+        }
     }
 }

@@ -958,4 +958,34 @@ Delete all future installments of this installment.</value>
   <data name="SelectPaymentMethod" xml:space="preserve">
     <value>Select the payment method</value>
   </data>
+  <data name="InvalidVerificationCode" xml:space="preserve">
+    <value>Invalid verification code</value>
+  </data>
+  <data name="InvalidOrExpiredCode" xml:space="preserve">
+    <value>Invalid or expired code</value>
+  </data>
+  <data name="TooManyAttempts" xml:space="preserve">
+    <value>Too many attempts. Request a new code</value>
+  </data>
+  <data name="ResendCooldownActive" xml:space="preserve">
+    <value>Please wait before requesting a new code</value>
+  </data>
+  <data name="AccountNotConfirmed" xml:space="preserve">
+    <value>Confirm your email before logging in</value>
+  </data>
+  <data name="EmailAlreadyConfirmed" xml:space="preserve">
+    <value>This email has already been confirmed</value>
+  </data>
+  <data name="EmailConfirmationSubject" xml:space="preserve">
+    <value>KronPay - Email confirmation code</value>
+  </data>
+  <data name="EmailConfirmationBody" xml:space="preserve">
+    <value>&lt;p&gt;Your confirmation code is &lt;strong&gt;{0}&lt;/strong&gt;. It is valid for 2 minutes.&lt;/p&gt;</value>
+  </data>
+  <data name="PasswordResetSubject" xml:space="preserve">
+    <value>KronPay - Password reset code</value>
+  </data>
+  <data name="PasswordResetBody" xml:space="preserve">
+    <value>&lt;p&gt;Your password reset code is &lt;strong&gt;{0}&lt;/strong&gt;. It is valid for 2 minutes.&lt;/p&gt;</value>
+  </data>
 </root>

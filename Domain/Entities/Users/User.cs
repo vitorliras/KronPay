@@ -18,6 +18,7 @@ public sealed class User
 
     public DateTime CreatedAt { get; private set; }
     public DateTime? LastAccessAt { get; private set; }
+    public bool EmailConfirmed { get; private set; }
 
     protected User() { }
 
@@ -38,10 +39,21 @@ public sealed class User
         PasswordHash = passwordHash;
         UserType = userType;
         CreatedAt = DateTime.UtcNow;
+        EmailConfirmed = false;
     }
 
     public void RegisterAccess()
     {
         LastAccessAt = DateTime.UtcNow;
+    }
+
+    public void ConfirmEmail()
+    {
+        EmailConfirmed = true;
+    }
+
+    public void ChangePassword(string passwordHash)
+    {
+        PasswordHash = passwordHash;
     }
 }

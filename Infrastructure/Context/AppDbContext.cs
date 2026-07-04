@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.Auth;
 using Domain.Entities.Card;
 using Domain.Entities.banks;
 using Domain.Entities.Configuration;
@@ -31,6 +32,7 @@ public sealed class AppDbContext : DbContext
     public DbSet<CardInvoice> CardInvoices => Set<CardInvoice>();
     public DbSet<CardInstallment> CardInstallments => Set<CardInstallment>();
     public DbSet<PlannedCommitment> PlannedCommitments => Set<PlannedCommitment>();
+    public DbSet<VerificationCode> VerificationCodes => Set<VerificationCode>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
