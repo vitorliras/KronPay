@@ -954,4 +954,34 @@
   <data name="SelectPaymentMethod" xml:space="preserve">
     <value>Selecione a forma de pagamento</value>
   </data>
+  <data name="InvalidVerificationCode" xml:space="preserve">
+    <value>Código de verificação inválido</value>
+  </data>
+  <data name="InvalidOrExpiredCode" xml:space="preserve">
+    <value>Código inválido ou expirado</value>
+  </data>
+  <data name="TooManyAttempts" xml:space="preserve">
+    <value>Número de tentativas excedido. Solicite um novo código</value>
+  </data>
+  <data name="ResendCooldownActive" xml:space="preserve">
+    <value>Aguarde antes de solicitar um novo código</value>
+  </data>
+  <data name="AccountNotConfirmed" xml:space="preserve">
+    <value>Confirme seu e-mail antes de fazer login</value>
+  </data>
+  <data name="EmailAlreadyConfirmed" xml:space="preserve">
+    <value>Este e-mail já foi confirmado</value>
+  </data>
+  <data name="EmailConfirmationSubject" xml:space="preserve">
+    <value>KronPay - Código de confirmação de e-mail</value>
+  </data>
+  <data name="EmailConfirmationBody" xml:space="preserve">
+    <value>&lt;p&gt;Seu código de confirmação é &lt;strong&gt;{0}&lt;/strong&gt;. Ele é válido por 2 minutos.&lt;/p&gt;</value>
+  </data>
+  <data name="PasswordResetSubject" xml:space="preserve">
+    <value>KronPay - Código de recuperação de senha</value>
+  </data>
+  <data name="PasswordResetBody" xml:space="preserve">
+    <value>&lt;p&gt;Seu código de recuperação de senha é &lt;strong&gt;{0}&lt;/strong&gt;. Ele é válido por 2 minutos.&lt;/p&gt;</value>
+  </data>
 </root>

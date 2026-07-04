@@ -21,6 +21,52 @@ namespace Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Domain.Entities.Auth.VerificationCode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AttemptsCount")
+                        .HasColumnType("int")
+                        .HasColumnName("attempts_count");
+
+                    b.Property<string>("CodeHash")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)")
+                        .HasColumnName("code_hash");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("expires_at");
+
+                    b.Property<int>("Purpose")
+                        .HasColumnType("int")
+                        .HasColumnName("purpose");
+
+                    b.Property<bool>("Used")
+                        .HasColumnType("bit")
+                        .HasColumnName("used");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "Purpose", "CreatedAt");
+
+                    b.ToTable("verification_codes", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Card.CardInstallment", b =>
                 {
                     b.Property<int>("Id")
@@ -1286,6 +1332,10 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("created_at");
 
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit")
+                        .HasColumnName("email_confirmed");
+
                     b.Property<DateTime?>("LastAccessAt")
                         .HasColumnType("datetime2")
                         .HasColumnName("last_Access_at");
@@ -1306,6 +1356,15 @@ namespace Infrastructure.Migrations
                     b.HasIndex("UserType");
 
                     b.ToTable("users", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Auth.VerificationCode", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Entities.Card.CardInstallment", b =>

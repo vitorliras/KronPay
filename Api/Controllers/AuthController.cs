@@ -1,5 +1,7 @@
 ﻿using Api.Extensions;
 using Application.DTOs.Auth;
+using Application.Executors;
+using Application.Pipelines;
 using Application.UseCases.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +17,32 @@ namespace Api.Controllers;
 public sealed class AuthController : ControllerBase
 {
     private readonly LoginUseCase _loginUseCase;
+    private readonly UseCaseExecutor _executor;
+    private readonly ConfirmEmailUseCase _confirmEmailUseCase;
+    private readonly ResendEmailConfirmationCodeUseCase _resendConfirmationCodeUseCase;
+    private readonly RequestPasswordResetUseCase _requestPasswordResetUseCase;
+    private readonly ValidatePasswordResetCodeUseCase _validatePasswordResetCodeUseCase;
+    private readonly ResetPasswordUseCase _resetPasswordUseCase;
     private readonly IStringLocalizer<Messages> _localizer;
 
 
-    public AuthController(LoginUseCase loginUseCase, IStringLocalizer<Messages> localizer)
+    public AuthController(
+        LoginUseCase loginUseCase,
+        UseCaseExecutor executor,
+        ConfirmEmailUseCase confirmEmailUseCase,
+        ResendEmailConfirmationCodeUseCase resendConfirmationCodeUseCase,
+        RequestPasswordResetUseCase requestPasswordResetUseCase,
+        ValidatePasswordResetCodeUseCase validatePasswordResetCodeUseCase,
+        ResetPasswordUseCase resetPasswordUseCase,
+        IStringLocalizer<Messages> localizer)
     {
         _loginUseCase = loginUseCase;
+        _executor = executor;
+        _confirmEmailUseCase = confirmEmailUseCase;
+        _resendConfirmationCodeUseCase = resendConfirmationCodeUseCase;
+        _requestPasswordResetUseCase = requestPasswordResetUseCase;
+        _validatePasswordResetCodeUseCase = validatePasswordResetCodeUseCase;
+        _resetPasswordUseCase = resetPasswordUseCase;
         _localizer = localizer;
     }
 
@@ -35,5 +57,60 @@ public sealed class AuthController : ControllerBase
 
         return result.ToActionResult(_localizer);
 
+    }
+
+    [HttpPost("confirm-email")]
+    [AllowAnonymous]
+    public async Task<IActionResult> ConfirmEmail(
+        ConfirmEmailRequest request,
+        [FromServices] ValidationPipeline<ConfirmEmailRequest, ConfirmEmailResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _confirmEmailUseCase, pipeline);
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("resend-confirmation")]
+    [AllowAnonymous]
+    public async Task<IActionResult> ResendConfirmation(
+        ResendCodeRequest request,
+        [FromServices] ValidationPipeline<ResendCodeRequest, ResendCodeResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _resendConfirmationCodeUseCase, pipeline);
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("forgot-password")]
+    [AllowAnonymous]
+    public async Task<IActionResult> ForgotPassword(
+        RequestPasswordResetRequest request,
+        [FromServices] ValidationPipeline<RequestPasswordResetRequest, RequestPasswordResetResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _requestPasswordResetUseCase, pipeline);
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("validate-reset-code")]
+    [AllowAnonymous]
+    public async Task<IActionResult> ValidateResetCode(
+        ValidateResetCodeRequest request,
+        [FromServices] ValidationPipeline<ValidateResetCodeRequest, ValidateResetCodeResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _validatePasswordResetCodeUseCase, pipeline);
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("reset-password")]
+    [AllowAnonymous]
+    public async Task<IActionResult> ResetPassword(
+        ResetPasswordRequest request,
+        [FromServices] ValidationPipeline<ResetPasswordRequest, ResetPasswordResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _resetPasswordUseCase, pipeline);
+
+        return result.ToActionResult(_localizer);
     }
 }

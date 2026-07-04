@@ -53,6 +53,16 @@ public static class MessageKeys
     public const string PlanningWarningLowBuffer = nameof(PlanningWarningLowBuffer);
     public const string PlannedCommitmentNotFound = nameof(PlannedCommitmentNotFound);
 
+    public const string InvalidVerificationCode = nameof(InvalidVerificationCode);
+    public const string InvalidOrExpiredCode = nameof(InvalidOrExpiredCode);
+    public const string TooManyAttempts = nameof(TooManyAttempts);
+    public const string ResendCooldownActive = nameof(ResendCooldownActive);
+    public const string AccountNotConfirmed = nameof(AccountNotConfirmed);
+    public const string EmailAlreadyConfirmed = nameof(EmailAlreadyConfirmed);
 
+    public const string EmailConfirmationSubject = nameof(EmailConfirmationSubject);
+    public const string EmailConfirmationBody = nameof(EmailConfirmationBody);
+    public const string PasswordResetSubject = nameof(PasswordResetSubject);
+    public const string PasswordResetBody = nameof(PasswordResetBody);
 
 }
