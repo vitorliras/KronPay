@@ -1,5 +1,7 @@
+using Application.DTOs.Users;
 using Application.Executors;
 using Application.Pipelines;
+using Application.Validators.Users;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
@@ -48,6 +50,14 @@ public static class DependencyInjection
             if (validatorInterface is not null)
                 services.AddScoped(validatorInterface, validatorType);
         }
+
+        // Registro pontual (não via scan): "Application.Validators.Users" não está no
+        // scan automático acima porque esse namespace já tem um validator pré-existente
+        // (CreateUserValidator) que nunca rodou em produção (inconsistência #15);
+        // ampliar o scan ativaria esse validator dormente como efeito colateral não
+        // planejado desta tarefa. Registrando só o validator novo, pontualmente, até que
+        // a SPEC 0015 avalie e generalize o scan para todos os módulos.
+        services.AddScoped<IValidator<UploadProfilePhotoRequest>, UploadProfilePhotoRequestValidator>();
 
         return services;
     }

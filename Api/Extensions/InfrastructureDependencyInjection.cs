@@ -12,14 +12,18 @@ using Application.Planning.Flows;
 using Domain.Interfaces.Card;
 using Domain.Interfaces.Planning;
 using Domain.Interfaces.Transactions;
+using Domain.Interfaces.Users;
 using Domain.Services.Auth;
 using Domain.Services.Card;
 using Domain.Services.Planning;
 using Domain.Services.Planning.Rules;
+using Domain.Services.Users;
 using Infrastructure.Email;
+using Infrastructure.Media;
 using Infrastructure.Repositories.Auth;
 using Infrastructure.Repositories.Card;
 using Infrastructure.Repositories.Planning;
+using Infrastructure.Repositories.Users;
 using Infra.Persistence.Repositories;
 using Infra.Security;
 using Infrastructure.AI;
@@ -71,6 +75,10 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<IVerificationCodeRepository, VerificationCodeRepository>();
         services.AddScoped<IVerificationCodeService, VerificationCodeService>();
         services.AddScoped<IEmailSender, SmtpEmailSender>();
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+
+        services.AddScoped<IUserProfilePhotoRepository, UserProfilePhotoRepository>();
+        services.AddScoped<IProfilePhotoProcessor, ProfilePhotoProcessor>();
 
         services.AddScoped<IFinancialProjectionService, FinancialProjectionService>();
         services.AddScoped<IFinancialFlowSource, TransactionFlowSource>();

@@ -9,7 +9,8 @@ public sealed record UserAllDatasResponse(
     string Phone,
     string Cpf,
     string UserType,
-    string Email
+    string Email,
+    bool HasProfilePhoto
 );
 
 

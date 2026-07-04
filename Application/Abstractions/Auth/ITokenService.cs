@@ -1,7 +1,12 @@
-﻿namespace Application.Abstractions.Auth;
+using KronPay.Domain.Entities.Users;
 
-public interface IPasswordHasher
+namespace Application.Abstractions.Auth;
+
+public interface ITokenService
 {
-    string Hash(string password);
-    bool Verify(string password, string passwordHash);
+    TokenResult GenerateToken(User user);
+    RefreshTokenResult GenerateRefreshToken();
+    string HashRefreshToken(string refreshToken);
 }
+
+public sealed record TokenResult(string Token, DateTime ExpiresAt);
