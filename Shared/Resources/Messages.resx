@@ -988,4 +988,67 @@
   <data name="PasswordResetBody" xml:space="preserve">
     <value>&lt;p&gt;Seu código de recuperação de senha é &lt;strong&gt;{0}&lt;/strong&gt;. Ele é válido por 2 minutos.&lt;/p&gt;</value>
   </data>
+  <data name="ConfirmEmailTitle" xml:space="preserve">
+    <value>Confirme seu e-mail</value>
+  </data>
+  <data name="ConfirmEmailInstructions" xml:space="preserve">
+    <value>Enviamos um código de 6 dígitos para o seu e-mail. Digite abaixo para confirmar sua conta.</value>
+  </data>
+  <data name="ConfirmationCode" xml:space="preserve">
+    <value>Código de confirmação</value>
+  </data>
+  <data name="CodeExpiresIn" xml:space="preserve">
+    <value>Expira em</value>
+  </data>
+  <data name="ResendCode" xml:space="preserve">
+    <value>Reenviar código</value>
+  </data>
+  <data name="ForgotPasswordInstructions" xml:space="preserve">
+    <value>Informe seu e-mail para receber um código de recuperação de senha.</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Enviar</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nova senha</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirmar nova senha</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>As senhas não coincidem</value>
+  </data>
+  <data name="InvalidRefreshToken" xml:space="preserve">
+    <value>Sessão inválida. Faça login novamente</value>
+  </data>
+  <data name="RefreshTokenExpired" xml:space="preserve">
+    <value>Sessão expirada. Faça login novamente</value>
+  </data>
+  <data name="InvalidImageFormat" xml:space="preserve">
+    <value>Formato de imagem inválido. Use JPEG, PNG ou WebP</value>
+  </data>
+  <data name="ImageTooLarge" xml:space="preserve">
+    <value>Imagem muito grande</value>
+  </data>
+  <data name="ProfilePhotoUpdated" xml:space="preserve">
+    <value>Foto de perfil atualizada</value>
+  </data>
+  <data name="ProfilePhotoRemoved" xml:space="preserve">
+    <value>Foto de perfil removida</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="ProfilePhoto" xml:space="preserve">
+    <value>Foto de perfil</value>
+  </data>
+  <data name="SelectImage" xml:space="preserve">
+    <value>Selecionar imagem</value>
+  </data>
+  <data name="ChangePhoto" xml:space="preserve">
+    <value>Trocar foto</value>
+  </data>
+  <data name="RemovePhoto" xml:space="preserve">
+    <value>Remover foto</value>
+  </data>
 </root>

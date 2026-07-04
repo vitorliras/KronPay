@@ -23,6 +23,8 @@ public sealed class AuthController : ControllerBase
     private readonly RequestPasswordResetUseCase _requestPasswordResetUseCase;
     private readonly ValidatePasswordResetCodeUseCase _validatePasswordResetCodeUseCase;
     private readonly ResetPasswordUseCase _resetPasswordUseCase;
+    private readonly RefreshTokenUseCase _refreshTokenUseCase;
+    private readonly LogoutUseCase _logoutUseCase;
     private readonly IStringLocalizer<Messages> _localizer;
 
 
@@ -34,6 +36,8 @@ public sealed class AuthController : ControllerBase
         RequestPasswordResetUseCase requestPasswordResetUseCase,
         ValidatePasswordResetCodeUseCase validatePasswordResetCodeUseCase,
         ResetPasswordUseCase resetPasswordUseCase,
+        RefreshTokenUseCase refreshTokenUseCase,
+        LogoutUseCase logoutUseCase,
         IStringLocalizer<Messages> localizer)
     {
         _loginUseCase = loginUseCase;
@@ -43,6 +47,8 @@ public sealed class AuthController : ControllerBase
         _requestPasswordResetUseCase = requestPasswordResetUseCase;
         _validatePasswordResetCodeUseCase = validatePasswordResetCodeUseCase;
         _resetPasswordUseCase = resetPasswordUseCase;
+        _refreshTokenUseCase = refreshTokenUseCase;
+        _logoutUseCase = logoutUseCase;
         _localizer = localizer;
     }
 
@@ -110,6 +116,28 @@ public sealed class AuthController : ControllerBase
         [FromServices] ValidationPipeline<ResetPasswordRequest, ResetPasswordResponse> pipeline)
     {
         var result = await _executor.ExecuteAsync(request, _resetPasswordUseCase, pipeline);
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("refresh")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Refresh(
+        RefreshTokenRequest request,
+        [FromServices] ValidationPipeline<RefreshTokenRequest, RefreshTokenResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _refreshTokenUseCase, pipeline);
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("logout")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Logout(
+        LogoutRequest request,
+        [FromServices] ValidationPipeline<LogoutRequest, LogoutResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _logoutUseCase, pipeline);
 
         return result.ToActionResult(_localizer);
     }

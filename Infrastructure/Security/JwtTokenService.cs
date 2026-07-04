@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using KronPay.Domain.Entities.Users;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 
@@ -11,6 +12,8 @@ namespace Infra.Security;
 
 public sealed class JwtTokenService : ITokenService
 {
+    private static readonly TimeSpan RefreshTokenValidity = TimeSpan.FromDays(30);
+
     private readonly IConfiguration _config;
 
     public JwtTokenService(IConfiguration config)
@@ -46,4 +49,15 @@ public sealed class JwtTokenService : ITokenService
 
         return new TokenResult(jwt, expiresAt);
     }
+
+    public RefreshTokenResult GenerateRefreshToken()
+    {
+        var token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+        var expiresAt = DateTime.UtcNow.Add(RefreshTokenValidity);
+
+        return new RefreshTokenResult(token, expiresAt);
+    }
+
+    public string HashRefreshToken(string refreshToken) =>
+        Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken)));
 }

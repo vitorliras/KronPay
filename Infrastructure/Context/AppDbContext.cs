@@ -33,6 +33,8 @@ public sealed class AppDbContext : DbContext
     public DbSet<CardInstallment> CardInstallments => Set<CardInstallment>();
     public DbSet<PlannedCommitment> PlannedCommitments => Set<PlannedCommitment>();
     public DbSet<VerificationCode> VerificationCodes => Set<VerificationCode>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+    public DbSet<UserProfilePhoto> UserProfilePhotos => Set<UserProfilePhoto>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)

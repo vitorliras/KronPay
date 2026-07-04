@@ -65,4 +65,29 @@ public static class MessageKeys
     public const string PasswordResetSubject = nameof(PasswordResetSubject);
     public const string PasswordResetBody = nameof(PasswordResetBody);
 
+    public const string ConfirmEmailTitle = nameof(ConfirmEmailTitle);
+    public const string ConfirmEmailInstructions = nameof(ConfirmEmailInstructions);
+    public const string ConfirmationCode = nameof(ConfirmationCode);
+    public const string CodeExpiresIn = nameof(CodeExpiresIn);
+    public const string ResendCode = nameof(ResendCode);
+    public const string ForgotPasswordInstructions = nameof(ForgotPasswordInstructions);
+    public const string Send = nameof(Send);
+    public const string NewPassword = nameof(NewPassword);
+    public const string ConfirmNewPassword = nameof(ConfirmNewPassword);
+    public const string PasswordsDoNotMatch = nameof(PasswordsDoNotMatch);
+
+    public const string InvalidRefreshToken = nameof(InvalidRefreshToken);
+    public const string RefreshTokenExpired = nameof(RefreshTokenExpired);
+
+    public const string InvalidImageFormat = nameof(InvalidImageFormat);
+    public const string ImageTooLarge = nameof(ImageTooLarge);
+    public const string ProfilePhotoUpdated = nameof(ProfilePhotoUpdated);
+    public const string ProfilePhotoRemoved = nameof(ProfilePhotoRemoved);
+
+    public const string Profile = nameof(Profile);
+    public const string ProfilePhoto = nameof(ProfilePhoto);
+    public const string SelectImage = nameof(SelectImage);
+    public const string ChangePhoto = nameof(ChangePhoto);
+    public const string RemovePhoto = nameof(RemovePhoto);
+
 }
