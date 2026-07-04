@@ -1,6 +1,7 @@
 using Api.Extensions;
 using Api.Middlewares;
 using Application;
+using Application.Configuration.Email;
 using Application.Configuration.Pluggy;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -84,6 +85,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.Configure<PluggySettings>(builder.Configuration.GetSection("Pluggy"));
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Email"));
 
 builder.Services.AddApplication();
 

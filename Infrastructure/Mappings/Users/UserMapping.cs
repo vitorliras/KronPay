@@ -78,6 +78,10 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
             .HasColumnName("last_Access_at")
             .IsRequired(false);
 
+        builder.Property(x => x.EmailConfirmed)
+            .HasColumnName("email_confirmed")
+            .IsRequired();
+
         builder.HasOne<TypeUser>()
             .WithMany()
             .HasForeignKey(x => x.UserType)
