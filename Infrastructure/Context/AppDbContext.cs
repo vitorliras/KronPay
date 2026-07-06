@@ -4,6 +4,7 @@ using Domain.Entities.Card;
 using Domain.Entities.banks;
 using Domain.Entities.Configuration;
 using Domain.Entities.Goals;
+using Domain.Entities.Notifications;
 using Domain.Entities.Planning;
 using Domain.Entities.Transactions;
 using Infrastructure.Mappings;
@@ -38,6 +39,9 @@ public sealed class AppDbContext : DbContext
     public DbSet<UserProfilePhoto> UserProfilePhotos => Set<UserProfilePhoto>();
     public DbSet<FinancialGoal> FinancialGoals => Set<FinancialGoal>();
     public DbSet<CategoryBudgetGoal> CategoryBudgetGoals => Set<CategoryBudgetGoal>();
+    public DbSet<Notification> Notifications => Set<Notification>();
+    public DbSet<NotificationPreference> NotificationPreferences => Set<NotificationPreference>();
+    public DbSet<NotificationEvaluationRun> NotificationEvaluationRuns => Set<NotificationEvaluationRun>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
