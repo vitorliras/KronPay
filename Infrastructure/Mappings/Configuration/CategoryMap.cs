@@ -42,6 +42,12 @@ public sealed class CategoryMap : IEntityTypeConfiguration<Category>
             .HasDefaultValue(true)
             .IsRequired();
 
+        builder.Property(x => x.IsCardInvoiceCategory)
+            .HasColumnName("is_card_invoice_category")
+            .HasColumnType("bit")
+            .HasDefaultValue(false)
+            .IsRequired();
+
         builder.Property(x => x.DeactivatedAt)
             .HasColumnName("deactivated_at");
 

@@ -391,6 +391,12 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasColumnName("description");
 
+                    b.Property<bool>("IsCardInvoiceCategory")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("is_card_invoice_category");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int")
                         .HasColumnName("user_id");
