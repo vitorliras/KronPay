@@ -958,6 +958,12 @@ Delete all future installments of this installment.</value>
   <data name="SelectPaymentMethod" xml:space="preserve">
     <value>Select the payment method</value>
   </data>
+  <data name="CardInvoiceCategoryLabel" xml:space="preserve">
+    <value>Card invoice payment category</value>
+  </data>
+  <data name="CardInvoiceCategoryHint" xml:space="preserve">
+    <value>Only one category can be the card invoice payment category. Marking this one automatically unmarks the previous one.</value>
+  </data>
   <data name="InvalidVerificationCode" xml:space="preserve">
     <value>Invalid verification code</value>
   </data>
