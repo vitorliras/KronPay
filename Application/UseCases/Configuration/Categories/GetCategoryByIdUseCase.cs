@@ -34,7 +34,8 @@ public sealed class GetCategoryByIdUseCase
                 category.Id,
                 category.Description,
                 category.CodTypeTransaction,
-                category.Active
+                category.Active,
+                category.IsCardInvoiceCategory
             ), MessageKeys.OperationSuccess
         );
     }
