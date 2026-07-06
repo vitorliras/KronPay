@@ -70,7 +70,7 @@ public sealed class GetGoalsOverviewUseCase : IUseCaseWithoutRequest<GoalsOvervi
         foreach (var goal in categoryBudgetGoals)
         {
             var spent = monthTransactions
-                .Where(t => t.CategoryId == goal.CategoryId && t.CodTypeTransaction == "E" && t.Status == "P")
+                .Where(t => t.CategoryId == goal.CategoryId && t.CodTypeTransaction == "E" && t.Status != "C")
                 .Sum(t => t.Amount);
 
             categoryBudgetGoalsResponse.Add(new CategoryBudgetGoalResponse(
