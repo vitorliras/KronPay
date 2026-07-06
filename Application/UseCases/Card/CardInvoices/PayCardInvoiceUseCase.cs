@@ -17,6 +17,7 @@ public sealed class PayCardInvoiceUseCase
     private readonly ICardInvoiceRepository _invoiceRepository;
     private readonly ICreditCardRepository _creditCardRepository;
     private readonly ITransactionRepository _transactionRepository;
+    private readonly ICategoryRepository _categoryRepository;
     private readonly IUnitOfWork _uow;
     private readonly ICurrentUserService _currentUser;
 
@@ -24,12 +25,14 @@ public sealed class PayCardInvoiceUseCase
         ICardInvoiceRepository invoiceRepository,
         ICreditCardRepository creditCardRepository,
         ITransactionRepository transactionRepository,
+        ICategoryRepository categoryRepository,
         IUnitOfWork uow,
         ICurrentUserService currentUser)
     {
         _invoiceRepository = invoiceRepository;
         _creditCardRepository = creditCardRepository;
         _transactionRepository = transactionRepository;
+        _categoryRepository = categoryRepository;
         _uow = uow;
         _currentUser = currentUser;
     }
@@ -58,6 +61,8 @@ public sealed class PayCardInvoiceUseCase
 
         var description = $"Fatura {card.Description} - {invoice.ReferenceMonth:00}/{invoice.ReferenceYear}";
 
+        var invoiceCategory = await _categoryRepository.GetCardInvoiceCategoryAsync(userId);
+
         // Transação de saída (caixa) — reusa o domínio de Transaction.
         var transaction = new Transaction(
             userId,
@@ -65,7 +70,7 @@ public sealed class PayCardInvoiceUseCase
             DateTime.UtcNow,
             description,
             request.CodTypeTransaction,
-            null,
+            invoiceCategory?.Id,
             null,
             null,
             request.PaymentMethodId,
