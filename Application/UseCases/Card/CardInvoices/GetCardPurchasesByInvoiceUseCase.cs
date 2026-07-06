@@ -45,7 +45,9 @@ public sealed class GetCardPurchasesByInvoiceUseCase
             x.Status,
             x.CardPurchase?.CategoryId is int categoryId && categories.TryGetValue(categoryId, out var description)
                 ? description
-                : null));
+                : null,
+            x.CardPurchase?.CategoryId,
+            x.CardPurchase?.CategoryItemId));
 
         return ResultEntity<IEnumerable<CardInstallmentResponse>>.Success(response, MessageKeys.OperationSuccess);
     }

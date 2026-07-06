@@ -8,4 +8,6 @@ public sealed record CardInstallmentResponse(
     short InstallmentsCount,
     decimal Amount,
     string Status,
-    string? CategoryDescription);
+    string? CategoryDescription,
+    int? CategoryId,
+    int? CategoryItemId);
