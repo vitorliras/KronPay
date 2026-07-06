@@ -3,6 +3,9 @@ using Application.Abstractions.Common;
 using Application.Abstractions.Email;
 using Application.Abstractions.Import;
 using Application.Abstractions.Pluggy;
+using Application.Goals;
+using Application.Notifications;
+using Application.Notifications.Rules;
 using Doamain.Interface.Banks;
 using Domain.interfaces;
 using Domain.Interfaces;
@@ -11,6 +14,7 @@ using Application.Planning;
 using Application.Planning.Flows;
 using Domain.Interfaces.Card;
 using Domain.Interfaces.Goals;
+using Domain.Interfaces.Notifications;
 using Domain.Interfaces.Planning;
 using Domain.Interfaces.Transactions;
 using Domain.Interfaces.Users;
@@ -25,6 +29,7 @@ using Infrastructure.Media;
 using Infrastructure.Repositories.Auth;
 using Infrastructure.Repositories.Card;
 using Infrastructure.Repositories.Goals;
+using Infrastructure.Repositories.Notifications;
 using Infrastructure.Repositories.Planning;
 using Infrastructure.Repositories.Users;
 using Infra.Persistence.Repositories;
@@ -37,6 +42,7 @@ using Infrastructure.Persistence;
 using Infrastructure.Repositories;
 using Infrastructure.Repositories.Banks;
 using Infrastructure.Repositories.Transactions;
+using Infrastructure.Workers;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Extensions;
@@ -86,6 +92,23 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<IFinancialGoalRepository, FinancialGoalRepository>();
         services.AddScoped<ICategoryBudgetGoalRepository, CategoryBudgetGoalRepository>();
         services.AddScoped<IGoalContributionCalculator, GoalContributionCalculator>();
+
+        services.AddScoped<INotificationRepository, NotificationRepository>();
+        services.AddScoped<INotificationPreferenceRepository, NotificationPreferenceRepository>();
+        services.AddScoped<INotificationEvaluationRunRepository, NotificationEvaluationRunRepository>();
+
+        services.AddScoped<ISpendingTrendCalculator, SpendingTrendCalculator>();
+        services.AddScoped<IGoalRiskEvaluator, GoalRiskEvaluator>();
+
+        services.AddScoped<ITransactionNotificationRuleEvaluator, TransactionNotificationRuleEvaluator>();
+        services.AddScoped<ICardInvoiceNotificationRuleEvaluator, CardInvoiceNotificationRuleEvaluator>();
+        services.AddScoped<IGoalNotificationRuleEvaluator, GoalNotificationRuleEvaluator>();
+        services.AddScoped<IFinancialIntelligenceNotificationRuleEvaluator, FinancialIntelligenceNotificationRuleEvaluator>();
+        services.AddScoped<IDataHygieneNotificationRuleEvaluator, DataHygieneNotificationRuleEvaluator>();
+        services.AddScoped<INotificationEmailDispatcher, NotificationEmailDispatcher>();
+        services.AddScoped<INotificationEvaluationOrchestrator, NotificationEvaluationOrchestrator>();
+        services.AddScoped<INotificationService, NotificationService>();
+        services.AddHostedService<NotificationEvaluationWorker>();
 
         services.AddScoped<IFinancialProjectionService, FinancialProjectionService>();
         services.AddScoped<IFinancialFlowSource, TransactionFlowSource>();

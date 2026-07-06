@@ -54,4 +54,12 @@ public sealed class UserRepository : IUserRepository
         return await _context.TyoeUsers
             .FirstOrDefaultAsync(u => u.Code == code);
     }
+
+    public async Task<IReadOnlyList<int>> GetAllUserIdsAsync()
+    {
+        return await _context.Users
+            .AsNoTracking()
+            .Select(u => u.Id)
+            .ToListAsync();
+    }
 }

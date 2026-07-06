@@ -17,6 +17,7 @@ public sealed class FinancialGoal
     public DateTime CreatedAt { get; private set; }
     public DateTime? CompletedAt { get; private set; }
     public int? PreviousAttemptGoalId { get; private set; }
+    public DateTime? LastContributionAt { get; private set; }
 
     protected FinancialGoal() { }
 
@@ -76,6 +77,7 @@ public sealed class FinancialGoal
             throw new DomainException(MessageKeys.InvalidGoalAmount);
 
         CurrentAmount += amount;
+        LastContributionAt = DateTime.UtcNow;
 
         if (CurrentAmount >= TargetAmount)
             MarkAsCompleted();

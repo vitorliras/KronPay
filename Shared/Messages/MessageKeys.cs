@@ -149,4 +149,30 @@ public static class MessageKeys
     public const string Back = nameof(Back);
     public const string NoGoalsInHistory = nameof(NoGoalsInHistory);
 
+    public const string InvalidNotificationMessageKey = nameof(InvalidNotificationMessageKey);
+    public const string NotificationNotFound = nameof(NotificationNotFound);
+
+    public const string NotificationTransactionOverdue = nameof(NotificationTransactionOverdue);
+    public const string NotificationTransactionDueToday = nameof(NotificationTransactionDueToday);
+    public const string NotificationTransactionDueTomorrow = nameof(NotificationTransactionDueTomorrow);
+    public const string NotificationCardInvoiceOverdue = nameof(NotificationCardInvoiceOverdue);
+    public const string NotificationCardInvoiceDueReminder = nameof(NotificationCardInvoiceDueReminder);
+    public const string NotificationCardInvoiceClosingReminder = nameof(NotificationCardInvoiceClosingReminder);
+    public const string NotificationCategoryBudgetGoalExceeded = nameof(NotificationCategoryBudgetGoalExceeded);
+    public const string NotificationCategoryBudgetGoalNearLimit = nameof(NotificationCategoryBudgetGoalNearLimit);
+    public const string NotificationFinancialGoalAtRisk = nameof(NotificationFinancialGoalAtRisk);
+    public const string NotificationFinancialGoalContributionOverdue = nameof(NotificationFinancialGoalContributionOverdue);
+    public const string NotificationFinancialGoalNearCompletionReminder = nameof(NotificationFinancialGoalNearCompletionReminder);
+    public const string NotificationFinancialGoalCompleted = nameof(NotificationFinancialGoalCompleted);
+    public const string NotificationFinancialGoalContributionReminder = nameof(NotificationFinancialGoalContributionReminder);
+    public const string NotificationProjectedSpendingPaceExceedsBudget = nameof(NotificationProjectedSpendingPaceExceedsBudget);
+    public const string NotificationProjectedNegativeBalance = nameof(NotificationProjectedNegativeBalance);
+    public const string NotificationCategorySpendingAboveAverage = nameof(NotificationCategorySpendingAboveAverage);
+    public const string NotificationRecurringExpenseIncreased = nameof(NotificationRecurringExpenseIncreased);
+    public const string NotificationMonthlySavingsSummary = nameof(NotificationMonthlySavingsSummary);
+    public const string NotificationSignificantSpendingIncrease = nameof(NotificationSignificantSpendingIncrease);
+    public const string NotificationNetWorthChange = nameof(NotificationNetWorthChange);
+    public const string NotificationCategoryWithoutBudgetGoalHighSpending = nameof(NotificationCategoryWithoutBudgetGoalHighSpending);
+    public const string NotificationNoTransactionLoggedRecently = nameof(NotificationNoTransactionLoggedRecently);
+    public const string NotificationEmailSubject = nameof(NotificationEmailSubject);
 }

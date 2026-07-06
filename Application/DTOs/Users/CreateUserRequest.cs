@@ -8,4 +8,7 @@ public sealed class CreateUserRequest
     public string Cpf { get; init; } = default!;
     public string Phone { get; init; } = default!;
     public string Password { get; init; } = default!;
+    public bool? EmailOnCritical { get; init; }
+    public bool? EmailOnImportant { get; init; }
+    public bool? EmailOnInformative { get; init; }
 }
