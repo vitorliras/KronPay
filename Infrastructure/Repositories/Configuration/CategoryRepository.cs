@@ -47,4 +47,10 @@ public sealed class CategoryRepository : ICategoryRepository
         return await _context.Categories
             .FirstOrDefaultAsync(x => x.Description == description && x.UserId == userId);
     }
+
+    public async Task<Category?> GetCardInvoiceCategoryAsync(int userId)
+    {
+        return await _context.Categories
+            .FirstOrDefaultAsync(x => x.UserId == userId && x.IsCardInvoiceCategory);
+    }
 }

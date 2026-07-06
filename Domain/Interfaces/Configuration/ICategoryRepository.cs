@@ -9,4 +9,5 @@ public interface ICategoryRepository
     Task<Category?> GetByIdAsync(int id, int userId);
     Task<Category?> GetByDescriptionAsync(string description, int userId);
     Task<IEnumerable<Category>> GetAllAsync(int userId);
+    Task<Category?> GetCardInvoiceCategoryAsync(int userId);
 }
