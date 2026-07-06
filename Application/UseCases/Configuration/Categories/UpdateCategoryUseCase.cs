@@ -39,6 +39,22 @@ public sealed class UpdateCategoryUseCase
         category.UpdateDescription(request.Description);
         category.SetCode(request.codTypeTransaction);
 
+        if (request.IsCardInvoiceCategory && !category.IsCardInvoiceCategory)
+        {
+            var previous = await _categoryRepository.GetCardInvoiceCategoryAsync(userId);
+            if (previous is not null && previous.Id != category.Id)
+            {
+                previous.UnmarkAsCardInvoiceCategory();
+                _categoryRepository.Update(previous);
+            }
+
+            category.MarkAsCardInvoiceCategory();
+        }
+        else if (!request.IsCardInvoiceCategory && category.IsCardInvoiceCategory)
+        {
+            category.UnmarkAsCardInvoiceCategory();
+        }
+
         var result =  _categoryRepository.Update(category);
         if (!result)
             return ResultEntity<CategoryResponse>.Failure( MessageKeys.UpdateFailed);
@@ -52,7 +68,8 @@ public sealed class UpdateCategoryUseCase
                 category.Id,
                 category.Description,
                 category.CodTypeTransaction,
-                category.Active
+                category.Active,
+                category.IsCardInvoiceCategory
             ), MessageKeys.OperationSuccess
         );
     }

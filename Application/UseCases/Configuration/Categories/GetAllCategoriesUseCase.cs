@@ -32,7 +32,8 @@ public sealed class GetAllCategoriesUseCase
                 c.Id,
                 c.Description,
                 c.CodTypeTransaction,
-                c.Active
+                c.Active,
+                c.IsCardInvoiceCategory
             ));
 
         return ResultEntity<IEnumerable<CategoryResponse>>

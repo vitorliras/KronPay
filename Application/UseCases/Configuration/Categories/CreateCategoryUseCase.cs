@@ -37,7 +37,19 @@ public sealed class CreateCategoryUseCase
             request.Description,
             request.CodTypeTransaction
         );
-        
+
+        if (request.IsCardInvoiceCategory)
+        {
+            var previous = await _categoryRepository.GetCardInvoiceCategoryAsync(userId);
+            if (previous is not null)
+            {
+                previous.UnmarkAsCardInvoiceCategory();
+                _categoryRepository.Update(previous);
+            }
+
+            category.MarkAsCardInvoiceCategory();
+        }
+
         var result = await _categoryRepository.AddAsync(category);
         if (!result)
             return ResultEntity<CategoryResponse>.Failure(MessageKeys.InsertFalied);
@@ -51,7 +63,8 @@ public sealed class CreateCategoryUseCase
                 category.Id,
                 category.Description,
                 category.CodTypeTransaction,
-                category.Active
+                category.Active,
+                category.IsCardInvoiceCategory
             )
            , MessageKeys.OperationSuccess
         );
