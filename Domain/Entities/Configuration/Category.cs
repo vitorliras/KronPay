@@ -1,4 +1,4 @@
-﻿using Domain.Exceptions;
+using Domain.Exceptions;
 using Shared.Localization;
 
 namespace Domain.Entities.Configuration;
@@ -12,8 +12,9 @@ public sealed class Category
     public DateTime CreatedAt { get; private set; }
     public bool Active { get; private set; }
     public DateTime ? DeactivatedAt { get; private set; }
+    public bool IsCardInvoiceCategory { get; private set; }
 
-    protected Category() { } 
+    protected Category() { }
 
     public Category(
         int userId,
@@ -28,7 +29,8 @@ public sealed class Category
         CodTypeTransaction = codTypeTransaction;
         CreatedAt = DateTime.UtcNow;
         DeactivatedAt = null;
-        Active = true; 
+        Active = true;
+        IsCardInvoiceCategory = false;
     }
 
     public void Deactivate()
@@ -46,4 +48,8 @@ public sealed class Category
     }
 
     public void SetCode(string code) => CodTypeTransaction = code;
+
+    public void MarkAsCardInvoiceCategory() => IsCardInvoiceCategory = true;
+
+    public void UnmarkAsCardInvoiceCategory() => IsCardInvoiceCategory = false;
 }
