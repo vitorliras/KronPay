@@ -958,6 +958,12 @@
   <data name="SelectPaymentMethod" xml:space="preserve">
     <value>Selecione a forma de pagamento</value>
   </data>
+  <data name="CardInvoiceCategoryLabel" xml:space="preserve">
+    <value>Categoria de pagamento de fatura</value>
+  </data>
+  <data name="CardInvoiceCategoryHint" xml:space="preserve">
+    <value>Apenas uma categoria pode ser a categoria de pagamento de fatura. Marcar esta desmarca a anterior automaticamente.</value>
+  </data>
   <data name="InvalidVerificationCode" xml:space="preserve">
     <value>Código de verificação inválido</value>
   </data>
