@@ -2,5 +2,6 @@
 
 public sealed record CreateCategoryRequest(
     string Description,
-    string CodTypeTransaction
+    string CodTypeTransaction,
+    bool IsCardInvoiceCategory = false
 );
