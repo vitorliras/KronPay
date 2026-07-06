@@ -3,6 +3,7 @@ using Domain.Entities.Auth;
 using Domain.Entities.Card;
 using Domain.Entities.banks;
 using Domain.Entities.Configuration;
+using Domain.Entities.Goals;
 using Domain.Entities.Planning;
 using Domain.Entities.Transactions;
 using Infrastructure.Mappings;
@@ -35,6 +36,8 @@ public sealed class AppDbContext : DbContext
     public DbSet<VerificationCode> VerificationCodes => Set<VerificationCode>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
     public DbSet<UserProfilePhoto> UserProfilePhotos => Set<UserProfilePhoto>();
+    public DbSet<FinancialGoal> FinancialGoals => Set<FinancialGoal>();
+    public DbSet<CategoryBudgetGoal> CategoryBudgetGoals => Set<CategoryBudgetGoal>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
