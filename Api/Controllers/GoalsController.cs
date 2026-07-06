@@ -29,6 +29,7 @@ public sealed class GoalsController : ControllerBase
     private readonly SimulateExtraContributionUseCase _simulateExtraContribution;
     private readonly GetFinancialGoalsHistoryUseCase _getHistory;
     private readonly RetryFinancialGoalUseCase _retry;
+    private readonly GetCategoryBudgetGoalStrategyUseCase _getCategoryStrategy;
     private readonly IStringLocalizer<Messages> _localizer;
 
     public GoalsController(
@@ -45,6 +46,7 @@ public sealed class GoalsController : ControllerBase
         SimulateExtraContributionUseCase simulateExtraContribution,
         GetFinancialGoalsHistoryUseCase getHistory,
         RetryFinancialGoalUseCase retry,
+        GetCategoryBudgetGoalStrategyUseCase getCategoryStrategy,
         IStringLocalizer<Messages> localizer)
     {
         _executor = executor;
@@ -60,6 +62,7 @@ public sealed class GoalsController : ControllerBase
         _simulateExtraContribution = simulateExtraContribution;
         _getHistory = getHistory;
         _retry = retry;
+        _getCategoryStrategy = getCategoryStrategy;
         _localizer = localizer;
     }
 
@@ -170,6 +173,17 @@ public sealed class GoalsController : ControllerBase
         [FromServices] ValidationPipeline<RetryFinancialGoalRequest, FinancialGoalResponse> pipeline)
     {
         var result = await _executor.ExecuteAsync(request, _retry, pipeline);
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpGet("category/{goalId:int}/[action]")]
+    public async Task<IActionResult> GetCategoryStrategy(
+        int goalId,
+        [FromServices] ValidationPipeline<GetCategoryBudgetGoalStrategyRequest, CategoryGoalStrategyResponse> pipeline)
+    {
+        var request = new GetCategoryBudgetGoalStrategyRequest(goalId);
+
+        var result = await _executor.ExecuteAsync(request, _getCategoryStrategy, pipeline);
         return result.ToActionResult(_localizer);
     }
 }

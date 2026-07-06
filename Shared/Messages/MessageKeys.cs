@@ -112,4 +112,41 @@ public static class MessageKeys
     public const string StrategyConservative = nameof(StrategyConservative);
     public const string StrategyFast = nameof(StrategyFast);
 
+    public const string CategorySpendingSuggestion = nameof(CategorySpendingSuggestion);
+    public const string NoSpendingSuggestionAvailable = nameof(NoSpendingSuggestionAvailable);
+    public const string TrendRising = nameof(TrendRising);
+    public const string TrendFalling = nameof(TrendFalling);
+    public const string TrendStable = nameof(TrendStable);
+
+    public const string Priority = nameof(Priority);
+    public const string PriorityLow = nameof(PriorityLow);
+    public const string PriorityMedium = nameof(PriorityMedium);
+    public const string PriorityHigh = nameof(PriorityHigh);
+    public const string GoalTypeAchievement = nameof(GoalTypeAchievement);
+    public const string GoalTypeCategoryLimit = nameof(GoalTypeCategoryLimit);
+    public const string NewGoal = nameof(NewGoal);
+    public const string Objectives = nameof(Objectives);
+    public const string TargetAmount = nameof(TargetAmount);
+    public const string TargetDate = nameof(TargetDate);
+    public const string MonthlyLimit = nameof(MonthlyLimit);
+    public const string WithinLimit = nameof(WithinLimit);
+    public const string OverLimit = nameof(OverLimit);
+    public const string AddContribution = nameof(AddContribution);
+    public const string GoalDetail = nameof(GoalDetail);
+    public const string SafetyReserveImpact = nameof(SafetyReserveImpact);
+    public const string ProjectedCompletion = nameof(ProjectedCompletion);
+    public const string NoActiveGoals = nameof(NoActiveGoals);
+    public const string ViewDetail = nameof(ViewDetail);
+    public const string ContributionAmount = nameof(ContributionAmount);
+    public const string SelectCategory = nameof(SelectCategory);
+    public const string AcceleratesGoalIn = nameof(AcceleratesGoalIn);
+    public const string ConfirmCancelGoal = nameof(ConfirmCancelGoal);
+    public const string Completed = nameof(Completed);
+    public const string Expired = nameof(Expired);
+    public const string GoalsHistory = nameof(GoalsHistory);
+    public const string ViewHistory = nameof(ViewHistory);
+    public const string TryAgain = nameof(TryAgain);
+    public const string Back = nameof(Back);
+    public const string NoGoalsInHistory = nameof(NoGoalsInHistory);
+
 }
