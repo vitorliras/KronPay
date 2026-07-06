@@ -1210,4 +1210,79 @@ Delete all future installments of this installment.</value>
   <data name="NoGoalsInHistory" xml:space="preserve">
     <value>No completed or expired goals yet</value>
   </data>
+  <data name="InvalidNotificationMessageKey" xml:space="preserve">
+    <value>Invalid notification message key</value>
+  </data>
+  <data name="NotificationNotFound" xml:space="preserve">
+    <value>Notification not found</value>
+  </data>
+  <data name="NotificationTransactionOverdue" xml:space="preserve">
+    <value>The transaction "{description}" of {amount} was due on {dueDate} and hasn't been paid yet.</value>
+  </data>
+  <data name="NotificationTransactionDueToday" xml:space="preserve">
+    <value>The transaction "{description}" of {amount} is due today.</value>
+  </data>
+  <data name="NotificationTransactionDueTomorrow" xml:space="preserve">
+    <value>The transaction "{description}" of {amount} is due tomorrow.</value>
+  </data>
+  <data name="NotificationCardInvoiceOverdue" xml:space="preserve">
+    <value>Your card invoice was due on {dueDate} and hasn't been paid yet.</value>
+  </data>
+  <data name="NotificationCardInvoiceDueReminder" xml:space="preserve">
+    <value>Your card invoice of {amount} is due on {dueDate}.</value>
+  </data>
+  <data name="NotificationCardInvoiceClosingReminder" xml:space="preserve">
+    <value>Your card invoice closes on {closingDate}.</value>
+  </data>
+  <data name="NotificationCategoryBudgetGoalExceeded" xml:space="preserve">
+    <value>You've exceeded the {monthlyLimit} limit for "{categoryName}" this month.</value>
+  </data>
+  <data name="NotificationCategoryBudgetGoalNearLimit" xml:space="preserve">
+    <value>You've used {percentUsed}% of the "{categoryName}" limit this month.</value>
+  </data>
+  <data name="NotificationFinancialGoalAtRisk" xml:space="preserve">
+    <value>Your goal "{goalName}" is at risk of missing the {targetDate} deadline.</value>
+  </data>
+  <data name="NotificationFinancialGoalContributionOverdue" xml:space="preserve">
+    <value>You haven't logged a contribution to "{goalName}" in {days} days.</value>
+  </data>
+  <data name="NotificationFinancialGoalNearCompletionReminder" xml:space="preserve">
+    <value>You're almost there! Just {remainingAmount} left to complete "{goalName}" — log your contribution now.</value>
+  </data>
+  <data name="NotificationFinancialGoalCompleted" xml:space="preserve">
+    <value>Congratulations! You've completed your "{goalName}" goal.</value>
+  </data>
+  <data name="NotificationFinancialGoalContributionReminder" xml:space="preserve">
+    <value>Don't forget to log this month's contribution to "{goalName}".</value>
+  </data>
+  <data name="NotificationProjectedSpendingPaceExceedsBudget" xml:space="preserve">
+    <value>At your current pace, you're likely to exceed the "{categoryName}" limit before month's end.</value>
+  </data>
+  <data name="NotificationProjectedNegativeBalance" xml:space="preserve">
+    <value>Your projection shows a negative balance starting {month}/{year}.</value>
+  </data>
+  <data name="NotificationCategorySpendingAboveAverage" xml:space="preserve">
+    <value>Your spending on "{categoryName}" this month is above your usual average.</value>
+  </data>
+  <data name="NotificationRecurringExpenseIncreased" xml:space="preserve">
+    <value>Your recurring expense "{description}" increased from {previousAmount} to {currentAmount}.</value>
+  </data>
+  <data name="NotificationMonthlySavingsSummary" xml:space="preserve">
+    <value>You saved {amount} compared to last month.</value>
+  </data>
+  <data name="NotificationSignificantSpendingIncrease" xml:space="preserve">
+    <value>Your spending increased {percent}% compared to last month.</value>
+  </data>
+  <data name="NotificationNetWorthChange" xml:space="preserve">
+    <value>Your accumulated balance (income - expenses) changed {percent}% compared to last month.</value>
+  </data>
+  <data name="NotificationCategoryWithoutBudgetGoalHighSpending" xml:space="preserve">
+    <value>"{categoryName}" had high spending this month and still has no limit set.</value>
+  </data>
+  <data name="NotificationNoTransactionLoggedRecently" xml:space="preserve">
+    <value>You haven't logged a transaction in {days} days.</value>
+  </data>
+  <data name="NotificationEmailSubject" xml:space="preserve">
+    <value>KronPay — New notification</value>
+  </data>
 </root>

@@ -27,12 +27,13 @@ public static class DependencyInjection
         foreach (var type in useCaseTypes)
             services.AddScoped(type);
 
-        // Validators auto-registrados de forma RESTRITA aos módulos Card, Planning, Auth e
-        // Goals (namespaces "Application.Validators.Card"/".Planning"/".Auth"/".Goals") —
-        // não ativa validators de outros módulos (ver inconsistência #15 sobre o registro
-        // global ainda pendente; SPEC 0015 vai generalizar esse scan por tipo para todos os
-        // módulos). "Goals" entra no scan porque é um namespace novo, sem nenhum validator
-        // dormente pré-existente (diferente do caso de "Users").
+        // Validators auto-registrados de forma RESTRITA aos módulos Card, Planning, Auth,
+        // Goals e Notifications (namespaces "Application.Validators.Card"/".Planning"/
+        // ".Auth"/".Goals"/".Notifications") — não ativa validators de outros módulos (ver
+        // inconsistência #15 sobre o registro global ainda pendente; SPEC 0015 vai
+        // generalizar esse scan por tipo para todos os módulos). "Goals" e "Notifications"
+        // entram no scan porque são namespaces novos, sem nenhum validator dormente
+        // pré-existente (diferente do caso de "Users").
         var moduleValidators = applicationAssembly
             .GetTypes()
             .Where(t => t.IsClass && !t.IsAbstract
@@ -40,7 +41,8 @@ public static class DependencyInjection
                 && (t.Namespace.StartsWith("Application.Validators.Card")
                     || t.Namespace.StartsWith("Application.Validators.Planning")
                     || t.Namespace.StartsWith("Application.Validators.Auth")
-                    || t.Namespace.StartsWith("Application.Validators.Goals")));
+                    || t.Namespace.StartsWith("Application.Validators.Goals")
+                    || t.Namespace.StartsWith("Application.Validators.Notifications")));
 
         foreach (var validatorType in moduleValidators)
         {

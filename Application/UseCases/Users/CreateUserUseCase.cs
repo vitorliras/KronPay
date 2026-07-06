@@ -4,8 +4,10 @@ using Application.DTOs.Auth;
 using Application.DTOs.Users;
 using Application.UseCases.Auth;
 using KronPay.Domain.Entities.Users;
+using Domain.Entities.Notifications;
 using Domain.interfaces;
 using Domain.Interfaces;
+using Domain.Interfaces.Notifications;
 using Domain.ValueObjects;
 using Domain.ValueObjects.User;
 using Microsoft.Extensions.Logging;
@@ -21,6 +23,7 @@ public sealed class CreateUserUseCase
     private readonly IPasswordHasher _passwordHasher;
     private readonly IUnitOfWork _uow;
     private readonly SendEmailConfirmationCodeUseCase _sendConfirmationCodeUseCase;
+    private readonly INotificationPreferenceRepository _notificationPreferenceRepository;
     private readonly ILogger<CreateUserUseCase> _logger;
 
     public CreateUserUseCase(
@@ -28,12 +31,14 @@ public sealed class CreateUserUseCase
         IPasswordHasher passwordHasher,
         IUnitOfWork uow,
         SendEmailConfirmationCodeUseCase sendConfirmationCodeUseCase,
+        INotificationPreferenceRepository notificationPreferenceRepository,
         ILogger<CreateUserUseCase> logger)
     {
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
         _uow = uow;
         _sendConfirmationCodeUseCase = sendConfirmationCodeUseCase;
+        _notificationPreferenceRepository = notificationPreferenceRepository;
         _logger = logger;
     }
 
@@ -88,6 +93,7 @@ public sealed class CreateUserUseCase
                 return ResultEntity<UserResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
             await SendConfirmationCodeBestEffort(user.Id, user.Email.Value);
+            await CreateNotificationPreferenceBestEffort(user.Id, request);
 
             return ResultEntity<UserResponse>.Success(
                 new UserResponse(
@@ -121,6 +127,35 @@ public sealed class CreateUserUseCase
         catch (Exception e)
         {
             _logger.LogError(e, "Falha inesperada ao disparar o código de confirmação para o usuário {UserId}.", userId);
+        }
+    }
+
+    private async Task CreateNotificationPreferenceBestEffort(int userId, CreateUserRequest request)
+    {
+        try
+        {
+            var preference = new NotificationPreference(
+                userId,
+                request.EmailOnCritical ?? true,
+                request.EmailOnImportant ?? true,
+                request.EmailOnInformative ?? false);
+
+            if (!await _notificationPreferenceRepository.AddAsync(preference))
+            {
+                _logger.LogError(
+                    "Não foi possível registrar a preferência de notificação ao criar o usuário {UserId}.",
+                    userId);
+                return;
+            }
+
+            if (!await _uow.CommitAsync())
+                _logger.LogError(
+                    "Falha ao persistir a preferência de notificação do usuário {UserId}.",
+                    userId);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Falha inesperada ao criar a preferência de notificação para o usuário {UserId}.", userId);
         }
     }
 }

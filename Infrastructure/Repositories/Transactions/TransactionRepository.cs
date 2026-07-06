@@ -213,6 +213,31 @@ namespace Infrastructure.Repositories.Transactions
 
             return transactions.All(t => _context.Entry(t).State == EntityState.Deleted);
         }
+
+        public async Task<IEnumerable<Transaction>> GetOverdueOrDueSoonAsync(int userId, DateTime today)
+        {
+            var tomorrow = today.AddDays(1);
+
+            return await _context.Transactions
+                .AsNoTracking()
+                .Where(t =>
+                    t.UserId == userId &&
+                    t.CodTypeTransaction == "E" &&
+                    (t.Status == "O" || t.Status == "E") &&
+                    t.TransactionDate.Date <= tomorrow)
+                .OrderBy(t => t.TransactionDate)
+                .ToListAsync();
+        }
+
+        public async Task<DateTime?> GetLastTransactionDateAsync(int userId)
+        {
+            return await _context.Transactions
+                .AsNoTracking()
+                .Where(t => t.UserId == userId)
+                .OrderByDescending(t => t.CreatedAt)
+                .Select(t => (DateTime?)t.CreatedAt)
+                .FirstOrDefaultAsync();
+        }
     }
 
 

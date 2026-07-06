@@ -1,6 +1,7 @@
 ﻿using Application.Abstractions;
 using Application.Abstractions.Common;
 using Application.DTOs.Transactions;
+using Application.Notifications;
 using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
 using Shared.Localization;
@@ -14,11 +15,17 @@ public sealed class ChangeStatusTransactionUseCase
 
     private readonly ICurrentUserService _currentUser;
     private readonly ITransactionRepository _transactionRepository;
+    private readonly INotificationService _notificationService;
     private readonly IUnitOfWork _uow;
 
-    public ChangeStatusTransactionUseCase(ITransactionRepository transactionRepository, IUnitOfWork uow, ICurrentUserService currentUser)
+    public ChangeStatusTransactionUseCase(
+        ITransactionRepository transactionRepository,
+        INotificationService notificationService,
+        IUnitOfWork uow,
+        ICurrentUserService currentUser)
     {
         _transactionRepository = transactionRepository;
+        _notificationService = notificationService;
         _uow = uow;
         _currentUser = currentUser;
     }
@@ -35,7 +42,11 @@ public sealed class ChangeStatusTransactionUseCase
 
         else
         {
-            if (request.Status.Equals("P"))  transaction.Paid();
+            if (request.Status.Equals("P"))
+            {
+                transaction.Paid();
+                await _notificationService.ResolveByRelatedEntityAsync(userId, "Transaction", transaction.Id);
+            }
             if (request.Status.Equals("C"))  transaction.Cancel();
             if (request.Status.Equals("O"))  transaction.Open();
 

@@ -5,6 +5,7 @@ using Domain.Enums.Goals;
 using Domain.Interfaces;
 using Domain.Interfaces.Goals;
 using Domain.Interfaces.Transactions;
+using Domain.Services.Goals;
 using Shared.Localization;
 using Shared.Results;
 
@@ -15,23 +16,25 @@ public sealed class GetCategoryBudgetGoalStrategyUseCase
 {
     private const int HistoryMonths = 5;
     private const decimal SubcategorySignalThreshold = 0.5m;
-    private const decimal TrendMarginPercent = 0.10m;
     private const int FallbackTopCount = 3;
 
     private readonly ICategoryBudgetGoalRepository _goals;
     private readonly ITransactionRepository _transactions;
     private readonly ICategoryItemRepository _categoryItems;
+    private readonly ISpendingTrendCalculator _trendCalculator;
     private readonly ICurrentUserService _currentUser;
 
     public GetCategoryBudgetGoalStrategyUseCase(
         ICategoryBudgetGoalRepository goals,
         ITransactionRepository transactions,
         ICategoryItemRepository categoryItems,
+        ISpendingTrendCalculator trendCalculator,
         ICurrentUserService currentUser)
     {
         _goals = goals;
         _transactions = transactions;
         _categoryItems = categoryItems;
+        _trendCalculator = trendCalculator;
         _currentUser = currentUser;
     }
 
@@ -127,30 +130,9 @@ public sealed class GetCategoryBudgetGoalStrategyUseCase
         var historicalAverage = monthlyTotals.Count > 0 ? Math.Round(monthlyTotals.Average(), 2) : 0m;
         var currentPeriodSpent = currentMonthTransactions.Sum(t => t.Amount);
 
-        var direction = ComputeTrendDirection(monthlyTotals);
+        var direction = _trendCalculator.ComputeDirection(monthlyTotals);
 
         return new CategorySpendingTrendResponse(currentPeriodSpent, historicalAverage, direction);
-    }
-
-    private static SpendingTrendDirection ComputeTrendDirection(List<decimal> monthlyTotals)
-    {
-        var window = monthlyTotals.TakeLast(3).ToList();
-        if (window.Count < 2)
-            return SpendingTrendDirection.Stable;
-
-        var oldest = window.First();
-        var newest = window.Last();
-
-        if (oldest <= 0)
-            return newest > 0 ? SpendingTrendDirection.Rising : SpendingTrendDirection.Stable;
-
-        if (newest > oldest * (1 + TrendMarginPercent))
-            return SpendingTrendDirection.Rising;
-
-        if (newest < oldest * (1 - TrendMarginPercent))
-            return SpendingTrendDirection.Falling;
-
-        return SpendingTrendDirection.Stable;
     }
 
     private static (string Key, IReadOnlyDictionary<string, string> Args) BuildSuggestion(

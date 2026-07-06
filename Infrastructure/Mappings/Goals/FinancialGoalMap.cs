@@ -60,6 +60,10 @@ public sealed class FinancialGoalMap : IEntityTypeConfiguration<FinancialGoal>
         builder.Property(x => x.PreviousAttemptGoalId)
             .HasColumnName("previous_attempt_goal_id");
 
+        builder.Property(x => x.LastContributionAt)
+            .HasColumnName("last_contribution_at")
+            .HasColumnType("datetime2(0)");
+
         builder.HasIndex(x => new { x.UserId, x.Status });
     }
 }

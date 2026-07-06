@@ -2,7 +2,9 @@
 using Application.Abstractions.Common;
 using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Transactions;
+using Application.Notifications;
 using Domain.Entities.Transactions;
+using Domain.Enums.Notifications;
 using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
 using Shared.Localization;
@@ -15,17 +17,20 @@ public sealed class CreateTransactionUseCase
 {
     private readonly ITransactionRepository _transactionRepository;
     private readonly ITransactionGroupRepository _groupRepository;
+    private readonly INotificationService _notificationService;
     private readonly IUnitOfWork _uow;
     private readonly ICurrentUserService _currentUser;
 
     public CreateTransactionUseCase(
         ITransactionRepository transactionRepository,
         ITransactionGroupRepository groupRepository,
+        INotificationService notificationService,
         IUnitOfWork uow,
         ICurrentUserService currentUser)
     {
         _transactionRepository = transactionRepository;
         _groupRepository = groupRepository;
+        _notificationService = notificationService;
         _uow = uow;
         _currentUser = currentUser;
 
@@ -113,6 +118,8 @@ public sealed class CreateTransactionUseCase
 
         if (!addResult)
             return ResultEntity<TransactionResponse>.Failure(MessageKeys.InsertFalied);
+
+        await _notificationService.ResolveByTypeAsync(userId, NotificationType.NoTransactionLoggedRecently);
 
         var committed = await _uow.CommitAsync();
         if (!committed)

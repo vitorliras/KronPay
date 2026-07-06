@@ -1,6 +1,7 @@
 using Application.Abstractions;
 using Application.Abstractions.Common;
 using Application.DTOs.Card.CardInvoices;
+using Application.Notifications;
 using Domain.Entities.Transactions;
 using Domain.Interfaces;
 using Domain.Interfaces.Card;
@@ -18,6 +19,7 @@ public sealed class PayCardInvoiceUseCase
     private readonly ICreditCardRepository _creditCardRepository;
     private readonly ITransactionRepository _transactionRepository;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly INotificationService _notificationService;
     private readonly IUnitOfWork _uow;
     private readonly ICurrentUserService _currentUser;
 
@@ -26,6 +28,7 @@ public sealed class PayCardInvoiceUseCase
         ICreditCardRepository creditCardRepository,
         ITransactionRepository transactionRepository,
         ICategoryRepository categoryRepository,
+        INotificationService notificationService,
         IUnitOfWork uow,
         ICurrentUserService currentUser)
     {
@@ -33,6 +36,7 @@ public sealed class PayCardInvoiceUseCase
         _creditCardRepository = creditCardRepository;
         _transactionRepository = transactionRepository;
         _categoryRepository = categoryRepository;
+        _notificationService = notificationService;
         _uow = uow;
         _currentUser = currentUser;
     }
@@ -85,6 +89,8 @@ public sealed class PayCardInvoiceUseCase
 
         // Liga a fatura à transação (EF resolve o FK no commit) e marca como paga.
         invoice.Pay(transaction);
+
+        await _notificationService.ResolveByRelatedEntityAsync(userId, "CardInvoice", invoice.Id);
 
         if (!await _uow.CommitAsync())
             return ResultEntity<CardInvoiceResponse>.Failure(MessageKeys.DataPersistenceFailed);
