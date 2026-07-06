@@ -90,4 +90,24 @@ public static class MessageKeys
     public const string ChangePhoto = nameof(ChangePhoto);
     public const string RemovePhoto = nameof(RemovePhoto);
 
+    public const string GoalNotFound = nameof(GoalNotFound);
+    public const string InvalidGoalAmount = nameof(InvalidGoalAmount);
+    public const string InvalidGoalDate = nameof(InvalidGoalDate);
+    public const string GoalNotActive = nameof(GoalNotActive);
+    public const string GoalCreated = nameof(GoalCreated);
+    public const string GoalUpdated = nameof(GoalUpdated);
+    public const string GoalCancelled = nameof(GoalCancelled);
+    public const string ContributionRegistered = nameof(ContributionRegistered);
+    public const string CategoryBudgetGoalCreated = nameof(CategoryBudgetGoalCreated);
+    public const string CategoryBudgetGoalUpdated = nameof(CategoryBudgetGoalUpdated);
+    public const string CategoryBudgetGoalDeactivated = nameof(CategoryBudgetGoalDeactivated);
+
+    public const string GoalAtRisk = nameof(GoalAtRisk);
+    public const string GoalOnTrack = nameof(GoalOnTrack);
+    public const string GoalRetried = nameof(GoalRetried);
+    public const string GoalNotEligibleForRetry = nameof(GoalNotEligibleForRetry);
+    public const string StrategyRecommended = nameof(StrategyRecommended);
+    public const string StrategyConservative = nameof(StrategyConservative);
+    public const string StrategyFast = nameof(StrategyFast);
+
 }
