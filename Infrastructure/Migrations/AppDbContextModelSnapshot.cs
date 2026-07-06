@@ -484,6 +484,110 @@ namespace Infrastructure.Migrations
                     b.ToTable("payment_method", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Goals.CategoryBudgetGoal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit")
+                        .HasColumnName("active");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int")
+                        .HasColumnName("category_id");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("created_at");
+
+                    b.Property<DateTime?>("DeactivatedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("deactivated_at");
+
+                    b.Property<decimal>("MonthlyLimit")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("monthly_limit");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int")
+                        .HasColumnName("priority");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UserId", "CategoryId");
+
+                    b.ToTable("category_budget_goals", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Goals.FinancialGoal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("completed_at");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("created_at");
+
+                    b.Property<decimal>("CurrentAmount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("current_amount");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)")
+                        .HasColumnName("description");
+
+                    b.Property<int?>("PreviousAttemptGoalId")
+                        .HasColumnType("int")
+                        .HasColumnName("previous_attempt_goal_id");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int")
+                        .HasColumnName("priority");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasColumnName("status");
+
+                    b.Property<decimal>("TargetAmount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("target_amount");
+
+                    b.Property<DateTime>("TargetDate")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("target_date");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "Status");
+
+                    b.ToTable("financial_goals", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Planning.PlannedCommitment", b =>
                 {
                     b.Property<int>("Id")
@@ -1569,6 +1673,15 @@ namespace Infrastructure.Migrations
                     b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Goals.CategoryBudgetGoal", b =>
+                {
+                    b.HasOne("Domain.Entities.Configuration.Category", null)
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

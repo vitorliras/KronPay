@@ -1051,4 +1051,58 @@ Delete all future installments of this installment.</value>
   <data name="RemovePhoto" xml:space="preserve">
     <value>Remove photo</value>
   </data>
+  <data name="GoalNotFound" xml:space="preserve">
+    <value>Goal not found</value>
+  </data>
+  <data name="InvalidGoalAmount" xml:space="preserve">
+    <value>Invalid amount</value>
+  </data>
+  <data name="InvalidGoalDate" xml:space="preserve">
+    <value>Target date must be in the future</value>
+  </data>
+  <data name="GoalNotActive" xml:space="preserve">
+    <value>This goal is no longer active</value>
+  </data>
+  <data name="GoalCreated" xml:space="preserve">
+    <value>Goal created</value>
+  </data>
+  <data name="GoalUpdated" xml:space="preserve">
+    <value>Goal updated</value>
+  </data>
+  <data name="GoalCancelled" xml:space="preserve">
+    <value>Goal cancelled</value>
+  </data>
+  <data name="ContributionRegistered" xml:space="preserve">
+    <value>Contribution registered</value>
+  </data>
+  <data name="CategoryBudgetGoalCreated" xml:space="preserve">
+    <value>Spending limit created</value>
+  </data>
+  <data name="CategoryBudgetGoalUpdated" xml:space="preserve">
+    <value>Spending limit updated</value>
+  </data>
+  <data name="CategoryBudgetGoalDeactivated" xml:space="preserve">
+    <value>Spending limit removed</value>
+  </data>
+  <data name="GoalAtRisk" xml:space="preserve">
+    <value>At risk</value>
+  </data>
+  <data name="GoalOnTrack" xml:space="preserve">
+    <value>On track</value>
+  </data>
+  <data name="GoalRetried" xml:space="preserve">
+    <value>New goal created from the previous attempt</value>
+  </data>
+  <data name="GoalNotEligibleForRetry" xml:space="preserve">
+    <value>This goal is still active and cannot be retried</value>
+  </data>
+  <data name="StrategyRecommended" xml:space="preserve">
+    <value>Recommended</value>
+  </data>
+  <data name="StrategyConservative" xml:space="preserve">
+    <value>Conservative</value>
+  </data>
+  <data name="StrategyFast" xml:space="preserve">
+    <value>Fast</value>
+  </data>
 </root>

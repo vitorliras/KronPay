@@ -6,5 +6,6 @@ public enum FlowOrigin
     CardInvoice = 2,
     PlannedCommitment = 3,
     VariableEstimate = 4,
-    Simulation = 5
+    Simulation = 5,
+    Goal = 6
 }

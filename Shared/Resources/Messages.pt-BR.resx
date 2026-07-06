@@ -1047,4 +1047,58 @@
   <data name="RemovePhoto" xml:space="preserve">
     <value>Remover foto</value>
   </data>
+  <data name="GoalNotFound" xml:space="preserve">
+    <value>Objetivo não encontrado</value>
+  </data>
+  <data name="InvalidGoalAmount" xml:space="preserve">
+    <value>Valor inválido</value>
+  </data>
+  <data name="InvalidGoalDate" xml:space="preserve">
+    <value>Data-limite precisa ser no futuro</value>
+  </data>
+  <data name="GoalNotActive" xml:space="preserve">
+    <value>Este objetivo não está mais ativo</value>
+  </data>
+  <data name="GoalCreated" xml:space="preserve">
+    <value>Objetivo criado</value>
+  </data>
+  <data name="GoalUpdated" xml:space="preserve">
+    <value>Objetivo atualizado</value>
+  </data>
+  <data name="GoalCancelled" xml:space="preserve">
+    <value>Objetivo cancelado</value>
+  </data>
+  <data name="ContributionRegistered" xml:space="preserve">
+    <value>Aporte registrado</value>
+  </data>
+  <data name="CategoryBudgetGoalCreated" xml:space="preserve">
+    <value>Limite de gasto criado</value>
+  </data>
+  <data name="CategoryBudgetGoalUpdated" xml:space="preserve">
+    <value>Limite de gasto atualizado</value>
+  </data>
+  <data name="CategoryBudgetGoalDeactivated" xml:space="preserve">
+    <value>Limite de gasto removido</value>
+  </data>
+  <data name="GoalAtRisk" xml:space="preserve">
+    <value>Em risco</value>
+  </data>
+  <data name="GoalOnTrack" xml:space="preserve">
+    <value>Em andamento</value>
+  </data>
+  <data name="GoalRetried" xml:space="preserve">
+    <value>Novo objetivo criado a partir da tentativa anterior</value>
+  </data>
+  <data name="GoalNotEligibleForRetry" xml:space="preserve">
+    <value>Este objetivo ainda está ativo e não pode ser tentado novamente</value>
+  </data>
+  <data name="StrategyRecommended" xml:space="preserve">
+    <value>Recomendada</value>
+  </data>
+  <data name="StrategyConservative" xml:space="preserve">
+    <value>Conservadora</value>
+  </data>
+  <data name="StrategyFast" xml:space="preserve">
+    <value>Rápida</value>
+  </data>
 </root>
