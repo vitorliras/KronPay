@@ -1030,6 +1030,9 @@ Delete all future installments of this installment.</value>
   <data name="RefreshTokenExpired" xml:space="preserve">
     <value>Session expired. Please log in again</value>
   </data>
+  <data name="LogoutSuccess" xml:space="preserve">
+    <value>Logged out successfully</value>
+  </data>
   <data name="InvalidImageFormat" xml:space="preserve">
     <value>Invalid image format. Use JPEG, PNG or WebP</value>
   </data>
