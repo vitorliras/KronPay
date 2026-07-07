@@ -80,6 +80,7 @@ public static class MessageKeys
 
     public const string InvalidRefreshToken = nameof(InvalidRefreshToken);
     public const string RefreshTokenExpired = nameof(RefreshTokenExpired);
+    public const string LogoutSuccess = nameof(LogoutSuccess);
 
     public const string InvalidImageFormat = nameof(InvalidImageFormat);
     public const string ImageTooLarge = nameof(ImageTooLarge);
