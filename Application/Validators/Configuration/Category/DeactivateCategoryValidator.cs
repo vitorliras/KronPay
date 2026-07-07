@@ -1,7 +1,7 @@
 ﻿using Application.DTOs.Configuration.Categories;
 using FluentValidation;
 
-namespace Application.Validations.Categories;
+namespace Application.Validators.Configuration.Category;
 
 public sealed class DeactivateCategoryValidator
     : AbstractValidator<DeactivateCategoryRequest>
