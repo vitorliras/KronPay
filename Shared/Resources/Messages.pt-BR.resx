@@ -1026,6 +1026,9 @@
   <data name="RefreshTokenExpired" xml:space="preserve">
     <value>Sessão expirada. Faça login novamente</value>
   </data>
+  <data name="LogoutSuccess" xml:space="preserve">
+    <value>Usuário deslogado com sucesso</value>
+  </data>
   <data name="InvalidImageFormat" xml:space="preserve">
     <value>Formato de imagem inválido. Use JPEG, PNG ou WebP</value>
   </data>
