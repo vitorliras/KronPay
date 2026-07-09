@@ -176,4 +176,124 @@ public static class MessageKeys
     public const string NotificationCategoryWithoutBudgetGoalHighSpending = nameof(NotificationCategoryWithoutBudgetGoalHighSpending);
     public const string NotificationNoTransactionLoggedRecently = nameof(NotificationNoTransactionLoggedRecently);
     public const string NotificationEmailSubject = nameof(NotificationEmailSubject);
+
+    public const string Notifications = nameof(Notifications);
+    public const string ActiveNotifications = nameof(ActiveNotifications);
+    public const string NotificationHistory = nameof(NotificationHistory);
+    public const string NoActiveNotifications = nameof(NoActiveNotifications);
+    public const string NoNotificationsInHistory = nameof(NoNotificationsInHistory);
+    public const string CriticalNotifications = nameof(CriticalNotifications);
+    public const string MarkAsPaid = nameof(MarkAsPaid);
+    public const string Close = nameof(Close);
+
+    public const string NotificationEmailPreferencesTitle = nameof(NotificationEmailPreferencesTitle);
+    public const string NotificationEmailPreferencesHint = nameof(NotificationEmailPreferencesHint);
+    public const string NotificationLevelCritical = nameof(NotificationLevelCritical);
+    public const string NotificationLevelImportant = nameof(NotificationLevelImportant);
+    public const string NotificationLevelInformative = nameof(NotificationLevelInformative);
+    public const string CriticalNotificationsSubtitle = nameof(CriticalNotificationsSubtitle);
+    public const string AllCaughtUp = nameof(AllCaughtUp);
+    public const string NotificationsUnreadCountLabel = nameof(NotificationsUnreadCountLabel);
+
+    public const string AssistantDynamicLabel = nameof(AssistantDynamicLabel);
+    public const string AssistantOptionFreeText = nameof(AssistantOptionFreeText);
+    public const string AssistantOptionBack = nameof(AssistantOptionBack);
+    public const string AssistantOptionMore = nameof(AssistantOptionMore);
+    public const string AssistantOptionGuidedTour = nameof(AssistantOptionGuidedTour);
+    public const string AssistantOptionTopicTransactions = nameof(AssistantOptionTopicTransactions);
+    public const string AssistantOptionTopicGoals = nameof(AssistantOptionTopicGoals);
+    public const string AssistantOptionTopicCard = nameof(AssistantOptionTopicCard);
+    public const string AssistantOptionTopicNotifications = nameof(AssistantOptionTopicNotifications);
+    public const string AssistantOptionTransactionsByCategory = nameof(AssistantOptionTransactionsByCategory);
+    public const string AssistantOptionRecentTransactions = nameof(AssistantOptionRecentTransactions);
+    public const string AssistantRootLowDataMessage = nameof(AssistantRootLowDataMessage);
+    public const string AssistantRootRichDataMessage = nameof(AssistantRootRichDataMessage);
+    public const string AssistantGuideMessage = nameof(AssistantGuideMessage);
+    public const string AssistantTransactionsTopicMessage = nameof(AssistantTransactionsTopicMessage);
+    public const string AssistantCategorySelectMessage = nameof(AssistantCategorySelectMessage);
+    public const string AssistantCategorySearchMessage = nameof(AssistantCategorySearchMessage);
+    public const string AssistantCategorySpendingAnswer = nameof(AssistantCategorySpendingAnswer);
+    public const string AssistantRecentTransactionsAnswer = nameof(AssistantRecentTransactionsAnswer);
+    public const string AssistantNoRecentTransactionsAnswer = nameof(AssistantNoRecentTransactionsAnswer);
+    public const string AssistantNoActiveGoalsAnswer = nameof(AssistantNoActiveGoalsAnswer);
+    public const string AssistantCardTopicAnswer = nameof(AssistantCardTopicAnswer);
+    public const string AssistantNoCardAnswer = nameof(AssistantNoCardAnswer);
+    public const string AssistantNotificationsTopicAnswer = nameof(AssistantNotificationsTopicAnswer);
+    public const string AssistantFallbackMessage = nameof(AssistantFallbackMessage);
+    public const string AssistantInvalidRequest = nameof(AssistantInvalidRequest);
+    public const string AssistantWidgetTitle = nameof(AssistantWidgetTitle);
+    public const string AssistantWidgetSubtitle = nameof(AssistantWidgetSubtitle);
+    public const string AssistantInputPlaceholder = nameof(AssistantInputPlaceholder);
+    public const string AssistantNewConversation = nameof(AssistantNewConversation);
+    public const string AssistantOpenTooltip = nameof(AssistantOpenTooltip);
+    public const string AssistantOpenScreenButton = nameof(AssistantOpenScreenButton);
+    public const string AssistantOptionViewInvoice = nameof(AssistantOptionViewInvoice);
+    public const string AssistantOptionViewCardRegistration = nameof(AssistantOptionViewCardRegistration);
+    public const string AssistantGoalsSelectMessage = nameof(AssistantGoalsSelectMessage);
+    public const string AssistantGoalDetailAnswer = nameof(AssistantGoalDetailAnswer);
+    public const string AssistantCardSelectMessage = nameof(AssistantCardSelectMessage);
+    public const string AssistantTopicClarifyMessage = nameof(AssistantTopicClarifyMessage);
+    public const string AssistantOptionViewNotifications = nameof(AssistantOptionViewNotifications);
+    public const string AssistantNotificationsListMessage = nameof(AssistantNotificationsListMessage);
+    public const string AssistantOptionMarkAllAsRead = nameof(AssistantOptionMarkAllAsRead);
+    public const string AssistantMarkAllConfirmMessage = nameof(AssistantMarkAllConfirmMessage);
+    public const string AssistantOptionConfirmMarkAllAsRead = nameof(AssistantOptionConfirmMarkAllAsRead);
+    public const string AssistantGuideNavigatingMessage = nameof(AssistantGuideNavigatingMessage);
+    public const string AssistantGuideScreenDashboard = nameof(AssistantGuideScreenDashboard);
+    public const string AssistantGuideScreenTransactions = nameof(AssistantGuideScreenTransactions);
+    public const string AssistantGuideScreenReports = nameof(AssistantGuideScreenReports);
+    public const string AssistantGuideScreenPlanning = nameof(AssistantGuideScreenPlanning);
+    public const string AssistantGuideScreenCards = nameof(AssistantGuideScreenCards);
+    public const string AssistantGuideScreenGoals = nameof(AssistantGuideScreenGoals);
+    public const string AssistantGuideScreenConfig = nameof(AssistantGuideScreenConfig);
+
+    public const string TourSkip = nameof(TourSkip);
+    public const string TourPrevious = nameof(TourPrevious);
+    public const string TourNext = nameof(TourNext);
+    public const string TourFinish = nameof(TourFinish);
+
+    public const string TourDashboardTabsTitle = nameof(TourDashboardTabsTitle);
+    public const string TourDashboardTabsDescription = nameof(TourDashboardTabsDescription);
+    public const string TourDashboardFilterTitle = nameof(TourDashboardFilterTitle);
+    public const string TourDashboardFilterDescription = nameof(TourDashboardFilterDescription);
+    public const string TourDashboardChartsTitle = nameof(TourDashboardChartsTitle);
+    public const string TourDashboardChartsDescription = nameof(TourDashboardChartsDescription);
+
+    public const string TourTransactionsSummaryTitle = nameof(TourTransactionsSummaryTitle);
+    public const string TourTransactionsSummaryDescription = nameof(TourTransactionsSummaryDescription);
+    public const string TourTransactionsAddTitle = nameof(TourTransactionsAddTitle);
+    public const string TourTransactionsAddDescription = nameof(TourTransactionsAddDescription);
+    public const string TourTransactionsTableTitle = nameof(TourTransactionsTableTitle);
+    public const string TourTransactionsTableDescription = nameof(TourTransactionsTableDescription);
+
+    public const string TourReportTabsTitle = nameof(TourReportTabsTitle);
+    public const string TourReportTabsDescription = nameof(TourReportTabsDescription);
+    public const string TourReportExportTitle = nameof(TourReportExportTitle);
+    public const string TourReportExportDescription = nameof(TourReportExportDescription);
+
+    public const string TourPlanningTabsTitle = nameof(TourPlanningTabsTitle);
+    public const string TourPlanningTabsDescription = nameof(TourPlanningTabsDescription);
+    public const string TourPlanningControlsTitle = nameof(TourPlanningControlsTitle);
+    public const string TourPlanningControlsDescription = nameof(TourPlanningControlsDescription);
+    public const string TourPlanningKpisTitle = nameof(TourPlanningKpisTitle);
+    public const string TourPlanningKpisDescription = nameof(TourPlanningKpisDescription);
+
+    public const string TourCreditCardBankTitle = nameof(TourCreditCardBankTitle);
+    public const string TourCreditCardBankDescription = nameof(TourCreditCardBankDescription);
+    public const string TourCreditCardTableTitle = nameof(TourCreditCardTableTitle);
+    public const string TourCreditCardTableDescription = nameof(TourCreditCardTableDescription);
+
+    public const string TourGoalsNewButtonTitle = nameof(TourGoalsNewButtonTitle);
+    public const string TourGoalsNewButtonDescription = nameof(TourGoalsNewButtonDescription);
+    public const string TourGoalsHistoryTitle = nameof(TourGoalsHistoryTitle);
+    public const string TourGoalsHistoryDescription = nameof(TourGoalsHistoryDescription);
+    public const string TourGoalsGridTitle = nameof(TourGoalsGridTitle);
+    public const string TourGoalsGridDescription = nameof(TourGoalsGridDescription);
+
+    public const string TourConfigFilterTitle = nameof(TourConfigFilterTitle);
+    public const string TourConfigFilterDescription = nameof(TourConfigFilterDescription);
+    public const string TourConfigSearchTitle = nameof(TourConfigSearchTitle);
+    public const string TourConfigSearchDescription = nameof(TourConfigSearchDescription);
+    public const string TourConfigAddTitle = nameof(TourConfigAddTitle);
+    public const string TourConfigAddDescription = nameof(TourConfigAddDescription);
 }

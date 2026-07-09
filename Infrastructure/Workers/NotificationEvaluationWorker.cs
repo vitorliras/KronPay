@@ -10,7 +10,12 @@ namespace Infrastructure.Workers;
 
 public sealed class NotificationEvaluationWorker : BackgroundService
 {
-    private static readonly TimeSpan PollInterval = TimeSpan.FromMinutes(30);
+    // Intervalo curto de propósito: o catch-up (ADR 0020) só faz uma leitura barata
+    // ("o dia já virou desde a última execução?") a cada tick — reavaliar de verdade só
+    // acontece quando essa checagem é verdadeira. Um valor baixo aqui não pesa em produção
+    // e evita o usuário/desenvolvedor esperar até 30 minutos para ver o efeito de uma
+    // reavaliação forçada manualmente (ex.: apagar a linha de controle para testar).
+    private static readonly TimeSpan PollInterval = TimeSpan.FromMinutes(1);
 
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly ILogger<NotificationEvaluationWorker> _logger;
