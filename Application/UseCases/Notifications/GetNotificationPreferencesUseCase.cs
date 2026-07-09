@@ -25,8 +25,6 @@ public sealed class GetNotificationPreferencesUseCase
     {
         var preference = await _repository.GetByUserIdAsync(_currentUser.UserId);
 
-        // Usuários criados antes desta feature não têm linha de preferência ainda
-        // (sem migração de backfill) — cair nos defaults em vez de falhar.
         var response = preference is null
             ? new NotificationPreferenceResponse(true, true, false)
             : new NotificationPreferenceResponse(

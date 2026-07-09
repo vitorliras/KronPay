@@ -71,7 +71,7 @@ public class UsersController : ControllerBase
     [Consumes("multipart/form-data")]
     [HttpPost("[action]")]
     public async Task<IActionResult> UploadPhoto(
-        [FromForm] IFormFile? file,
+        IFormFile? file,
         [FromServices] ValidationPipeline<UploadProfilePhotoRequest, ProfilePhotoResponse> pipeline)
     {
         if (file is null || file.Length == 0)

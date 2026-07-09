@@ -36,7 +36,6 @@ public sealed class UpdateNotificationPreferencesUseCase
         bool persisted;
         if (preference is null)
         {
-            // Upsert: usuários criados antes desta feature não têm linha ainda.
             preference = new NotificationPreference(
                 userId,
                 request.EmailOnCritical,

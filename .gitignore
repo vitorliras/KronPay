@@ -367,3 +367,6 @@ FodyWeavers.xsd
 /Api/wwwroot
 /Api/MeuSistemaapi
 *.md
+
+# Modelo de embedding do assistente de IA (>100MB, excede limite do GitHub) — baixar/copiar manualmente, ver Infrastructure/Assets/Models
+Infrastructure/Assets/Models/*.onnx
