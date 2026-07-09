@@ -1,5 +1,6 @@
 using Application.Executors;
 using Application.Pipelines;
+using Application.Services.Assistant;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
@@ -13,6 +14,14 @@ public static class DependencyInjection
     {
         services.AddScoped<UseCaseExecutor>();
         services.AddScoped(typeof(ValidationPipeline<,>));
+
+        services.AddScoped<AssistantTree>();
+        services.AddScoped<UserDataRichnessChecker>();
+        services.AddScoped<CategoryParameterResolver>();
+        services.AddScoped<TopicDisambiguationResolver>();
+        services.AddScoped<GoalAssistantResolver>();
+        services.AddScoped<CardAssistantResolver>();
+        services.AddScoped<NotificationAssistantResolver>();
 
         var applicationAssembly = typeof(DependencyInjection).Assembly;
 

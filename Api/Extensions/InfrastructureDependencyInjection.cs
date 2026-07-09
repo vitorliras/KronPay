@@ -18,6 +18,7 @@ using Domain.Interfaces.Notifications;
 using Domain.Interfaces.Planning;
 using Domain.Interfaces.Transactions;
 using Domain.Interfaces.Users;
+using Domain.Services.Assistant;
 using Domain.Services.Auth;
 using Domain.Services.Card;
 using Domain.Services.Goals;
@@ -26,6 +27,7 @@ using Domain.Services.Planning.Rules;
 using Domain.Services.Users;
 using Infrastructure.Email;
 using Infrastructure.Media;
+using Infrastructure.Services.Assistant;
 using Infrastructure.Repositories.Auth;
 using Infrastructure.Repositories.Card;
 using Infrastructure.Repositories.Goals;
@@ -129,6 +131,9 @@ public static class InfrastructureDependencyInjection
 
         services.AddScoped<IProjectionRunner, ProjectionRunner>();
         services.AddScoped<IPurchaseFlowBuilder, PurchaseFlowBuilder>();
+
+        services.AddSingleton<IIntentEmbeddingMatcher, OnnxIntentEmbeddingMatcher>();
+        services.AddSingleton<IParameterFuzzyMatcher, LevenshteinParameterFuzzyMatcher>();
 
         #endregion
 

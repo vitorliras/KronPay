@@ -1284,4 +1284,331 @@
   <data name="NotificationEmailSubject" xml:space="preserve">
     <value>KronPay — Nova notificação</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificações</value>
+  </data>
+  <data name="ActiveNotifications" xml:space="preserve">
+    <value>Ativas</value>
+  </data>
+  <data name="NotificationHistory" xml:space="preserve">
+    <value>Histórico</value>
+  </data>
+  <data name="NoActiveNotifications" xml:space="preserve">
+    <value>Nenhuma notificação no momento</value>
+  </data>
+  <data name="NoNotificationsInHistory" xml:space="preserve">
+    <value>Nenhuma notificação no histórico</value>
+  </data>
+  <data name="CriticalNotifications" xml:space="preserve">
+    <value>Atenção necessária</value>
+  </data>
+  <data name="MarkAsPaid" xml:space="preserve">
+    <value>Marcar como paga</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Fechar</value>
+  </data>
+  <data name="NotificationEmailPreferencesTitle" xml:space="preserve">
+    <value>Receber e-mail de notificações</value>
+  </data>
+  <data name="NotificationEmailPreferencesHint" xml:space="preserve">
+    <value>Você pode alterar isso quando quiser, no seu perfil.</value>
+  </data>
+  <data name="NotificationLevelCritical" xml:space="preserve">
+    <value>Críticas</value>
+  </data>
+  <data name="NotificationLevelImportant" xml:space="preserve">
+    <value>Importantes</value>
+  </data>
+  <data name="NotificationLevelInformative" xml:space="preserve">
+    <value>Informativas</value>
+  </data>
+  <data name="CriticalNotificationsSubtitle" xml:space="preserve">
+    <value>Resolva o quanto antes para manter suas finanças em dia</value>
+  </data>
+  <data name="AllCaughtUp" xml:space="preserve">
+    <value>Tudo em dia</value>
+  </data>
+  <data name="NotificationsUnreadCountLabel" xml:space="preserve">
+    <value>{count} não lidas</value>
+  </data>
+  <data name="AssistantDynamicLabel" xml:space="preserve">
+    <value>{0}</value>
+  </data>
+  <data name="AssistantOptionFreeText" xml:space="preserve">
+    <value>💬 Digite sua pergunta</value>
+  </data>
+  <data name="AssistantOptionBack" xml:space="preserve">
+    <value>⬅️ Voltar</value>
+  </data>
+  <data name="AssistantOptionMore" xml:space="preserve">
+    <value>Outros</value>
+  </data>
+  <data name="AssistantOptionGuidedTour" xml:space="preserve">
+    <value>Fazer um tour guiado</value>
+  </data>
+  <data name="AssistantOptionTopicTransactions" xml:space="preserve">
+    <value>Transações</value>
+  </data>
+  <data name="AssistantOptionTopicGoals" xml:space="preserve">
+    <value>Objetivos</value>
+  </data>
+  <data name="AssistantOptionTopicCard" xml:space="preserve">
+    <value>Cartão</value>
+  </data>
+  <data name="AssistantOptionTopicNotifications" xml:space="preserve">
+    <value>Notificações</value>
+  </data>
+  <data name="AssistantOptionTransactionsByCategory" xml:space="preserve">
+    <value>Gastos por categoria</value>
+  </data>
+  <data name="AssistantOptionRecentTransactions" xml:space="preserve">
+    <value>Últimas transações</value>
+  </data>
+  <data name="AssistantRootLowDataMessage" xml:space="preserve">
+    <value>Olá! Ainda não tenho dados suficientes sobre suas finanças para fazer projeções detalhadas. Vamos começar explorando o que você pode fazer no KronPay?</value>
+  </data>
+  <data name="AssistantRootRichDataMessage" xml:space="preserve">
+    <value>Quer fazer um tour guiado, ou já sabe o que está procurando?</value>
+  </data>
+  <data name="AssistantGuideMessage" xml:space="preserve">
+    <value>Posso te ajudar a consultar seus gastos por categoria, o progresso das suas metas, a fatura do cartão e suas notificações. Escolha um assunto abaixo ou digite sua pergunta.</value>
+  </data>
+  <data name="AssistantTransactionsTopicMessage" xml:space="preserve">
+    <value>O que você quer saber sobre transações?</value>
+  </data>
+  <data name="AssistantCategorySelectMessage" xml:space="preserve">
+    <value>Qual categoria?</value>
+  </data>
+  <data name="AssistantCategorySearchMessage" xml:space="preserve">
+    <value>Digite o nome da categoria ou subcategoria</value>
+  </data>
+  <data name="AssistantCategorySpendingAnswer" xml:space="preserve">
+    <value>Você gastou {0} em {1} este mês.</value>
+  </data>
+  <data name="AssistantRecentTransactionsAnswer" xml:space="preserve">
+    <value>Suas últimas transações: {0}</value>
+  </data>
+  <data name="AssistantNoRecentTransactionsAnswer" xml:space="preserve">
+    <value>Você não tem transações registradas este mês.</value>
+  </data>
+  <data name="AssistantNoActiveGoalsAnswer" xml:space="preserve">
+    <value>Você não tem objetivos ativos no momento.</value>
+  </data>
+  <data name="AssistantCardTopicAnswer" xml:space="preserve">
+    <value>A fatura do seu cartão está em {0}, no valor de {1}.</value>
+  </data>
+  <data name="AssistantNoCardAnswer" xml:space="preserve">
+    <value>Você não tem cartão de crédito cadastrado.</value>
+  </data>
+  <data name="AssistantNotificationsTopicAnswer" xml:space="preserve">
+    <value>Você tem {0} notificação(ões) não lida(s).</value>
+  </data>
+  <data name="AssistantFallbackMessage" xml:space="preserve">
+    <value>Não entendi. Tente escolher uma das opções abaixo ou reformule sua pergunta.</value>
+  </data>
+  <data name="AssistantInvalidRequest" xml:space="preserve">
+    <value>Requisição inválida.</value>
+  </data>
+  <data name="AssistantWidgetTitle" xml:space="preserve">
+    <value>Assistente KronPay</value>
+  </data>
+  <data name="AssistantWidgetSubtitle" xml:space="preserve">
+    <value>Como posso ajudar você hoje?</value>
+  </data>
+  <data name="AssistantInputPlaceholder" xml:space="preserve">
+    <value>Digite sua pergunta...</value>
+  </data>
+  <data name="AssistantNewConversation" xml:space="preserve">
+    <value>Nova conversa</value>
+  </data>
+  <data name="AssistantOpenTooltip" xml:space="preserve">
+    <value>Assistente</value>
+  </data>
+  <data name="AssistantOpenScreenButton" xml:space="preserve">
+    <value>Abrir tela</value>
+  </data>
+  <data name="AssistantOptionViewInvoice" xml:space="preserve">
+    <value>Ver fatura</value>
+  </data>
+  <data name="AssistantOptionViewCardRegistration" xml:space="preserve">
+    <value>Ver cadastro do cartão</value>
+  </data>
+  <data name="AssistantGoalsSelectMessage" xml:space="preserve">
+    <value>Você tem {0} metas ativas. Sobre qual deseja saber mais?</value>
+  </data>
+  <data name="AssistantGoalDetailAnswer" xml:space="preserve">
+    <value>Sua meta "{0}" está em {1} de {2} ({3}% concluído), com prazo até {4}.</value>
+  </data>
+  <data name="AssistantCardSelectMessage" xml:space="preserve">
+    <value>Você tem {0} cartões ativos. Sobre qual deseja saber mais?</value>
+  </data>
+  <data name="AssistantTopicClarifyMessage" xml:space="preserve">
+    <value>Não tenho certeza se entendi. Você quis dizer uma dessas opções?</value>
+  </data>
+  <data name="AssistantOptionViewNotifications" xml:space="preserve">
+    <value>Ver notificações</value>
+  </data>
+  <data name="AssistantNotificationsListMessage" xml:space="preserve">
+    <value>Aqui estão suas notificações mais recentes. Toque em uma para marcar como lida.</value>
+  </data>
+  <data name="AssistantOptionMarkAllAsRead" xml:space="preserve">
+    <value>Marcar todas como lidas</value>
+  </data>
+  <data name="AssistantMarkAllConfirmMessage" xml:space="preserve">
+    <value>Tem certeza que deseja marcar todas as notificações como lidas?</value>
+  </data>
+  <data name="AssistantOptionConfirmMarkAllAsRead" xml:space="preserve">
+    <value>Sim, marcar todas</value>
+  </data>
+  <data name="AssistantGuideNavigatingMessage" xml:space="preserve">
+    <value>Vou te mostrar a tela de {0}!</value>
+  </data>
+  <data name="AssistantGuideScreenDashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="AssistantGuideScreenTransactions" xml:space="preserve">
+    <value>Transações</value>
+  </data>
+  <data name="AssistantGuideScreenReports" xml:space="preserve">
+    <value>Relatórios</value>
+  </data>
+  <data name="AssistantGuideScreenPlanning" xml:space="preserve">
+    <value>Planejamento</value>
+  </data>
+  <data name="AssistantGuideScreenCards" xml:space="preserve">
+    <value>Cartões de Crédito</value>
+  </data>
+  <data name="AssistantGuideScreenGoals" xml:space="preserve">
+    <value>Objetivos</value>
+  </data>
+  <data name="AssistantGuideScreenConfig" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="TourSkip" xml:space="preserve">
+    <value>Pular</value>
+  </data>
+  <data name="TourPrevious" xml:space="preserve">
+    <value>Anterior</value>
+  </data>
+  <data name="TourNext" xml:space="preserve">
+    <value>Próximo</value>
+  </data>
+  <data name="TourFinish" xml:space="preserve">
+    <value>Concluir</value>
+  </data>
+  <data name="TourDashboardTabsTitle" xml:space="preserve">
+    <value>Resumo mensal e anual</value>
+  </data>
+  <data name="TourDashboardTabsDescription" xml:space="preserve">
+    <value>Alterne entre a visão mensal e a visão anual das suas finanças aqui.</value>
+  </data>
+  <data name="TourDashboardFilterTitle" xml:space="preserve">
+    <value>Filtro de período</value>
+  </data>
+  <data name="TourDashboardFilterDescription" xml:space="preserve">
+    <value>Escolha o mês e o ano para ver o resumo daquele período específico.</value>
+  </data>
+  <data name="TourDashboardChartsTitle" xml:space="preserve">
+    <value>Gráficos</value>
+  </data>
+  <data name="TourDashboardChartsDescription" xml:space="preserve">
+    <value>Visualize a proporção entre receitas e despesas, e a movimentação diária do mês.</value>
+  </data>
+  <data name="TourTransactionsSummaryTitle" xml:space="preserve">
+    <value>Resumo do período</value>
+  </data>
+  <data name="TourTransactionsSummaryDescription" xml:space="preserve">
+    <value>Aqui você vê o total de despesas, receitas, investimentos e o resultado do período.</value>
+  </data>
+  <data name="TourTransactionsAddTitle" xml:space="preserve">
+    <value>Nova transação</value>
+  </data>
+  <data name="TourTransactionsAddDescription" xml:space="preserve">
+    <value>Clique aqui para registrar uma nova despesa, receita ou investimento.</value>
+  </data>
+  <data name="TourTransactionsTableTitle" xml:space="preserve">
+    <value>Suas transações</value>
+  </data>
+  <data name="TourTransactionsTableDescription" xml:space="preserve">
+    <value>Todas as suas transações aparecem aqui — você pode filtrar, editar e excluir.</value>
+  </data>
+  <data name="TourReportTabsTitle" xml:space="preserve">
+    <value>Tipos de relatório</value>
+  </data>
+  <data name="TourReportTabsDescription" xml:space="preserve">
+    <value>Escolha entre despesas, receitas, investimentos, comparativo ou cartão de crédito.</value>
+  </data>
+  <data name="TourReportExportTitle" xml:space="preserve">
+    <value>Exportar em PDF</value>
+  </data>
+  <data name="TourReportExportDescription" xml:space="preserve">
+    <value>Exporte o relatório atual em PDF para guardar ou compartilhar.</value>
+  </data>
+  <data name="TourPlanningTabsTitle" xml:space="preserve">
+    <value>Projeção e planejamento</value>
+  </data>
+  <data name="TourPlanningTabsDescription" xml:space="preserve">
+    <value>Navegue entre a projeção financeira e os demais recursos de planejamento.</value>
+  </data>
+  <data name="TourPlanningControlsTitle" xml:space="preserve">
+    <value>Parâmetros da projeção</value>
+  </data>
+  <data name="TourPlanningControlsDescription" xml:space="preserve">
+    <value>Ajuste o horizonte de meses e a reserva de segurança usados no cálculo.</value>
+  </data>
+  <data name="TourPlanningKpisTitle" xml:space="preserve">
+    <value>Indicadores</value>
+  </data>
+  <data name="TourPlanningKpisDescription" xml:space="preserve">
+    <value>Veja seu saldo atual, saldo projetado e o primeiro mês de risco, se houver.</value>
+  </data>
+  <data name="TourCreditCardBankTitle" xml:space="preserve">
+    <value>Escolher banco</value>
+  </data>
+  <data name="TourCreditCardBankDescription" xml:space="preserve">
+    <value>Selecione o banco para cadastrar um novo cartão de crédito.</value>
+  </data>
+  <data name="TourCreditCardTableTitle" xml:space="preserve">
+    <value>Seus cartões</value>
+  </data>
+  <data name="TourCreditCardTableDescription" xml:space="preserve">
+    <value>Clique em um cartão da lista para editar seus dados.</value>
+  </data>
+  <data name="TourGoalsNewButtonTitle" xml:space="preserve">
+    <value>Nova meta</value>
+  </data>
+  <data name="TourGoalsNewButtonDescription" xml:space="preserve">
+    <value>Crie uma nova meta financeira ou de controle de categoria.</value>
+  </data>
+  <data name="TourGoalsHistoryTitle" xml:space="preserve">
+    <value>Histórico</value>
+  </data>
+  <data name="TourGoalsHistoryDescription" xml:space="preserve">
+    <value>Veja as metas já concluídas ou expiradas no histórico.</value>
+  </data>
+  <data name="TourGoalsGridTitle" xml:space="preserve">
+    <value>Suas metas</value>
+  </data>
+  <data name="TourGoalsGridDescription" xml:space="preserve">
+    <value>Acompanhe o progresso de cada meta ativa e adicione contribuições por aqui.</value>
+  </data>
+  <data name="TourConfigFilterTitle" xml:space="preserve">
+    <value>Filtro por tipo</value>
+  </data>
+  <data name="TourConfigFilterDescription" xml:space="preserve">
+    <value>Filtre as categorias por despesa, receita ou investimento.</value>
+  </data>
+  <data name="TourConfigSearchTitle" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="TourConfigSearchDescription" xml:space="preserve">
+    <value>Encontre rapidamente uma categoria pelo nome.</value>
+  </data>
+  <data name="TourConfigAddTitle" xml:space="preserve">
+    <value>Adicionar</value>
+  </data>
+  <data name="TourConfigAddDescription" xml:space="preserve">
+    <value>Cadastre uma nova categoria, item ou método de pagamento.</value>
+  </data>
 </root>

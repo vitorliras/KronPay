@@ -49,6 +49,7 @@ public sealed class ChangeStatusTransactionUseCase
             }
             if (request.Status.Equals("C"))  transaction.Cancel();
             if (request.Status.Equals("O"))  transaction.Open();
+            if (request.Status.Equals("E"))  transaction.Expired();
 
             if (!await _transactionRepository.UpdateAsync(transaction))
                 return ResultEntity<TransactionResponse>.Failure(MessageKeys.UpdateFailed);
