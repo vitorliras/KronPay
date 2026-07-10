@@ -1,22 +1,21 @@
-using Domain.Entities.Notifications;
+using Application.Services.Gamification;
+using Domain.Entities.Gamification;
 using Domain.Interfaces;
-using Domain.Interfaces.Notifications;
-using Application.Notifications;
+using Domain.Interfaces.Gamification;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Workers;
 
-public sealed class NotificationEvaluationWorker : BackgroundService
+public sealed class GamificationEvaluationWorker : BackgroundService
 {
-   
     private static readonly TimeSpan PollInterval = TimeSpan.FromMinutes(1);
 
     private readonly IServiceScopeFactory _scopeFactory;
-    private readonly ILogger<NotificationEvaluationWorker> _logger;
+    private readonly ILogger<GamificationEvaluationWorker> _logger;
 
-    public NotificationEvaluationWorker(IServiceScopeFactory scopeFactory, ILogger<NotificationEvaluationWorker> logger)
+    public GamificationEvaluationWorker(IServiceScopeFactory scopeFactory, ILogger<GamificationEvaluationWorker> logger)
     {
         _scopeFactory = scopeFactory;
         _logger = logger;
@@ -34,35 +33,34 @@ public sealed class NotificationEvaluationWorker : BackgroundService
             && await timer.WaitForNextTickAsync(stoppingToken));
     }
 
-
     private async Task RunIfDueAsync(CancellationToken cancellationToken)
     {
         try
         {
             using var scope = _scopeFactory.CreateScope();
-            var runRepository = scope.ServiceProvider.GetRequiredService<INotificationEvaluationRunRepository>();
+            var runRepository = scope.ServiceProvider.GetRequiredService<IGamificationEvaluationRunRepository>();
             var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
             var run = await runRepository.GetAsync();
             var isNew = run is null;
-            run ??= new NotificationEvaluationRun();
+            run ??= new GamificationEvaluationRun();
 
             var today = DateTime.UtcNow.Date;
-            if (!isNew && run.LastRunAt.Date >= today)
+            if (!isNew && run.RanAt.Date >= today)
                 return;
 
-            var orchestrator = scope.ServiceProvider.GetRequiredService<INotificationEvaluationOrchestrator>();
-            await orchestrator.RunAsync();
+            var orchestrator = scope.ServiceProvider.GetRequiredService<IGamificationEvaluationOrchestrator>();
+            var summary = await orchestrator.RunAsync();
 
-            run.MarkRun(DateTime.UtcNow);
+            run.MarkRun(DateTime.UtcNow, summary.UsersProcessed, summary.EventsTriggered, summary.BadgesUnlocked);
 
             var persisted = isNew ? await runRepository.AddAsync(run) : runRepository.Update(run);
             if (!persisted || !await uow.CommitAsync())
-                _logger.LogError("Falha ao registrar a última execução da avaliação de notificações.");
+                _logger.LogError("Falha ao registrar a última execução da avaliação de gamificação.");
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Falha inesperada ao avaliar notificações no NotificationEvaluationWorker.");
+            _logger.LogError(e, "Falha inesperada ao avaliar gamificação no GamificationEvaluationWorker.");
         }
     }
 }

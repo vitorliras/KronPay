@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260710004326_addGamificationDomain")]
+    partial class addGamificationDomain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -488,75 +491,6 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("payment_method", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Gamification.ConsistencyCounter", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BestStreak")
-                        .HasColumnType("int")
-                        .HasColumnName("best_streak");
-
-                    b.Property<string>("CounterKey")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)")
-                        .HasColumnName("counter_key");
-
-                    b.Property<int>("CurrentStreak")
-                        .HasColumnType("int")
-                        .HasColumnName("current_streak");
-
-                    b.Property<DateTime>("LastUpdatedAt")
-                        .HasColumnType("datetime2(0)")
-                        .HasColumnName("last_updated_at");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId", "CounterKey")
-                        .IsUnique();
-
-                    b.ToTable("consistency_counters", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entities.Gamification.GamificationEvaluationRun", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BadgesUnlocked")
-                        .HasColumnType("int")
-                        .HasColumnName("badges_unlocked");
-
-                    b.Property<int>("EventsTriggered")
-                        .HasColumnType("int")
-                        .HasColumnName("events_triggered");
-
-                    b.Property<DateTime>("RanAt")
-                        .HasColumnType("datetime2(0)")
-                        .HasColumnName("ran_at");
-
-                    b.Property<int>("UsersProcessed")
-                        .HasColumnType("int")
-                        .HasColumnName("users_processed");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gamification_evaluation_runs", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Gamification.MissionStateSnapshot", b =>
@@ -2030,15 +1964,6 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
-                {
-                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.Entities.Gamification.ConsistencyCounter", b =>
                 {
                     b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()
