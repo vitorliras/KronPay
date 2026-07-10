@@ -1615,4 +1615,454 @@ Delete all future installments of this installment.</value>
   <data name="TourConfigAddDescription" xml:space="preserve">
     <value>Register a new category, item or payment method.</value>
   </data>
+  <data name="RankProximityStable" xml:space="preserve">
+    <value>Stable</value>
+  </data>
+  <data name="RankProximityCloseToPromotion" xml:space="preserve">
+    <value>Close to next rank</value>
+  </data>
+  <data name="RankProximityAtRisk" xml:space="preserve">
+    <value>At risk of dropping rank</value>
+  </data>
+  <data name="MissionBudgetMonthClosed" xml:space="preserve">
+    <value>Month Closed</value>
+  </data>
+  <data name="MissionBudgetQuarterFlawless" xml:space="preserve">
+    <value>Flawless Quarter</value>
+  </data>
+  <data name="MissionBudgetLimitExceeded" xml:space="preserve">
+    <value>Exceeded the Limit</value>
+  </data>
+  <data name="MissionBudgetRelapse" xml:space="preserve">
+    <value>Relapse</value>
+  </data>
+  <data name="MissionBudgetLimitRealisticAdjustment" xml:space="preserve">
+    <value>Realistic Adjustment</value>
+  </data>
+  <data name="MissionBudgetLimitInflated" xml:space="preserve">
+    <value>Inflated Limit</value>
+  </data>
+  <data name="MissionBudgetAllCategoriesOnTrack" xml:space="preserve">
+    <value>All Categories On Track</value>
+  </data>
+  <data name="MissionBudgetNewCategoryControlled" xml:space="preserve">
+    <value>New Category Controlled</value>
+  </data>
+  <data name="MissionBudgetWideCoverage" xml:space="preserve">
+    <value>Wide Coverage</value>
+  </data>
+  <data name="MissionCardInvoiceOnTime" xml:space="preserve">
+    <value>Invoice On Time</value>
+  </data>
+  <data name="MissionCardNoLateInvoiceSemester" xml:space="preserve">
+    <value>No Late Invoice This Semester</value>
+  </data>
+  <data name="MissionCardInvoiceLate" xml:space="preserve">
+    <value>Late Invoice</value>
+  </data>
+  <data name="MissionCardConsciousLimitUsage" xml:space="preserve">
+    <value>Conscious Limit Usage</value>
+  </data>
+  <data name="MissionCardAtLimit" xml:space="preserve">
+    <value>At the Limit</value>
+  </data>
+  <data name="MissionCardInvoiceFullyPaid" xml:space="preserve">
+    <value>Invoice Fully Paid</value>
+  </data>
+  <data name="MissionGoalContributionOnSchedule" xml:space="preserve">
+    <value>Contribution On Schedule</value>
+  </data>
+  <data name="MissionGoalAchieved" xml:space="preserve">
+    <value>Goal Achieved</value>
+  </data>
+  <data name="MissionGoalContributionForgotten" xml:space="preserve">
+    <value>Forgotten Contribution</value>
+  </data>
+  <data name="MissionGoalLost" xml:space="preserve">
+    <value>Goal Lost</value>
+  </data>
+  <data name="MissionGoalAchievedEarly" xml:space="preserve">
+    <value>Goal Achieved Early</value>
+  </data>
+  <data name="MissionGoalRetriedAndAchieved" xml:space="preserve">
+    <value>Goal Retried and Achieved</value>
+  </data>
+  <data name="MissionGoalAmbitiousAchieved" xml:space="preserve">
+    <value>Ambitious Goal Achieved</value>
+  </data>
+  <data name="MissionGoalAbandoned" xml:space="preserve">
+    <value>Goal Abandoned</value>
+  </data>
+  <data name="MissionPlanningHorizonClear" xml:space="preserve">
+    <value>Clear Horizon</value>
+  </data>
+  <data name="MissionPlanningHorizonAlert" xml:space="preserve">
+    <value>Horizon Alert</value>
+  </data>
+  <data name="MissionPlanningForecastMet" xml:space="preserve">
+    <value>Forecast Met</value>
+  </data>
+  <data name="MissionPlanningDivergedFromForecast" xml:space="preserve">
+    <value>Diverged From Forecast</value>
+  </data>
+  <data name="MissionSpendingCategoryUnderControl" xml:space="preserve">
+    <value>Category Under Control</value>
+  </data>
+  <data name="MissionSpendingCategoryRising" xml:space="preserve">
+    <value>Rising Spending</value>
+  </data>
+  <data name="MissionSpendingTrendReversed" xml:space="preserve">
+    <value>Trend Reversed</value>
+  </data>
+  <data name="MissionNotificationResolvedQuickly" xml:space="preserve">
+    <value>Resolved Quickly</value>
+  </data>
+  <data name="MissionNotificationCriticalIgnored" xml:space="preserve">
+    <value>Critical Alert Ignored</value>
+  </data>
+  <data name="MissionTransactionMonthSurplus" xml:space="preserve">
+    <value>Month With Surplus</value>
+  </data>
+  <data name="MissionTransactionMonthDeficit" xml:space="preserve">
+    <value>Month In the Red</value>
+  </data>
+  <data name="MissionTransactionFullyCategorized" xml:space="preserve">
+    <value>Fully Categorized</value>
+  </data>
+  <data name="MissionTransactionUncategorizedPileup" xml:space="preserve">
+    <value>Uncategorized Pileup</value>
+  </data>
+  <data name="MissionInvestmentTwentyPercentPlus" xml:space="preserve">
+    <value>Invested Over 20%</value>
+  </data>
+  <data name="MissionInvestmentTenToTwentyPercent" xml:space="preserve">
+    <value>Invested Between 10% and 20%</value>
+  </data>
+  <data name="MissionInvestmentBelowTenPercent" xml:space="preserve">
+    <value>Invested Below 10%</value>
+  </data>
+  <data name="MissionInvestmentWithdrawal" xml:space="preserve">
+    <value>Investment Withdrawal</value>
+  </data>
+  <data name="MissionTransactionPositiveStreak" xml:space="preserve">
+    <value>Golden Streak</value>
+  </data>
+  <data name="MissionTotalSpendingDecline" xml:space="preserve">
+    <value>Total Spending Decline</value>
+  </data>
+  <data name="MissionTotalSpendingSpike" xml:space="preserve">
+    <value>Total Spending Spike</value>
+  </data>
+  <data name="MissionSpendingConcentration" xml:space="preserve">
+    <value>Spending Concentration</value>
+  </data>
+  <data name="MissionFiscalYearPositive" xml:space="preserve">
+    <value>Positive Fiscal Year</value>
+  </data>
+  <data name="MissionPersonalBestMonth" xml:space="preserve">
+    <value>Personal Best Month</value>
+  </data>
+  <data name="MissionIncomeDiversified" xml:space="preserve">
+    <value>Diversified Income</value>
+  </data>
+  <data name="MissionReserveMaintained" xml:space="preserve">
+    <value>Reserve Maintained</value>
+  </data>
+  <data name="BadgeFirstSteps" xml:space="preserve">
+    <value>First Steps</value>
+  </data>
+  <data name="BadgeBreakingTheIce" xml:space="preserve">
+    <value>Breaking the Ice</value>
+  </data>
+  <data name="BadgeExplorer" xml:space="preserve">
+    <value>Explorer</value>
+  </data>
+  <data name="BadgeFirstGoal" xml:space="preserve">
+    <value>First Goal</value>
+  </data>
+  <data name="BadgeAllConnected" xml:space="preserve">
+    <value>All Connected</value>
+  </data>
+  <data name="BadgeFutureVision" xml:space="preserve">
+    <value>Future Vision</value>
+  </data>
+  <data name="BadgeFirstCategory" xml:space="preserve">
+    <value>First Category</value>
+  </data>
+  <data name="BadgeFirstMission" xml:space="preserve">
+    <value>First Mission</value>
+  </data>
+  <data name="BadgeMultipleCards" xml:space="preserve">
+    <value>Card Team</value>
+  </data>
+  <data name="BadgeFirstPositiveMonth" xml:space="preserve">
+    <value>First Positive Month</value>
+  </data>
+  <data name="BadgeFirstInvoiceOnTime" xml:space="preserve">
+    <value>Invoice On Time (1st time)</value>
+  </data>
+  <data name="BadgeOrganizedMonth" xml:space="preserve">
+    <value>Organized Month</value>
+  </data>
+  <data name="BadgeFirstGoalAchieved" xml:space="preserve">
+    <value>First Goal Achieved</value>
+  </data>
+  <data name="BadgeFirstInvestment" xml:space="preserve">
+    <value>First Investment</value>
+  </data>
+  <data name="BadgeNoPendingAlerts" xml:space="preserve">
+    <value>No Pending Alerts</value>
+  </data>
+  <data name="BadgeFirstBudgetMet" xml:space="preserve">
+    <value>First Budget Met</value>
+  </data>
+  <data name="BadgeIronDiscipline" xml:space="preserve">
+    <value>Iron Discipline</value>
+  </data>
+  <data name="BadgeFlawlessQuarter" xml:space="preserve">
+    <value>Flawless Quarter</value>
+  </data>
+  <data name="BadgeSolidReserve" xml:space="preserve">
+    <value>Solid Reserve</value>
+  </data>
+  <data name="BadgeConsistentInvestor" xml:space="preserve">
+    <value>Consistent Investor</value>
+  </data>
+  <data name="BadgeNoLatePayments" xml:space="preserve">
+    <value>No Late Payments</value>
+  </data>
+  <data name="BadgeQuarterInTheBlack" xml:space="preserve">
+    <value>Quarter In the Black</value>
+  </data>
+  <data name="BadgeDiligentPlanner" xml:space="preserve">
+    <value>Diligent Planner</value>
+  </data>
+  <data name="BadgeDoubleGoalAchiever" xml:space="preserve">
+    <value>Double Goal Achiever</value>
+  </data>
+  <data name="BadgeNoRelapses" xml:space="preserve">
+    <value>No Relapses</value>
+  </data>
+  <data name="BadgeQuickResponder" xml:space="preserve">
+    <value>Quick Responder</value>
+  </data>
+  <data name="BadgeTrendReverser" xml:space="preserve">
+    <value>Trend Reverser</value>
+  </data>
+  <data name="BadgeWideBudgetCoverage" xml:space="preserve">
+    <value>Wide Budget Coverage</value>
+  </data>
+  <data name="BadgeRecoveredGoal" xml:space="preserve">
+    <value>Recovered Goal</value>
+  </data>
+  <data name="BadgeSixMonthsFocused" xml:space="preserve">
+    <value>Six Months Focused</value>
+  </data>
+  <data name="BadgePerfectYear" xml:space="preserve">
+    <value>Perfect Year</value>
+  </data>
+  <data name="BadgeRobustReserve" xml:space="preserve">
+    <value>Robust Reserve</value>
+  </data>
+  <data name="BadgeDedicatedInvestor" xml:space="preserve">
+    <value>Dedicated Investor</value>
+  </data>
+  <data name="BadgePositiveFiscalYear" xml:space="preserve">
+    <value>Positive Fiscal Year</value>
+  </data>
+  <data name="BadgeIronDisciplineIII" xml:space="preserve">
+    <value>Iron Discipline III</value>
+  </data>
+  <data name="BadgeGoldenStreak" xml:space="preserve">
+    <value>Golden Streak</value>
+  </data>
+  <data name="BadgeAmbitiousGoalAchieved" xml:space="preserve">
+    <value>Ambitious Goal Achieved</value>
+  </data>
+  <data name="BadgeNoLatePaymentsYear" xml:space="preserve">
+    <value>No Late Payments This Year</value>
+  </data>
+  <data name="BadgePlanningMaster" xml:space="preserve">
+    <value>Planning Master</value>
+  </data>
+  <data name="BadgeResilient" xml:space="preserve">
+    <value>Resilient</value>
+  </data>
+  <data name="BadgePlanningLegend" xml:space="preserve">
+    <value>Planning Legend</value>
+  </data>
+  <data name="BadgeCompleteCollection" xml:space="preserve">
+    <value>Complete Collection</value>
+  </data>
+  <data name="BadgeFirstStepsDescription" xml:space="preserve">
+    <value>Record your first transaction.</value>
+  </data>
+  <data name="BadgeBreakingTheIceDescription" xml:space="preserve">
+    <value>Chat with the KronPay AI assistant for the first time.</value>
+  </data>
+  <data name="BadgeExplorerDescription" xml:space="preserve">
+    <value>Complete the app's guided welcome tour.</value>
+  </data>
+  <data name="BadgeFirstGoalDescription" xml:space="preserve">
+    <value>Create your first financial goal.</value>
+  </data>
+  <data name="BadgeAllConnectedDescription" xml:space="preserve">
+    <value>Register your first credit card.</value>
+  </data>
+  <data name="BadgeFutureVisionDescription" xml:space="preserve">
+    <value>Check your first financial projection in Planning.</value>
+  </data>
+  <data name="BadgeFirstCategoryDescription" xml:space="preserve">
+    <value>Create your first custom category.</value>
+  </data>
+  <data name="BadgeFirstMissionDescription" xml:space="preserve">
+    <value>Complete your first mission, of any type.</value>
+  </data>
+  <data name="BadgeMultipleCardsDescription" xml:space="preserve">
+    <value>Register 2 or more credit cards.</value>
+  </data>
+  <data name="BadgeFirstPositiveMonthDescription" xml:space="preserve">
+    <value>Close a month with more income than expenses.</value>
+  </data>
+  <data name="BadgeFirstInvoiceOnTimeDescription" xml:space="preserve">
+    <value>Pay a card invoice on time for the first time.</value>
+  </data>
+  <data name="BadgeOrganizedMonthDescription" xml:space="preserve">
+    <value>Categorize 100% of a month's transactions.</value>
+  </data>
+  <data name="BadgeFirstGoalAchievedDescription" xml:space="preserve">
+    <value>Complete your first financial goal.</value>
+  </data>
+  <data name="BadgeFirstInvestmentDescription" xml:space="preserve">
+    <value>Record your first investment.</value>
+  </data>
+  <data name="BadgeNoPendingAlertsDescription" xml:space="preserve">
+    <value>Clear all your pending critical alerts.</value>
+  </data>
+  <data name="BadgeFirstBudgetMetDescription" xml:space="preserve">
+    <value>Meet a category's budget for the first time.</value>
+  </data>
+  <data name="BadgeIronDisciplineDescription" xml:space="preserve">
+    <value>Meet the same category's budget for 6 months in a row.</value>
+  </data>
+  <data name="BadgeFlawlessQuarterDescription" xml:space="preserve">
+    <value>Meet the same category's budget for 3 months in a row.</value>
+  </data>
+  <data name="BadgeSolidReserveDescription" xml:space="preserve">
+    <value>Keep an emergency reserve for several months in a row.</value>
+  </data>
+  <data name="BadgeConsistentInvestorDescription" xml:space="preserve">
+    <value>Invest 20% or more of your income for 3 months in a row.</value>
+  </data>
+  <data name="BadgeNoLatePaymentsDescription" xml:space="preserve">
+    <value>Pay a card's invoices on time for 6 months in a row.</value>
+  </data>
+  <data name="BadgeQuarterInTheBlackDescription" xml:space="preserve">
+    <value>Close a quarter (3 months in a row) with a positive balance.</value>
+  </data>
+  <data name="BadgeDiligentPlannerDescription" xml:space="preserve">
+    <value>Meet your projected financial plan for several months in a row.</value>
+  </data>
+  <data name="BadgeDoubleGoalAchieverDescription" xml:space="preserve">
+    <value>Complete 2 financial goals.</value>
+  </data>
+  <data name="BadgeNoRelapsesDescription" xml:space="preserve">
+    <value>Go 6 months in a row without exceeding any budget.</value>
+  </data>
+  <data name="BadgeQuickResponderDescription" xml:space="preserve">
+    <value>Resolve 5 critical alerts quickly, right after being notified.</value>
+  </data>
+  <data name="BadgeTrendReverserDescription" xml:space="preserve">
+    <value>Reverse a rising spending trend 2 times.</value>
+  </data>
+  <data name="BadgeWideBudgetCoverageDescription" xml:space="preserve">
+    <value>Set a budget for several expense categories at the same time.</value>
+  </data>
+  <data name="BadgeRecoveredGoalDescription" xml:space="preserve">
+    <value>Recover and complete a goal that was behind schedule.</value>
+  </data>
+  <data name="BadgeSixMonthsFocusedDescription" xml:space="preserve">
+    <value>Keep a goal active with contributions for 6 months in a row.</value>
+  </data>
+  <data name="BadgePerfectYearDescription" xml:space="preserve">
+    <value>Go 12 months in a row without exceeding any budget.</value>
+  </data>
+  <data name="BadgeRobustReserveDescription" xml:space="preserve">
+    <value>Keep a robust emergency reserve for a full year.</value>
+  </data>
+  <data name="BadgeDedicatedInvestorDescription" xml:space="preserve">
+    <value>Invest 20% or more of your income for 12 months in a row.</value>
+  </data>
+  <data name="BadgePositiveFiscalYearDescription" xml:space="preserve">
+    <value>Close a fiscal year (12 months) with a positive balance.</value>
+  </data>
+  <data name="BadgeIronDisciplineIIIDescription" xml:space="preserve">
+    <value>Meet the same category's budget for 24 months in a row.</value>
+  </data>
+  <data name="BadgeGoldenStreakDescription" xml:space="preserve">
+    <value>Close 6 months in a row with a positive balance.</value>
+  </data>
+  <data name="BadgeAmbitiousGoalAchievedDescription" xml:space="preserve">
+    <value>Complete a high-value financial goal.</value>
+  </data>
+  <data name="BadgeNoLatePaymentsYearDescription" xml:space="preserve">
+    <value>Pay a card's invoices on time for 12 months in a row.</value>
+  </data>
+  <data name="BadgePlanningMasterDescription" xml:space="preserve">
+    <value>Meet your projected financial plan for a full year.</value>
+  </data>
+  <data name="BadgeResilientDescription" xml:space="preserve">
+    <value>Recover from a Rank drop and climb back up.</value>
+  </data>
+  <data name="BadgePlanningLegendDescription" xml:space="preserve">
+    <value>Keep your planning horizon clear of pending items for 12 months in a row.</value>
+  </data>
+  <data name="BadgeCompleteCollectionDescription" xml:space="preserve">
+    <value>Unlock every Bronze and Silver badge.</value>
+  </data>
+  <data name="BadgeTooltipUnlockedOn" xml:space="preserve">
+    <value>Unlocked on</value>
+  </data>
+  <data name="BadgeTooltipHowToUnlock" xml:space="preserve">
+    <value>How to unlock:</value>
+  </data>
+  <data name="ProfileUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="Achievements" xml:space="preserve">
+    <value>Achievements</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Coming soon</value>
+  </data>
+  <data name="Missions" xml:space="preserve">
+    <value>Missions</value>
+  </data>
+  <data name="MissionsAtRiskCountLabel" xml:space="preserve">
+    <value>{count} need attention</value>
+  </data>
+  <data name="AllMissionsOnTrack" xml:space="preserve">
+    <value>All on track</value>
+  </data>
+  <data name="NoMissionsYet" xml:space="preserve">
+    <value>No missions evaluated yet</value>
+  </data>
+  <data name="MissionStatusAchieved" xml:space="preserve">
+    <value>Achieved</value>
+  </data>
+  <data name="MissionStatusPending" xml:space="preserve">
+    <value>Not achieved yet</value>
+  </data>
+  <data name="MissionStatusAtRisk" xml:space="preserve">
+    <value>Needs attention</value>
+  </data>
+  <data name="MissionStatusUnderControl" xml:space="preserve">
+    <value>Under control</value>
+  </data>
+  <data name="AchievementUnlockedTitle" xml:space="preserve">
+    <value>Achievement unlocked!</value>
+  </data>
+  <data name="AchievementUnlockedSubtitle" xml:space="preserve">
+    <value>You just earned a new trophy</value>
+  </data>
 </root>

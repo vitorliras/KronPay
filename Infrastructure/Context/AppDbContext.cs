@@ -3,6 +3,7 @@ using Domain.Entities.Auth;
 using Domain.Entities.Card;
 using Domain.Entities.banks;
 using Domain.Entities.Configuration;
+using Domain.Entities.Gamification;
 using Domain.Entities.Goals;
 using Domain.Entities.Notifications;
 using Domain.Entities.Planning;
@@ -42,6 +43,12 @@ public sealed class AppDbContext : DbContext
     public DbSet<Notification> Notifications => Set<Notification>();
     public DbSet<NotificationPreference> NotificationPreferences => Set<NotificationPreference>();
     public DbSet<NotificationEvaluationRun> NotificationEvaluationRuns => Set<NotificationEvaluationRun>();
+    public DbSet<UserRankProfile> UserRankProfiles => Set<UserRankProfile>();
+    public DbSet<UserBadge> UserBadges => Set<UserBadge>();
+    public DbSet<PointLedgerEntry> PointLedgerEntries => Set<PointLedgerEntry>();
+    public DbSet<MissionStateSnapshot> MissionStateSnapshots => Set<MissionStateSnapshot>();
+    public DbSet<ConsistencyCounter> ConsistencyCounters => Set<ConsistencyCounter>();
+    public DbSet<GamificationEvaluationRun> GamificationEvaluationRuns => Set<GamificationEvaluationRun>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)

@@ -490,6 +490,215 @@ namespace Infrastructure.Migrations
                     b.ToTable("payment_method", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Gamification.ConsistencyCounter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BestStreak")
+                        .HasColumnType("int")
+                        .HasColumnName("best_streak");
+
+                    b.Property<string>("CounterKey")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)")
+                        .HasColumnName("counter_key");
+
+                    b.Property<int>("CurrentStreak")
+                        .HasColumnType("int")
+                        .HasColumnName("current_streak");
+
+                    b.Property<DateTime>("LastUpdatedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("last_updated_at");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "CounterKey")
+                        .IsUnique();
+
+                    b.ToTable("consistency_counters", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.GamificationEvaluationRun", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BadgesUnlocked")
+                        .HasColumnType("int")
+                        .HasColumnName("badges_unlocked");
+
+                    b.Property<int>("EventsTriggered")
+                        .HasColumnType("int")
+                        .HasColumnName("events_triggered");
+
+                    b.Property<DateTime>("RanAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("ran_at");
+
+                    b.Property<int>("UsersProcessed")
+                        .HasColumnType("int")
+                        .HasColumnName("users_processed");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("gamification_evaluation_runs", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.MissionStateSnapshot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsConditionActive")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_condition_active");
+
+                    b.Property<DateTime>("LastEvaluatedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("last_evaluated_at");
+
+                    b.Property<int?>("RelatedEntityId")
+                        .HasColumnType("int")
+                        .HasColumnName("related_entity_id");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasColumnName("type");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "Type", "RelatedEntityId")
+                        .IsUnique()
+                        .HasFilter("[related_entity_id] IS NOT NULL");
+
+                    b.ToTable("mission_state_snapshots", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.PointLedgerEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("OccurredAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("occurred_at");
+
+                    b.Property<int>("PointsDelta")
+                        .HasColumnType("int")
+                        .HasColumnName("points_delta");
+
+                    b.Property<int>("Significance")
+                        .HasColumnType("int")
+                        .HasColumnName("significance");
+
+                    b.Property<int>("TierAtEvent")
+                        .HasColumnType("int")
+                        .HasColumnName("tier_at_event");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int")
+                        .HasColumnName("type");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "OccurredAt");
+
+                    b.ToTable("point_ledger_entries", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.UserBadge", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Code")
+                        .HasColumnType("int")
+                        .HasColumnName("code");
+
+                    b.Property<DateTime>("UnlockedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("unlocked_at");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId", "Code")
+                        .IsUnique();
+
+                    b.ToTable("user_badges", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.UserRankProfile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Score")
+                        .HasColumnType("int")
+                        .HasColumnName("score");
+
+                    b.Property<int>("Tier")
+                        .HasColumnType("int")
+                        .HasColumnName("tier");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("user_rank_profiles", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Goals.CategoryBudgetGoal", b =>
                 {
                     b.Property<int>("Id")
@@ -1821,6 +2030,51 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Domain.Entities.Configuration.PaymentMethod", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.ConsistencyCounter", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.MissionStateSnapshot", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.PointLedgerEntry", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.UserBadge", b =>
+                {
+                    b.HasOne("KronPay.Domain.Entities.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Entities.Gamification.UserRankProfile", b =>
                 {
                     b.HasOne("KronPay.Domain.Entities.Users.User", null)
                         .WithMany()

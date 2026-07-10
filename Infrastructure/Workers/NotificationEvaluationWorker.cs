@@ -10,11 +10,7 @@ namespace Infrastructure.Workers;
 
 public sealed class NotificationEvaluationWorker : BackgroundService
 {
-    // Intervalo curto de propósito: o catch-up (ADR 0020) só faz uma leitura barata
-    // ("o dia já virou desde a última execução?") a cada tick — reavaliar de verdade só
-    // acontece quando essa checagem é verdadeira. Um valor baixo aqui não pesa em produção
-    // e evita o usuário/desenvolvedor esperar até 30 minutos para ver o efeito de uma
-    // reavaliação forçada manualmente (ex.: apagar a linha de controle para testar).
+   
     private static readonly TimeSpan PollInterval = TimeSpan.FromMinutes(1);
 
     private readonly IServiceScopeFactory _scopeFactory;
@@ -38,9 +34,7 @@ public sealed class NotificationEvaluationWorker : BackgroundService
             && await timer.WaitForNextTickAsync(stoppingToken));
     }
 
-    // Catch-up (ADR 0020): roda imediatamente ao subir a Api e a cada tick se o dia (UTC)
-    // ainda não tiver sido avaliado — não depende de nenhum horário fixo, então funciona
-    // mesmo que a Api fique dias desligada e volte a rodar num horário qualquer.
+
     private async Task RunIfDueAsync(CancellationToken cancellationToken)
     {
         try
