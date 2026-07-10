@@ -5,9 +5,12 @@ using Application.DTOs.Assistant;
 using Application.Services.Assistant;
 using Domain.Entities.Card;
 using Domain.Entities.Goals;
+using Domain.Interfaces;
 using Domain.Interfaces.Card;
 using Domain.Interfaces.Transactions;
+using Domain.Services.Gamification;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using Shared.Localization;
 using Shared.Resources;
 using Shared.Results;
@@ -27,6 +30,9 @@ public sealed class AskAssistantUseCase : IUseCase<AskAssistantRequest, Assistan
     private readonly ITransactionRepository _transactionRepository;
     private readonly ICardInvoiceRepository _cardInvoiceRepository;
     private readonly IStringLocalizer<Messages> _localizer;
+    private readonly IGamificationService _gamificationService;
+    private readonly IUnitOfWork _uow;
+    private readonly ILogger<AskAssistantUseCase> _logger;
 
     public AskAssistantUseCase(
         ICurrentUserService currentUser,
@@ -39,7 +45,10 @@ public sealed class AskAssistantUseCase : IUseCase<AskAssistantRequest, Assistan
         NotificationAssistantResolver notificationResolver,
         ITransactionRepository transactionRepository,
         ICardInvoiceRepository cardInvoiceRepository,
-        IStringLocalizer<Messages> localizer)
+        IStringLocalizer<Messages> localizer,
+        IGamificationService gamificationService,
+        IUnitOfWork uow,
+        ILogger<AskAssistantUseCase> logger)
     {
         _currentUser = currentUser;
         _tree = tree;
@@ -52,6 +61,9 @@ public sealed class AskAssistantUseCase : IUseCase<AskAssistantRequest, Assistan
         _notificationResolver = notificationResolver;
         _transactionRepository = transactionRepository;
         _cardInvoiceRepository = cardInvoiceRepository;
+        _gamificationService = gamificationService;
+        _uow = uow;
+        _logger = logger;
     }
 
     public async Task<ResultEntity<AssistantNodeResponse>> ExecuteAsync(AskAssistantRequest request)
@@ -66,12 +78,36 @@ public sealed class AskAssistantUseCase : IUseCase<AskAssistantRequest, Assistan
         }
 
         if (!string.IsNullOrWhiteSpace(request.FreeText))
-            return Success(await ResolveFreeTextAsync(currentNodeId, request.FreeText, userId));
+        {
+            var freeTextResponse = await ResolveFreeTextAsync(currentNodeId, request.FreeText, userId);
+            await TriggerGamificationBestEffort(userId);
+            return Success(freeTextResponse);
+        }
 
         if (!string.IsNullOrWhiteSpace(request.SelectedOptionId))
-            return Success(await ResolveOptionAsync(request.SelectedOptionId, userId));
+        {
+            var optionResponse = await ResolveOptionAsync(request.SelectedOptionId, userId);
+            await TriggerGamificationBestEffort(userId);
+            return Success(optionResponse);
+        }
 
         return Success(await RenderNodeAsync(currentNodeId, userId));
+    }
+
+    private async Task TriggerGamificationBestEffort(int userId)
+    {
+        try
+        {
+            await _gamificationService.NotifyAssistantConversationAsync(userId);
+
+            if (!await _uow.CommitAsync())
+                _logger.LogError(
+                    "Falha ao persistir a avaliação instantânea de gamificação para o usuário {UserId}.", userId);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Falha inesperada ao avaliar gamificação instantânea para o usuário {UserId}.", userId);
+        }
     }
 
     private async Task<AssistantNodeResponse> ResolveOptionAsync(string optionId, int userId)

@@ -3,9 +3,12 @@ using Application.Abstractions.Common;
 using Application.DTOs.Card.CardInvoices;
 using Application.Notifications;
 using Domain.Entities.Transactions;
+using Domain.Enums.Gamification;
 using Domain.Interfaces;
 using Domain.Interfaces.Card;
 using Domain.Interfaces.Transactions;
+using Domain.Services.Gamification;
+using Microsoft.Extensions.Logging;
 using Shared.Localization;
 using Shared.Results;
 using System.Linq;
@@ -20,8 +23,10 @@ public sealed class PayCardInvoiceUseCase
     private readonly ITransactionRepository _transactionRepository;
     private readonly ICategoryRepository _categoryRepository;
     private readonly INotificationService _notificationService;
+    private readonly IGamificationService _gamificationService;
     private readonly IUnitOfWork _uow;
     private readonly ICurrentUserService _currentUser;
+    private readonly ILogger<PayCardInvoiceUseCase> _logger;
 
     public PayCardInvoiceUseCase(
         ICardInvoiceRepository invoiceRepository,
@@ -29,16 +34,20 @@ public sealed class PayCardInvoiceUseCase
         ITransactionRepository transactionRepository,
         ICategoryRepository categoryRepository,
         INotificationService notificationService,
+        IGamificationService gamificationService,
         IUnitOfWork uow,
-        ICurrentUserService currentUser)
+        ICurrentUserService currentUser,
+        ILogger<PayCardInvoiceUseCase> logger)
     {
         _invoiceRepository = invoiceRepository;
         _creditCardRepository = creditCardRepository;
         _transactionRepository = transactionRepository;
         _categoryRepository = categoryRepository;
         _notificationService = notificationService;
+        _gamificationService = gamificationService;
         _uow = uow;
         _currentUser = currentUser;
+        _logger = logger;
     }
 
     public async Task<ResultEntity<CardInvoiceResponse>> ExecuteAsync(PayCardInvoiceRequest request)
@@ -95,6 +104,8 @@ public sealed class PayCardInvoiceUseCase
         if (!await _uow.CommitAsync())
             return ResultEntity<CardInvoiceResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
+        await TriggerGamificationBestEffort(userId, invoice.CreditCardId);
+
         return ResultEntity<CardInvoiceResponse>.Success(
             new CardInvoiceResponse(
                 invoice.Id,
@@ -106,5 +117,21 @@ public sealed class PayCardInvoiceUseCase
                 invoice.Status,
                 invoice.PaidAt),
             MessageKeys.OperationSuccess);
+    }
+
+    private async Task TriggerGamificationBestEffort(int userId, int creditCardId)
+    {
+        try
+        {
+            await _gamificationService.TriggerInstantEvaluationAsync(userId, MissionEventType.CardInvoiceOnTime, creditCardId);
+
+            if (!await _uow.CommitAsync())
+                _logger.LogError(
+                    "Falha ao persistir a avaliação instantânea de gamificação para o usuário {UserId}.", userId);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Falha inesperada ao avaliar gamificação instantânea para o usuário {UserId}.", userId);
+        }
     }
 }

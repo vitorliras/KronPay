@@ -2,8 +2,11 @@
 using Application.Abstractions.Common;
 using Application.DTOs.Transactions;
 using Application.Notifications;
+using Domain.Enums.Gamification;
 using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
+using Domain.Services.Gamification;
+using Microsoft.Extensions.Logging;
 using Shared.Localization;
 using Shared.Results;
 
@@ -16,18 +19,24 @@ public sealed class ChangeStatusTransactionUseCase
     private readonly ICurrentUserService _currentUser;
     private readonly ITransactionRepository _transactionRepository;
     private readonly INotificationService _notificationService;
+    private readonly IGamificationService _gamificationService;
     private readonly IUnitOfWork _uow;
+    private readonly ILogger<ChangeStatusTransactionUseCase> _logger;
 
     public ChangeStatusTransactionUseCase(
         ITransactionRepository transactionRepository,
         INotificationService notificationService,
+        IGamificationService gamificationService,
         IUnitOfWork uow,
-        ICurrentUserService currentUser)
+        ICurrentUserService currentUser,
+        ILogger<ChangeStatusTransactionUseCase> logger)
     {
         _transactionRepository = transactionRepository;
         _notificationService = notificationService;
+        _gamificationService = gamificationService;
         _uow = uow;
         _currentUser = currentUser;
+        _logger = logger;
     }
 
     public async Task<ResultEntity<TransactionResponse>> ExecuteAsync(ChangeStatusTransactionRequest request)
@@ -58,6 +67,8 @@ public sealed class ChangeStatusTransactionUseCase
         if (!await _uow.CommitAsync())
             return ResultEntity<TransactionResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
+        await TriggerGamificationBestEffort(userId);
+
         return ResultEntity<TransactionResponse>.Success(
             new TransactionResponse(
                 transaction.Id,
@@ -66,5 +77,21 @@ public sealed class ChangeStatusTransactionUseCase
                 1
             ), MessageKeys.OperationSuccess
         );
+    }
+
+    private async Task TriggerGamificationBestEffort(int userId)
+    {
+        try
+        {
+            await _gamificationService.TriggerInstantEvaluationAsync(userId, MissionEventType.TransactionMonthSurplus, null);
+
+            if (!await _uow.CommitAsync())
+                _logger.LogError(
+                    "Falha ao persistir a avaliação instantânea de gamificação para o usuário {UserId}.", userId);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Falha inesperada ao avaliar gamificação instantânea para o usuário {UserId}.", userId);
+        }
     }
 }
