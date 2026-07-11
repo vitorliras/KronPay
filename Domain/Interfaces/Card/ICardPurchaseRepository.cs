@@ -9,4 +9,10 @@ public interface ICardPurchaseRepository
     Task<CardPurchase?> GetByIdAsync(int id, int userId);
     Task<decimal> SumPendingInstallmentsByCardAsync(int creditCardId, int userId);
     Task<IEnumerable<CardInstallment>> GetInstallmentsByPurchaseAsync(int purchaseId, int userId);
+    Task<IReadOnlyList<CardPurchase>> GetDeactivatedOlderThanAsync(DateTime cutoff);
+    Task DeleteRangeAsync(IEnumerable<CardPurchase> purchases);
+    Task<bool> ExistsInstallmentByCardPurchaseIdAsync(int cardPurchaseId);
+    Task<bool> ExistsByCreditCardIdAsync(int creditCardId);
+    Task<bool> ExistsByCategoryIdAsync(int categoryId);
+    Task<bool> ExistsByCategoryItemIdAsync(int categoryItemId);
 }
