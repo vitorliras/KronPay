@@ -8,4 +8,6 @@ public interface IPlannedCommitmentRepository
     bool Update(PlannedCommitment commitment);
     Task<PlannedCommitment?> GetByIdAsync(int id, int userId);
     Task<IEnumerable<PlannedCommitment>> GetByUserAsync(int userId);
+    Task<IReadOnlyList<PlannedCommitment>> GetDeactivatedOlderThanAsync(DateTime cutoff);
+    Task DeleteRangeAsync(IEnumerable<PlannedCommitment> commitments);
 }
