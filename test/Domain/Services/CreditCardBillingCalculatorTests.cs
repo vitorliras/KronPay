@@ -51,7 +51,6 @@ public class CreditCardBillingCalculatorTests
     [Fact]
     public void Fechamento_em_dia_inexistente_no_mes_e_ajustado()
     {
-        // fechamento 31 + fevereiro -> clamp para o último dia do mês
         var cycle = _sut.Resolve(Card(31, 10), new DateTime(2026, 2, 5));
 
         cycle.ClosingDate.ShouldBe(new DateTime(2026, 2, 28));

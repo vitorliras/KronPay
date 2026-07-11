@@ -42,7 +42,6 @@ public sealed class DeactivateCardPurchaseUseCase
             .Where(i => i.Status != "C")
             .ToList();
 
-        // Carrega as faturas afetadas (rastreadas) e bloqueia se alguma já foi paga.
         var invoices = new Dictionary<int, CardInvoice>();
         foreach (var invoiceId in installments.Select(i => i.CardInvoiceId).Distinct())
         {
@@ -56,7 +55,6 @@ public sealed class DeactivateCardPurchaseUseCase
             invoices[invoiceId] = invoice;
         }
 
-        // Devolve o valor às faturas e cancela as parcelas (libera o limite).
         foreach (var installment in installments)
         {
             if (invoices.TryGetValue(installment.CardInvoiceId, out var invoice))

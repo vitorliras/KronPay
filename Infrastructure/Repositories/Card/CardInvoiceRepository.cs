@@ -45,7 +45,6 @@ public sealed class CardInvoiceRepository : ICardInvoiceRepository
             .ThenByDescending(x => x.ReferenceMonth)
             .ToListAsync();
 
-    // Leitura agregada para a projeção financeira: todas as faturas do usuário (todos os cartões).
     public async Task<IEnumerable<CardInvoice>> GetByUserAsync(int userId)
         => await _context.CardInvoices
             .AsNoTracking()
@@ -62,7 +61,6 @@ public sealed class CardInvoiceRepository : ICardInvoiceRepository
             .OrderBy(x => x.InstallmentNumber)
             .ToListAsync();
 
-    // Sem AsNoTracking: as parcelas precisam ser rastreadas para a quitação (Settle) persistir.
     public async Task<IEnumerable<CardInstallment>> GetPendingInstallmentsByInvoiceAsync(int invoiceId, int userId)
         => await _context.CardInstallments
             .Where(x => x.CardInvoiceId == invoiceId && x.UserId == userId && x.Status == "P")

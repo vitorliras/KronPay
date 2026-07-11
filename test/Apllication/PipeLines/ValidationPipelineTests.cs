@@ -10,18 +10,4 @@ namespace Tests.Application.Pipelines;
 
 public class ValidationPipelineTests
 {
-    //[Fact]
-    //public async Task Should_fail_when_request_is_invalid()
-    //{
-    //    var validators = new[] { new CreateUserValidator() };
-    //    var pipeline = new ValidationPipeline<CreateUserRequest, object>(validators);
-
-    //    var result = await pipeline.ValidateAsync(
-    //        new CreateUserRequest("", ""),
-    //        () => Task.FromResult(Shared.Results.ResultEntity<object>.Success(null!))
-    //    );
-
-    //    result.IsFailure.ShouldBeTrue();
-    //    result.Error!.Code.ShouldBe("VALIDATION_ERROR");
-    //}
 }

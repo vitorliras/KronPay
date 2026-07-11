@@ -65,7 +65,6 @@ public sealed class PayCardInvoiceUseCase
         if (card is null)
             return ResultEntity<CardInvoiceResponse>.Failure(MessageKeys.CreditCardNotFound);
 
-        // Paga apenas as parcelas PENDENTES (não recobra o que já foi quitado num pagamento anterior).
         var pending = (await _invoiceRepository.GetPendingInstallmentsByInvoiceAsync(invoice.Id, userId)).ToList();
 
         var amountToPay = pending.Sum(p => p.Amount);
@@ -76,7 +75,6 @@ public sealed class PayCardInvoiceUseCase
 
         var invoiceCategory = await _categoryRepository.GetCardInvoiceCategoryAsync(userId);
 
-        // Transação de saída (caixa) — reusa o domínio de Transaction.
         var transaction = new Transaction(
             userId,
             amountToPay,
@@ -96,7 +94,6 @@ public sealed class PayCardInvoiceUseCase
         foreach (var installment in pending)
             installment.Settle();
 
-        // Liga a fatura à transação (EF resolve o FK no commit) e marca como paga.
         invoice.Pay(transaction);
 
         await _notificationService.ResolveByRelatedEntityAsync(userId, "CardInvoice", invoice.Id);
