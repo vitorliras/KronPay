@@ -10,4 +10,5 @@ public interface IPlannedCommitmentRepository
     Task<IEnumerable<PlannedCommitment>> GetByUserAsync(int userId);
     Task<IReadOnlyList<PlannedCommitment>> GetDeactivatedOlderThanAsync(DateTime cutoff);
     Task DeleteRangeAsync(IEnumerable<PlannedCommitment> commitments);
+    Task<bool> ExistsByCategoryIdAsync(int categoryId);
 }

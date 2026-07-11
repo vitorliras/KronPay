@@ -10,4 +10,6 @@ public interface ICategoryRepository
     Task<Category?> GetByDescriptionAsync(string description, int userId);
     Task<IEnumerable<Category>> GetAllAsync(int userId);
     Task<Category?> GetCardInvoiceCategoryAsync(int userId);
+    Task<IReadOnlyList<Category>> GetDeactivatedOlderThanAsync(DateTime cutoff);
+    Task DeleteRangeAsync(IEnumerable<Category> categories);
 }

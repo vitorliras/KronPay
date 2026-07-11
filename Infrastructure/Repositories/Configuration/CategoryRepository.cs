@@ -53,4 +53,17 @@ public sealed class CategoryRepository : ICategoryRepository
         return await _context.Categories
             .FirstOrDefaultAsync(x => x.UserId == userId && x.IsCardInvoiceCategory);
     }
+
+    public async Task<IReadOnlyList<Category>> GetDeactivatedOlderThanAsync(DateTime cutoff)
+    {
+        return await _context.Categories
+            .Where(x => !x.Active && x.DeactivatedAt != null && x.DeactivatedAt < cutoff)
+            .ToListAsync();
+    }
+
+    public Task DeleteRangeAsync(IEnumerable<Category> categories)
+    {
+        _context.Categories.RemoveRange(categories);
+        return Task.CompletedTask;
+    }
 }
