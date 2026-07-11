@@ -11,4 +11,5 @@ public interface ICategoryBudgetGoalRepository
     bool Update(CategoryBudgetGoal goal);
     Task<IReadOnlyList<CategoryBudgetGoal>> GetDeactivatedOlderThanAsync(DateTime cutoff);
     Task DeleteRangeAsync(IEnumerable<CategoryBudgetGoal> goals);
+    Task<bool> ExistsByCategoryIdAsync(int categoryId);
 }

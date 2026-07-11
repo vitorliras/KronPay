@@ -49,4 +49,11 @@ public sealed class PlannedCommitmentRepository : IPlannedCommitmentRepository
         _context.PlannedCommitments.RemoveRange(commitments);
         return Task.CompletedTask;
     }
+
+    public async Task<bool> ExistsByCategoryIdAsync(int categoryId)
+    {
+        return await _context.PlannedCommitments
+            .AsNoTracking()
+            .AnyAsync(x => x.CategoryId == categoryId);
+    }
 }

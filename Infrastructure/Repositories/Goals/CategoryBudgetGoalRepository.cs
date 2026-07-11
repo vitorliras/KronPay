@@ -56,4 +56,11 @@ public sealed class CategoryBudgetGoalRepository : ICategoryBudgetGoalRepository
         _context.CategoryBudgetGoals.RemoveRange(goals);
         return Task.CompletedTask;
     }
+
+    public async Task<bool> ExistsByCategoryIdAsync(int categoryId)
+    {
+        return await _context.CategoryBudgetGoals
+            .AsNoTracking()
+            .AnyAsync(x => x.CategoryId == categoryId);
+    }
 }
