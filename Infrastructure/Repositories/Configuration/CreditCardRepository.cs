@@ -47,4 +47,17 @@ public sealed class CreditCardRepository : ICreditCardRepository
             .FirstOrDefaultAsync(x => x.Description == description && x.UserId == userId);
     }
 
+    public async Task<IReadOnlyList<CreditCard>> GetDeactivatedOlderThanAsync(DateTime cutoff)
+    {
+        return await _context.CreditCards
+            .Where(x => !x.Active && x.DeactivatedAt != null && x.DeactivatedAt < cutoff)
+            .ToListAsync();
+    }
+
+    public Task DeleteRangeAsync(IEnumerable<CreditCard> creditCards)
+    {
+        _context.CreditCards.RemoveRange(creditCards);
+        return Task.CompletedTask;
+    }
+
 }

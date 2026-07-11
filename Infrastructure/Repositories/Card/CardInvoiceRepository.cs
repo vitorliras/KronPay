@@ -65,4 +65,11 @@ public sealed class CardInvoiceRepository : ICardInvoiceRepository
         => await _context.CardInstallments
             .Where(x => x.CardInvoiceId == invoiceId && x.UserId == userId && x.Status == "P")
             .ToListAsync();
+
+    public async Task<bool> ExistsByCreditCardIdAsync(int creditCardId)
+    {
+        return await _context.CardInvoices
+            .AsNoTracking()
+            .AnyAsync(x => x.CreditCardId == creditCardId);
+    }
 }

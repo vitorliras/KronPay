@@ -10,4 +10,6 @@ public interface ICreditCardRepository
     Task<CreditCard?> GetByIdAsync(int id, int userId);
     Task<CreditCard?> GetByDescriptionAsync(string description, int userId);
     Task<IEnumerable<CreditCard>> GetAllAsync(int userId);
+    Task<IReadOnlyList<CreditCard>> GetDeactivatedOlderThanAsync(DateTime cutoff);
+    Task DeleteRangeAsync(IEnumerable<CreditCard> creditCards);
 }
