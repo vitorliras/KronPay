@@ -36,4 +36,17 @@ public sealed class PlannedCommitmentRepository : IPlannedCommitmentRepository
             .Where(x => x.UserId == userId && x.Active)
             .OrderBy(x => x.StartDate)
             .ToListAsync();
+
+    public async Task<IReadOnlyList<PlannedCommitment>> GetDeactivatedOlderThanAsync(DateTime cutoff)
+    {
+        return await _context.PlannedCommitments
+            .Where(x => !x.Active && x.DeactivatedAt != null && x.DeactivatedAt < cutoff)
+            .ToListAsync();
+    }
+
+    public Task DeleteRangeAsync(IEnumerable<PlannedCommitment> commitments)
+    {
+        _context.PlannedCommitments.RemoveRange(commitments);
+        return Task.CompletedTask;
+    }
 }
