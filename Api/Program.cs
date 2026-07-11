@@ -1,6 +1,7 @@
 using Api.Extensions;
 using Api.Middlewares;
 using Application;
+using Application.Configuration.DataRetention;
 using Application.Configuration.Email;
 using Application.Configuration.Pluggy;
 using Infrastructure.Persistence;
@@ -86,6 +87,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.Configure<PluggySettings>(builder.Configuration.GetSection("Pluggy"));
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Email"));
+builder.Services.Configure<DataRetentionSettings>(builder.Configuration.GetSection("DataRetention"));
 
 builder.Services.AddApplication();
 
