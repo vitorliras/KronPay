@@ -3,6 +3,7 @@ using Domain.Entities.Auth;
 using Domain.Entities.Card;
 using Domain.Entities.banks;
 using Domain.Entities.Configuration;
+using Domain.Entities.DataRetention;
 using Domain.Entities.Gamification;
 using Domain.Entities.Goals;
 using Domain.Entities.Notifications;
@@ -49,6 +50,7 @@ public sealed class AppDbContext : DbContext
     public DbSet<MissionStateSnapshot> MissionStateSnapshots => Set<MissionStateSnapshot>();
     public DbSet<ConsistencyCounter> ConsistencyCounters => Set<ConsistencyCounter>();
     public DbSet<GamificationEvaluationRun> GamificationEvaluationRuns => Set<GamificationEvaluationRun>();
+    public DbSet<DataRetentionPurgeRun> DataRetentionPurgeRuns => Set<DataRetentionPurgeRun>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
