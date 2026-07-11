@@ -89,7 +89,6 @@ public sealed class GroqBatchTransactionClassifier : ITransactionAiBatchClassifi
         if (string.IsNullOrWhiteSpace(json))
             return Array.Empty<TransactionAiSuggestion>();
 
-        // 🔹 MESMA desserialização do Ollama
         var results = JsonSerializer.Deserialize<List<BatchAiResult>>(
             json,
             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });

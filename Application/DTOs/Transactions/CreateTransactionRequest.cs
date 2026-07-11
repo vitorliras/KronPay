@@ -4,9 +4,9 @@ public sealed record CreateTransactionRequest(
     string Description,
     decimal Amount,
     DateTime TransactionDate,
-    string CodTypeTransaction,   // E | I | V
-    string RecurrenceType,       // F | I 
-    DateTime? EndDate,          
+    string CodTypeTransaction,
+    string RecurrenceType,
+    DateTime? EndDate,
     short Installments,
     int? CategoryId,
     int? CategoryItemId,

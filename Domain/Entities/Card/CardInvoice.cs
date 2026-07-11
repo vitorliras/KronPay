@@ -15,7 +15,6 @@ public sealed class CardInvoice
     public DateTime DueDate { get; private set; }
     public decimal TotalAmount { get; private set; }
     public string Status { get; private set; }
-    // A = Aberta, F = Fechada, P = Paga
     public DateTime? PaidAt { get; private set; }
     public int? TransactionId { get; private set; }
     public Transaction? Transaction { get; private set; }

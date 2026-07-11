@@ -47,10 +47,6 @@ public sealed class GetFinancialGoalDetailUseCase
         var reserve = baseline.Parameters.SafetyReserve;
         var months = baseline.Projection.Months;
 
-        // Cada mês da baseline já assume a contribuição "recommended" desta própria meta
-        // (via GoalContributionFlowSource, registrada globalmente no motor de Planejamento).
-        // Por isso, a folga por mês é somada de volta a "recommended" para achar o teto
-        // seguro real, em vez de tratar a baseline como um cenário de contribuição zero.
         decimal? minRoomPerMonth = null;
         for (var i = 0; i < months.Count; i++)
         {

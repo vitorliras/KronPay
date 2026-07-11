@@ -22,7 +22,6 @@ namespace Domain.Interfaces.Transactions
         Task<bool> DeleteByGroupAsync(int transactionGroupId, int userId);
         Task<bool> DeleteRangeAsync(IEnumerable<Transaction> transactions);
 
-        // Ampliação da SPEC 0024 (motor de notificações):
         Task<IEnumerable<Transaction>> GetOverdueOrDueSoonAsync(int userId, DateTime today);
         Task<DateTime?> GetLastTransactionDateAsync(int userId);
     }

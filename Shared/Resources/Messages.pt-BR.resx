@@ -2061,4 +2061,115 @@
   <data name="AchievementUnlockedSubtitle" xml:space="preserve">
     <value>Você acaba de ganhar um novo troféu</value>
   </data>
+  <data name="AuthShowcaseScene1Title" xml:space="preserve">
+    <value>Controle financeiro completo</value>
+  </data>
+  <data name="AuthShowcaseScene1Subtitle" xml:space="preserve">
+    <value>Receitas, despesas, cartões e categorias em um único lugar.</value>
+  </data>
+  <data name="AuthShowcaseScene1Income" xml:space="preserve">
+    <value>Salário</value>
+  </data>
+  <data name="AuthShowcaseScene1Expense1" xml:space="preserve">
+    <value>Restaurante</value>
+  </data>
+  <data name="AuthShowcaseScene1Expense2" xml:space="preserve">
+    <value>Mercado</value>
+  </data>
+  <data name="AuthShowcaseScene2Title" xml:space="preserve">
+    <value>Importe seu extrato</value>
+  </data>
+  <data name="AuthShowcaseScene2Subtitle" xml:space="preserve">
+    <value>A Inteligência Artificial organiza tudo para você.</value>
+  </data>
+  <data name="AuthShowcaseScene2SourceLabel" xml:space="preserve">
+    <value>extrato.ofx</value>
+  </data>
+  <data name="AuthShowcaseScene2Category1" xml:space="preserve">
+    <value>Restaurante</value>
+  </data>
+  <data name="AuthShowcaseScene2Category2" xml:space="preserve">
+    <value>Mercado</value>
+  </data>
+  <data name="AuthShowcaseScene2Category3" xml:space="preserve">
+    <value>Combustível</value>
+  </data>
+  <data name="AuthShowcaseScene3Title" xml:space="preserve">
+    <value>Planeje antes de gastar</value>
+  </data>
+  <data name="AuthShowcaseScene3Subtitle" xml:space="preserve">
+    <value>Saiba se seus objetivos realmente cabem no seu orçamento.</value>
+  </data>
+  <data name="AuthShowcaseScene3GoalLabel" xml:space="preserve">
+    <value>Viagem</value>
+  </data>
+  <data name="AuthShowcaseScene3ScoreLabel" xml:space="preserve">
+    <value>Objetivo viável</value>
+  </data>
+  <data name="AuthShowcaseScene4Title" xml:space="preserve">
+    <value>Converse com o KronPay</value>
+  </data>
+  <data name="AuthShowcaseScene4Subtitle" xml:space="preserve">
+    <value>Seu assistente financeiro inteligente.</value>
+  </data>
+  <data name="AuthShowcaseScene4Question1" xml:space="preserve">
+    <value>Quanto gastei com alimentação?</value>
+  </data>
+  <data name="AuthShowcaseScene4Answer1" xml:space="preserve">
+    <value>R$ 480 este mês</value>
+  </data>
+  <data name="AuthShowcaseScene4Question2" xml:space="preserve">
+    <value>Quero lançar uma despesa</value>
+  </data>
+  <data name="AuthShowcaseScene4NavTarget" xml:space="preserve">
+    <value>Cartões</value>
+  </data>
+  <data name="AuthShowcaseScene5Title" xml:space="preserve">
+    <value>Evolua financeiramente</value>
+  </data>
+  <data name="AuthShowcaseScene5Subtitle" xml:space="preserve">
+    <value>Conquistas que incentivam bons hábitos.</value>
+  </data>
+  <data name="AuthShowcaseScene5GoalLabel" xml:space="preserve">
+    <value>Comprar apartamento</value>
+  </data>
+  <data name="AuthShowcaseScene5BadgeLabel" xml:space="preserve">
+    <value>Conquista desbloqueada</value>
+  </data>
+  <data name="AuthShowcaseScene5RankLabel" xml:space="preserve">
+    <value>Rank Ouro</value>
+  </data>
+  <data name="AuthShowcaseScene6Title" xml:space="preserve">
+    <value>Um sistema completo</value>
+  </data>
+  <data name="AuthShowcaseScene6Subtitle" xml:space="preserve">
+    <value>Notificações no momento certo, em qualquer idioma.</value>
+  </data>
+  <data name="AuthShowcaseScene6ReminderInvoice" xml:space="preserve">
+    <value>Fatura vence em 3 dias</value>
+  </data>
+  <data name="AuthShowcaseScene6ReminderGoal" xml:space="preserve">
+    <value>Você está perto da sua meta</value>
+  </data>
+  <data name="AuthShowcaseScene6EmailSent" xml:space="preserve">
+    <value>E-mail enviado</value>
+  </data>
+  <data name="AuthShowcaseScene6Tagline1" xml:space="preserve">
+    <value>Mais do que controlar gastos.</value>
+  </data>
+  <data name="AuthShowcaseScene6Tagline2" xml:space="preserve">
+    <value>Planeje.</value>
+  </data>
+  <data name="AuthShowcaseScene6Tagline3" xml:space="preserve">
+    <value>Evolua.</value>
+  </data>
+  <data name="AuthShowcaseScene6Tagline4" xml:space="preserve">
+    <value>Conquiste.</value>
+  </data>
+  <data name="CodeExpiredLabel" xml:space="preserve">
+    <value>Código expirado</value>
+  </data>
+  <data name="ResendIn" xml:space="preserve">
+    <value>Reenviar em</value>
+  </data>
 </root>

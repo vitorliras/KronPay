@@ -520,6 +520,12 @@ Delete all future installments of this installment.</value>
   <data name="ClearFilters" xml:space="preserve">
     <value>Clear filters</value>
   </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="NoCategoriesToFilter" xml:space="preserve">
+    <value>No categories to filter</value>
+  </data>
   <data name="Overdue" xml:space="preserve">
     <value>Overdue</value>
   </data>
@@ -2064,5 +2070,116 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="AchievementUnlockedSubtitle" xml:space="preserve">
     <value>You just earned a new trophy</value>
+  </data>
+  <data name="AuthShowcaseScene1Title" xml:space="preserve">
+    <value>Complete financial control</value>
+  </data>
+  <data name="AuthShowcaseScene1Subtitle" xml:space="preserve">
+    <value>Income, expenses, cards and categories in one place.</value>
+  </data>
+  <data name="AuthShowcaseScene1Income" xml:space="preserve">
+    <value>Salary</value>
+  </data>
+  <data name="AuthShowcaseScene1Expense1" xml:space="preserve">
+    <value>Restaurant</value>
+  </data>
+  <data name="AuthShowcaseScene1Expense2" xml:space="preserve">
+    <value>Groceries</value>
+  </data>
+  <data name="AuthShowcaseScene2Title" xml:space="preserve">
+    <value>Import your statement</value>
+  </data>
+  <data name="AuthShowcaseScene2Subtitle" xml:space="preserve">
+    <value>Artificial Intelligence organizes everything for you.</value>
+  </data>
+  <data name="AuthShowcaseScene2SourceLabel" xml:space="preserve">
+    <value>statement.ofx</value>
+  </data>
+  <data name="AuthShowcaseScene2Category1" xml:space="preserve">
+    <value>Restaurant</value>
+  </data>
+  <data name="AuthShowcaseScene2Category2" xml:space="preserve">
+    <value>Groceries</value>
+  </data>
+  <data name="AuthShowcaseScene2Category3" xml:space="preserve">
+    <value>Fuel</value>
+  </data>
+  <data name="AuthShowcaseScene3Title" xml:space="preserve">
+    <value>Plan before you spend</value>
+  </data>
+  <data name="AuthShowcaseScene3Subtitle" xml:space="preserve">
+    <value>Know if your goals really fit your budget.</value>
+  </data>
+  <data name="AuthShowcaseScene3GoalLabel" xml:space="preserve">
+    <value>Trip</value>
+  </data>
+  <data name="AuthShowcaseScene3ScoreLabel" xml:space="preserve">
+    <value>Goal is feasible</value>
+  </data>
+  <data name="AuthShowcaseScene4Title" xml:space="preserve">
+    <value>Talk to KronPay</value>
+  </data>
+  <data name="AuthShowcaseScene4Subtitle" xml:space="preserve">
+    <value>Your intelligent financial assistant.</value>
+  </data>
+  <data name="AuthShowcaseScene4Question1" xml:space="preserve">
+    <value>How much did I spend on food?</value>
+  </data>
+  <data name="AuthShowcaseScene4Answer1" xml:space="preserve">
+    <value>R$ 480 this month</value>
+  </data>
+  <data name="AuthShowcaseScene4Question2" xml:space="preserve">
+    <value>I want to log an expense</value>
+  </data>
+  <data name="AuthShowcaseScene4NavTarget" xml:space="preserve">
+    <value>Cards</value>
+  </data>
+  <data name="AuthShowcaseScene5Title" xml:space="preserve">
+    <value>Grow financially</value>
+  </data>
+  <data name="AuthShowcaseScene5Subtitle" xml:space="preserve">
+    <value>Achievements that encourage good habits.</value>
+  </data>
+  <data name="AuthShowcaseScene5GoalLabel" xml:space="preserve">
+    <value>Buy an apartment</value>
+  </data>
+  <data name="AuthShowcaseScene5BadgeLabel" xml:space="preserve">
+    <value>Achievement unlocked</value>
+  </data>
+  <data name="AuthShowcaseScene5RankLabel" xml:space="preserve">
+    <value>Gold rank</value>
+  </data>
+  <data name="AuthShowcaseScene6Title" xml:space="preserve">
+    <value>One complete system</value>
+  </data>
+  <data name="AuthShowcaseScene6Subtitle" xml:space="preserve">
+    <value>Notifications at the right time, in any language.</value>
+  </data>
+  <data name="AuthShowcaseScene6ReminderInvoice" xml:space="preserve">
+    <value>Invoice due in 3 days</value>
+  </data>
+  <data name="AuthShowcaseScene6ReminderGoal" xml:space="preserve">
+    <value>You're close to your goal</value>
+  </data>
+  <data name="AuthShowcaseScene6EmailSent" xml:space="preserve">
+    <value>Email sent</value>
+  </data>
+  <data name="AuthShowcaseScene6Tagline1" xml:space="preserve">
+    <value>More than tracking expenses.</value>
+  </data>
+  <data name="AuthShowcaseScene6Tagline2" xml:space="preserve">
+    <value>Plan.</value>
+  </data>
+  <data name="AuthShowcaseScene6Tagline3" xml:space="preserve">
+    <value>Grow.</value>
+  </data>
+  <data name="AuthShowcaseScene6Tagline4" xml:space="preserve">
+    <value>Achieve.</value>
+  </data>
+  <data name="CodeExpiredLabel" xml:space="preserve">
+    <value>Code expired</value>
+  </data>
+  <data name="ResendIn" xml:space="preserve">
+    <value>Resend in</value>
   </data>
 </root>

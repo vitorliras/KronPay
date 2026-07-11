@@ -9,15 +9,12 @@ public sealed class CreditCardBillingCalculator : ICreditCardBillingCalculator
         int closingDay = card.ClosingDay;
         int dueDay = card.DueDay;
 
-        // Competência = mês em que a fatura fecha.
         var reference = new DateTime(purchaseDate.Year, purchaseDate.Month, 1);
         if (purchaseDate.Day > closingDay)
             reference = reference.AddMonths(1);
 
         var closingDate = DateAtDay(reference.Year, reference.Month, closingDay);
 
-        // Vencimento no mês seguinte ao fechamento quando o dia de vencimento
-        // é anterior/igual ao de fechamento; senão, no mesmo mês.
         var dueReference = dueDay <= closingDay ? reference.AddMonths(1) : reference;
         var dueDate = DateAtDay(dueReference.Year, dueReference.Month, dueDay);
 
