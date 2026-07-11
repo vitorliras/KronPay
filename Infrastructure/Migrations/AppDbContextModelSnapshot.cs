@@ -490,6 +490,24 @@ namespace Infrastructure.Migrations
                     b.ToTable("payment_method", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.DataRetention.DataRetentionPurgeRun", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("LastRunAt")
+                        .HasColumnType("datetime2(0)")
+                        .HasColumnName("last_run_at");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("data_retention_purge_runs", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Gamification.ConsistencyCounter", b =>
                 {
                     b.Property<int>("Id")
