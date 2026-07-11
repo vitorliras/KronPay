@@ -11,4 +11,7 @@ public interface ICategoryItemRepository
     Task<CategoryItem?> GetByDescriptionAsync(string description, int categoryId);
     Task<IEnumerable<CategoryItem>> GetAllAsync(int categoryId);
     Task<IEnumerable<CategoryItem>> GetAllByUserIdAsync(int userId);
+    Task<IReadOnlyList<CategoryItem>> GetDeactivatedOlderThanAsync(DateTime cutoff);
+    Task DeleteRangeAsync(IEnumerable<CategoryItem> items);
+    Task<bool> ExistsByCategoryIdAsync(int categoryId);
 }
