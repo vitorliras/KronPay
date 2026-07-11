@@ -60,4 +60,24 @@ public sealed class CategoryItemRepository : ICategoryItemRepository
         return await _context.CategoryItems
             .FirstOrDefaultAsync(x => x.Description == description && x.CategoryId == categoryId);
     }
+
+    public async Task<IReadOnlyList<CategoryItem>> GetDeactivatedOlderThanAsync(DateTime cutoff)
+    {
+        return await _context.CategoryItems
+            .Where(x => !x.Active && x.DeactivatedAt != null && x.DeactivatedAt < cutoff)
+            .ToListAsync();
+    }
+
+    public Task DeleteRangeAsync(IEnumerable<CategoryItem> items)
+    {
+        _context.CategoryItems.RemoveRange(items);
+        return Task.CompletedTask;
+    }
+
+    public async Task<bool> ExistsByCategoryIdAsync(int categoryId)
+    {
+        return await _context.CategoryItems
+            .AsNoTracking()
+            .AnyAsync(x => x.CategoryId == categoryId);
+    }
 }
