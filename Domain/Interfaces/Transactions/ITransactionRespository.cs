@@ -24,6 +24,9 @@ namespace Domain.Interfaces.Transactions
 
         Task<IEnumerable<Transaction>> GetOverdueOrDueSoonAsync(int userId, DateTime today);
         Task<DateTime?> GetLastTransactionDateAsync(int userId);
+        Task<bool> ExistsByPaymentMethodIdAsync(int paymentMethodId);
+        Task<bool> ExistsByCategoryIdAsync(int categoryId);
+        Task<bool> ExistsByCategoryItemIdAsync(int categoryItemId);
     }
 
 
