@@ -25,8 +25,6 @@ public static class DependencyInjection
 
         var applicationAssembly = typeof(DependencyInjection).Assembly;
 
-        // Auto-registro por convenção (ver ADR 0007): toda classe concreta
-        // terminada em "UseCase" é registrada como Scoped automaticamente.
         var useCaseTypes = applicationAssembly
             .GetTypes()
             .Where(t => t.IsClass && !t.IsAbstract && t.Name.EndsWith("UseCase"));
@@ -34,10 +32,6 @@ public static class DependencyInjection
         foreach (var type in useCaseTypes)
             services.AddScoped(type);
 
-        // Auto-registro por tipo (ver ADR 0018): toda classe concreta que implementa
-        // IValidator<TRequest> é registrada, em qualquer módulo/namespace — não depende
-        // mais de casar prefixo de namespace, então nenhum validator fica "mudo" por
-        // esquecimento de registro.
         var validatorTypes = applicationAssembly
             .GetTypes()
             .Where(t => t.IsClass && !t.IsAbstract);

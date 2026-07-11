@@ -82,8 +82,6 @@ public sealed class GoalNotificationRuleEvaluator : IGoalNotificationRuleEvaluat
         var daysSinceLastContribution = (today - lastContribution).Days;
         var progress = goal.TargetAmount > 0 ? goal.CurrentAmount / goal.TargetAmount : 0;
 
-        // Ordem de prioridade: só um candidato de aporte por meta, para não empilhar
-        // 3 notificações parecidas sobre a mesma meta ao mesmo tempo.
         if (progress >= NearCompletionProgressThreshold && daysSinceLastContribution >= NearCompletionMinDaysSinceContribution)
         {
             var args = BuildGoalArgs(goal);

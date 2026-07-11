@@ -14,7 +14,6 @@ public sealed class CardInstallment
     public short InstallmentNumber { get; private set; }
     public decimal Amount { get; private set; }
     public string Status { get; private set; }
-    // P = Pendente, Q = Quitada
     public DateTime CreatedAt { get; private set; }
 
     protected CardInstallment() { }

@@ -93,8 +93,6 @@ public class UsersController : ControllerBase
         return result.ToActionResult(_localizer);
     }
 
-    // Exceção consciente ao contrato ResultEntity<T> (integration.md A.1): uma tag <img>
-    // não consegue consumir um envelope JSON, então este endpoint devolve os bytes crus.
     [HttpGet("[action]")]
     public async Task<IActionResult> Photo()
     {

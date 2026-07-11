@@ -42,7 +42,6 @@ public sealed class CardPurchaseRepository : ICardPurchaseRepository
             .Where(x => x.Purchase.CreditCardId == creditCardId)
             .SumAsync(x => (decimal?)x.Installment.Amount) ?? 0m;
 
-    // Rastreado: usado no estorno para cancelar parcelas e ajustar as faturas.
     public async Task<IEnumerable<CardInstallment>> GetInstallmentsByPurchaseAsync(int purchaseId, int userId)
         => await _context.CardInstallments
             .Where(x => x.CardPurchaseId == purchaseId && x.UserId == userId)

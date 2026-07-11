@@ -16,7 +16,6 @@ public sealed class Transaction
     public string Description { get; private set; }
     public string CodTypeTransaction { get; private set; }
     public string Status { get; private set; }
-    //(Open / Paid / Canceled)
 
     public int? CategoryId { get; private set; }
     public int? CategoryItemId { get; private set; }

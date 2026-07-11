@@ -9,7 +9,6 @@ public sealed class TransactionGroup
     public int UserId { get; private set; }
 
     public string Type { get; private set; }
-    // FIXED = F | INFINITE = I
 
     public DateTime StartDate { get; private set; }
     public DateTime? EndDate { get; private set; }

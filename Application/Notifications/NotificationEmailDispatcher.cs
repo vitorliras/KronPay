@@ -61,8 +61,6 @@ public sealed class NotificationEmailDispatcher : INotificationEmailDispatcher
 
     private static bool ShouldSendEmail(NotificationCriticality criticality, NotificationPreference? preference)
     {
-        // Sem preferência registrada (usuário criado antes desta feature): mesmos defaults
-        // usados em GetNotificationPreferencesUseCase (SPEC 0023) — não falha, aplica default.
         if (preference is null)
             return criticality != NotificationCriticality.Informative;
 

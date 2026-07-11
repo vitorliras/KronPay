@@ -24,10 +24,6 @@ public sealed class GoalRiskEvaluator : IGoalRiskEvaluator
         var reserve = baseline.Parameters.SafetyReserve;
         var months = baseline.Projection.Months;
 
-        // A baseline já assume a contribuição "recomendada" desta própria meta (via
-        // GoalContributionFlowSource, registrada globalmente no motor de Planejamento) —
-        // mesmo cálculo usado por GetFinancialGoalDetailUseCase.SafetyImpact(recommended),
-        // que aqui vira só a checagem "impacto na reserva de segurança é negativo?".
         for (var i = 0; i < months.Count; i++)
         {
             if (months[i].ProbableClosing - reserve < 0)

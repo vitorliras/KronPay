@@ -33,8 +33,6 @@ public sealed class UpdateCardPurchaseUseCase
         if (purchase is null || !purchase.Active)
             return ResultEntity<CardPurchaseResponse>.Failure(MessageKeys.ItemNotFound);
 
-        // Apenas metadados: descrição e categoria. Valor/parcelas não são editáveis
-        // (exigiria reconstruir parcelas e faturas → usar estorno + nova compra).
         purchase.UpdateDescription(request.Description);
         purchase.UpdateCategory(request.CategoryId, request.CategoryItemId);
 

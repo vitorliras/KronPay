@@ -48,7 +48,6 @@ public class ViabilityEvaluatorTests
     [Fact]
     public void Perder_muito_dinheiro_cai_para_atencao_forte()
     {
-        // 50k -> 20k em 12 meses, renda 5k, gasto 7,5k, sem negativar
         var projection = Trajectory(50000m, 20000m, 12, 5000m, 7500m);
 
         var result = Evaluator().Evaluate(projection, Params(50000m));

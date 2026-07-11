@@ -51,7 +51,6 @@ public sealed class ProjectionRunner : IProjectionRunner
 
     private async Task<decimal> ComputeInitialBalanceAsync(int userId, DateTime referenceDate)
     {
-        //MELHORAR AQUI: criar um repositorio só para essa lista
         var transactions = await _transactions.GetAllTransactionAsync(userId);
 
         return transactions

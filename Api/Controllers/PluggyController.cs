@@ -19,7 +19,6 @@ namespace Api.Controllers
             _currentUser = currentUser;
         }
 
-        //[AllowAnonymous]
         [HttpGet("connectors")]
         public async Task<IActionResult> GetConnectors()
         {
