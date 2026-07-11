@@ -238,6 +238,27 @@ namespace Infrastructure.Repositories.Transactions
                 .Select(t => (DateTime?)t.CreatedAt)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> ExistsByPaymentMethodIdAsync(int paymentMethodId)
+        {
+            return await _context.Transactions
+                .AsNoTracking()
+                .AnyAsync(t => t.IdPaymentMethod == paymentMethodId);
+        }
+
+        public async Task<bool> ExistsByCategoryIdAsync(int categoryId)
+        {
+            return await _context.Transactions
+                .AsNoTracking()
+                .AnyAsync(t => t.CategoryId == categoryId);
+        }
+
+        public async Task<bool> ExistsByCategoryItemIdAsync(int categoryItemId)
+        {
+            return await _context.Transactions
+                .AsNoTracking()
+                .AnyAsync(t => t.CategoryItemId == categoryItemId);
+        }
     }
 
 

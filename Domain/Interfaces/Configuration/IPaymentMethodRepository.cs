@@ -9,4 +9,6 @@ public interface IPaymentMethodRepository
     Task<PaymentMethod?> GetByIdAsync(int id, int userId);
     Task<PaymentMethod?> GetByDescriptionAsync(string description, int userId);
     Task<IEnumerable<PaymentMethod>> GetAllAsync(int userId);
+    Task<IReadOnlyList<PaymentMethod>> GetDeactivatedOlderThanAsync(DateTime cutoff);
+    Task DeleteRangeAsync(IEnumerable<PaymentMethod> paymentMethods);
 }

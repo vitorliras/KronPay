@@ -48,4 +48,17 @@ public sealed class PaymentMethodRepository : IPaymentMethodRepository
             .FirstOrDefaultAsync(x => x.Description == description && x.UserId == userId);
     }
 
+    public async Task<IReadOnlyList<PaymentMethod>> GetDeactivatedOlderThanAsync(DateTime cutoff)
+    {
+        return await _context.PaymentMethods
+            .Where(x => !x.Active && x.DeactivatedAt != null && x.DeactivatedAt < cutoff)
+            .ToListAsync();
+    }
+
+    public Task DeleteRangeAsync(IEnumerable<PaymentMethod> paymentMethods)
+    {
+        _context.PaymentMethods.RemoveRange(paymentMethods);
+        return Task.CompletedTask;
+    }
+
 }
