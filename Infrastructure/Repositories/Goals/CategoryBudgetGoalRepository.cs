@@ -43,4 +43,17 @@ public sealed class CategoryBudgetGoalRepository : ICategoryBudgetGoalRepository
         var result = _context.CategoryBudgetGoals.Update(goal);
         return result.State == EntityState.Modified;
     }
+
+    public async Task<IReadOnlyList<CategoryBudgetGoal>> GetDeactivatedOlderThanAsync(DateTime cutoff)
+    {
+        return await _context.CategoryBudgetGoals
+            .Where(x => !x.Active && x.DeactivatedAt != null && x.DeactivatedAt < cutoff)
+            .ToListAsync();
+    }
+
+    public Task DeleteRangeAsync(IEnumerable<CategoryBudgetGoal> goals)
+    {
+        _context.CategoryBudgetGoals.RemoveRange(goals);
+        return Task.CompletedTask;
+    }
 }
