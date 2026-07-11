@@ -12,4 +12,5 @@ public interface ICardInvoiceRepository
     Task<IEnumerable<CardInvoice>> GetByUserAsync(int userId);
     Task<IEnumerable<CardInstallment>> GetInstallmentsByInvoiceAsync(int invoiceId, int userId);
     Task<IEnumerable<CardInstallment>> GetPendingInstallmentsByInvoiceAsync(int invoiceId, int userId);
+    Task<bool> ExistsByCreditCardIdAsync(int creditCardId);
 }
