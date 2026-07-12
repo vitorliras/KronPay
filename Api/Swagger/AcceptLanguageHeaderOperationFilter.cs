@@ -1,11 +1,12 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text.Json.Nodes;
 
 public sealed class AcceptLanguageHeaderOperationFilter : IOperationFilter
 {
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        operation.Parameters ??= new List<OpenApiParameter>();
+        operation.Parameters ??= new List<IOpenApiParameter>();
 
         operation.Parameters.Add(new OpenApiParameter
         {
@@ -15,8 +16,8 @@ public sealed class AcceptLanguageHeaderOperationFilter : IOperationFilter
             Description = "Idioma da resposta (pt-BR | en-US)",
             Schema = new OpenApiSchema
             {
-                Type = "string",
-                Default = new Microsoft.OpenApi.Any.OpenApiString("pt-BR")
+                Type = JsonSchemaType.String,
+                Default = JsonValue.Create("pt-BR")
             }
         });
 
@@ -28,8 +29,8 @@ public sealed class AcceptLanguageHeaderOperationFilter : IOperationFilter
             Description = "Key de acesso",
             Schema = new OpenApiSchema
             {
-                Type = "string",
-                Default = new Microsoft.OpenApi.Any.OpenApiString("FSDF4523GKIOP13Y642F526109A")
+                Type = JsonSchemaType.String,
+                Default = JsonValue.Create("FSDF4523GKIOP13Y642F526109A")
             }
         });
     }
