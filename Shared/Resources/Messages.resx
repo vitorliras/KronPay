@@ -196,13 +196,19 @@
   <data name="Comparison" xml:space="preserve">
     <value>Comparação</value>
   </data>
+  <data name="CpfAlreadyExists" xml:space="preserve">
+    <value>Cpf já cadastrado</value>
+  </data>
   <data name="CreditCard" xml:space="preserve">
     <value>Cartões de crédito</value>
+  </data>
+  <data name="CreditCardNotFound" xml:space="preserve">
+    <value>Cartão de crédito não encontrado</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Gráficos</value>
   </data>
-  <data name="DataPersistenceFailed." xml:space="preserve">
+  <data name="DataPersistenceFailed" xml:space="preserve">
     <value>Falha ao persistir os dados</value>
   </data>
   <data name="Date" xml:space="preserve">
@@ -226,7 +232,7 @@
   <data name="DeleteCategory" xml:space="preserve">
     <value>Deletar categoria</value>
   </data>
-  <data name="DeleteFailed." xml:space="preserve">
+  <data name="DeleteFailed" xml:space="preserve">
     <value>falha ao fazer a remoção</value>
   </data>
   <data name="Description" xml:space="preserve">
@@ -577,6 +583,12 @@
   <data name="Installments" xml:space="preserve">
     <value>Parcelas</value>
   </data>
+  <data name="InvaldUser" xml:space="preserve">
+    <value>Usuário inválido</value>
+  </data>
+  <data name="InvalidAmount" xml:space="preserve">
+    <value>Valor inválido</value>
+  </data>
   <data name="InvalidCpf" xml:space="preserve">
     <value>Cpf inválido</value>
   </data>
@@ -589,11 +601,20 @@
   <data name="InvalidEmail" xml:space="preserve">
     <value>Email inválido</value>
   </data>
+  <data name="InvalidGroupType" xml:space="preserve">
+    <value>Tipo de grupo inválido</value>
+  </data>
+  <data name="InvalidInstallments" xml:space="preserve">
+    <value>Número de parcelas inválido</value>
+  </data>
   <data name="InvalidPassword" xml:space="preserve">
     <value>Senha inválida.</value>
   </data>
   <data name="InvalidPhone" xml:space="preserve">
     <value>Telefone inválido.</value>
+  </data>
+  <data name="InvalidTypeTransaction" xml:space="preserve">
+    <value>Tipo de transação inválido</value>
   </data>
   <data name="InvalidUser" xml:space="preserve">
     <value>Usuário Inválido</value>
@@ -820,7 +841,7 @@
   <data name="UnsupportedFileFormat" xml:space="preserve">
     <value>Formato de arquivo não suportado</value>
   </data>
-  <data name="UpdateFailed." xml:space="preserve">
+  <data name="UpdateFailed" xml:space="preserve">
     <value>falha ao fazer a atualização</value>
   </data>
   <data name="UppercaseLetterPassword" xml:space="preserve">

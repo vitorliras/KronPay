@@ -35,15 +35,9 @@ public sealed class DeleteTransactionRangeUseCase
 
         foreach (var item in request.Transactions)
         {
-
-            var transactions = await _transactionRepository.GetAllTransactionAsync(item.Id);
-
-            if (transactions is not null && transactions.Count() > 0)
-                return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.ExistsAnotherRegister);
-
             var transaction = await _transactionRepository.GetByIdAsync(item.Id, userId);
             if (transaction is null)
-                return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.CategoryNotFound);
+                return ResultEntity<TransactionRangeResponse>.Failure(MessageKeys.TransactionNotFound);
 
             var result = await _transactionRepository.DeleteAsync(transaction);
 
