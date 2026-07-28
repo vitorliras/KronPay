@@ -196,13 +196,19 @@
   <data name="Comparison" xml:space="preserve">
     <value>Comparison</value>
   </data>
+  <data name="CpfAlreadyExists" xml:space="preserve">
+    <value>Cpf already exists</value>
+  </data>
   <data name="CreditCard" xml:space="preserve">
     <value>Credit Cards</value>
+  </data>
+  <data name="CreditCardNotFound" xml:space="preserve">
+    <value>Credit card not found</value>
   </data>
   <data name="Dashboard" xml:space="preserve">
     <value>Dashboard</value>
   </data>
-  <data name="DataPersistenceFailed." xml:space="preserve">
+  <data name="DataPersistenceFailed" xml:space="preserve">
     <value>Data Persistence Failed.</value>
   </data>
   <data name="Date" xml:space="preserve">
@@ -229,7 +235,7 @@ Delete all future installments of this installment.</value>
   <data name="DeleteCategory" xml:space="preserve">
     <value>Delete category</value>
   </data>
-  <data name="DeleteFailed." xml:space="preserve">
+  <data name="DeleteFailed" xml:space="preserve">
     <value>Delete Failed.</value>
   </data>
   <data name="Description" xml:space="preserve">
@@ -580,6 +586,12 @@ Delete all future installments of this installment.</value>
   <data name="Installments" xml:space="preserve">
     <value>Installments</value>
   </data>
+  <data name="InvaldUser" xml:space="preserve">
+    <value>Invalid user</value>
+  </data>
+  <data name="InvalidAmount" xml:space="preserve">
+    <value>Invalid amount</value>
+  </data>
   <data name="InvalidCpf" xml:space="preserve">
     <value>Invalid cpf</value>
   </data>
@@ -592,11 +604,20 @@ Delete all future installments of this installment.</value>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Invalid Email</value>
   </data>
+  <data name="InvalidGroupType" xml:space="preserve">
+    <value>Invalid group type</value>
+  </data>
+  <data name="InvalidInstallments" xml:space="preserve">
+    <value>Invalid number of installments</value>
+  </data>
   <data name="InvalidPassword" xml:space="preserve">
     <value>Invalid Password</value>
   </data>
   <data name="InvalidPhone" xml:space="preserve">
     <value>Invalid Phone</value>
+  </data>
+  <data name="InvalidTypeTransaction" xml:space="preserve">
+    <value>Invalid transaction type</value>
   </data>
   <data name="InvalidUser" xml:space="preserve">
     <value>Invalid User</value>
@@ -820,7 +841,7 @@ Delete all future installments of this installment.</value>
   <data name="UnsupportedFileFormat" xml:space="preserve">
     <value>Unsupported File Format</value>
   </data>
-  <data name="UpdateFailed." xml:space="preserve">
+  <data name="UpdateFailed" xml:space="preserve">
     <value>Update Failed.</value>
   </data>
   <data name="UppercaseLetterPassword" xml:space="preserve">
