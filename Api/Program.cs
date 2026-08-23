@@ -61,14 +61,17 @@ builder.Services.AddSwaggerGen(c =>
     c.OperationFilter<AcceptLanguageHeaderOperationFilter>();
 });
 
+var corsAllowedOrigins = builder.Configuration
+    .GetSection("Cors:AllowedOrigins")
+    .Get<string[]>() ?? ["http://localhost:4200", "http://localhost:8080"];
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
         policy =>
         {
             policy
-                .WithOrigins("http://localhost:4200")
-                .WithOrigins("http://localhost:8080")
+                .WithOrigins(corsAllowedOrigins)
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();

@@ -69,8 +69,6 @@ ScaffoldingReadMe.txt
 # StyleCop
 StyleCopReport.xml
 
-appsettings*.json
-
 # Files built by Visual Studio
 *_i.c
 *_p.c
@@ -363,7 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/Api/appsettings.json
 /Api/wwwroot
 /Api/MeuSistemaapi
 *.md
