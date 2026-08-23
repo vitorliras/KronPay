@@ -18,7 +18,7 @@ public sealed class GamificationEvaluationRunMap : IEntityTypeConfiguration<Gami
 
         builder.Property(x => x.RanAt)
             .HasColumnName("ran_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.UsersProcessed)

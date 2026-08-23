@@ -28,16 +28,16 @@ public sealed class RefreshTokenMap : IEntityTypeConfiguration<RefreshToken>
 
         builder.Property(x => x.ExpiresAt)
             .HasColumnName("expires_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.RevokedAt)
             .HasColumnName("revoked_at")
-            .HasColumnType("datetime2(0)");
+            .HasPrecision(0);
 
         builder.Property(x => x.CreatedAt)
             .HasColumnName("created_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.HasOne<User>()

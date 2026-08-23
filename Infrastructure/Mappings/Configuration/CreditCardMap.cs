@@ -36,7 +36,7 @@ public sealed class CreditCardMap : IEntityTypeConfiguration<CreditCard>
 
         builder.Property(x => x.CreditLimit)
             .HasColumnName("credit_limit")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.Description)
@@ -50,7 +50,6 @@ public sealed class CreditCardMap : IEntityTypeConfiguration<CreditCard>
 
         builder.Property(x => x.Active)
             .HasColumnName("active")
-            .HasColumnType("bit")
             .HasDefaultValue(true)
             .IsRequired();
 

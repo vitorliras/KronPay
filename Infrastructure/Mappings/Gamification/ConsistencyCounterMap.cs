@@ -36,7 +36,7 @@ public sealed class ConsistencyCounterMap : IEntityTypeConfiguration<Consistency
 
         builder.Property(x => x.LastUpdatedAt)
             .HasColumnName("last_updated_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.HasOne<User>()

@@ -32,12 +32,12 @@ public sealed class VerificationCodeMap : IEntityTypeConfiguration<VerificationC
 
         builder.Property(x => x.ExpiresAt)
             .HasColumnName("expires_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)
             .HasColumnName("created_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.Used)

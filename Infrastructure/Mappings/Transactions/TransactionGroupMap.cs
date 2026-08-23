@@ -22,7 +22,7 @@ public sealed class TransactionGroupMap : IEntityTypeConfiguration<TransactionGr
 
         builder.Property(x => x.Type)
             .HasColumnName("type")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.StartDate)

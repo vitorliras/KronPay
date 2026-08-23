@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Context;
 
-public sealed class AppDbContextFactory
-    : IDesignTimeDbContextFactory<AppDbContext>
+public sealed class PostgresAppDbContextFactory
+    : IDesignTimeDbContextFactory<PostgresAppDbContext>
 {
-    public AppDbContext CreateDbContext(string[] args)
+    public PostgresAppDbContext CreateDbContext(string[] args)
     {
         var basePath = Path.Combine(
             Directory.GetCurrentDirectory(),
@@ -22,12 +22,12 @@ public sealed class AppDbContextFactory
             .AddUserSecrets("kronpay-api-secrets")
             .Build();
 
-        var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<PostgresAppDbContext>();
 
-        optionsBuilder.UseSqlServer(
-            configuration.GetConnectionString("DefaultConnection")
+        optionsBuilder.UseNpgsql(
+            configuration.GetConnectionString("PostgresConnection")
         );
 
-        return new AppDbContext(optionsBuilder.Options);
+        return new PostgresAppDbContext(optionsBuilder.Options);
     }
 }

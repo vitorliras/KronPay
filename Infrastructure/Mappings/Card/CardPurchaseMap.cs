@@ -33,12 +33,12 @@ public sealed class CardPurchaseMap : IEntityTypeConfiguration<CardPurchase>
 
         builder.Property(x => x.TotalAmount)
             .HasColumnName("total_amount")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.PurchaseDate)
             .HasColumnName("purchase_date")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.InstallmentsCount)
@@ -53,7 +53,7 @@ public sealed class CardPurchaseMap : IEntityTypeConfiguration<CardPurchase>
 
         builder.Property(x => x.Origin)
             .HasColumnName("origin")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)
@@ -62,7 +62,6 @@ public sealed class CardPurchaseMap : IEntityTypeConfiguration<CardPurchase>
 
         builder.Property(x => x.Active)
             .HasColumnName("active")
-            .HasColumnType("bit")
             .HasDefaultValue(true)
             .IsRequired();
 

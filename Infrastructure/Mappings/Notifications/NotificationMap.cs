@@ -35,8 +35,7 @@ public sealed class NotificationMap : IEntityTypeConfiguration<Notification>
             .IsRequired();
 
         builder.Property(x => x.PayloadJson)
-            .HasColumnName("payload_json")
-            .HasColumnType("nvarchar(max)");
+            .HasColumnName("payload_json");
 
         builder.Property(x => x.RelatedEntityType)
             .HasColumnName("related_entity_type")
@@ -47,7 +46,6 @@ public sealed class NotificationMap : IEntityTypeConfiguration<Notification>
 
         builder.Property(x => x.IsRead)
             .HasColumnName("is_read")
-            .HasColumnType("bit")
             .HasDefaultValue(false)
             .IsRequired();
 
@@ -56,7 +54,6 @@ public sealed class NotificationMap : IEntityTypeConfiguration<Notification>
 
         builder.Property(x => x.IsResolved)
             .HasColumnName("is_resolved")
-            .HasColumnType("bit")
             .HasDefaultValue(false)
             .IsRequired();
 
@@ -65,7 +62,6 @@ public sealed class NotificationMap : IEntityTypeConfiguration<Notification>
 
         builder.Property(x => x.IsArchived)
             .HasColumnName("is_archived")
-            .HasColumnType("bit")
             .HasDefaultValue(false)
             .IsRequired();
 
@@ -74,7 +70,7 @@ public sealed class NotificationMap : IEntityTypeConfiguration<Notification>
 
         builder.Property(x => x.CreatedAt)
             .HasColumnName("created_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.HasOne<User>()

@@ -27,17 +27,17 @@ public sealed class FinancialGoalMap : IEntityTypeConfiguration<FinancialGoal>
 
         builder.Property(x => x.TargetAmount)
             .HasColumnName("target_amount")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.CurrentAmount)
             .HasColumnName("current_amount")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.TargetDate)
             .HasColumnName("target_date")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.Priority)
@@ -50,19 +50,19 @@ public sealed class FinancialGoalMap : IEntityTypeConfiguration<FinancialGoal>
 
         builder.Property(x => x.CreatedAt)
             .HasColumnName("created_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.CompletedAt)
             .HasColumnName("completed_at")
-            .HasColumnType("datetime2(0)");
+            .HasPrecision(0);
 
         builder.Property(x => x.PreviousAttemptGoalId)
             .HasColumnName("previous_attempt_goal_id");
 
         builder.Property(x => x.LastContributionAt)
             .HasColumnName("last_contribution_at")
-            .HasColumnType("datetime2(0)");
+            .HasPrecision(0);
 
         builder.HasIndex(x => new { x.UserId, x.Status });
     }

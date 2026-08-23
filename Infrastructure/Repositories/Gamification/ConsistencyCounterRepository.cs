@@ -16,6 +16,12 @@ public sealed class ConsistencyCounterRepository : IConsistencyCounterRepository
 
     public async Task<ConsistencyCounter?> GetAsync(int userId, string counterKey)
     {
+        var tracked = _context.ConsistencyCounters.Local
+            .FirstOrDefault(x => x.UserId == userId && x.CounterKey == counterKey);
+
+        if (tracked is not null)
+            return tracked;
+
         return await _context.ConsistencyCounters
             .FirstOrDefaultAsync(x => x.UserId == userId && x.CounterKey == counterKey);
     }

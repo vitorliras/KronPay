@@ -67,7 +67,7 @@ public sealed class UserMapping : IEntityTypeConfiguration<User>
 
         builder.Property(x => x.UserType)
             .HasColumnName("cod_user_type")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)

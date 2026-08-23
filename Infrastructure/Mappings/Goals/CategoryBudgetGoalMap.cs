@@ -27,7 +27,7 @@ public sealed class CategoryBudgetGoalMap : IEntityTypeConfiguration<CategoryBud
 
         builder.Property(x => x.MonthlyLimit)
             .HasColumnName("monthly_limit")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.Priority)
@@ -40,12 +40,12 @@ public sealed class CategoryBudgetGoalMap : IEntityTypeConfiguration<CategoryBud
 
         builder.Property(x => x.CreatedAt)
             .HasColumnName("created_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.DeactivatedAt)
             .HasColumnName("deactivated_at")
-            .HasColumnType("datetime2(0)");
+            .HasPrecision(0);
 
         builder.HasIndex(x => new { x.UserId, x.CategoryId });
 

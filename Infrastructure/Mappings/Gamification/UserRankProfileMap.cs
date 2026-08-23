@@ -31,7 +31,7 @@ public sealed class UserRankProfileMap : IEntityTypeConfiguration<UserRankProfil
 
         builder.Property(x => x.UpdatedAt)
             .HasColumnName("updated_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.HasOne<User>()
