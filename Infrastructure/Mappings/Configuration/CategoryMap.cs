@@ -24,7 +24,7 @@ public sealed class CategoryMap : IEntityTypeConfiguration<Category>
 
         builder.Property(x => x.CodTypeTransaction)
             .HasColumnName("cod_type_transaction")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.Description)
@@ -38,13 +38,11 @@ public sealed class CategoryMap : IEntityTypeConfiguration<Category>
 
         builder.Property(x => x.Active)
             .HasColumnName("active")
-            .HasColumnType("bit")
             .HasDefaultValue(true)
             .IsRequired();
 
         builder.Property(x => x.IsCardInvoiceCategory)
             .HasColumnName("is_card_invoice_category")
-            .HasColumnType("bit")
             .HasDefaultValue(false)
             .IsRequired();
 

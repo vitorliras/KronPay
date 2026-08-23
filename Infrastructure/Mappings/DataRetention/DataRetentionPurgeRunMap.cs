@@ -18,7 +18,7 @@ public sealed class DataRetentionPurgeRunMap : IEntityTypeConfiguration<DataRete
 
         builder.Property(x => x.LastRunAt)
             .HasColumnName("last_run_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
     }
 }

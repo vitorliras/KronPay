@@ -27,7 +27,7 @@ public sealed class UserBadgeMap : IEntityTypeConfiguration<UserBadge>
 
         builder.Property(x => x.UnlockedAt)
             .HasColumnName("unlocked_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.HasOne<User>()

@@ -30,12 +30,11 @@ public sealed class MissionStateSnapshotMap : IEntityTypeConfiguration<MissionSt
 
         builder.Property(x => x.IsConditionActive)
             .HasColumnName("is_condition_active")
-            .HasColumnType("bit")
             .IsRequired();
 
         builder.Property(x => x.LastEvaluatedAt)
             .HasColumnName("last_evaluated_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.HasOne<User>()

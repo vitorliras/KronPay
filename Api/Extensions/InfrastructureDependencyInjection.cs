@@ -48,6 +48,8 @@ using Infra.Security;
 using Infrastructure.AI;
 using Infrastructure.AI.Transactions;
 using Infrastructure.AI.Transactions.Tools;
+using Infrastructure.Configuration;
+using Infrastructure.Context;
 using Infrastructure.Imports.Pluggy;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
@@ -64,10 +66,27 @@ public static class InfrastructureDependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(
-                configuration.GetConnectionString("DefaultConnection")
-            ));
+        var databaseProvider = configuration.GetValue(
+            "Database:Provider",
+            DatabaseProvider.SqlServer
+        );
+
+        if (databaseProvider == DatabaseProvider.Postgres)
+        {
+            services.AddDbContext<PostgresAppDbContext>(options =>
+                options.UseNpgsql(
+                    configuration.GetConnectionString("PostgresConnection")
+                ));
+            services.AddScoped<AppDbContext>(
+                sp => sp.GetRequiredService<PostgresAppDbContext>());
+        }
+        else
+        {
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(
+                    configuration.GetConnectionString("DefaultConnection")
+                ));
+        }
 
         #region Repositories
 

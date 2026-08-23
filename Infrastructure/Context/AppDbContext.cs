@@ -18,7 +18,7 @@ using KronPay.Infra.Data.Mappings.Configuration;
 using KronPay.Infra.Data.Seeds;
 using Microsoft.EntityFrameworkCore;
 
-public sealed class AppDbContext : DbContext
+public class AppDbContext : DbContext
 {
 
     public DbSet<User> Users => Set<User>();
@@ -52,7 +52,7 @@ public sealed class AppDbContext : DbContext
     public DbSet<GamificationEvaluationRun> GamificationEvaluationRuns => Set<GamificationEvaluationRun>();
     public DbSet<DataRetentionPurgeRun> DataRetentionPurgeRuns => Set<DataRetentionPurgeRun>();
 
-    public AppDbContext(DbContextOptions<AppDbContext> options)
+    public AppDbContext(DbContextOptions options)
         : base(options)
     {
     }

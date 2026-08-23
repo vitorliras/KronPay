@@ -29,27 +29,27 @@ public sealed class PlannedCommitmentMap : IEntityTypeConfiguration<PlannedCommi
 
         builder.Property(x => x.Amount)
             .HasColumnName("amount")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.Direction)
             .HasColumnName("direction")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.Periodicity)
             .HasColumnName("periodicity")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.StartDate)
             .HasColumnName("start_date")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.EndDate)
             .HasColumnName("end_date")
-            .HasColumnType("datetime2(0)");
+            .HasPrecision(0);
 
         builder.Property(x => x.CategoryId)
             .HasColumnName("category_id");
@@ -60,7 +60,6 @@ public sealed class PlannedCommitmentMap : IEntityTypeConfiguration<PlannedCommi
 
         builder.Property(x => x.Active)
             .HasColumnName("active")
-            .HasColumnType("bit")
             .HasDefaultValue(true)
             .IsRequired();
 

@@ -36,22 +36,22 @@ public sealed class CardInvoiceMap : IEntityTypeConfiguration<CardInvoice>
 
         builder.Property(x => x.ClosingDate)
             .HasColumnName("closing_date")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.DueDate)
             .HasColumnName("due_date")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.TotalAmount)
             .HasColumnName("total_amount")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.Status)
             .HasColumnName("status")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.PaidAt)

@@ -35,12 +35,12 @@ public sealed class CardInstallmentMap : IEntityTypeConfiguration<CardInstallmen
 
         builder.Property(x => x.Amount)
             .HasColumnName("amount")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.Status)
             .HasColumnName("status")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.CreatedAt)

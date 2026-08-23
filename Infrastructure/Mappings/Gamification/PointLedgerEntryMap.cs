@@ -39,7 +39,7 @@ public sealed class PointLedgerEntryMap : IEntityTypeConfiguration<PointLedgerEn
 
         builder.Property(x => x.OccurredAt)
             .HasColumnName("occurred_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.HasOne<User>()

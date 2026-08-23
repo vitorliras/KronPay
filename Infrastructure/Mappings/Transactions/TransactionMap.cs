@@ -30,12 +30,12 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
 
         builder.Property(x => x.Amount)
             .HasColumnName("amount")
-            .HasColumnType("decimal(18,2)")
+            .HasPrecision(18, 2)
             .IsRequired();
 
         builder.Property(x => x.TransactionDate)
             .HasColumnName("transaction_date")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
 
         builder.Property(x => x.Description)
@@ -45,12 +45,11 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
 
         builder.Property(x => x.CodTypeTransaction)
             .HasColumnName("cod_type_transaction")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.IdPaymentMethod)
             .HasColumnName("id_payment_method")
-            .HasColumnType("int")
             .IsRequired();
 
         builder.HasOne<TypeTransaction>()
@@ -61,7 +60,7 @@ public sealed class TransactionMap : IEntityTypeConfiguration<Transaction>
 
         builder.Property(x => x.Status)
             .HasColumnName("status")
-            .HasColumnType("char(1)")
+            .HasMaxLength(1)
             .IsRequired();
 
         builder.Property(x => x.CategoryId)

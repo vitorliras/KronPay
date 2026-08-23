@@ -14,7 +14,7 @@ namespace Infrastructure.Mappings.Transactions
 
             builder.Property(x => x.Code)
                 .HasColumnName("code")
-                .HasColumnType("char(1)")
+                .HasMaxLength(1)
                 .IsRequired();
 
             builder.Property(x => x.Description)

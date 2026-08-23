@@ -23,19 +23,16 @@ public sealed class NotificationPreferenceMap : IEntityTypeConfiguration<Notific
 
         builder.Property(x => x.EmailOnCritical)
             .HasColumnName("email_on_critical")
-            .HasColumnType("bit")
             .HasDefaultValue(true)
             .IsRequired();
 
         builder.Property(x => x.EmailOnImportant)
             .HasColumnName("email_on_important")
-            .HasColumnType("bit")
             .HasDefaultValue(true)
             .IsRequired();
 
         builder.Property(x => x.EmailOnInformative)
             .HasColumnName("email_on_informative")
-            .HasColumnType("bit")
             .HasDefaultValue(false)
             .IsRequired();
 

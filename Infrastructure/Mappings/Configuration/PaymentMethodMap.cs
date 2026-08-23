@@ -32,7 +32,6 @@ public sealed class PaymentMethodMap : IEntityTypeConfiguration<PaymentMethod>
 
         builder.Property(x => x.Active)
             .HasColumnName("active")
-            .HasColumnType("bit")
             .HasDefaultValue(true)
             .IsRequired();
 

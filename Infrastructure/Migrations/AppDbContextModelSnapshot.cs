@@ -16,7 +16,7 @@ namespace Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "10.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -31,14 +31,17 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("created_at");
 
                     b.Property<DateTime>("ExpiresAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("expires_at");
 
                     b.Property<DateTime?>("RevokedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("revoked_at");
 
@@ -82,10 +85,12 @@ namespace Infrastructure.Migrations
                         .HasColumnName("code_hash");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("created_at");
 
                     b.Property<DateTime>("ExpiresAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("expires_at");
 
@@ -118,6 +123,7 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("amount");
 
@@ -139,7 +145,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("status");
 
                     b.Property<int>("UserId")
@@ -167,6 +174,7 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("ClosingDate")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("closing_date");
 
@@ -179,6 +187,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("credit_card_id");
 
                     b.Property<DateTime>("DueDate")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("due_date");
 
@@ -196,10 +205,12 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("status");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("total_amount");
 
@@ -270,14 +281,17 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Origin")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("origin");
 
                     b.Property<DateTime>("PurchaseDate")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("purchase_date");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("total_amount");
 
@@ -326,6 +340,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("created_at");
 
                     b.Property<decimal>("CreditLimit")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("credit_limit");
 
@@ -374,7 +389,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("CodTypeTransaction")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("cod_type_transaction");
 
                     b.Property<DateTime>("CreatedAt")
@@ -500,6 +516,7 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("LastRunAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("last_run_at");
 
@@ -532,6 +549,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("current_streak");
 
                     b.Property<DateTime>("LastUpdatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("last_updated_at");
 
@@ -565,6 +583,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("events_triggered");
 
                     b.Property<DateTime>("RanAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("ran_at");
 
@@ -591,6 +610,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("is_condition_active");
 
                     b.Property<DateTime>("LastEvaluatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("last_evaluated_at");
 
@@ -625,6 +645,7 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("OccurredAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("occurred_at");
 
@@ -669,6 +690,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("code");
 
                     b.Property<DateTime>("UnlockedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("unlocked_at");
 
@@ -702,6 +724,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("tier");
 
                     b.Property<DateTime>("UpdatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("updated_at");
 
@@ -735,14 +758,17 @@ namespace Infrastructure.Migrations
                         .HasColumnName("category_id");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("created_at");
 
                     b.Property<DateTime?>("DeactivatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("deactivated_at");
 
                     b.Property<decimal>("MonthlyLimit")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("monthly_limit");
 
@@ -773,14 +799,17 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CompletedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("completed_at");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("created_at");
 
                     b.Property<decimal>("CurrentAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("current_amount");
 
@@ -791,6 +820,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("description");
 
                     b.Property<DateTime?>("LastContributionAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("last_contribution_at");
 
@@ -807,10 +837,12 @@ namespace Infrastructure.Migrations
                         .HasColumnName("status");
 
                     b.Property<decimal>("TargetAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("target_amount");
 
                     b.Property<DateTime>("TargetDate")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("target_date");
 
@@ -839,6 +871,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("archived_at");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("created_at");
 
@@ -920,6 +953,7 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("LastRunAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("last_run_at");
 
@@ -983,6 +1017,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("active");
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("amount");
 
@@ -1006,19 +1041,23 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Direction")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("direction");
 
                     b.Property<DateTime?>("EndDate")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("end_date");
 
                     b.Property<string>("Periodicity")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("periodicity");
 
                     b.Property<DateTime>("StartDate")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("start_date");
 
@@ -1038,7 +1077,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.Transactions.StatusTransaction", b =>
                 {
                     b.Property<string>("Code")
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("code");
 
                     b.Property<string>("Description")
@@ -1084,6 +1124,7 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)")
                         .HasColumnName("amount");
 
@@ -1097,7 +1138,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("CodTypeTransaction")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("cod_type_transaction");
 
                     b.Property<DateTime>("CreatedAt")
@@ -1119,10 +1161,12 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("status");
 
                     b.Property<DateTime>("TransactionDate")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("transaction_date");
 
@@ -1186,7 +1230,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("type");
 
                     b.Property<int>("UserId")
@@ -1764,7 +1809,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("KronPay.Domain.Entities.Configuration.TypeTransaction", b =>
                 {
                     b.Property<string>("Code")
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("code");
 
                     b.Property<string>("Description")
@@ -1803,7 +1849,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("KronPay.Domain.Entities.Users.TypeUser", b =>
                 {
                     b.Property<string>("Code")
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("code");
 
                     b.Property<string>("Description")
@@ -1872,7 +1919,8 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("UserType")
                         .IsRequired()
-                        .HasColumnType("char(1)")
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)")
                         .HasColumnName("cod_user_type");
 
                     b.HasKey("Id");
@@ -1903,6 +1951,7 @@ namespace Infrastructure.Migrations
                         .HasColumnName("photo");
 
                     b.Property<DateTime>("UpdatedAt")
+                        .HasPrecision(0)
                         .HasColumnType("datetime2(0)")
                         .HasColumnName("updated_at");
 

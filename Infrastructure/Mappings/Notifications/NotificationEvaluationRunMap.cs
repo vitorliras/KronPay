@@ -18,7 +18,7 @@ public sealed class NotificationEvaluationRunMap : IEntityTypeConfiguration<Noti
 
         builder.Property(x => x.LastRunAt)
             .HasColumnName("last_run_at")
-            .HasColumnType("datetime2(0)")
+            .HasPrecision(0)
             .IsRequired();
     }
 }
