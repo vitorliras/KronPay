@@ -15,10 +15,21 @@ COPY Domain/ Domain/
 COPY Infrastructure/ Infrastructure/
 COPY Shared/ Shared/
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -L -o Infrastructure/Assets/Models/paraphrase-multilingual-MiniLM-L12-v2.onnx \
+      "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2/resolve/main/onnx/model.onnx"
+
 RUN dotnet publish Api/Api.csproj -c Release -o /app/publish --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libfontconfig1 \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY --from=build /app/publish .
 
 ENV ASPNETCORE_ENVIRONMENT=Production
