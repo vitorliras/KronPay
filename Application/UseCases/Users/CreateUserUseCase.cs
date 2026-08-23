@@ -4,6 +4,7 @@ using Application.DTOs.Auth;
 using Application.DTOs.Users;
 using Application.UseCases.Auth;
 using KronPay.Domain.Entities.Users;
+using Domain.Entities.Configuration;
 using Domain.Entities.Notifications;
 using Domain.interfaces;
 using Domain.Interfaces;
@@ -24,6 +25,9 @@ public sealed class CreateUserUseCase
     private readonly IUnitOfWork _uow;
     private readonly SendEmailConfirmationCodeUseCase _sendConfirmationCodeUseCase;
     private readonly INotificationPreferenceRepository _notificationPreferenceRepository;
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly ICategoryItemRepository _categoryItemRepository;
+    private readonly IPaymentMethodRepository _paymentMethodRepository;
     private readonly ILogger<CreateUserUseCase> _logger;
 
     public CreateUserUseCase(
@@ -32,6 +36,9 @@ public sealed class CreateUserUseCase
         IUnitOfWork uow,
         SendEmailConfirmationCodeUseCase sendConfirmationCodeUseCase,
         INotificationPreferenceRepository notificationPreferenceRepository,
+        ICategoryRepository categoryRepository,
+        ICategoryItemRepository categoryItemRepository,
+        IPaymentMethodRepository paymentMethodRepository,
         ILogger<CreateUserUseCase> logger)
     {
         _userRepository = userRepository;
@@ -39,6 +46,9 @@ public sealed class CreateUserUseCase
         _uow = uow;
         _sendConfirmationCodeUseCase = sendConfirmationCodeUseCase;
         _notificationPreferenceRepository = notificationPreferenceRepository;
+        _categoryRepository = categoryRepository;
+        _categoryItemRepository = categoryItemRepository;
+        _paymentMethodRepository = paymentMethodRepository;
         _logger = logger;
     }
 
@@ -94,6 +104,7 @@ public sealed class CreateUserUseCase
 
             await SendConfirmationCodeBestEffort(user.Id, user.Email.Value);
             await CreateNotificationPreferenceBestEffort(user.Id, request);
+            await CreateDefaultCategoriesAndPaymentMethodsBestEffort(user.Id);
 
             return ResultEntity<UserResponse>.Success(
                 new UserResponse(
@@ -156,6 +167,50 @@ public sealed class CreateUserUseCase
         catch (Exception e)
         {
             _logger.LogError(e, "Falha inesperada ao criar a preferência de notificação para o usuário {UserId}.", userId);
+        }
+    }
+
+    private async Task CreateDefaultCategoriesAndPaymentMethodsBestEffort(int userId)
+    {
+        try
+        {
+            foreach (var description in DefaultUserSetupData.IncomeCategories)
+                await _categoryRepository.AddAsync(new Category(userId, description, "I"));
+
+            foreach (var description in DefaultUserSetupData.InvestmentCategories)
+                await _categoryRepository.AddAsync(new Category(userId, description, "V"));
+
+            var expenseCategories = DefaultUserSetupData.ExpenseCategories
+                .Select(entry => (Category: new Category(userId, entry.Key, "E"), Subcategories: entry.Value))
+                .ToList();
+
+            foreach (var (category, _) in expenseCategories)
+                await _categoryRepository.AddAsync(category);
+
+            foreach (var description in DefaultUserSetupData.PaymentMethods)
+                await _paymentMethodRepository.AddAsync(new PaymentMethod(userId, description));
+
+            if (!await _uow.CommitAsync())
+            {
+                _logger.LogError(
+                    "Falha ao persistir as categorias e formas de pagamento padrão do usuário {UserId}.",
+                    userId);
+                return;
+            }
+
+            foreach (var (category, subcategories) in expenseCategories)
+                foreach (var subDescription in subcategories)
+                    await _categoryItemRepository.AddAsync(new CategoryItem(category.Id, subDescription));
+
+            if (!await _uow.CommitAsync())
+                _logger.LogError(
+                    "Falha ao persistir as subcategorias padrão do usuário {UserId}.",
+                    userId);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(
+                e, "Falha inesperada ao criar categorias e formas de pagamento padrão para o usuário {UserId}.", userId);
         }
     }
 }
