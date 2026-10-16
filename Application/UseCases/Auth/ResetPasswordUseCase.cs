@@ -18,6 +18,7 @@ public sealed class ResetPasswordUseCase
     private readonly IVerificationCodeRepository _codeRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ValidatePasswordResetCodeUseCase _validateCodeUseCase;
+    private readonly IRefreshTokenRepository _refreshTokenRepository;
     private readonly IUnitOfWork _uow;
 
     public ResetPasswordUseCase(
@@ -25,12 +26,14 @@ public sealed class ResetPasswordUseCase
         IVerificationCodeRepository codeRepository,
         IPasswordHasher passwordHasher,
         ValidatePasswordResetCodeUseCase validateCodeUseCase,
+        IRefreshTokenRepository refreshTokenRepository,
         IUnitOfWork uow)
     {
         _userRepository = userRepository;
         _codeRepository = codeRepository;
         _passwordHasher = passwordHasher;
         _validateCodeUseCase = validateCodeUseCase;
+        _refreshTokenRepository = refreshTokenRepository;
         _uow = uow;
     }
 
@@ -61,6 +64,8 @@ public sealed class ResetPasswordUseCase
             code.MarkAsUsed();
             _codeRepository.Update(code);
 
+            await RevokeActiveSessionsAsync(user.Id);
+
             if (!await _uow.CommitAsync())
                 return ResultEntity<ResetPasswordResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
@@ -70,6 +75,17 @@ public sealed class ResetPasswordUseCase
         catch (Domain.Exceptions.DomainException e)
         {
             return ResultEntity<ResetPasswordResponse>.Failure(e.Message);
+        }
+    }
+
+    private async Task RevokeActiveSessionsAsync(int userId)
+    {
+        var activeTokens = await _refreshTokenRepository.GetActiveByUserIdAsync(userId, DateTime.UtcNow);
+
+        foreach (var token in activeTokens)
+        {
+            token.Revoke();
+            _refreshTokenRepository.Update(token);
         }
     }
 }

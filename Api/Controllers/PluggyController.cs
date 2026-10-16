@@ -5,9 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("pluggy")]
-    public class PluggyController : ControllerBase
+    public sealed class PluggyController : ControllerBase
     {
         private readonly IPluggyService _pluggyService;
         private readonly ICurrentUserService _currentUser;

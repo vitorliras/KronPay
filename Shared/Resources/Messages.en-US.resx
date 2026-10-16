@@ -2209,4 +2209,10 @@ Delete all future installments of this installment.</value>
   <data name="ResendIn" xml:space="preserve">
     <value>Resend in</value>
   </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>An unexpected error occurred. Please try again shortly.</value>
+  </data>
+  <data name="TooManyRequests" xml:space="preserve">
+    <value>Too many attempts in a short time. Wait a minute and try again.</value>
+  </data>
 </root>

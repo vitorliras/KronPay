@@ -455,4 +455,7 @@ public static class MessageKeys
 
     public const string AchievementUnlockedTitle = nameof(AchievementUnlockedTitle);
     public const string AchievementUnlockedSubtitle = nameof(AchievementUnlockedSubtitle);
+
+    public const string UnexpectedError = nameof(UnexpectedError);
+    public const string TooManyRequests = nameof(TooManyRequests);
 }

@@ -1,5 +1,6 @@
 ﻿using Domain.Exceptions;
 using Microsoft.Extensions.Localization;
+using Shared.Localization;
 using Shared.Resources;
 using Shared.Results;
 using System.Net;
@@ -10,13 +11,16 @@ public sealed class ExceptionHandlingMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly IStringLocalizer<Messages> _localizer;
+    private readonly ILogger<ExceptionHandlingMiddleware> _logger;
 
     public ExceptionHandlingMiddleware(
         RequestDelegate next,
-        IStringLocalizerFactory factory, IStringLocalizer<Messages> localizer)
+        IStringLocalizerFactory factory, IStringLocalizer<Messages> localizer,
+        ILogger<ExceptionHandlingMiddleware> logger)
     {
         _next = next;
         _localizer = localizer;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -35,9 +39,11 @@ public sealed class ExceptionHandlingMiddleware
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Unhandled exception on {Method} {Path}", context.Request.Method, context.Request.Path);
+
             await HandleExceptionAsync(
                 context,
-                ex.Message,
+                _localizer[MessageKeys.UnexpectedError],
                 HttpStatusCode.InternalServerError
             );
         }

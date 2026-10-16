@@ -6,6 +6,7 @@ using Application.UseCases.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Localization;
 using Shared.Localization;
 using Shared.Resources;
@@ -45,6 +46,7 @@ public class UsersController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost]
+    [EnableRateLimiting(RateLimitingExtensions.AuthPolicy)]
     public async Task<IActionResult> Create(
     CreateUserRequest request,
     [FromServices] ValidationPipeline<CreateUserRequest, UserResponse> pipeline,

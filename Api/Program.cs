@@ -6,6 +6,7 @@ using Application.Configuration.Email;
 using Application.Configuration.Pluggy;
 using Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
@@ -37,6 +38,17 @@ builder.Services
             )
         };
     });
+
+builder.Services.AddApiAuthorization();
+
+builder.Services.AddAuthRateLimiting();
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownIPNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 builder.Services.AddLocalization();
 
@@ -89,6 +101,8 @@ var autoMigrate = builder.Configuration
 
 var app = builder.Build();
 
+app.UseForwardedHeaders();
+
 if (autoMigrate)
 {
     await DatabaseInitializer.InitializeAsync(app.Services);
@@ -118,7 +132,17 @@ app.UseRequestLocalization(localizationOptions);
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+app.UseMiddleware<SecurityHeadersMiddleware>();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+}
+
 app.UseHttpsRedirection();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseRouting();
 
@@ -130,17 +154,16 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+app.UseRateLimiter();
+
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
+    app.MapOpenApi().RequireAuthorization(AuthorizationExtensions.PublicAssetPolicy);
 }
-
-app.UseDefaultFiles();
-app.UseStaticFiles();
 
 app.MapControllers();
 
-app.MapFallbackToFile("index.html");
+app.MapFallbackToFile("index.html").RequireAuthorization(AuthorizationExtensions.PublicAssetPolicy);
 
 app.Run();
 

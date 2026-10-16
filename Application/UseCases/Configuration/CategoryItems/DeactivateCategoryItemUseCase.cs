@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Configuration.CategoryItems;
 using Domain.Interfaces;
@@ -12,15 +13,17 @@ public sealed class DeactivateCategoryItemUseCase
 {
     private readonly ICategoryItemRepository _categoryRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
-    public DeactivateCategoryItemUseCase(ICategoryItemRepository categoryRepository, IUnitOfWork uow)
+    public DeactivateCategoryItemUseCase(ICategoryItemRepository categoryRepository, IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _categoryRepository = categoryRepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
     public async Task<ResultEntity<Unit>> ExecuteAsync(DeactivateCategoryItemRequest request)
     {
-        var category = await _categoryRepository.GetByIdAsync(request.Id);
+        var category = await _categoryRepository.GetByIdAsync(request.Id, _currentUser.UserId);
         if (category is null)
             return ResultEntity<Unit>.Failure(MessageKeys.SubcategoryNotFound);
 

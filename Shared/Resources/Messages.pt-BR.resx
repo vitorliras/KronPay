@@ -2199,4 +2199,10 @@
   <data name="ResendIn" xml:space="preserve">
     <value>Reenviar em</value>
   </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>Ocorreu um erro inesperado. Tente novamente em instantes.</value>
+  </data>
+  <data name="TooManyRequests" xml:space="preserve">
+    <value>Muitas tentativas em pouco tempo. Aguarde um minuto e tente novamente.</value>
+  </data>
 </root>

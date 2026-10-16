@@ -7,7 +7,7 @@ public interface ICategoryItemRepository
 {
     Task<bool> AddAsync(CategoryItem item);
     bool Update(CategoryItem item);
-    Task<CategoryItem?> GetByIdAsync(int id);
+    Task<CategoryItem?> GetByIdAsync(int id, int userId);
     Task<CategoryItem?> GetByDescriptionAsync(string description, int categoryId);
     Task<IEnumerable<CategoryItem>> GetAllAsync(int categoryId);
     Task<IEnumerable<CategoryItem>> GetAllByUserIdAsync(int userId);

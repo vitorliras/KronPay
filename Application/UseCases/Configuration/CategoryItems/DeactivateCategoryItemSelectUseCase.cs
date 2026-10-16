@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration;
 using Domain.Interfaces;
 using Shared.Localization;
@@ -11,13 +12,16 @@ public sealed class DeactivateCategoryItemSelectUseCase
 {
     private readonly ICategoryItemRepository _repository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
     public DeactivateCategoryItemSelectUseCase(
         ICategoryItemRepository repository,
-        IUnitOfWork uow)
+        IUnitOfWork uow,
+        ICurrentUserService currentUser)
     {
         _repository = repository;
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<Unit>> ExecuteAsync(DeactivateCategoryItemSelectRequest request)
@@ -27,7 +31,7 @@ public sealed class DeactivateCategoryItemSelectUseCase
 
         foreach (var item in request.CategoryItems)
         {
-            var sub = await _repository.GetByIdAsync(item.Id);
+            var sub = await _repository.GetByIdAsync(item.Id, _currentUser.UserId);
             if (sub == null)
                 return ResultEntity<Unit>.Failure(MessageKeys.SubcategoryNotFound);
 

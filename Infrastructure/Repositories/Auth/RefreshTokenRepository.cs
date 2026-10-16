@@ -31,4 +31,11 @@ public sealed class RefreshTokenRepository : IRefreshTokenRepository
         return await _context.RefreshTokens
             .FirstOrDefaultAsync(x => x.TokenHash == tokenHash);
     }
+
+    public async Task<IReadOnlyList<RefreshToken>> GetActiveByUserIdAsync(int userId, DateTime now)
+    {
+        return await _context.RefreshTokens
+            .Where(x => x.UserId == userId && x.RevokedAt == null && x.ExpiresAt > now)
+            .ToListAsync();
+    }
 }

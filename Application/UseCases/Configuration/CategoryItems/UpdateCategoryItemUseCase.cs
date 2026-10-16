@@ -1,4 +1,5 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.Common;
 using Application.DTOs.Configuration.Categories;
 using Application.DTOs.Configuration.CategoryItems;
 using Domain.Interfaces;
@@ -12,23 +13,24 @@ public sealed class UpdateCategoryItemUseCase
 {
     private readonly ICategoryItemRepository _categoryRepository;
     private readonly IUnitOfWork _uow;
+    private readonly ICurrentUserService _currentUser;
 
-    public UpdateCategoryItemUseCase(ICategoryItemRepository categoryRepository, IUnitOfWork uow)
+    public UpdateCategoryItemUseCase(ICategoryItemRepository categoryRepository, IUnitOfWork uow, ICurrentUserService currentUser)
     {
         _categoryRepository = categoryRepository;
         _uow = uow;
+        _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<CategoryItemResponse>> ExecuteAsync(UpdateCategoryItemRequest request)
     {
-        var category = await _categoryRepository.GetByDescriptionAsync(request.Description, request.CategoryId);
-
-        if (category is not null)
-            return ResultEntity<CategoryItemResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
-
-         category = await _categoryRepository.GetByIdAsync(request.Id);
+        var category = await _categoryRepository.GetByIdAsync(request.Id, _currentUser.UserId);
         if (category is null)
             return ResultEntity<CategoryItemResponse>.Failure(MessageKeys.SubcategoryNotFound);
+
+        var duplicated = await _categoryRepository.GetByDescriptionAsync(request.Description, category.CategoryId);
+        if (duplicated is not null)
+            return ResultEntity<CategoryItemResponse>.Failure(MessageKeys.DescriptionAlreadyExists);
 
 
         category.UpdateDescription(request.Description);

@@ -5,6 +5,7 @@ using Application.Pipelines;
 using Application.UseCases.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Localization;
 using Shared.Localization;
 using Shared.Resources;
@@ -54,6 +55,7 @@ public sealed class AuthController : ControllerBase
 
     [HttpPost("login")]
     [AllowAnonymous]
+    [EnableRateLimiting(RateLimitingExtensions.AuthPolicy)]
     [ProducesResponseType(typeof(LoginResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -67,6 +69,7 @@ public sealed class AuthController : ControllerBase
 
     [HttpPost("confirm-email")]
     [AllowAnonymous]
+    [EnableRateLimiting(RateLimitingExtensions.AuthPolicy)]
     public async Task<IActionResult> ConfirmEmail(
         ConfirmEmailRequest request,
         [FromServices] ValidationPipeline<ConfirmEmailRequest, ConfirmEmailResponse> pipeline)
@@ -78,6 +81,7 @@ public sealed class AuthController : ControllerBase
 
     [HttpPost("resend-confirmation")]
     [AllowAnonymous]
+    [EnableRateLimiting(RateLimitingExtensions.AuthPolicy)]
     public async Task<IActionResult> ResendConfirmation(
         ResendCodeRequest request,
         [FromServices] ValidationPipeline<ResendCodeRequest, ResendCodeResponse> pipeline)
@@ -89,6 +93,7 @@ public sealed class AuthController : ControllerBase
 
     [HttpPost("forgot-password")]
     [AllowAnonymous]
+    [EnableRateLimiting(RateLimitingExtensions.AuthPolicy)]
     public async Task<IActionResult> ForgotPassword(
         RequestPasswordResetRequest request,
         [FromServices] ValidationPipeline<RequestPasswordResetRequest, RequestPasswordResetResponse> pipeline)
@@ -100,6 +105,7 @@ public sealed class AuthController : ControllerBase
 
     [HttpPost("validate-reset-code")]
     [AllowAnonymous]
+    [EnableRateLimiting(RateLimitingExtensions.AuthPolicy)]
     public async Task<IActionResult> ValidateResetCode(
         ValidateResetCodeRequest request,
         [FromServices] ValidationPipeline<ValidateResetCodeRequest, ValidateResetCodeResponse> pipeline)
@@ -111,6 +117,7 @@ public sealed class AuthController : ControllerBase
 
     [HttpPost("reset-password")]
     [AllowAnonymous]
+    [EnableRateLimiting(RateLimitingExtensions.AuthPolicy)]
     public async Task<IActionResult> ResetPassword(
         ResetPasswordRequest request,
         [FromServices] ValidationPipeline<ResetPasswordRequest, ResetPasswordResponse> pipeline)

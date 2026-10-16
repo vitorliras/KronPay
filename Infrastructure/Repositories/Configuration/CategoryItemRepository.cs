@@ -28,10 +28,17 @@ public sealed class CategoryItemRepository : ICategoryItemRepository
         return result.State == EntityState.Modified;
     }
 
-    public async Task<CategoryItem?> GetByIdAsync(int id)
+    public async Task<CategoryItem?> GetByIdAsync(int id, int userId)
     {
-        return await _context.CategoryItems
-            .FirstOrDefaultAsync(x => x.Id == id);
+        return await (
+            from ci in _context.CategoryItems
+            join c in _context.Categories
+                on ci.CategoryId equals c.Id
+            where
+                ci.Id == id &&
+                c.UserId == userId
+            select ci
+        ).FirstOrDefaultAsync();
     }
 
     public async Task<IEnumerable<CategoryItem>> GetAllAsync(int categoryId)
