@@ -346,6 +346,9 @@
   <data name="CardInvoiceAlreadyPaid" xml:space="preserve">
     <value>A fatura do cartão já foi paga</value>
   </data>
+  <data name="CardPurchaseAmountLocked" xml:space="preserve">
+    <value>Não é possível alterar o valor: a compra já tem fatura paga.</value>
+  </data>
   <data name="CreditLimitExceeded" xml:space="preserve">
     <value>O valor estoura o limite do cartão. Aumente o limite para continuar.</value>
   </data>
@@ -936,6 +939,9 @@
   </data>
   <data name="Installment" xml:space="preserve">
     <value>Parcela</value>
+  </data>
+  <data name="InstallmentAmount" xml:space="preserve">
+    <value>Valor da parcela</value>
   </data>
   <data name="NoInvoices" xml:space="preserve">
     <value>Nenhuma fatura para este cartão.</value>

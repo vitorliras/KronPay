@@ -39,6 +39,14 @@ public sealed class CardInstallment
 
     public bool IsSettled => Status == "Q";
 
+    public void UpdateAmount(decimal value)
+    {
+        if (value <= 0)
+            throw new DomainException(MessageKeys.InvalidAmount);
+
+        Amount = value;
+    }
+
     public void Settle() => Status = "Q";
 
     public void Cancel() => Status = "C";

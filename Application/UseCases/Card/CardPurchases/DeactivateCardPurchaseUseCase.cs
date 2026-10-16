@@ -42,24 +42,22 @@ public sealed class DeactivateCardPurchaseUseCase
             .Where(i => i.Status != "C")
             .ToList();
 
-        var invoices = new Dictionary<int, CardInvoice>();
+        var openInvoices = new Dictionary<int, CardInvoice>();
         foreach (var invoiceId in installments.Select(i => i.CardInvoiceId).Distinct())
         {
             var invoice = await _invoiceRepository.GetByIdAsync(invoiceId, userId);
-            if (invoice is null)
+            if (invoice is null || invoice.IsPaid)
                 continue;
 
-            if (invoice.IsPaid)
-                return ResultEntity<CardPurchaseResponse>.Failure(MessageKeys.CardInvoiceAlreadyPaid);
-
-            invoices[invoiceId] = invoice;
+            openInvoices[invoiceId] = invoice;
         }
 
         foreach (var installment in installments)
         {
-            if (invoices.TryGetValue(installment.CardInvoiceId, out var invoice))
-                invoice.SubtractAmount(installment.Amount);
+            if (!openInvoices.TryGetValue(installment.CardInvoiceId, out var invoice))
+                continue;
 
+            invoice.SubtractAmount(installment.Amount);
             installment.Cancel();
         }
 

@@ -349,6 +349,9 @@ Delete all future installments of this installment.</value>
   <data name="CardInvoiceAlreadyPaid" xml:space="preserve">
     <value>The card invoice has already been paid</value>
   </data>
+  <data name="CardPurchaseAmountLocked" xml:space="preserve">
+    <value>The amount can't be changed: this purchase already has a paid invoice.</value>
+  </data>
   <data name="CreditLimitExceeded" xml:space="preserve">
     <value>The amount exceeds the card limit. Increase the limit to continue.</value>
   </data>
@@ -936,6 +939,9 @@ Delete all future installments of this installment.</value>
   </data>
   <data name="Installment" xml:space="preserve">
     <value>Installment</value>
+  </data>
+  <data name="InstallmentAmount" xml:space="preserve">
+    <value>Installment amount</value>
   </data>
   <data name="NoInvoices" xml:space="preserve">
     <value>No invoices for this card.</value>

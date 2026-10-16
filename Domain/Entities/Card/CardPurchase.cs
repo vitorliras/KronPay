@@ -61,6 +61,14 @@ public sealed class CardPurchase
         DeactivatedAt = DateTime.UtcNow;
     }
 
+    public void UpdateTotalAmount(decimal totalAmount)
+    {
+        if (totalAmount <= 0)
+            throw new DomainException(MessageKeys.InvalidAmount);
+
+        TotalAmount = totalAmount;
+    }
+
     public void UpdateDescription(string description)
     {
         if (string.IsNullOrWhiteSpace(description))

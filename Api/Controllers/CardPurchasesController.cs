@@ -18,6 +18,7 @@ public sealed class CardPurchasesController : ControllerBase
     private readonly UseCaseExecutor _executor;
     private readonly CreateCardPurchaseUseCase _create;
     private readonly UpdateCardPurchaseUseCase _update;
+    private readonly ChangeCardPurchaseAmountUseCase _changeAmount;
     private readonly DeactivateCardPurchaseUseCase _deactivate;
     private readonly IStringLocalizer<Messages> _localizer;
 
@@ -25,12 +26,14 @@ public sealed class CardPurchasesController : ControllerBase
         UseCaseExecutor executor,
         CreateCardPurchaseUseCase create,
         UpdateCardPurchaseUseCase update,
+        ChangeCardPurchaseAmountUseCase changeAmount,
         DeactivateCardPurchaseUseCase deactivate,
         IStringLocalizer<Messages> localizer)
     {
         _executor = executor;
         _create = create;
         _update = update;
+        _changeAmount = changeAmount;
         _deactivate = deactivate;
         _localizer = localizer;
     }
@@ -50,6 +53,15 @@ public sealed class CardPurchasesController : ControllerBase
         [FromServices] ValidationPipeline<UpdateCardPurchaseRequest, CardPurchaseResponse> pipeline)
     {
         var result = await _executor.ExecuteAsync(request, _update, pipeline);
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPut("amount")]
+    public async Task<IActionResult> ChangeAmount(
+        ChangeCardPurchaseAmountRequest request,
+        [FromServices] ValidationPipeline<ChangeCardPurchaseAmountRequest, CardPurchaseResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _changeAmount, pipeline);
         return result.ToActionResult(_localizer);
     }
 
