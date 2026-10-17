@@ -458,4 +458,20 @@ public static class MessageKeys
 
     public const string UnexpectedError = nameof(UnexpectedError);
     public const string TooManyRequests = nameof(TooManyRequests);
+
+    public const string AiUnavailable = nameof(AiUnavailable);
+    public const string AiFilesUnsupported = nameof(AiFilesUnsupported);
+    public const string AiExtractionFailed = nameof(AiExtractionFailed);
+    public const string AiNothingExtracted = nameof(AiNothingExtracted);
+    public const string FileTooLarge = nameof(FileTooLarge);
+    public const string TextTooLong = nameof(TextTooLong);
+    public const string AiChatFailed = nameof(AiChatFailed);
+    public const string AiChatProviderRejected = nameof(AiChatProviderRejected);
+    public const string AiChatDailyLimit = nameof(AiChatDailyLimit);
+    public const string AiChatStarterTopCategory = nameof(AiChatStarterTopCategory);
+    public const string AiChatStarterSpendingMonth = nameof(AiChatStarterSpendingMonth);
+    public const string AiChatStarterNextInvoice = nameof(AiChatStarterNextInvoice);
+    public const string AiChatStarterRecurring = nameof(AiChatStarterRecurring);
+    public const string AiChatStarterAddTransaction = nameof(AiChatStarterAddTransaction);
+    public const string AiChatStarterTour = nameof(AiChatStarterTour);
 }

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Transactions;
+using Domain.Services.Transactions;
 
 namespace Domain.Interfaces.Transactions
 {
@@ -14,6 +15,7 @@ namespace Domain.Interfaces.Transactions
         Task<IEnumerable<Transaction>> GetByGroupAsync(int transactionGroupId, int userId);
         Task<IEnumerable<Transaction>> GetFutureByGroupAsync(int transactionGroupId, int userId, DateTime fromDate);
         Task<IEnumerable<Transaction>> GetAllTransactionAsync(int userId);
+        Task<IReadOnlyList<CategorizedTransactionHistoryItem>> GetCategorizedHistoryAsync(int userId);
         Task<bool> UpdateAsync(Transaction transaction);
         Task<bool> UpdateRangeAsync(IEnumerable<Transaction> transactions);
         Task<bool> UpdatePendingByGroupAsync(int transactionGroupId,int userId, Action<Transaction> updateAction);

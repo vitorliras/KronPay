@@ -1,4 +1,11 @@
+using Application.Abstractions.AI;
 using Application.Executors;
+using Application.Services.AI;
+using Application.Abstractions.AiChat;
+using Application.Services.AiChat;
+using Application.Services.Card;
+using Application.Services.Spending;
+using Application.Services.Transactions;
 using Application.Pipelines;
 using Application.Services.Assistant;
 using FluentValidation;
@@ -14,6 +21,17 @@ public static class DependencyInjection
     {
         services.AddScoped<UseCaseExecutor>();
         services.AddScoped(typeof(ValidationPipeline<,>));
+
+        services.AddScoped<IAiAvailability, AiAvailability>();
+
+        services.AddScoped<TransactionCategoryMemoryBuilder>();
+        services.AddScoped<ImportedTransactionClassificationService>();
+        services.AddScoped<CardPurchaseRegistrar>();
+        services.AddScoped<SpendingAggregator>();
+        services.AddScoped<FinancialProfileBuilder>();
+        services.AddScoped<ChatActionCollector>();
+        services.AddScoped<IChatToolbox, ChatToolbox>();
+        services.AddScoped<CardPurchasePreviewBuilder>();
 
         services.AddScoped<AssistantTree>();
         services.AddScoped<UserDataRichnessChecker>();

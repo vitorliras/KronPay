@@ -2,6 +2,7 @@
 using Castle.Components.DictionaryAdapter.Xml;
 using Domain.Entities.Transactions;
 using Domain.Interfaces.Transactions;
+using Domain.Services.Transactions;
 using KronPay.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Shared.Results;
@@ -15,6 +16,32 @@ namespace Infrastructure.Repositories.Transactions
         public TransactionRepository(AppDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<IReadOnlyList<CategorizedTransactionHistoryItem>> GetCategorizedHistoryAsync(int userId)
+        {
+            var rows = await _context.Transactions
+                .AsNoTracking()
+                .Where(t => t.UserId == userId && t.CategoryId != null)
+                .GroupBy(t => new { t.Description, t.CodTypeTransaction, t.CategoryId, t.CategoryItemId })
+                .Select(g => new
+                {
+                    g.Key.Description,
+                    g.Key.CodTypeTransaction,
+                    g.Key.CategoryId,
+                    g.Key.CategoryItemId,
+                    Occurrences = g.Count()
+                })
+                .ToListAsync();
+
+            return rows
+                .Select(r => new CategorizedTransactionHistoryItem(
+                    r.Description,
+                    r.CodTypeTransaction,
+                    r.CategoryId!.Value,
+                    r.CategoryItemId,
+                    r.Occurrences))
+                .ToList();
         }
 
         public async Task<bool> AddAsync(Transaction transaction)

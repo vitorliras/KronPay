@@ -1,10 +1,11 @@
-﻿
-using Domain.Entities.Configuration;
+﻿using Domain.Entities.Configuration;
 
 namespace Application.Abstractions.Import
 {
     public interface ITransactionImportParser
     {
+        bool IsAiBased => false;
+
         bool CanParse(string fileName);
 
         Task<IEnumerable<ImportedTransactionResponse>> ParseAsync(

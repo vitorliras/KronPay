@@ -1,30 +1,26 @@
-﻿using Application.Abstractions.Import;
+﻿using Application.Abstractions.AI;
 using Application.DTOs.Transactions;
 using Infrastructure.AI.Transactions.Tools;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.AI.Transactions;
 
 public sealed class TransactionAiClassifier : ITransactionAiBatchClassifier
 {
-    private readonly OllamaBatchTransactionClassifier _ollama;
-    private readonly GroqBatchTransactionClassifier _groq;
+    private readonly LlmTransactionBatchClassifier _llm;
     private readonly FallbackTransactionClassifier _fallback;
-    private readonly IConfiguration _config;
+    private readonly IAiAvailability _availability;
     private readonly ILogger<TransactionAiClassifier> _logger;
 
     public TransactionAiClassifier(
-        OllamaBatchTransactionClassifier ollama,
-        GroqBatchTransactionClassifier groq,
+        LlmTransactionBatchClassifier llm,
         FallbackTransactionClassifier fallback,
-        IConfiguration config,
+        IAiAvailability availability,
         ILogger<TransactionAiClassifier> logger)
     {
-        _ollama = ollama;
-        _groq = groq;
+        _llm = llm;
         _fallback = fallback;
-        _config = config;
+        _availability = availability;
         _logger = logger;
     }
 
@@ -36,19 +32,12 @@ public sealed class TransactionAiClassifier : ITransactionAiBatchClassifier
         if (transactions.Count == 0)
             return Array.Empty<TransactionAiSuggestion>();
 
-        if (!useAi)
+        if (!useAi || _availability.GetActive() is null)
             return _fallback.ClassifyBatch(transactions);
-
-        var provider = _config["AI:Provider"]?.ToLowerInvariant();
 
         try
         {
-            return provider switch
-            {
-                "groq" => await _groq.SuggestBatchAsync(userId, transactions),
-                "ollama" => await _ollama.SuggestBatchAsync(userId, transactions),
-                _ => _fallback.ClassifyBatch(transactions)
-            };
+            return await _llm.SuggestBatchAsync(userId, transactions, useAi);
         }
         catch (Exception ex)
         {

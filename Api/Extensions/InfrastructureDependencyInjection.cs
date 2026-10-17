@@ -1,6 +1,9 @@
 ﻿using Application.Abstractions.Auth;
 using Application.Abstractions.Common;
+using Application.Abstractions.AI;
 using Application.Abstractions.Email;
+using Domain.Interfaces.AI;
+using Infrastructure.Repositories.AI;
 using Application.Abstractions.Import;
 using Application.Abstractions.Pluggy;
 using Application.DataRetention;
@@ -46,10 +49,15 @@ using Infrastructure.Repositories.Users;
 using Infra.Persistence.Repositories;
 using Infra.Security;
 using Infrastructure.AI;
+using Application.Abstractions.AiChat;
+using Infrastructure.AI.Chat;
+using Infrastructure.AI.Cards;
 using Infrastructure.AI.Transactions;
 using Infrastructure.AI.Transactions.Tools;
 using Infrastructure.Configuration;
 using Infrastructure.Context;
+using Infrastructure.Imports;
+using Infrastructure.Imports.Parsers;
 using Infrastructure.Imports.Pluggy;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
@@ -102,6 +110,7 @@ public static class InfrastructureDependencyInjection
         services.AddScoped<ITransactionGroupRepository, TransactionGroupRepository>();
         services.AddScoped<ITransactionImportParser, CsvTransactionImportParser>();
         services.AddScoped<ITransactionImportParser, OfxTransactionImportParser>();
+        services.AddScoped<ITransactionImportParser, AiDocumentTransactionImportParser>();
         services.AddScoped<IBankRepository, BankRepository>();
         services.AddScoped<TransactionImportParserResolver>();
 
@@ -197,24 +206,18 @@ public static class InfrastructureDependencyInjection
 
         #endregion
 
-        services.AddHttpClient<OllamaTransactionClassifier>(client =>
-        {
-            client.BaseAddress = new Uri(configuration["Ollama:BaseUrl"]!);
-        });
+        services.AddSingleton<IAiChatClientFactory, AiChatClientFactory>();
+        services.AddScoped<IAiUsageRecorder, AiUsageRecorder>();
+        services.AddScoped<IAiCompletionService, AiCompletionService>();
+        services.AddScoped<IAiUsageLogRepository, AiUsageLogRepository>();
 
-        services.AddHttpClient<OllamaBatchTransactionClassifier>(client =>
-        {
-            client.BaseAddress = new Uri(configuration["Ollama:BaseUrl"]!);
-            client.Timeout = TimeSpan.FromMinutes(5);
-        });
-
-        services.AddScoped<OpenAiTransactionClassifier>();
-        services.AddScoped<GroqBatchTransactionClassifier>();
+        services.AddScoped<LlmTransactionBatchClassifier>();
         services.AddScoped<FallbackTransactionClassifier>();
-        services.AddScoped<OpenAiClient>();
-
-        services.AddScoped<ITransactionAiClassifier, OpenAiTransactionClassifier>();
         services.AddScoped<ITransactionAiBatchClassifier, TransactionAiClassifier>();
+        services.AddScoped<ITransactionExtractionService, LlmTransactionExtractionService>();
+        services.AddScoped<ICardPurchaseExtractionService, LlmCardPurchaseExtractionService>();
+        services.AddScoped<IAiDocumentReader, AiDocumentReader>();
+        services.AddScoped<IAiChatService, AiChatService>();
         services.AddHttpContextAccessor();
         services.AddScoped<ICurrentUserService, CurrentUserService>();
         services.AddHttpClient<IPluggyService, PluggyService>();

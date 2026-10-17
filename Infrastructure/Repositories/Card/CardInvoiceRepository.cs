@@ -66,6 +66,57 @@ public sealed class CardInvoiceRepository : ICardInvoiceRepository
             .Where(x => x.CardInvoiceId == invoiceId && x.UserId == userId && x.Status == "P")
             .ToListAsync();
 
+    public async Task<IReadOnlyDictionary<int, decimal>> GetPendingAmountsByCardAsync(int creditCardId, int userId)
+        => await (
+            from installment in _context.CardInstallments
+            join invoice in _context.CardInvoices on installment.CardInvoiceId equals invoice.Id
+            where installment.UserId == userId
+                  && invoice.CreditCardId == creditCardId
+                  && installment.Status == "P"
+            group installment by installment.CardInvoiceId into byInvoice
+            select new { InvoiceId = byInvoice.Key, Total = byInvoice.Sum(x => x.Amount) })
+            .AsNoTracking()
+            .ToDictionaryAsync(x => x.InvoiceId, x => x.Total);
+
+    public async Task<IReadOnlyCollection<int>> GetPaymentTransactionIdsAsync(int userId)
+        => await _context.CardInvoices
+            .AsNoTracking()
+            .Where(i => i.UserId == userId && i.TransactionId != null)
+            .Select(i => i.TransactionId!.Value)
+            .ToListAsync();
+
+    public async Task<IReadOnlyList<CardInstallmentDetail>> GetInstallmentDetailsAsync(
+        int userId,
+        int fromYear,
+        int fromMonth,
+        int toYear,
+        int toMonth)
+    {
+        var fromIndex = fromYear * 12 + fromMonth;
+        var toIndex = toYear * 12 + toMonth;
+
+        return await (
+            from installment in _context.CardInstallments
+            join invoice in _context.CardInvoices on installment.CardInvoiceId equals invoice.Id
+            join purchase in _context.CardPurchases on installment.CardPurchaseId equals purchase.Id
+            where installment.UserId == userId
+                  && purchase.Active
+                  && installment.Status != "C"
+                  && invoice.ReferenceYear * 12 + invoice.ReferenceMonth >= fromIndex
+                  && invoice.ReferenceYear * 12 + invoice.ReferenceMonth <= toIndex
+            select new CardInstallmentDetail(
+                invoice.ReferenceYear,
+                invoice.ReferenceMonth,
+                purchase.Description,
+                installment.Amount,
+                purchase.CategoryId,
+                purchase.CategoryItemId,
+                purchase.CreditCardId,
+                purchase.PurchaseDate))
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
     public async Task<bool> ExistsByCreditCardIdAsync(int creditCardId)
     {
         return await _context.CardInvoices

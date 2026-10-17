@@ -8,5 +8,6 @@
     int? CategoryId,
     int? CategoryItemId,
     int? TransactionGroupId,
-    int? Id
+    int? Id,
+    string? ClassificationSource = null
 );

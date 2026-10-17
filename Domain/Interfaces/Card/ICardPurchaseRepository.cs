@@ -1,4 +1,5 @@
 using Domain.Entities.Card;
+using Domain.Services.Transactions;
 
 namespace Domain.Interfaces.Card;
 
@@ -15,4 +16,6 @@ public interface ICardPurchaseRepository
     Task<bool> ExistsByCreditCardIdAsync(int creditCardId);
     Task<bool> ExistsByCategoryIdAsync(int categoryId);
     Task<bool> ExistsByCategoryItemIdAsync(int categoryItemId);
+    Task<IReadOnlyList<CategorizedTransactionHistoryItem>> GetCategorizedHistoryAsync(int userId);
+    Task<IReadOnlyList<CardPurchase>> GetActiveByCardAndPeriodAsync(int creditCardId, int userId, DateTime fromInclusive, DateTime toInclusive);
 }

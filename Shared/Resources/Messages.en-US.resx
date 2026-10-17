@@ -2215,4 +2215,211 @@ Delete all future installments of this installment.</value>
   <data name="TooManyRequests" xml:space="preserve">
     <value>Too many attempts in a short time. Wait a minute and try again.</value>
   </data>
+  <data name="ArtificialIntelligence" xml:space="preserve">
+    <value>Artificial Intelligence</value>
+  </data>
+  <data name="AiStatusEnabled" xml:space="preserve">
+    <value>AI enabled</value>
+  </data>
+  <data name="AiStatusDisabled" xml:space="preserve">
+    <value>AI disabled</value>
+  </data>
+  <data name="AiProvider" xml:space="preserve">
+    <value>Provider</value>
+  </data>
+  <data name="AiModel" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="AiMonthUsage" xml:space="preserve">
+    <value>Usage this month</value>
+  </data>
+  <data name="AiCalls" xml:space="preserve">
+    <value>Uses</value>
+  </data>
+  <data name="AiTokens" xml:space="preserve">
+    <value>Tokens</value>
+  </data>
+  <data name="AiEstimatedCost" xml:space="preserve">
+    <value>Estimated cost</value>
+  </data>
+  <data name="AiByFeature" xml:space="preserve">
+    <value>By feature</value>
+  </data>
+  <data name="AiFeature" xml:space="preserve">
+    <value>Feature</value>
+  </data>
+  <data name="AiFeatureTransactionImport" xml:space="preserve">
+    <value>Statement import</value>
+  </data>
+  <data name="AiCostNotice" xml:space="preserve">
+    <value>Estimated from the configured prices. The official amount is in the provider&apos;s dashboard.</value>
+  </data>
+  <data name="AiDisabledHint" xml:space="preserve">
+    <value>To enable it, set &quot;AI:Enabled&quot; to true in the server configuration.</value>
+  </data>
+  <data name="AiNoUsage" xml:space="preserve">
+    <value>No AI usage this month.</value>
+  </data>
+  <data name="ClassifiedByMemory" xml:space="preserve">
+    <value>Memory</value>
+  </data>
+  <data name="ClassifiedByAi" xml:space="preserve">
+    <value>AI</value>
+  </data>
+  <data name="AiUnavailable" xml:space="preserve">
+    <value>Artificial intelligence is not enabled. Enable it in the server configuration to use this feature.</value>
+  </data>
+  <data name="AiFilesUnsupported" xml:space="preserve">
+    <value>The current AI provider cannot read PDFs or images. Use an OFX, CSV or Excel file.</value>
+  </data>
+  <data name="AiExtractionFailed" xml:space="preserve">
+    <value>I could not read this content. Try again or use another file.</value>
+  </data>
+  <data name="AiNothingExtracted" xml:space="preserve">
+    <value>I could not find any transactions in this content.</value>
+  </data>
+  <data name="FileTooLarge" xml:space="preserve">
+    <value>The file is too large (limit of 10 MB and 3,000 rows).</value>
+  </data>
+  <data name="TextTooLong" xml:space="preserve">
+    <value>The text is too long (limit of 4,000 characters).</value>
+  </data>
+  <data name="AddByText" xml:space="preserve">
+    <value>Add by text</value>
+  </data>
+  <data name="AddByTextHint" xml:space="preserve">
+    <value>Write your transactions as free text, one or several. The AI builds a preview for you to review before saving.</value>
+  </data>
+  <data name="AddByTextPlaceholder" xml:space="preserve">
+    <value>E.g.: ifood 45 yesterday, uber 23 today, groceries 312 saturday</value>
+  </data>
+  <data name="Interpret" xml:space="preserve">
+    <value>Interpret</value>
+  </data>
+  <data name="AddRow" xml:space="preserve">
+    <value>Add row</value>
+  </data>
+  <data name="AiFileHint" xml:space="preserve">
+    <value>Photo, PDF or Excel: the AI reads the file and builds a preview for you to review.</value>
+  </data>
+  <data name="AiFeatureTextTransactionEntry" xml:space="preserve">
+    <value>Text entry</value>
+  </data>
+  <data name="AiFeatureDocumentTransactionImport" xml:space="preserve">
+    <value>File reading (photo, PDF or Excel)</value>
+  </data>
+  <data name="CardPurchasesPreview" xml:space="preserve">
+    <value>Card purchases preview</value>
+  </data>
+  <data name="AddCardPurchasesByTextHint" xml:space="preserve">
+    <value>Write the card purchases as free text, like &quot;sneakers 300 in 3x yesterday, ifood 45 today&quot;. The AI builds a preview for you to review before saving.</value>
+  </data>
+  <data name="AddCardPurchasesByTextPlaceholder" xml:space="preserve">
+    <value>E.g.: sneakers 300 in 3x yesterday, ifood 45 today</value>
+  </data>
+  <data name="AttachStatement" xml:space="preserve">
+    <value>Attach statement</value>
+  </data>
+  <data name="PossibleDuplicate" xml:space="preserve">
+    <value>Possible duplicate</value>
+  </data>
+  <data name="PossibleDuplicateHint" xml:space="preserve">
+    <value>An identical purchase already exists on this card. Check the box to save it anyway.</value>
+  </data>
+  <data name="CardImportSkipped" xml:space="preserve">
+    <value>payment or credit line(s) were ignored.</value>
+  </data>
+  <data name="SelectAtLeastOnePurchase" xml:space="preserve">
+    <value>Check at least one valid purchase to save.</value>
+  </data>
+  <data name="IncludeInSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="AiChatFailed" xml:space="preserve">
+    <value>I could not answer right now. Try again shortly or use the basic assistant.</value>
+  </data>
+  <data name="AiChatProviderRejected" xml:space="preserve">
+    <value>The AI service rejected the request (credit may have run out or there is a limit). You can use the basic assistant.</value>
+  </data>
+  <data name="AiChatDailyLimit" xml:space="preserve">
+    <value>You reached the daily limit of AI messages. Try again tomorrow or use the basic assistant.</value>
+  </data>
+  <data name="AiChatStarterTopCategory" xml:space="preserve">
+    <value>Why did I spend so much on {0} this month?</value>
+  </data>
+  <data name="AiChatStarterSpendingMonth" xml:space="preserve">
+    <value>How much did I spend this month?</value>
+  </data>
+  <data name="AiChatStarterNextInvoice" xml:space="preserve">
+    <value>What is my next invoice?</value>
+  </data>
+  <data name="AiChatStarterRecurring" xml:space="preserve">
+    <value>Which expenses repeat every month?</value>
+  </data>
+  <data name="AiChatStarterAddTransaction" xml:space="preserve">
+    <value>I want to add a transaction</value>
+  </data>
+  <data name="AiChatStarterTour" xml:space="preserve">
+    <value>Take the guided tour</value>
+  </data>
+  <data name="AiChatTitle" xml:space="preserve">
+    <value>AI Assistant</value>
+  </data>
+  <data name="AiChatGreeting" xml:space="preserve">
+    <value>Hi! I can analyze your spending, add transactions and card purchases, register invoice payments and guide you through the app. What would you like to do?</value>
+  </data>
+  <data name="AiChatPlaceholder" xml:space="preserve">
+    <value>Ask or request something...</value>
+  </data>
+  <data name="AiChatNewConversation" xml:space="preserve">
+    <value>New conversation</value>
+  </data>
+  <data name="AiChatExpand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="AiChatCollapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="AiChatUseBasic" xml:space="preserve">
+    <value>Use basic assistant</value>
+  </data>
+  <data name="AiChatRetry" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="AiChatOpenScreen" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="AiChatStartTourLabel" xml:space="preserve">
+    <value>Start tour</value>
+  </data>
+  <data name="AiChatPayInvoiceTitle" xml:space="preserve">
+    <value>Register invoice payment</value>
+  </data>
+  <data name="AiChatPayInvoiceQuestion" xml:space="preserve">
+    <value>How was it paid? Choose the payment method:</value>
+  </data>
+  <data name="AiChatInvoicePaid" xml:space="preserve">
+    <value>Invoice payment registered.</value>
+  </data>
+  <data name="TransactionsPreview" xml:space="preserve">
+    <value>Review transactions</value>
+  </data>
+  <data name="AiChatSaved" xml:space="preserve">
+    <value>Saved! I took you to where the record is.</value>
+  </data>
+  <data name="AiChatCancelled" xml:space="preserve">
+    <value>Cancelled, nothing was saved.</value>
+  </data>
+  <data name="AiChatInvoiceDue" xml:space="preserve">
+    <value>Due date</value>
+  </data>
+  <data name="AiChatReviewTransactions" xml:space="preserve">
+    <value>I opened the preview on the Transactions screen for you to review and save.</value>
+  </data>
+  <data name="AiChatReviewCardPurchases" xml:space="preserve">
+    <value>I opened the preview on the card screen for you to review and save.</value>
+  </data>
+  <data name="AiFeatureAiChat" xml:space="preserve">
+    <value>AI chat</value>
+  </data>
 </root>

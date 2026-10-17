@@ -29,6 +29,7 @@ public sealed class TransactionsController : ControllerBase
     private readonly GetTransactionsDatesUseCase _getByDates;
     private readonly GetTransactionsByYearUseCase _getAllByYear;
     private readonly ImportTransactionsUseCase _import;
+    private readonly ParseTransactionsFromTextUseCase _parseText;
     private readonly IStringLocalizer<Messages> _localizer;
 
     public TransactionsController(
@@ -46,6 +47,7 @@ public sealed class TransactionsController : ControllerBase
         GetTransactionsByYearUseCase getAllByYear,
         UpdateTransactionRangeUseCase updateRange,
         ImportTransactionsUseCase import,
+        ParseTransactionsFromTextUseCase parseText,
         IStringLocalizer<Messages> localizer)
     {
         _executor = executor;
@@ -63,6 +65,7 @@ public sealed class TransactionsController : ControllerBase
         _localizer = localizer;
         _updateRange = updateRange;
         _import = import;
+        _parseText = parseText;
     }
 
     [HttpGet("[action]")]
@@ -236,6 +239,20 @@ public sealed class TransactionsController : ControllerBase
         var result = await _executor.ExecuteAsync(
             request,
             _deleteRange,
+            pipeline
+        );
+
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("[action]")]
+    public async Task<IActionResult> ParseText(
+        ParseTransactionsFromTextRequest request,
+        [FromServices] ValidationPipeline<ParseTransactionsFromTextRequest, ImportTransactionsResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(
+            request,
+            _parseText,
             pipeline
         );
 

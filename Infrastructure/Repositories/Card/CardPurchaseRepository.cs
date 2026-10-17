@@ -1,5 +1,6 @@
 using Domain.Entities.Card;
 using Domain.Interfaces.Card;
+using Domain.Services.Transactions;
 using Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -86,5 +87,46 @@ public sealed class CardPurchaseRepository : ICardPurchaseRepository
         return await _context.CardPurchases
             .AsNoTracking()
             .AnyAsync(x => x.CategoryItemId == categoryItemId);
+    }
+
+    public async Task<IReadOnlyList<CategorizedTransactionHistoryItem>> GetCategorizedHistoryAsync(int userId)
+    {
+        var rows = await _context.CardPurchases
+            .AsNoTracking()
+            .Where(p => p.UserId == userId && p.Active && p.CategoryId != null)
+            .GroupBy(p => new { p.Description, p.CategoryId, p.CategoryItemId })
+            .Select(g => new
+            {
+                g.Key.Description,
+                g.Key.CategoryId,
+                g.Key.CategoryItemId,
+                Occurrences = g.Count()
+            })
+            .ToListAsync();
+
+        return rows
+            .Select(r => new CategorizedTransactionHistoryItem(
+                r.Description,
+                "E",
+                r.CategoryId!.Value,
+                r.CategoryItemId,
+                r.Occurrences))
+            .ToList();
+    }
+
+    public async Task<IReadOnlyList<CardPurchase>> GetActiveByCardAndPeriodAsync(
+        int creditCardId,
+        int userId,
+        DateTime fromInclusive,
+        DateTime toInclusive)
+    {
+        return await _context.CardPurchases
+            .AsNoTracking()
+            .Where(p => p.UserId == userId
+                        && p.CreditCardId == creditCardId
+                        && p.Active
+                        && p.PurchaseDate >= fromInclusive
+                        && p.PurchaseDate <= toInclusive)
+            .ToListAsync();
     }
 }

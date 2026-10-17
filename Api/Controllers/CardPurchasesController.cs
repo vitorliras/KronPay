@@ -1,3 +1,4 @@
+using Api.DTOs.Card;
 using Api.Extensions;
 using Application.DTOs.Card.CardPurchases;
 using Application.Executors;
@@ -20,6 +21,9 @@ public sealed class CardPurchasesController : ControllerBase
     private readonly UpdateCardPurchaseUseCase _update;
     private readonly ChangeCardPurchaseAmountUseCase _changeAmount;
     private readonly DeactivateCardPurchaseUseCase _deactivate;
+    private readonly ParseCardPurchasesFromTextUseCase _parseText;
+    private readonly ImportCardPurchasesUseCase _import;
+    private readonly CreateCardPurchaseRangeUseCase _createRange;
     private readonly IStringLocalizer<Messages> _localizer;
 
     public CardPurchasesController(
@@ -28,6 +32,9 @@ public sealed class CardPurchasesController : ControllerBase
         UpdateCardPurchaseUseCase update,
         ChangeCardPurchaseAmountUseCase changeAmount,
         DeactivateCardPurchaseUseCase deactivate,
+        ParseCardPurchasesFromTextUseCase parseText,
+        ImportCardPurchasesUseCase import,
+        CreateCardPurchaseRangeUseCase createRange,
         IStringLocalizer<Messages> localizer)
     {
         _executor = executor;
@@ -35,6 +42,9 @@ public sealed class CardPurchasesController : ControllerBase
         _update = update;
         _changeAmount = changeAmount;
         _deactivate = deactivate;
+        _parseText = parseText;
+        _import = import;
+        _createRange = createRange;
         _localizer = localizer;
     }
 
@@ -71,6 +81,41 @@ public sealed class CardPurchasesController : ControllerBase
         [FromServices] ValidationPipeline<DeactivateCardPurchaseRequest, CardPurchaseResponse> pipeline)
     {
         var result = await _executor.ExecuteAsync(request, _deactivate, pipeline);
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("[action]")]
+    public async Task<IActionResult> ParseText(
+        ParseCardPurchasesFromTextRequest request,
+        [FromServices] ValidationPipeline<ParseCardPurchasesFromTextRequest, CardPurchasePreviewResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _parseText, pipeline);
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("[action]")]
+    [Consumes("multipart/form-data")]
+    public async Task<IActionResult> Import(
+        [FromForm] ImportCardPurchasesFormRequest form,
+        [FromServices] ValidationPipeline<ImportCardPurchasesRequest, CardPurchasePreviewResponse> pipeline)
+    {
+        if (form.File is null || form.File.Length == 0)
+            return BadRequest("File is required");
+
+        await using var stream = form.File.OpenReadStream();
+
+        var request = new ImportCardPurchasesRequest(stream, form.File.FileName, form.CreditCardId, form.UseAi);
+
+        var result = await _executor.ExecuteAsync(request, _import, pipeline);
+        return result.ToActionResult(_localizer);
+    }
+
+    [HttpPost("[action]")]
+    public async Task<IActionResult> CreateRange(
+        CreateCardPurchaseRangeRequest request,
+        [FromServices] ValidationPipeline<CreateCardPurchaseRangeRequest, CreateCardPurchaseRangeResponse> pipeline)
+    {
+        var result = await _executor.ExecuteAsync(request, _createRange, pipeline);
         return result.ToActionResult(_localizer);
     }
 }

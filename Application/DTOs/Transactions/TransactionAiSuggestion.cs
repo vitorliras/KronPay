@@ -5,6 +5,7 @@ namespace Application.DTOs.Transactions
         bool IsInvestment,
         decimal Confidence,
         int? SuggestedCategoryId,
-        string? SuggestedType
+        string? SuggestedType,
+        string? Source = null
     );
 }

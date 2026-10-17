@@ -2215,4 +2215,211 @@
   <data name="TooManyRequests" xml:space="preserve">
     <value>Muitas tentativas em pouco tempo. Aguarde um minuto e tente novamente.</value>
   </data>
+  <data name="ArtificialIntelligence" xml:space="preserve">
+    <value>Inteligência Artificial</value>
+  </data>
+  <data name="AiStatusEnabled" xml:space="preserve">
+    <value>IA ativa</value>
+  </data>
+  <data name="AiStatusDisabled" xml:space="preserve">
+    <value>IA desativada</value>
+  </data>
+  <data name="AiProvider" xml:space="preserve">
+    <value>Provedor</value>
+  </data>
+  <data name="AiModel" xml:space="preserve">
+    <value>Modelo</value>
+  </data>
+  <data name="AiMonthUsage" xml:space="preserve">
+    <value>Consumo do mês</value>
+  </data>
+  <data name="AiCalls" xml:space="preserve">
+    <value>Usos</value>
+  </data>
+  <data name="AiTokens" xml:space="preserve">
+    <value>Tokens</value>
+  </data>
+  <data name="AiEstimatedCost" xml:space="preserve">
+    <value>Custo estimado</value>
+  </data>
+  <data name="AiByFeature" xml:space="preserve">
+    <value>Por funcionalidade</value>
+  </data>
+  <data name="AiFeature" xml:space="preserve">
+    <value>Funcionalidade</value>
+  </data>
+  <data name="AiFeatureTransactionImport" xml:space="preserve">
+    <value>Importação de extrato</value>
+  </data>
+  <data name="AiCostNotice" xml:space="preserve">
+    <value>Valor estimado pelos preços configurados. O valor oficial está no painel do provedor.</value>
+  </data>
+  <data name="AiDisabledHint" xml:space="preserve">
+    <value>Para ativar, defina &quot;AI:Enabled&quot; como true na configuração do servidor.</value>
+  </data>
+  <data name="AiNoUsage" xml:space="preserve">
+    <value>Nenhum uso de IA neste mês.</value>
+  </data>
+  <data name="ClassifiedByMemory" xml:space="preserve">
+    <value>Memória</value>
+  </data>
+  <data name="ClassifiedByAi" xml:space="preserve">
+    <value>IA</value>
+  </data>
+  <data name="AiUnavailable" xml:space="preserve">
+    <value>A inteligência artificial não está ativa. Ative-a na configuração do servidor para usar este recurso.</value>
+  </data>
+  <data name="AiFilesUnsupported" xml:space="preserve">
+    <value>O provedor de IA atual não lê PDF nem imagens. Use um arquivo OFX, CSV ou Excel.</value>
+  </data>
+  <data name="AiExtractionFailed" xml:space="preserve">
+    <value>Não consegui ler esse conteúdo. Tente novamente ou use outro arquivo.</value>
+  </data>
+  <data name="AiNothingExtracted" xml:space="preserve">
+    <value>Não encontrei nenhuma transação nesse conteúdo.</value>
+  </data>
+  <data name="FileTooLarge" xml:space="preserve">
+    <value>O arquivo é grande demais (limite de 10 MB e 3.000 linhas).</value>
+  </data>
+  <data name="TextTooLong" xml:space="preserve">
+    <value>O texto é grande demais (limite de 4.000 caracteres).</value>
+  </data>
+  <data name="AddByText" xml:space="preserve">
+    <value>Lançar por texto</value>
+  </data>
+  <data name="AddByTextHint" xml:space="preserve">
+    <value>Escreva suas transações em texto livre, uma ou várias. A IA monta a prévia para você revisar antes de salvar.</value>
+  </data>
+  <data name="AddByTextPlaceholder" xml:space="preserve">
+    <value>Ex.: ifood 45 ontem, uber 23 hoje, mercado 312 sábado</value>
+  </data>
+  <data name="Interpret" xml:space="preserve">
+    <value>Interpretar</value>
+  </data>
+  <data name="AddRow" xml:space="preserve">
+    <value>Adicionar linha</value>
+  </data>
+  <data name="AiFileHint" xml:space="preserve">
+    <value>Foto, PDF ou Excel: a IA lê o arquivo e monta a prévia para você revisar.</value>
+  </data>
+  <data name="AiFeatureTextTransactionEntry" xml:space="preserve">
+    <value>Lançamento por texto</value>
+  </data>
+  <data name="AiFeatureDocumentTransactionImport" xml:space="preserve">
+    <value>Leitura de arquivo (foto, PDF ou Excel)</value>
+  </data>
+  <data name="CardPurchasesPreview" xml:space="preserve">
+    <value>Prévia das compras do cartão</value>
+  </data>
+  <data name="AddCardPurchasesByTextHint" xml:space="preserve">
+    <value>Escreva as compras do cartão em texto livre, como &quot;tênis 300 em 3x ontem, ifood 45 hoje&quot;. A IA monta a prévia para você revisar antes de salvar.</value>
+  </data>
+  <data name="AddCardPurchasesByTextPlaceholder" xml:space="preserve">
+    <value>Ex.: tênis 300 em 3x ontem, ifood 45 hoje</value>
+  </data>
+  <data name="AttachStatement" xml:space="preserve">
+    <value>Anexar fatura</value>
+  </data>
+  <data name="PossibleDuplicate" xml:space="preserve">
+    <value>Possível duplicata</value>
+  </data>
+  <data name="PossibleDuplicateHint" xml:space="preserve">
+    <value>Já existe uma compra igual neste cartão. Marque a caixa para salvar mesmo assim.</value>
+  </data>
+  <data name="CardImportSkipped" xml:space="preserve">
+    <value>linha(s) de pagamento ou crédito foram ignoradas.</value>
+  </data>
+  <data name="SelectAtLeastOnePurchase" xml:space="preserve">
+    <value>Marque ao menos uma compra válida para salvar.</value>
+  </data>
+  <data name="IncludeInSave" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="AiChatFailed" xml:space="preserve">
+    <value>Não consegui responder agora. Tente novamente em instantes ou use o assistente básico.</value>
+  </data>
+  <data name="AiChatProviderRejected" xml:space="preserve">
+    <value>O serviço de IA recusou o pedido (o crédito pode ter acabado ou há uma limitação). Você pode usar o assistente básico.</value>
+  </data>
+  <data name="AiChatDailyLimit" xml:space="preserve">
+    <value>Você atingiu o limite diário de mensagens com a IA. Tente novamente amanhã ou use o assistente básico.</value>
+  </data>
+  <data name="AiChatStarterTopCategory" xml:space="preserve">
+    <value>Por que gastei tanto com {0} este mês?</value>
+  </data>
+  <data name="AiChatStarterSpendingMonth" xml:space="preserve">
+    <value>Quanto gastei este mês?</value>
+  </data>
+  <data name="AiChatStarterNextInvoice" xml:space="preserve">
+    <value>Qual é a minha próxima fatura?</value>
+  </data>
+  <data name="AiChatStarterRecurring" xml:space="preserve">
+    <value>Quais gastos se repetem todo mês?</value>
+  </data>
+  <data name="AiChatStarterAddTransaction" xml:space="preserve">
+    <value>Quero lançar uma transação</value>
+  </data>
+  <data name="AiChatStarterTour" xml:space="preserve">
+    <value>Fazer o tour guiado</value>
+  </data>
+  <data name="AiChatTitle" xml:space="preserve">
+    <value>Assistente IA</value>
+  </data>
+  <data name="AiChatGreeting" xml:space="preserve">
+    <value>Olá! Posso analisar seus gastos, lançar transações e compras de cartão, registrar o pagamento de faturas e te guiar pelo sistema. O que você quer fazer?</value>
+  </data>
+  <data name="AiChatPlaceholder" xml:space="preserve">
+    <value>Pergunte ou peça algo...</value>
+  </data>
+  <data name="AiChatNewConversation" xml:space="preserve">
+    <value>Nova conversa</value>
+  </data>
+  <data name="AiChatExpand" xml:space="preserve">
+    <value>Expandir</value>
+  </data>
+  <data name="AiChatCollapse" xml:space="preserve">
+    <value>Recolher</value>
+  </data>
+  <data name="AiChatUseBasic" xml:space="preserve">
+    <value>Usar assistente básico</value>
+  </data>
+  <data name="AiChatRetry" xml:space="preserve">
+    <value>Tentar de novo</value>
+  </data>
+  <data name="AiChatOpenScreen" xml:space="preserve">
+    <value>Abrir</value>
+  </data>
+  <data name="AiChatStartTourLabel" xml:space="preserve">
+    <value>Iniciar tour</value>
+  </data>
+  <data name="AiChatPayInvoiceTitle" xml:space="preserve">
+    <value>Registrar pagamento da fatura</value>
+  </data>
+  <data name="AiChatPayInvoiceQuestion" xml:space="preserve">
+    <value>Como foi o pagamento? Escolha a forma de pagamento:</value>
+  </data>
+  <data name="AiChatInvoicePaid" xml:space="preserve">
+    <value>Pagamento da fatura registrado.</value>
+  </data>
+  <data name="TransactionsPreview" xml:space="preserve">
+    <value>Revisar lançamentos</value>
+  </data>
+  <data name="AiChatSaved" xml:space="preserve">
+    <value>Salvo! Levei você para o local do registro.</value>
+  </data>
+  <data name="AiChatCancelled" xml:space="preserve">
+    <value>Cancelado, nada foi salvo.</value>
+  </data>
+  <data name="AiChatInvoiceDue" xml:space="preserve">
+    <value>Vencimento</value>
+  </data>
+  <data name="AiChatReviewTransactions" xml:space="preserve">
+    <value>Abri a prévia na tela de Transações para você revisar e salvar.</value>
+  </data>
+  <data name="AiChatReviewCardPurchases" xml:space="preserve">
+    <value>Abri a prévia no cartão para você revisar e salvar.</value>
+  </data>
+  <data name="AiFeatureAiChat" xml:space="preserve">
+    <value>Chat de IA</value>
+  </data>
 </root>

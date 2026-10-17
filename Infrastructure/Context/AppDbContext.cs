@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.AI;
 using Domain.Entities.Auth;
 using Domain.Entities.Card;
 using Domain.Entities.banks;
@@ -51,6 +52,7 @@ public class AppDbContext : DbContext
     public DbSet<ConsistencyCounter> ConsistencyCounters => Set<ConsistencyCounter>();
     public DbSet<GamificationEvaluationRun> GamificationEvaluationRuns => Set<GamificationEvaluationRun>();
     public DbSet<DataRetentionPurgeRun> DataRetentionPurgeRuns => Set<DataRetentionPurgeRun>();
+    public DbSet<AiUsageLog> AiUsageLogs => Set<AiUsageLog>();
 
     public AppDbContext(DbContextOptions options)
         : base(options)

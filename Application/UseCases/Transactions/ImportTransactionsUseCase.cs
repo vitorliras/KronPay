@@ -1,13 +1,14 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.AI;
 using Application.Abstractions.Common;
 using Application.Abstractions.Import;
-using Application.DTOs.Transactions;
-using Domain.Entities.Transactions;
+using Application.Services.Transactions;
+using Domain.Entities.Configuration;
+using Domain.Exceptions;
 using Domain.Interfaces;
 using Domain.Interfaces.Transactions;
 using Shared.Localization;
 using Shared.Results;
-using System.Transactions;
 
 public sealed class ImportTransactionsUseCase
     : IUseCase<ImportTransactionsRequest, ImportTransactionsResponse>
@@ -16,14 +17,16 @@ public sealed class ImportTransactionsUseCase
     private readonly ITransactionRepository _transactionRepository;
     private readonly IPaymentMethodRepository _paymentMethodRepository;
     private readonly ICategoryRepository _categoryRepository;
-    private readonly ITransactionAiBatchClassifier _batchAiClassifier;
+    private readonly ImportedTransactionClassificationService _classificationService;
+    private readonly IAiAvailability _aiAvailability;
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICurrentUserService _currentUser;
 
     public ImportTransactionsUseCase(
         IEnumerable<ITransactionImportParser> parsers,
         ITransactionRepository transactionRepository,
-        ITransactionAiBatchClassifier batchAiClassifier,
+        ImportedTransactionClassificationService classificationService,
+        IAiAvailability aiAvailability,
         IPaymentMethodRepository paymentMethodRepository,
         ICategoryRepository categoryRepository,
         IUnitOfWork unitOfWork,
@@ -34,12 +37,13 @@ public sealed class ImportTransactionsUseCase
         _unitOfWork = unitOfWork;
         _paymentMethodRepository = paymentMethodRepository;
         _categoryRepository = categoryRepository;
-        _batchAiClassifier = batchAiClassifier;
+        _classificationService = classificationService;
+        _aiAvailability = aiAvailability;
         _currentUser = currentUser;
     }
 
     public async Task<ResultEntity<ImportTransactionsResponse>> ExecuteAsync(
-    ImportTransactionsRequest request)
+        ImportTransactionsRequest request)
     {
         var userId = _currentUser.UserId;
 
@@ -48,103 +52,66 @@ public sealed class ImportTransactionsUseCase
             return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.UnsupportedFileFormat);
 
         var paymentMethods = await _paymentMethodRepository.GetAllAsync(userId);
-        var categories = await _categoryRepository.GetAllAsync(userId);
+        var categories = (await _categoryRepository.GetAllAsync(userId)).ToList();
 
-        var importedTransactions = (await parser.ParseAsync(
-            request.FileStream,
-            userId,
-            paymentMethods,
-            categories)).ToList();
+        var fileBytes = await ReadAllBytesAsync(request.FileStream);
+
+        ParsedFile parsedFile;
+
+        try
+        {
+            parsedFile = await ParseAsync(parser, request.FileName, fileBytes, userId, paymentMethods, categories);
+        }
+        catch (DomainException ex)
+        {
+            return ResultEntity<ImportTransactionsResponse>.Failure(ex.Message);
+        }
+
+        var importedTransactions = parsedFile.Transactions;
+        var preview = request.Preview || parsedFile.AiBased;
+        var useAi = request.UseAi || parsedFile.AiBased;
 
         var totalRead = importedTransactions.Count;
-        var totalImported = 0;
-        var totalSkipped = 0;
+
+        var classified = await _classificationService.ClassifyAsync(
+            userId,
+            importedTransactions,
+            categories,
+            useAi);
 
         var updatedImportedTransactions = new List<ImportedTransactionResponse>();
         var transactionsToSave = new List<Domain.Entities.Transactions.Transaction>();
 
-        var batches = importedTransactions
-            .Select((t, i) => new { t, i })
-            .GroupBy(x => x.i / 15)
-            .Select(g => g.Select(x => x.t).ToList())
-            .ToList();
-
-        foreach (var batch in batches)
+        foreach (var updated in classified.OfType<ImportedTransactionResponse>())
         {
-            IReadOnlyList<TransactionAiSuggestion> suggestions;
-
-            try
-            {
-
-                suggestions = await _batchAiClassifier.SuggestBatchAsync(
-                    userId,
-                    batch,
-                    request.UseAi
-                );
-            }
-            catch
-            {
-                totalSkipped += batch.Count;
-                continue;
-            }
-
-            for (int i = 0; i < batch.Count; i++)
+            if (!preview)
             {
                 try
                 {
-                    var original = batch[i];
-                    var suggestion = suggestions[i];
-
-                    var updated = original;
-
-                    if (suggestion.Confidence >= 0.70m)
-                    {
-                        if (suggestion.IsInvestment)
-                        {
-                            var type = "V";
-                            if (updated.Type.Equals("I"))
-                                type = "R";
-                            updated = updated with
-                            {
-                                Type = type,
-                                CategoryId = suggestion.SuggestedCategoryId ?? updated.CategoryId
-                            };
-                        }
-                        else if (suggestion.SuggestedCategoryId is not null)
-                        {
-                            updated = updated with
-                            {
-                                CategoryId = suggestion.SuggestedCategoryId.Value
-                            };
-                        }
-                    }
-
-                    updatedImportedTransactions.Add(updated);
-
-                    if (!request.Preview)
-                    {
-                        transactionsToSave.Add(new Domain.Entities.Transactions.Transaction(
-                            userId: userId,
-                            amount: updated.Amount,
-                            transactionDate: updated.TransactionDate,
-                            description: updated.Description,
-                            codTypeTransaction: updated.Type,
-                            categoryId: updated.CategoryId,
-                            categoryItemId: updated.CategoryItemId,
-                            idPaymentMethod: 1
-                        ));
-                    }
-
-                    totalImported++;
+                    transactionsToSave.Add(new Domain.Entities.Transactions.Transaction(
+                        userId: userId,
+                        amount: updated.Amount,
+                        transactionDate: updated.TransactionDate,
+                        description: updated.Description,
+                        codTypeTransaction: updated.Type,
+                        categoryId: updated.CategoryId,
+                        categoryItemId: updated.CategoryItemId,
+                        idPaymentMethod: 1
+                    ));
                 }
                 catch
                 {
-                    totalSkipped++;
+                    continue;
                 }
             }
+
+            updatedImportedTransactions.Add(updated);
         }
 
-        if (request.Preview)
+        var totalImported = updatedImportedTransactions.Count;
+        var totalSkipped = totalRead - totalImported;
+
+        if (preview)
         {
             return ResultEntity<ImportTransactionsResponse>.Success(
                 new ImportTransactionsResponse(
@@ -161,7 +128,7 @@ public sealed class ImportTransactionsUseCase
             return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.InsertFalied);
 
         var committed = await _unitOfWork.CommitAsync();
-        
+
         if (!committed)
             return ResultEntity<ImportTransactionsResponse>.Failure(MessageKeys.DataPersistenceFailed);
 
@@ -182,4 +149,56 @@ public sealed class ImportTransactionsUseCase
         );
     }
 
+    private async Task<ParsedFile> ParseAsync(
+        ITransactionImportParser parser,
+        string fileName,
+        byte[] fileBytes,
+        int userId,
+        IEnumerable<PaymentMethod> paymentMethods,
+        IEnumerable<Category> categories)
+    {
+        var fallbackParser = IsCsv(fileName) && !parser.IsAiBased && _aiAvailability.GetActive() is not null
+            ? _parsers.FirstOrDefault(p => p.IsAiBased)
+            : null;
+
+        List<ImportedTransactionResponse>? parsed = null;
+
+        try
+        {
+            parsed = (await parser.ParseAsync(new MemoryStream(fileBytes), userId, paymentMethods, categories)).ToList();
+        }
+        catch (DomainException)
+        {
+            throw;
+        }
+        catch when (fallbackParser is null)
+        {
+            throw;
+        }
+        catch
+        {
+            parsed = null;
+        }
+
+        if ((parsed is null || parsed.Count == 0) && fallbackParser is not null)
+        {
+            var aiParsed = await fallbackParser.ParseAsync(new MemoryStream(fileBytes), userId, paymentMethods, categories);
+
+            return new ParsedFile(aiParsed.ToList(), AiBased: true);
+        }
+
+        return new ParsedFile(parsed ?? new List<ImportedTransactionResponse>(), parser.IsAiBased);
+    }
+
+    private static bool IsCsv(string fileName) =>
+        fileName.EndsWith(".csv", StringComparison.OrdinalIgnoreCase);
+
+    private static async Task<byte[]> ReadAllBytesAsync(Stream stream)
+    {
+        using var memory = new MemoryStream();
+        await stream.CopyToAsync(memory);
+        return memory.ToArray();
+    }
+
+    private sealed record ParsedFile(List<ImportedTransactionResponse> Transactions, bool AiBased);
 }
