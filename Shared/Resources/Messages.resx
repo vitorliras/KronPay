@@ -2272,6 +2272,9 @@
   <data name="AiFilesUnsupported" xml:space="preserve">
     <value>O provedor de IA atual não lê PDF nem imagens. Use um arquivo OFX, CSV ou Excel.</value>
   </data>
+  <data name="AiChatSomeFilesUnreadable" xml:space="preserve">
+    <value>Não consegui ler estes arquivos:</value>
+  </data>
   <data name="AiExtractionFailed" xml:space="preserve">
     <value>Não consegui ler esse conteúdo. Tente novamente ou use outro arquivo.</value>
   </data>
@@ -2336,13 +2339,19 @@
     <value>Salvar</value>
   </data>
   <data name="AiChatFailed" xml:space="preserve">
-    <value>Não consegui responder agora. Tente novamente em instantes ou use o assistente básico.</value>
+    <value>Não consegui responder agora. Tente novamente em instantes.</value>
   </data>
   <data name="AiChatProviderRejected" xml:space="preserve">
-    <value>O serviço de IA recusou o pedido (o crédito pode ter acabado ou há uma limitação). Você pode usar o assistente básico.</value>
+    <value>O serviço de IA recusou o pedido (o crédito pode ter acabado ou há uma limitação). Tente novamente mais tarde.</value>
   </data>
   <data name="AiChatDailyLimit" xml:space="preserve">
-    <value>Você atingiu o limite diário de mensagens com a IA. Tente novamente amanhã ou use o assistente básico.</value>
+    <value>Você atingiu o limite diário de mensagens com a IA. Tente novamente amanhã.</value>
+  </data>
+  <data name="ChatAttachmentTooMany" xml:space="preserve">
+    <value>Muitos arquivos anexados. Envie menos arquivos por vez.</value>
+  </data>
+  <data name="ChatAttachmentTooLarge" xml:space="preserve">
+    <value>Arquivo grande demais. O limite é de 10 MB por arquivo.</value>
   </data>
   <data name="AiChatStarterTopCategory" xml:space="preserve">
     <value>Por que gastei tanto com {0} este mês?</value>
@@ -2400,6 +2409,27 @@
   </data>
   <data name="AiChatInvoicePaid" xml:space="preserve">
     <value>Pagamento da fatura registrado.</value>
+  </data>
+  <data name="AiChatAttach" xml:space="preserve">
+    <value>Anexar documento</value>
+  </data>
+  <data name="AiChatReadingDocument" xml:space="preserve">
+    <value>Lendo o documento...</value>
+  </data>
+  <data name="AiChatDefaultAttachmentMessage" xml:space="preserve">
+    <value>Analise o(s) documento(s) que anexei.</value>
+  </data>
+  <data name="DuplicateAlreadyRegistered" xml:space="preserve">
+    <value>Já lançada</value>
+  </data>
+  <data name="DuplicateRepeatedInFile" xml:space="preserve">
+    <value>Repetida no arquivo</value>
+  </data>
+  <data name="CardInvoicePaymentTag" xml:space="preserve">
+    <value>Fatura de cartão</value>
+  </data>
+  <data name="PaymentMethodForAll" xml:space="preserve">
+    <value>Forma de pagamento (todas)</value>
   </data>
   <data name="TransactionsPreview" xml:space="preserve">
     <value>Revisar lançamentos</value>

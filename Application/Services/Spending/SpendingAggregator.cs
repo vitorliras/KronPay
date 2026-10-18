@@ -101,6 +101,60 @@ public sealed class SpendingAggregator
             .ToList();
     }
 
+    public async Task<LifetimeTotals?> GetLifetimeTotalsAsync(int userId, DateTime today)
+    {
+        var searchStart = await GetEarliestRecordDateAsync(userId);
+
+        if (searchStart is null || searchStart > today)
+            return null;
+
+        var expenses = await GetExpenseEntriesAsync(userId, searchStart.Value, today);
+
+        var incomes = (await _transactionRepository.GetByPeriodAsync(
+                userId, searchStart.Value.Date, today.Date.AddDays(1).AddTicks(-1)))
+            .Where(t => t.CodTypeTransaction == Income && t.Status != Cancelled)
+            .ToList();
+
+        var dates = expenses.Select(e => e.Date).Concat(incomes.Select(t => t.TransactionDate)).ToList();
+
+        if (dates.Count == 0)
+            return null;
+
+        var years = dates
+            .Select(d => d.Year)
+            .Distinct()
+            .OrderBy(year => year)
+            .Select(year =>
+            {
+                var spent = expenses.Where(e => e.Date.Year == year).Sum(e => e.Amount);
+                var earned = incomes.Where(t => t.TransactionDate.Year == year).Sum(t => t.Amount);
+
+                return new YearlyTotal(year, spent, earned, earned - spent);
+            })
+            .ToList();
+
+        return new LifetimeTotals(dates.Min(), years);
+    }
+
+    private async Task<DateTime?> GetEarliestRecordDateAsync(int userId)
+    {
+        var firstTransaction = await _transactionRepository.GetFirstTransactionDateAsync(userId);
+
+        var firstInvoice = (await _invoiceRepository.GetByUserAsync(userId))
+            .Select(i => new DateTime(i.ReferenceYear, i.ReferenceMonth, 1))
+            .OrderBy(d => d)
+            .Select(d => (DateTime?)d)
+            .FirstOrDefault();
+
+        return (firstTransaction, firstInvoice) switch
+        {
+            (null, null) => null,
+            (null, var invoice) => invoice,
+            (var transaction, null) => transaction,
+            (var transaction, var invoice) => transaction < invoice ? transaction : invoice
+        };
+    }
+
     public async Task<IReadOnlyDictionary<int, string>> CategoryNamesAsync(int userId) =>
         (await _categoryRepository.GetAllAsync(userId)).ToDictionary(c => c.Id, c => c.Description);
 

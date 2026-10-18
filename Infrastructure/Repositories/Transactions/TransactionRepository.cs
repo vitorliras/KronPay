@@ -266,6 +266,16 @@ namespace Infrastructure.Repositories.Transactions
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<DateTime?> GetFirstTransactionDateAsync(int userId)
+        {
+            return await _context.Transactions
+                .AsNoTracking()
+                .Where(t => t.UserId == userId)
+                .OrderBy(t => t.TransactionDate)
+                .Select(t => (DateTime?)t.TransactionDate)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> ExistsByPaymentMethodIdAsync(int paymentMethodId)
         {
             return await _context.Transactions

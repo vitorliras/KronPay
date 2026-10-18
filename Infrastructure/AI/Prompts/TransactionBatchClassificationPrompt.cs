@@ -7,7 +7,8 @@ public static class TransactionBatchClassificationPrompt
 {
     public static string Build(
         IReadOnlyList<ImportedTransactionResponse> transactions,
-        IEnumerable<Category> categories)
+        IEnumerable<Category> categories,
+        IEnumerable<CategoryItem> categoryItems)
     {
         var sb = new StringBuilder();
 
@@ -61,6 +62,15 @@ public static class TransactionBatchClassificationPrompt
         }
 
         sb.AppendLine();
+        sb.AppendLine("SUBCATEGORIES (use ONLY these IDs; each belongs to exactly one category):");
+        sb.AppendLine("Format text: ID|description subcategory|category ID");
+
+        foreach (var item in categoryItems)
+        {
+            sb.AppendLine($"{item.Id}|{item.Description}|{item.CategoryId}");
+        }
+
+        sb.AppendLine();
         sb.AppendLine("RETURN EXACTLY THIS JSON FORMAT:");
         sb.AppendLine();
 
@@ -70,6 +80,7 @@ public static class TransactionBatchClassificationPrompt
             ""isInvestment"": false,
             ""confidence"": 0.75,
             ""suggestedCategoryId"": 5,
+            ""suggestedCategoryItemId"": 12,
             ""suggestedType"": ""E""
           }
         ]");
@@ -83,6 +94,7 @@ public static class TransactionBatchClassificationPrompt
         sb.AppendLine("- NEVER change order");
         sb.AppendLine("- See which category best fits each transaction.");
         sb.AppendLine("- All transactions must have a category.");
+        sb.AppendLine("- suggestedCategoryItemId is the subcategory ID. Set it ONLY when a listed subcategory of the chosen category clearly fits; otherwise null. NEVER use a subcategory that belongs to another category.");
         sb.AppendLine("- A transaction of this type can only have one category of the same type.");
         sb.AppendLine("- TThe exact number of JSON objects in the array should be "+ transactions.Count());
 

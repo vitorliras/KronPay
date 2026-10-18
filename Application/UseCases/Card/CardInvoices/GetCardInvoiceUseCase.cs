@@ -29,6 +29,8 @@ public sealed class GetCardInvoiceUseCase
         if (invoice is null)
             return ResultEntity<CardInvoiceResponse>.Failure(MessageKeys.ItemNotFound);
 
+        var pending = await _invoiceRepository.GetPendingAmountsByCardAsync(invoice.CreditCardId, userId);
+
         return ResultEntity<CardInvoiceResponse>.Success(
             new CardInvoiceResponse(
                 invoice.Id,
@@ -38,7 +40,8 @@ public sealed class GetCardInvoiceUseCase
                 invoice.DueDate,
                 invoice.TotalAmount,
                 invoice.Status,
-                invoice.PaidAt),
+                invoice.PaidAt,
+                pending.GetValueOrDefault(invoice.Id)),
             MessageKeys.OperationSuccess);
     }
 }

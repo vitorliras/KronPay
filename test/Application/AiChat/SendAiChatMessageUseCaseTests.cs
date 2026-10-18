@@ -69,10 +69,12 @@ public class SendAiChatMessageUseCaseTests : AiChatTestBase
     private readonly Mock<IUnitOfWork> _uow = new();
     private readonly ChatActionCollector _actions = new();
     private readonly AiSettings _aiSettings = new();
+    private readonly global::Infrastructure.AI.Chat.InMemoryChatAttachmentStore _attachmentStore;
 
     public SendAiChatMessageUseCaseTests()
     {
         _settings.Setup(s => s.CurrentValue).Returns(_aiSettings);
+        _attachmentStore = new global::Infrastructure.AI.Chat.InMemoryChatAttachmentStore(_settings.Object);
         _usage.Setup(u => u.CountByFeatureSinceAsync(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<DateTime>())).ReturnsAsync(0);
         _uow.Setup(u => u.CommitAsync(It.IsAny<CancellationToken?>())).ReturnsAsync(true);
         CreditCards.Setup(c => c.GetAllAsync(It.IsAny<int>())).ReturnsAsync(new List<global::Domain.Entities.Card.CreditCard>());
@@ -90,7 +92,12 @@ public class SendAiChatMessageUseCaseTests : AiChatTestBase
             Invoices.Object,
             Purchases.Object,
             Mock.Of<IFinancialGoalRepository>(),
-            Mock.Of<IPlannedCommitmentRepository>());
+            Mock.Of<IPlannedCommitmentRepository>(),
+            Categories.Object,
+            Mock.Of<ICategoryItemRepository>(),
+            Mock.Of<IPaymentMethodRepository>());
+
+        var attachmentContext = new ChatAttachmentContext();
 
         return new SendAiChatMessageUseCase(
             Availability.Object,
@@ -100,10 +107,48 @@ public class SendAiChatMessageUseCaseTests : AiChatTestBase
             _chat.Object,
             _toolbox.Object,
             _actions,
+            attachmentContext,
+            new ChatAttachmentToolService(
+                _attachmentStore,
+                attachmentContext,
+                new ChatAttachmentAnalyzer(Transactions.Object, CreditCards.Object, new CardInvoicePaymentDetector(), new AttachmentDuplicateDetector()),
+                Categories.Object,
+                null!,
+                _actions,
+                CurrentUser.Object),
             _gamification.Object,
             _uow.Object,
             CurrentUser.Object,
             NullLogger<SendAiChatMessageUseCase>.Instance);
+    }
+
+    [Fact]
+    public async Task Anexos_da_conversa_entram_no_prompt_so_para_o_dono()
+    {
+        AiEnabled(true);
+        string? prompt = null;
+
+        _chat
+            .Setup(c => c.RunAsync(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<IReadOnlyList<AiChatTurn>>(), It.IsAny<IChatToolbox>(), It.IsAny<CancellationToken>()))
+            .Callback<int, string, IReadOnlyList<AiChatTurn>, IChatToolbox, CancellationToken>((_, p, _, _, _) => prompt = p)
+            .ReturnsAsync(new AiChatServiceResult("{\"reply\":\"ok\",\"suggestions\":[\"a\"]}", 0));
+
+        _attachmentStore.Add(1, new ChatAttachment(
+            "abc",
+            "extrato-setembro.pdf",
+            new[] { new AttachmentTransaction(new DateTime(2026, 9, 10), "Padaria", 15m, "E") },
+            DateTime.UtcNow));
+
+        _attachmentStore.Add(2, new ChatAttachment("zzz", "de-outro.pdf", Array.Empty<AttachmentTransaction>(), DateTime.UtcNow));
+
+        var request = new AiChatRequest(new[] { new AiChatMessageDto("user", "analisa") }, new[] { "abc", "zzz" });
+
+        var result = await Build().ExecuteAsync(request);
+
+        result.IsSuccess.ShouldBeTrue();
+        prompt.ShouldContain("ATTACHMENTS");
+        prompt.ShouldContain("extrato-setembro.pdf");
+        prompt.ShouldNotContain("de-outro.pdf");
     }
 
     private static AiChatRequest Request(params (string Role, string Content)[] messages) =>

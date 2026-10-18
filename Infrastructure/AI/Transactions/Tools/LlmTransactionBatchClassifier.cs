@@ -1,6 +1,7 @@
 using System.Text.Json;
 using Application.Abstractions.AI;
 using Application.DTOs.Transactions;
+using Domain.Entities.Configuration;
 using Domain.Interfaces;
 using Infrastructure.AI.Prompts;
 using Shared.AI;
@@ -21,13 +22,16 @@ public sealed class LlmTransactionBatchClassifier : ITransactionAiBatchClassifie
 
     private readonly IAiCompletionService _completionService;
     private readonly ICategoryRepository _categoryRepository;
+    private readonly ICategoryItemRepository _categoryItemRepository;
 
     public LlmTransactionBatchClassifier(
         IAiCompletionService completionService,
-        ICategoryRepository categoryRepository)
+        ICategoryRepository categoryRepository,
+        ICategoryItemRepository categoryItemRepository)
     {
         _completionService = completionService;
         _categoryRepository = categoryRepository;
+        _categoryItemRepository = categoryItemRepository;
     }
 
     public async Task<IReadOnlyList<TransactionAiSuggestion>> SuggestBatchAsync(
@@ -39,8 +43,9 @@ public sealed class LlmTransactionBatchClassifier : ITransactionAiBatchClassifie
             return Array.Empty<TransactionAiSuggestion>();
 
         var categories = await _categoryRepository.GetAllAsync(userId);
+        var categoryItems = (await _categoryItemRepository.GetAllByUserIdAsync(userId)).ToList();
 
-        var prompt = TransactionBatchClassificationPrompt.Build(transactions, categories);
+        var prompt = TransactionBatchClassificationPrompt.Build(transactions, categories, categoryItems);
 
         var completion = await _completionService.CompleteAsync(
             new AiCompletionRequest(userId, AiFeatures.TransactionImport, SystemPrompt, prompt));
@@ -61,11 +66,19 @@ public sealed class LlmTransactionBatchClassifier : ITransactionAiBatchClassifie
                 result.Confidence,
                 result.SuggestedCategoryId,
                 result.SuggestedType,
-                ClassificationSources.Ai);
+                ClassificationSources.Ai,
+                ValidItemId(result, categoryItems));
         }
 
         return suggestions;
     }
+
+    private static int? ValidItemId(BatchAiResult result, IReadOnlyList<CategoryItem> categoryItems) =>
+        result.SuggestedCategoryId is { } categoryId
+        && result.SuggestedCategoryItemId is { } itemId
+        && categoryItems.Any(i => i.Id == itemId && i.CategoryId == categoryId)
+            ? itemId
+            : null;
 
     private static List<BatchAiResult> ParseResults(string text)
     {

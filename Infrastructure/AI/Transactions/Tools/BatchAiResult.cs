@@ -6,5 +6,6 @@ public sealed class BatchAiResult
     public bool IsInvestment { get; set; }
     public decimal Confidence { get; set; }
     public int? SuggestedCategoryId { get; set; }
+    public int? SuggestedCategoryItemId { get; set; }
     public string? SuggestedType { get; set; }
 }

@@ -16,13 +16,14 @@ public sealed class CardInvoiceFlowSource : IFinancialFlowSource
     public async Task<IEnumerable<FinancialFlow>> GetFlowsAsync(int userId, DateTime from, DateTime to)
     {
         var invoices = await _invoices.GetByUserAsync(userId);
+        var pending = await _invoices.GetPendingAmountsByUserAsync(userId) ?? new Dictionary<int, decimal>();
 
         return invoices
-            .Where(i => i.Status != "P" && i.TotalAmount > 0)
+            .Where(i => i.Status != "P" && pending.GetValueOrDefault(i.Id) > 0)
             .Select(i => new FinancialFlow(
                 i.DueDate.Date < from.Date ? from.Date : i.DueDate,
                 FlowDirection.Outflow,
-                i.TotalAmount,
+                pending.GetValueOrDefault(i.Id),
                 ConfidenceLevel.High,
                 FlowOrigin.CardInvoice,
                 $"Fatura {i.ReferenceMonth}/{i.ReferenceYear}"))

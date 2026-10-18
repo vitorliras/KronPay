@@ -112,7 +112,8 @@ public sealed class PayCardInvoiceUseCase
                 invoice.DueDate,
                 invoice.TotalAmount,
                 invoice.Status,
-                invoice.PaidAt),
+                invoice.PaidAt,
+                0m),
             MessageKeys.OperationSuccess);
     }
 

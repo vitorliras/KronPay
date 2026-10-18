@@ -16,17 +16,20 @@ public sealed class CardInvoiceNotificationRuleEvaluator : ICardInvoiceNotificat
     public async Task<IReadOnlyList<NotificationCandidate>> EvaluateAsync(int userId, DateTime today)
     {
         var invoices = await _invoices.GetByUserAsync(userId);
+        var pending = await _invoices.GetPendingAmountsByUserAsync(userId) ?? new Dictionary<int, decimal>();
         var candidates = new List<NotificationCandidate>();
         var tomorrow = today.AddDays(1);
 
         foreach (var invoice in invoices)
         {
-            if (invoice.IsPaid)
+            var pendingAmount = pending.GetValueOrDefault(invoice.Id);
+
+            if (invoice.IsPaid || pendingAmount <= 0)
                 continue;
 
             var dueArgs = new Dictionary<string, string>
             {
-                ["amount"] = invoice.TotalAmount.ToString("F2"),
+                ["amount"] = pendingAmount.ToString("F2"),
                 ["dueDate"] = invoice.DueDate.ToString("dd/MM/yyyy")
             };
 

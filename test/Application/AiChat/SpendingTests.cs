@@ -170,6 +170,41 @@ public class SpendingAggregatorTests
     }
 
     [Fact]
+    public async Task Totais_desde_o_inicio_somam_todos_os_anos_e_ignoram_canceladas()
+    {
+        var transactions = new[]
+        {
+            Tx("I", 3000m, new DateTime(2024, 3, 5), "salario", 2),
+            Tx("E", 500m, new DateTime(2024, 4, 5), "a", 1),
+            Tx("E", 40m, new DateTime(2024, 4, 6), "cancelada", 1, status: "C"),
+            Tx("I", 4000m, new DateTime(2026, 10, 6), "salario", 2),
+            Tx("E", 1000m, new DateTime(2026, 10, 7), "b", 1)
+        };
+        var aggregator = Build(
+            transactions,
+            new[] { Installment(2025, 6, 200m, "tv", 1) },
+            categories: Cat(1, "Mercado"));
+        _transactions.Setup(t => t.GetFirstTransactionDateAsync(1)).ReturnsAsync(new DateTime(2024, 3, 5));
+
+        var totals = await aggregator.GetLifetimeTotalsAsync(1, new DateTime(2026, 10, 16));
+
+        totals.ShouldNotBeNull();
+        totals.FirstDate.ShouldBe(new DateTime(2024, 3, 5));
+        totals.Years.Select(y => y.Year).ShouldBe(new[] { 2024, 2025, 2026 });
+        totals.Expenses.ShouldBe(1700m);
+        totals.Income.ShouldBe(7000m);
+        totals.Balance.ShouldBe(5300m);
+    }
+
+    [Fact]
+    public async Task Totais_desde_o_inicio_sem_movimentacao_retornam_nulo()
+    {
+        var aggregator = Build(Array.Empty<DomainTransactions.Transaction>());
+
+        (await aggregator.GetLifetimeTotalsAsync(1, new DateTime(2026, 10, 16))).ShouldBeNull();
+    }
+
+    [Fact]
     public async Task Informa_se_existe_categoria_de_pagamento_de_fatura()
     {
         (await Build(Array.Empty<DomainTransactions.Transaction>(), invoiceCategory: null).HasCardInvoiceCategoryAsync(1)).ShouldBeFalse();

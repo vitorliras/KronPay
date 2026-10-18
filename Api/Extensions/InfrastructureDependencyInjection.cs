@@ -207,6 +207,7 @@ public static class InfrastructureDependencyInjection
         #endregion
 
         services.AddSingleton<IAiChatClientFactory, AiChatClientFactory>();
+        services.AddSingleton<IChatAttachmentStore, InMemoryChatAttachmentStore>();
         services.AddScoped<IAiUsageRecorder, AiUsageRecorder>();
         services.AddScoped<IAiCompletionService, AiCompletionService>();
         services.AddScoped<IAiUsageLogRepository, AiUsageLogRepository>();

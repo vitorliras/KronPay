@@ -61,7 +61,10 @@ public sealed class CardMissionEvaluator : IMissionEvaluator
                 continue;
             }
 
-            var isOverdueUnpaid = !latestInvoice.IsPaid && asOf.Date > latestInvoice.DueDate.Date;
+            var pendingByInvoice = await _cardInvoices.GetPendingAmountsByCardAsync(card.Id, userId)
+                ?? new Dictionary<int, decimal>();
+            var hasPending = pendingByInvoice.GetValueOrDefault(latestInvoice.Id) > 0;
+            var isOverdueUnpaid = !latestInvoice.IsPaid && hasPending && asOf.Date > latestInvoice.DueDate.Date;
             var isPaidOnTime = latestInvoice.IsPaid
                 && latestInvoice.PaidAt.HasValue
                 && latestInvoice.PaidAt.Value.Date <= latestInvoice.DueDate.Date;

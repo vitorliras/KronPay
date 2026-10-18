@@ -463,11 +463,14 @@ public static class MessageKeys
     public const string AiFilesUnsupported = nameof(AiFilesUnsupported);
     public const string AiExtractionFailed = nameof(AiExtractionFailed);
     public const string AiNothingExtracted = nameof(AiNothingExtracted);
+    public const string AiChatSomeFilesUnreadable = nameof(AiChatSomeFilesUnreadable);
     public const string FileTooLarge = nameof(FileTooLarge);
     public const string TextTooLong = nameof(TextTooLong);
     public const string AiChatFailed = nameof(AiChatFailed);
     public const string AiChatProviderRejected = nameof(AiChatProviderRejected);
     public const string AiChatDailyLimit = nameof(AiChatDailyLimit);
+    public const string ChatAttachmentTooMany = nameof(ChatAttachmentTooMany);
+    public const string ChatAttachmentTooLarge = nameof(ChatAttachmentTooLarge);
     public const string AiChatStarterTopCategory = nameof(AiChatStarterTopCategory);
     public const string AiChatStarterSpendingMonth = nameof(AiChatStarterSpendingMonth);
     public const string AiChatStarterNextInvoice = nameof(AiChatStarterNextInvoice);

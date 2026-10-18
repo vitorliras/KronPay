@@ -147,7 +147,9 @@ public class AiChatServiceTests
         names.ShouldContain("prepare_invoice_payment");
         names.ShouldContain("prepare_transactions");
         names.ShouldContain("open_screen");
-        names.Count.ShouldBe(18);
+        names.ShouldContain("get_lifetime_totals");
+        names.Count.ShouldBe(24);
+        names.ShouldContain("review_categories");
         names.ShouldContain("prepare_category");
         names.ShouldContain("prepare_financial_goal");
         names.ShouldContain("prepare_category_budget_goal");

@@ -6,6 +6,7 @@ namespace Application.DTOs.Transactions
         decimal Confidence,
         int? SuggestedCategoryId,
         string? SuggestedType,
-        string? Source = null
+        string? Source = null,
+        int? SuggestedCategoryItemId = null
     );
 }

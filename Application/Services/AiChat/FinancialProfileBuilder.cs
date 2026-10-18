@@ -12,6 +12,15 @@ public sealed class FinancialProfileBuilder
 {
     private const int TopCategories = 5;
     private const int HistoryMonths = 6;
+    private const int MaxCategoriesPerType = 40;
+    private const int MaxSubcategoriesPerCategory = 15;
+
+    private static readonly (string Code, string Label)[] CategoryTypeLabels =
+    {
+        ("E", "Expense"),
+        ("I", "Income"),
+        ("V", "Investment")
+    };
 
     private readonly SpendingAggregator _aggregator;
     private readonly ICreditCardRepository _creditCardRepository;
@@ -19,6 +28,9 @@ public sealed class FinancialProfileBuilder
     private readonly ICardPurchaseRepository _purchaseRepository;
     private readonly IFinancialGoalRepository _goalRepository;
     private readonly IPlannedCommitmentRepository _commitmentRepository;
+    private readonly ICategoryRepository _categoryRepository;
+    private readonly ICategoryItemRepository _categoryItemRepository;
+    private readonly IPaymentMethodRepository _paymentMethodRepository;
 
     public FinancialProfileBuilder(
         SpendingAggregator aggregator,
@@ -26,7 +38,10 @@ public sealed class FinancialProfileBuilder
         ICardInvoiceRepository invoiceRepository,
         ICardPurchaseRepository purchaseRepository,
         IFinancialGoalRepository goalRepository,
-        IPlannedCommitmentRepository commitmentRepository)
+        IPlannedCommitmentRepository commitmentRepository,
+        ICategoryRepository categoryRepository,
+        ICategoryItemRepository categoryItemRepository,
+        IPaymentMethodRepository paymentMethodRepository)
     {
         _aggregator = aggregator;
         _creditCardRepository = creditCardRepository;
@@ -34,6 +49,9 @@ public sealed class FinancialProfileBuilder
         _purchaseRepository = purchaseRepository;
         _goalRepository = goalRepository;
         _commitmentRepository = commitmentRepository;
+        _categoryRepository = categoryRepository;
+        _categoryItemRepository = categoryItemRepository;
+        _paymentMethodRepository = paymentMethodRepository;
     }
 
     public async Task<string> BuildAsync(int userId, DateTime today)
@@ -72,6 +90,7 @@ public sealed class FinancialProfileBuilder
                 history.Take(TopCategories).Select(c => $"{c.Category} {MoneyFormatter.Format(c.Total / HistoryMonths)}")) + ".");
         }
 
+        await AppendConfigurationAsync(sb, userId);
         await AppendCardsAsync(sb, userId);
         await AppendGoalsAsync(sb, userId);
 
@@ -80,6 +99,39 @@ public sealed class FinancialProfileBuilder
             : "Card invoice payment category: NOT configured (card bills typed manually as ordinary transactions may be counted twice).");
 
         return sb.ToString();
+    }
+
+    private async Task AppendConfigurationAsync(StringBuilder sb, int userId)
+    {
+        var categories = (await _categoryRepository.GetAllAsync(userId)).ToList();
+        var items = (await _categoryItemRepository.GetAllByUserIdAsync(userId)).ToList();
+        var methods = (await _paymentMethodRepository.GetAllAsync(userId)).ToList();
+
+        foreach (var (code, label) in CategoryTypeLabels)
+        {
+            var ofType = categories.Where(c => c.CodTypeTransaction == code).Take(MaxCategoriesPerType).ToList();
+
+            if (ofType.Count == 0)
+            {
+                sb.AppendLine($"{label} categories: none.");
+                continue;
+            }
+
+            var described = ofType.Select(c =>
+            {
+                var subcategories = items.Where(i => i.CategoryId == c.Id).Take(MaxSubcategoriesPerCategory).Select(i => i.Description).ToList();
+
+                return subcategories.Count == 0
+                    ? c.Description
+                    : $"{c.Description} (subcategories: {string.Join(", ", subcategories)})";
+            });
+
+            sb.AppendLine($"{label} categories: {string.Join("; ", described)}.");
+        }
+
+        sb.AppendLine(methods.Count == 0
+            ? "Payment methods: none."
+            : "Payment methods: " + string.Join(", ", methods.Select(m => m.Description)) + ".");
     }
 
     private async Task AppendCardsAsync(StringBuilder sb, int userId)

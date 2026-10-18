@@ -30,6 +30,16 @@ public sealed class ChatToolbox : IChatToolbox
     private const int MaxSearchRows = 30;
     private const int MaxTextLength = 4000;
     private const int MaxCommitmentDescriptionLength = 60;
+    private const int ReviewMonths = 6;
+    private const int MaxUncategorizedDescriptions = 10;
+
+    private static readonly IReadOnlyDictionary<string, (string Path, string LabelKey)> ExtraScreens =
+        new Dictionary<string, (string Path, string LabelKey)>
+        {
+            ["invoices"] = (InvoicesPath, "Invoices"),
+            ["goals-history"] = ("/goals-history", "GoalsHistory"),
+            ["achievements"] = ("/profile/achievements", "Achievements")
+        };
     private const string InvoicesPath = "/credit-card/invoices";
 
     private readonly SpendingAggregator _aggregator;
@@ -43,7 +53,9 @@ public sealed class ChatToolbox : IChatToolbox
     private readonly IParameterFuzzyMatcher _fuzzyMatcher;
     private readonly AssistantTree _assistantTree;
     private readonly ChatActionCollector _actions;
-    private readonly ImportedTransactionClassificationService _classification;
+    private readonly ScreenFilterBuilder _screenFilterBuilder = new();
+    private readonly TransactionDraftCategorizer _categorizer;
+    private readonly ChatAttachmentToolService _attachments;
     private readonly CardPurchasePreviewBuilder _previewBuilder;
     private readonly ICategoryRepository _categoryRepository;
     private readonly ICategoryItemRepository _categoryItemRepository;
@@ -61,7 +73,8 @@ public sealed class ChatToolbox : IChatToolbox
         IParameterFuzzyMatcher fuzzyMatcher,
         AssistantTree assistantTree,
         ChatActionCollector actions,
-        ImportedTransactionClassificationService classification,
+        TransactionDraftCategorizer categorizer,
+        ChatAttachmentToolService attachments,
         CardPurchasePreviewBuilder previewBuilder,
         ICategoryRepository categoryRepository,
         ICategoryItemRepository categoryItemRepository,
@@ -78,7 +91,8 @@ public sealed class ChatToolbox : IChatToolbox
         _fuzzyMatcher = fuzzyMatcher;
         _assistantTree = assistantTree;
         _actions = actions;
-        _classification = classification;
+        _categorizer = categorizer;
+        _attachments = attachments;
         _previewBuilder = previewBuilder;
         _categoryRepository = categoryRepository;
         _categoryItemRepository = categoryItemRepository;
@@ -129,6 +143,32 @@ public sealed class ChatToolbox : IChatToolbox
             income = Round(t.Income),
             balance = Round(t.Balance)
         }));
+    }
+
+    public async Task<ChatToolResult> GetLifetimeTotals()
+    {
+        var today = BrazilClock.Today();
+        var totals = await _aggregator.GetLifetimeTotalsAsync(_currentUser.UserId, today);
+
+        if (totals is null)
+            return ChatToolResult.Failure("The user has no transactions yet.");
+
+        return ChatToolResult.Success(new
+        {
+            firstDate = Iso(totals.FirstDate),
+            endDate = Iso(today),
+            expenses = Round(totals.Expenses),
+            income = Round(totals.Income),
+            balance = Round(totals.Balance),
+            years = totals.Years.Select(y => new
+            {
+                year = y.Year,
+                expenses = Round(y.Expenses),
+                income = Round(y.Income),
+                balance = Round(y.Balance)
+            }),
+            note = "Credit card purchases are counted in the month of their invoice and card invoice payments are excluded."
+        });
     }
 
     public async Task<ChatToolResult> SearchTransactions(
@@ -290,14 +330,164 @@ public sealed class ChatToolbox : IChatToolbox
         }));
     }
 
-    public Task<ChatToolResult> OpenScreen(string screen)
+    public async Task<ChatToolResult> ReviewCategories()
     {
-        if (!TryScreen(screen, out var path, out var labelKey))
-            return Task.FromResult(ChatToolResult.Failure($"Unknown screen. Valid screens: {string.Join(", ", ScreenIds())}."));
+        var userId = _currentUser.UserId;
+        var today = BrazilClock.Today();
+        var start = new DateTime(today.Year, today.Month, 1).AddMonths(-(ReviewMonths - 1));
 
-        _actions.Add(new AiChatActionResponse(AiChatActionTypes.Navigate, labelKey, path));
+        var categories = (await _categoryRepository.GetAllAsync(userId)).ToList();
+        var items = (await _categoryItemRepository.GetAllByUserIdAsync(userId)).ToList();
+        var entries = await _aggregator.GetExpenseEntriesAsync(userId, start, today);
 
-        return Task.FromResult(ChatToolResult.Success(message: "A button to open the screen will be shown to the user."));
+        var incomes = (await _transactionRepository.GetByPeriodAsync(userId, start, today.AddDays(1).AddTicks(-1)))
+            .Where(t => t.CodTypeTransaction == "I" && t.Status != "C")
+            .ToList();
+
+        var usage = entries
+            .Select(e => (e.CategoryId, e.CategoryItemId))
+            .Concat(incomes.Select(t => (t.CategoryId, t.CategoryItemId)))
+            .ToList();
+
+        var reviewed = categories.Select(c => new
+        {
+            category = c.Description,
+            type = c.CodTypeTransaction switch { "E" => "expense", "I" => "income", _ => "investment" },
+            timesUsed = usage.Count(u => u.CategoryId == c.Id),
+            subcategories = items
+                .Where(i => i.CategoryId == c.Id)
+                .Select(i => new { name = i.Description, timesUsed = usage.Count(u => u.CategoryItemId == i.Id) })
+                .ToList()
+        }).ToList();
+
+        var uncategorized = entries.Where(e => e.CategoryId is null).ToList();
+
+        return ChatToolResult.Success(new
+        {
+            periodMonths = ReviewMonths,
+            categories = reviewed,
+            unusedCategories = reviewed.Where(c => c.timesUsed == 0).Select(c => c.category),
+            uncategorizedExpenses = new
+            {
+                count = uncategorized.Count,
+                total = Round(uncategorized.Sum(e => e.Amount)),
+                topDescriptions = uncategorized
+                    .GroupBy(e => TransactionDescriptionNormalizer.Normalize(e.Description))
+                    .Select(g => new { description = g.First().Description, times = g.Count(), total = Round(g.Sum(e => e.Amount)) })
+                    .OrderByDescending(x => x.total)
+                    .Take(MaxUncategorizedDescriptions)
+            }
+        });
+    }
+
+    public async Task<ChatToolResult> OpenScreen(
+        string screen,
+        bool goNow,
+        string? tab = null,
+        string? startDate = null,
+        string? endDate = null,
+        int? month = null,
+        int? year = null,
+        string? type = null,
+        string? categoryName = null,
+        string? search = null,
+        int? horizonMonths = null,
+        string? cardName = null,
+        string? goalName = null)
+    {
+        var id = (screen ?? string.Empty).Trim().ToLowerInvariant();
+
+        if (!TryScreen(id, out var path, out var labelKey))
+            return ChatToolResult.Failure($"Unknown screen. Valid screens: {string.Join(", ", ScreenIds())}.");
+
+        var userId = _currentUser.UserId;
+        var ignored = new List<string>();
+
+        DateTime? start = null;
+        DateTime? end = null;
+
+        if (!string.IsNullOrWhiteSpace(startDate))
+        {
+            if (TryDate(startDate, out var parsedStart)) start = parsedStart; else ignored.Add($"start date '{startDate}'");
+        }
+
+        if (!string.IsNullOrWhiteSpace(endDate))
+        {
+            if (TryDate(endDate, out var parsedEnd)) end = parsedEnd; else ignored.Add($"end date '{endDate}'");
+        }
+
+        var filterType = string.IsNullOrWhiteSpace(type) ? null : TransactionType(type);
+
+        if (!string.IsNullOrWhiteSpace(type) && filterType is null)
+            ignored.Add($"type '{type}'");
+
+        int? categoryId = null;
+
+        if (!string.IsNullOrWhiteSpace(categoryName))
+        {
+            var categories = (await _categoryRepository.GetAllAsync(userId)).ToList();
+            var resolution = NameResolver.Resolve(categoryName, categories, c => c.Id, c => c.Description, _fuzzyMatcher);
+
+            if (resolution.Match is null)
+            {
+                return resolution.IsAmbiguous
+                    ? ChatToolResult.Failure($"Ambiguous category. Ask the user which one: {string.Join(", ", resolution.Candidates.Select(c => c.Description))}.")
+                    : ChatToolResult.Failure($"Category not found. The user's categories are: {string.Join(", ", categories.Select(c => c.Description))}.");
+            }
+
+            categoryId = resolution.Match.Id;
+        }
+
+        int? cardId = null;
+
+        if (!string.IsNullOrWhiteSpace(cardName))
+        {
+            var cards = (await _creditCardRepository.GetAllAsync(userId)).ToList();
+            var resolution = ResolveCard(cardName, cards);
+
+            if (resolution.Match is null)
+                return CardNotResolved(resolution, cards);
+
+            cardId = resolution.Match.Id;
+        }
+
+        int? goalId = null;
+
+        if (!string.IsNullOrWhiteSpace(goalName))
+        {
+            var goals = (await _goalRepository.GetActiveAsync(userId)).ToList();
+            var resolution = NameResolver.Resolve(goalName, goals, g => g.Id, g => g.Description, _fuzzyMatcher);
+
+            if (resolution.Match is null)
+            {
+                return resolution.IsAmbiguous
+                    ? ChatToolResult.Failure($"Ambiguous goal. Ask the user which one: {string.Join(", ", resolution.Candidates.Select(g => g.Description))}.")
+                    : ChatToolResult.Failure($"Goal not found. The user's active goals are: {string.Join(", ", goals.Select(g => g.Description))}.");
+            }
+
+            goalId = resolution.Match.Id;
+        }
+
+        var filters = _screenFilterBuilder.Build(
+            id,
+            new ScreenFilterInput(tab, start, end, month, year, filterType, categoryId, search, horizonMonths, cardId, goalId),
+            BrazilClock.Today());
+
+        ignored.AddRange(filters.Ignored);
+
+        _actions.Add(new AiChatActionResponse(
+            goNow ? AiChatActionTypes.NavigateNow : AiChatActionTypes.Navigate,
+            labelKey,
+            path,
+            filters.QueryParams.Count == 0 ? null : filters.QueryParams));
+
+        var applied = filters.Applied.Count == 0 ? "no filters" : string.Join(", ", filters.Applied);
+        var ignoredText = ignored.Count == 0 ? string.Empty : $" These were NOT applied, tell the user: {string.Join("; ", ignored)}.";
+
+        return ChatToolResult.Success(
+            message: goNow
+                ? $"The user is being taken to the screen right now. Applied: {applied}. Tell the user in one short sentence what was applied (period, tab, etc.).{ignoredText}"
+                : $"A button to open the screen will be shown to the user.{ignoredText}");
     }
 
     public Task<ChatToolResult> StartTour(string screen)
@@ -382,7 +572,7 @@ public sealed class ChatToolbox : IChatToolbox
         if (missing.Count > 0)
             return Missing(string.Join("; ", missing));
 
-        drafts = (await SuggestCategoriesAsync(userId, drafts, categories)).ToList();
+        drafts = (await _categorizer.SuggestAsync(userId, drafts, categories)).ToList();
 
         _actions.Add(new AiChatActionResponse(
             AiChatActionTypes.OpenTransactionsModal,
@@ -748,6 +938,37 @@ public sealed class ChatToolbox : IChatToolbox
         return Opened();
     }
 
+    public Task<ChatToolResult> SummarizeAttachment(string? attachmentId = null) =>
+        _attachments.SummarizeAsync(attachmentId);
+
+    public Task<ChatToolResult> GetAttachmentTransactions(
+        string? attachmentId = null,
+        string? fromDate = null,
+        string? toDate = null,
+        string? text = null,
+        string? type = null,
+        string? kind = null,
+        int limit = 20) =>
+        _attachments.GetTransactionsAsync(attachmentId, fromDate, toDate, text, type, kind, limit);
+
+    public Task<ChatToolResult> CheckAttachmentDuplicates(
+        string? attachmentId = null,
+        string? fromDate = null,
+        string? toDate = null) =>
+        _attachments.CheckDuplicatesAsync(attachmentId, fromDate, toDate);
+
+    public Task<ChatToolResult> PrepareTransactionsFromAttachment(
+        string? attachmentId = null,
+        string? fromDate = null,
+        string? toDate = null,
+        string? type = null,
+        string? text = null,
+        string? excludeText = null,
+        bool includeDuplicates = false,
+        bool includeCardInvoicePayments = true) =>
+        _attachments.PrepareTransactionsAsync(
+            attachmentId, fromDate, toDate, type, text, excludeText, includeDuplicates, includeCardInvoicePayments);
+
     public async Task<ChatToolResult> PrepareInvoicePayment(
         string cardName,
         int? month,
@@ -825,46 +1046,6 @@ public sealed class ChatToolbox : IChatToolbox
             "The chat shows the invoice and the payment method options. The payment is NOT done yet: it is only registered when the user answers. Do not say it was paid.");
     }
 
-    private async Task<IReadOnlyList<TransactionDraftResponse>> SuggestCategoriesAsync(
-        int userId,
-        IReadOnlyList<TransactionDraftResponse> drafts,
-        IReadOnlyList<Category> categories)
-    {
-        var pending = drafts
-            .Select((d, i) => (Draft: d, Index: i))
-            .Where(x => x.Draft.CategoryId is null)
-            .ToList();
-
-        if (pending.Count == 0)
-            return drafts;
-
-        var imported = pending
-            .Select(x => new ImportedTransactionResponse(
-                DateTime.Today, x.Draft.Amount, x.Draft.Description, x.Draft.Type, "P", 1, null, null, null, null))
-            .ToList();
-
-        var classified = await _classification.ClassifyAsync(userId, imported, categories, useAi: false);
-        var result = drafts.ToList();
-
-        for (var position = 0; position < pending.Count; position++)
-        {
-            var suggestion = classified[position];
-
-            if (suggestion?.CategoryId is not { } categoryId
-                || categories.FirstOrDefault(c => c.Id == categoryId)?.CodTypeTransaction != pending[position].Draft.Type)
-                continue;
-
-            result[pending[position].Index] = pending[position].Draft with
-            {
-                CategoryId = categoryId,
-                CategoryItemId = suggestion.CategoryItemId,
-                ClassificationSource = suggestion.ClassificationSource
-            };
-        }
-
-        return result;
-    }
-
     private static ChatToolResult Missing(string what) =>
         ChatToolResult.Failure($"Missing required information: {what}. Nothing was opened. Ask the user ONE short question to get it (offer short answer suggestions) and call this tool again once you have it. Do not guess.");
 
@@ -930,16 +1111,16 @@ public sealed class ChatToolbox : IChatToolbox
     }
 
     private IEnumerable<string> ScreenIds() =>
-        _assistantTree.GuideScreens.Select(s => s.Id.Replace("guide-", string.Empty)).Append("invoices");
+        _assistantTree.GuideScreens.Select(s => s.Id.Replace("guide-", string.Empty)).Append("invoices").Append("goals-history").Append("achievements");
 
     private bool TryScreen(string screen, out string path, out string labelKey)
     {
         var id = (screen ?? string.Empty).Trim().ToLowerInvariant();
 
-        if (id == "invoices")
+        if (ExtraScreens.TryGetValue(id, out var extra))
         {
-            path = InvoicesPath;
-            labelKey = "Invoices";
+            path = extra.Path;
+            labelKey = extra.LabelKey;
             return true;
         }
 

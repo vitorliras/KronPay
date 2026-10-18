@@ -1,6 +1,9 @@
 using System.Text.Json;
 using Application.Abstractions.AI;
 using Application.Abstractions.AiChat;
+using Application.Configuration.AI;
+using Infrastructure.AI.Chat;
+using Microsoft.Extensions.Options;
 using Application.Services.AiChat;
 using Application.Services.Assistant;
 using Application.Services.Spending;
@@ -102,10 +105,24 @@ public class ChatToolboxTests : CardFlowTestBase
         var classification = new ImportedTransactionClassificationService(
             memory, Classifier.Object, NullLogger<ImportedTransactionClassificationService>.Instance);
 
+        var categorizer = new TransactionDraftCategorizer(classification);
+
+        var attachmentMonitor = new Mock<IOptionsMonitor<AiSettings>>();
+        attachmentMonitor.Setup(m => m.CurrentValue).Returns(new AiSettings { Chat = new AiChatSettings() });
+
+        var attachments = new ChatAttachmentToolService(
+            new InMemoryChatAttachmentStore(attachmentMonitor.Object),
+            new ChatAttachmentContext(),
+            new ChatAttachmentAnalyzer(Transactions.Object, CreditCards.Object, new CardInvoicePaymentDetector(), new AttachmentDuplicateDetector()),
+            Categories.Object,
+            categorizer,
+            _actions,
+            CurrentUser.Object);
+
         return new ChatToolbox(
             aggregator, Transactions.Object, CreditCards.Object, Invoices.Object, Purchases.Object,
             _methods.Object, _goals.Object, _commitments.Object, fuzzy, new AssistantTree(), _actions,
-            classification, PreviewBuilder(), Categories.Object, CategoryItems.Object, CurrentUser.Object);
+            categorizer, attachments, PreviewBuilder(), Categories.Object, CategoryItems.Object, CurrentUser.Object);
     }
 
     private static Category Named(int id, string name, string type)
@@ -208,9 +225,9 @@ public class ChatToolboxTests : CardFlowTestBase
     {
         var toolbox = Build();
 
-        (await toolbox.OpenScreen("dashboard")).Ok.ShouldBeTrue();
-        (await toolbox.OpenScreen("invoices")).Ok.ShouldBeTrue();
-        (await toolbox.OpenScreen("../admin")).Ok.ShouldBeFalse();
+        (await toolbox.OpenScreen("dashboard", false)).Ok.ShouldBeTrue();
+        (await toolbox.OpenScreen("invoices", false)).Ok.ShouldBeTrue();
+        (await toolbox.OpenScreen("../admin", false)).Ok.ShouldBeFalse();
 
         _actions.Actions.Select(a => a.Path).ShouldBe(new[] { "/dashboard", "/credit-card/invoices" });
         _actions.Actions.ShouldAllBe(a => a.Type == AiChatActionTypes.Navigate);
@@ -741,5 +758,95 @@ public class ChatToolboxTests : CardFlowTestBase
         await Build().PreparePlannedCommitment(new string('a', 80), 10m, "expense");
 
         _actions.Actions.Single().PlannedCommitmentDraft!.Description.Length.ShouldBe(60);
+    }
+
+    [Fact]
+    public async Task Abrir_tela_com_goNow_registra_navigate_now_e_sem_goNow_registra_botao()
+    {
+        await Build().OpenScreen("reports", true);
+        await Build().OpenScreen("reports", false);
+
+        _actions.Actions.Select(a => a.Type).ShouldBe(new[] { AiChatActionTypes.NavigateNow, AiChatActionTypes.Navigate });
+        _actions.Actions.ShouldAllBe(a => a.QueryParams == null);
+    }
+
+    [Fact]
+    public async Task Relatorio_de_investimentos_dos_ultimos_meses_leva_aba_e_periodo()
+    {
+        var result = await Build().OpenScreen("reports", true, tab: "investment", startDate: "2026-06-01", endDate: "2026-10-16");
+
+        result.Ok.ShouldBeTrue();
+        result.Message.ShouldContain("Applied");
+
+        var action = _actions.Actions.Single();
+        action.Path.ShouldBe("/report");
+        action.QueryParams!["tab"].ShouldBe("investment");
+        action.QueryParams["startDate"].ShouldBe("2026-06-01");
+        action.QueryParams["endDate"].ShouldBe("2026-10-16");
+    }
+
+    [Fact]
+    public async Task Filtros_invalidos_sao_ignorados_e_informados_sem_impedir_a_navegacao()
+    {
+        var result = await Build().OpenScreen("reports", true, tab: "xyz", startDate: "ontem", month: 13);
+
+        result.Ok.ShouldBeTrue();
+        result.Message.ShouldContain("NOT applied");
+        result.Message.ShouldContain("start date");
+        _actions.Actions.Single().QueryParams.ShouldBeNull();
+    }
+
+    [Fact]
+    public async Task Lancamentos_resolvem_categoria_pelo_nome_e_levam_mes_ano_tipo_e_busca()
+    {
+        await Build().OpenScreen("transactions", true, month: 9, year: 2026, type: "expense", categoryName: "mercado", search: "super");
+
+        var query = _actions.Actions.Single().QueryParams!;
+        query["month"].ShouldBe("9");
+        query["year"].ShouldBe("2026");
+        query["type"].ShouldBe("E");
+        query["categoryId"].ShouldBe("3");
+        query["search"].ShouldBe("super");
+    }
+
+    [Fact]
+    public async Task Categoria_ou_cartao_inexistente_ou_ambiguo_pergunta_em_vez_de_abrir()
+    {
+        (await Build().OpenScreen("transactions", true, categoryName: "xyz")).Message.ShouldContain("not found");
+        (await Build().OpenScreen("invoices", true, cardName: "santander")).Ok.ShouldBeFalse();
+        (await Build().OpenScreen("goals", true, goalName: "carro")).Ok.ShouldBeFalse();
+        _actions.Actions.ShouldBeEmpty();
+    }
+
+    [Fact]
+    public async Task Faturas_levam_cartao_ano_e_mes_e_metas_levam_a_meta()
+    {
+        await Build().OpenScreen("invoices", true, month: 8, cardName: "nubank");
+
+        var invoices = _actions.Actions.Single().QueryParams!;
+        invoices["cardId"].ShouldBe("10");
+        invoices["month"].ShouldBe("8");
+        invoices["year"].ShouldBe(BrazilClock.Today().Year.ToString());
+
+        _actions = new ChatActionCollector();
+        _goals.Setup(g => g.GetActiveAsync(1)).ReturnsAsync(new List<FinancialGoal> { Goal(3, "Reserva") });
+
+        await Build().OpenScreen("goals", true, goalName: "reserva");
+
+        _actions.Actions.Single().QueryParams!["goalId"].ShouldBe("3");
+    }
+
+    [Fact]
+    public async Task Telas_extras_existem_e_telas_sem_filtro_ignoram_filtros()
+    {
+        (await Build().OpenScreen("goals-history", true, search: "viagem")).Ok.ShouldBeTrue();
+        (await Build().OpenScreen("achievements", true)).Ok.ShouldBeTrue();
+
+        var cards = await Build().OpenScreen("cards", true, search: "x");
+        cards.Message.ShouldContain("NOT applied");
+
+        _actions.Actions[0].Path.ShouldBe("/goals-history");
+        _actions.Actions[0].QueryParams!["search"].ShouldBe("viagem");
+        _actions.Actions[1].Path.ShouldBe("/profile/achievements");
     }
 }

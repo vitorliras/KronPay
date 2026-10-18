@@ -40,7 +40,7 @@ public sealed class CsvTransactionImportParser : ITransactionImportParser
                     type = "V";
 
                 var idPaymentMethod = 1;
-                if (paymentMethods.Any() && paymentMethods != null)
+                if (paymentMethods != null && paymentMethods.Any())
                 {
                     var paymentMethod = paymentMethods.Where(x => x.Description.ToUpper().Normalize().Equals(columns[5].ToUpper())).FirstOrDefault();
                     if(paymentMethod != null)
@@ -48,7 +48,7 @@ public sealed class CsvTransactionImportParser : ITransactionImportParser
                 }
 
                 var categoryId = 0;
-                if (categories.Any() && categories != null)
+                if (categories != null && categories.Any())
                 {
                     var category = categories.Where(x => x.Description.ToUpper().Normalize().Equals(columns[2].ToUpper())).FirstOrDefault();
                     if (category != null)

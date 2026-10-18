@@ -8,4 +8,6 @@ public sealed record TransactionDraftResponse(
     int? PaymentMethodId,
     int? CategoryId,
     int? CategoryItemId,
-    string? ClassificationSource);
+    string? ClassificationSource,
+    string? DuplicateKind = null,
+    bool IsCardInvoicePayment = false);

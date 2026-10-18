@@ -16,14 +16,19 @@ public class TransactionAiClassifierTests
     private readonly Mock<IAiCompletionService> _completion = new();
     private readonly Mock<IAiAvailability> _availability = new();
     private readonly Mock<ICategoryRepository> _categories = new();
+    private readonly Mock<ICategoryItemRepository> _categoryItems = new();
 
-    private TransactionAiClassifier Build()
+    private TransactionAiClassifier Build(params CategoryItem[] items)
     {
         _categories
             .Setup(c => c.GetAllAsync(It.IsAny<int>()))
             .ReturnsAsync(Array.Empty<Category>());
 
-        var llm = new LlmTransactionBatchClassifier(_completion.Object, _categories.Object);
+        _categoryItems
+            .Setup(c => c.GetAllByUserIdAsync(It.IsAny<int>()))
+            .ReturnsAsync(items);
+
+        var llm = new LlmTransactionBatchClassifier(_completion.Object, _categories.Object, _categoryItems.Object);
 
         return new TransactionAiClassifier(
             llm,
@@ -115,6 +120,35 @@ public class TransactionAiClassifierTests
         result[0].IsInvestment.ShouldBeTrue();
         result[1].SuggestedCategoryId.ShouldBe(7);
         result[1].Confidence.ShouldBe(0.9m);
+    }
+
+    private static CategoryItem Item(int id, int categoryId, string description)
+    {
+        var item = new CategoryItem(categoryId, description);
+        typeof(CategoryItem).GetProperty(nameof(CategoryItem.Id))!.SetValue(item, id);
+        return item;
+    }
+
+    [Fact]
+    public async Task Subcategoria_sugerida_so_vale_se_pertencer_a_categoria_sugerida()
+    {
+        EnableAi();
+        const string json = """
+            [
+              {"index": 1, "isInvestment": false, "confidence": 0.9, "suggestedCategoryId": 5, "suggestedCategoryItemId": 12, "suggestedType": "E"},
+              {"index": 2, "isInvestment": false, "confidence": 0.9, "suggestedCategoryId": 5, "suggestedCategoryItemId": 99, "suggestedType": "E"},
+              {"index": 3, "isInvestment": false, "confidence": 0.9, "suggestedCategoryId": 6, "suggestedCategoryItemId": 12, "suggestedType": "E"}
+            ]
+            """;
+        _completion
+            .Setup(c => c.CompleteAsync(It.IsAny<AiCompletionRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Completion(json));
+
+        var result = await Build(Item(12, 5, "Feira")).SuggestBatchAsync(1, Batch(3), useAi: true);
+
+        result[0].SuggestedCategoryItemId.ShouldBe(12);
+        result[1].SuggestedCategoryItemId.ShouldBeNull();
+        result[2].SuggestedCategoryItemId.ShouldBeNull();
     }
 
     [Fact]

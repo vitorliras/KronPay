@@ -27,6 +27,8 @@ public sealed class SendAiChatMessageUseCase
     private readonly IAiChatService _chatService;
     private readonly IChatToolbox _toolbox;
     private readonly ChatActionCollector _actions;
+    private readonly ChatAttachmentContext _attachmentContext;
+    private readonly ChatAttachmentToolService _attachmentTools;
     private readonly IGamificationService _gamificationService;
     private readonly IUnitOfWork _uow;
     private readonly ICurrentUserService _currentUser;
@@ -40,6 +42,8 @@ public sealed class SendAiChatMessageUseCase
         IAiChatService chatService,
         IChatToolbox toolbox,
         ChatActionCollector actions,
+        ChatAttachmentContext attachmentContext,
+        ChatAttachmentToolService attachmentTools,
         IGamificationService gamificationService,
         IUnitOfWork uow,
         ICurrentUserService currentUser,
@@ -52,6 +56,8 @@ public sealed class SendAiChatMessageUseCase
         _chatService = chatService;
         _toolbox = toolbox;
         _actions = actions;
+        _attachmentContext = attachmentContext;
+        _attachmentTools = attachmentTools;
         _gamificationService = gamificationService;
         _uow = uow;
         _currentUser = currentUser;
@@ -77,11 +83,14 @@ public sealed class SendAiChatMessageUseCase
 
         var profile = await _profileBuilder.BuildAsync(userId, BrazilClock.Today());
 
+        _attachmentContext.Set(request.AttachmentIds);
+        var attachments = await _attachmentTools.DescribeAsync(userId, _attachmentContext.Ids);
+
         AiChatServiceResult result;
 
         try
         {
-            result = await _chatService.RunAsync(userId, AiChatSystemPrompt.Build(profile), history, _toolbox);
+            result = await _chatService.RunAsync(userId, AiChatSystemPrompt.Build(profile, attachments), history, _toolbox);
         }
         catch (AiProviderRejectedException ex)
         {

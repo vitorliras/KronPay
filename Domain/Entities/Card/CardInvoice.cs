@@ -68,11 +68,11 @@ public sealed class CardInvoice
         Transaction = transaction;
     }
 
-    public void Reopen()
+    public void Reopen() => Status = "A";
+
+    public void RestoreAsPaid()
     {
-        Status = "A";
-        PaidAt = null;
-        TransactionId = null;
-        Transaction = null;
+        Status = "P";
+        PaidAt ??= DueDate;
     }
 }

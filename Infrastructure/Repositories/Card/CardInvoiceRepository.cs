@@ -78,6 +78,14 @@ public sealed class CardInvoiceRepository : ICardInvoiceRepository
             .AsNoTracking()
             .ToDictionaryAsync(x => x.InvoiceId, x => x.Total);
 
+    public async Task<IReadOnlyDictionary<int, decimal>> GetPendingAmountsByUserAsync(int userId)
+        => await _context.CardInstallments
+            .AsNoTracking()
+            .Where(x => x.UserId == userId && x.Status == "P")
+            .GroupBy(x => x.CardInvoiceId)
+            .Select(g => new { InvoiceId = g.Key, Total = g.Sum(x => x.Amount) })
+            .ToDictionaryAsync(x => x.InvoiceId, x => x.Total);
+
     public async Task<IReadOnlyCollection<int>> GetPaymentTransactionIdsAsync(int userId)
         => await _context.CardInvoices
             .AsNoTracking()

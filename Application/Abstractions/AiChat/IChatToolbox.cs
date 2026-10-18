@@ -16,6 +16,10 @@ public interface IChatToolbox
         [Description("Number of months, 1 to 12")] int months);
 
     [ChatTool]
+    [Description("Totals of expenses, income and balance since the user's FIRST transaction until today, with the first date and a year-by-year breakdown. Use it for questions about the whole history (\"since the beginning\", \"all time\", \"in total\"). Includes credit card purchases counted by invoice month and excludes credit card invoice payments.")]
+    Task<ChatToolResult> GetLifetimeTotals();
+
+    [ChatTool]
     [Description("Search the user's transactions and card purchases. Returns at most 30 rows, newest first. All filters are optional.")]
     Task<ChatToolResult> SearchTransactions(
         [Description("Text contained in the description")] string? text = null,
@@ -38,9 +42,25 @@ public interface IChatToolbox
     Task<ChatToolResult> GetRecurringExpenses();
 
     [ChatTool]
-    [Description("Offer the user a button to open a screen. Valid screens: dashboard, transactions, reports, planning, cards, invoices, goals, config.")]
+    [Description("Review of the user's categories and subcategories: every category with its subcategories and how often each was used in the last 6 months, categories never used, and the expenses left without a category (count, total and most frequent descriptions). Use it to evaluate whether a category is missing, redundant, badly named or unused.")]
+    Task<ChatToolResult> ReviewCategories();
+
+    [ChatTool]
+    [Description("Take the user to a screen, already filtered. Screens and the filters each accepts: dashboard (month, year); transactions (month, year, type, categoryName, search); reports (tab: expense|income|investment|comparison|card, startDate, endDate); planning (horizonMonths 6|12|24); goals (goalName, opens that goal); goals-history (search); invoices (cardName, year, month); config (tab: categories|subcategories|payments|ai, type, categoryName for the subcategories list); cards and achievements have no filters. Set goNow=true when the user asked to see or open something (compute the period yourself from today's date and apply every filter the request implies); goNow=false only to suggest a screen as a button.")]
     Task<ChatToolResult> OpenScreen(
-        [Description("Screen id")] string screen);
+        [Description("Screen id")] string screen,
+        [Description("true when the user asked to see or open it, false when only suggesting")] bool goNow,
+        [Description("reports: expense, income, investment, comparison or card. config: categories, subcategories, payments or ai")] string? tab = null,
+        [Description("reports: period start, yyyy-MM-dd")] string? startDate = null,
+        [Description("reports: period end, yyyy-MM-dd. Omit for today")] string? endDate = null,
+        [Description("dashboard, transactions, invoices: month 1-12")] int? month = null,
+        [Description("dashboard, transactions, invoices: year. Omit for the current year")] int? year = null,
+        [Description("transactions, config categories: expense, income or investment")] string? type = null,
+        [Description("transactions, config: category name")] string? categoryName = null,
+        [Description("transactions, goals-history: text to search")] string? search = null,
+        [Description("planning: 6, 12 or 24")] int? horizonMonths = null,
+        [Description("invoices: credit card name")] string? cardName = null,
+        [Description("goals: financial goal name")] string? goalName = null);
 
     [ChatTool]
     [Description("Offer the user a button to start the guided tour of a screen. Valid screens: dashboard, transactions, reports, planning, cards, goals, config.")]
@@ -106,6 +126,41 @@ public interface IChatToolbox
         [Description("Start date yyyy-MM-dd. Monthly and yearly commitments repeat on the day of this date, so for every day N use the next date whose day is N. Omit for today")] string? startDate = null,
         [Description("End date yyyy-MM-dd. Omit when it has no end")] string? endDate = null,
         [Description("Category name if the user said it")] string? categoryName = null);
+
+    [ChatTool]
+    [Description("Totals and a month-by-month summary of the documents the user attached in this conversation (income, expenses WITHOUT credit card invoice payments, invoice payments shown separately, top descriptions). Read-only.")]
+    Task<ChatToolResult> SummarizeAttachment(
+        [Description("File name or id. Omit for all attachments")] string? attachmentId = null);
+
+    [ChatTool]
+    [Description("List transactions read from the attached documents, filtered. Returns at most 30 rows. Read-only.")]
+    Task<ChatToolResult> GetAttachmentTransactions(
+        [Description("File name or id. Omit for all attachments")] string? attachmentId = null,
+        [Description("From date inclusive, yyyy-MM-dd")] string? fromDate = null,
+        [Description("To date inclusive, yyyy-MM-dd")] string? toDate = null,
+        [Description("Text contained in the description")] string? text = null,
+        [Description("expense or income")] string? type = null,
+        [Description("normal or card_invoice_payment")] string? kind = null,
+        [Description("Maximum rows, 1 to 30")] int limit = 20);
+
+    [ChatTool]
+    [Description("Check which attached transactions are repeated: already registered in the app, or repeated in another attached file. Read-only.")]
+    Task<ChatToolResult> CheckAttachmentDuplicates(
+        [Description("File name or id. Omit for all attachments")] string? attachmentId = null,
+        [Description("From date inclusive, yyyy-MM-dd")] string? fromDate = null,
+        [Description("To date inclusive, yyyy-MM-dd")] string? toDate = null);
+
+    [ChatTool]
+    [Description("Open the transaction form with the attached documents' transactions for the user to review and save. Filters are optional: fromDate/toDate inclusive (infer the year from the attachment period), text, excludeText, type. Repeated rows come unchecked unless includeDuplicates=true. Credit card invoice payments come tagged and categorized as invoice payment unless includeCardInvoicePayments=false. Nothing is saved by this tool.")]
+    Task<ChatToolResult> PrepareTransactionsFromAttachment(
+        [Description("File name or id. Omit for all attachments")] string? attachmentId = null,
+        [Description("From date inclusive, yyyy-MM-dd")] string? fromDate = null,
+        [Description("To date inclusive, yyyy-MM-dd")] string? toDate = null,
+        [Description("expense or income. Omit for both")] string? type = null,
+        [Description("Only descriptions containing this text")] string? text = null,
+        [Description("Skip descriptions containing this text")] string? excludeText = null,
+        [Description("true only when the user asked to add the repeated ones too")] bool includeDuplicates = false,
+        [Description("false only when the user asked not to include card invoice payments")] bool includeCardInvoicePayments = true);
 
     [ChatTool]
     [Description("Prepare the payment of a credit card invoice. Nothing is paid by this tool: the chat shows the invoice and asks the user which payment method was used, and the payment is only registered when the user answers.")]

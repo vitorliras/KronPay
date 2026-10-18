@@ -15,5 +15,6 @@ public interface ICardInvoiceRepository
     Task<bool> ExistsByCreditCardIdAsync(int creditCardId);
     Task<IReadOnlyCollection<int>> GetPaymentTransactionIdsAsync(int userId);
     Task<IReadOnlyDictionary<int, decimal>> GetPendingAmountsByCardAsync(int creditCardId, int userId);
+    Task<IReadOnlyDictionary<int, decimal>> GetPendingAmountsByUserAsync(int userId);
     Task<IReadOnlyList<CardInstallmentDetail>> GetInstallmentDetailsAsync(int userId, int fromYear, int fromMonth, int toYear, int toMonth);
 }

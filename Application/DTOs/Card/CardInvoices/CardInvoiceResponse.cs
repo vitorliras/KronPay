@@ -8,4 +8,5 @@ public sealed record CardInvoiceResponse(
     DateTime DueDate,
     decimal TotalAmount,
     string Status,
-    DateTime? PaidAt);
+    DateTime? PaidAt,
+    decimal PendingAmount = 0m);

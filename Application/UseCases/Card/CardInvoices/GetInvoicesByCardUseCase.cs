@@ -27,6 +27,7 @@ public sealed class GetInvoicesByCardUseCase
         var userId = _currentUser.UserId;
 
         var invoices = await _invoiceRepository.GetByCardAsync(request.CreditCardId, userId);
+        var pending = await _invoiceRepository.GetPendingAmountsByCardAsync(request.CreditCardId, userId);
 
         var response = invoices.Select(x => new CardInvoiceResponse(
             x.Id,
@@ -36,7 +37,8 @@ public sealed class GetInvoicesByCardUseCase
             x.DueDate,
             x.TotalAmount,
             x.Status,
-            x.PaidAt));
+            x.PaidAt,
+            pending.GetValueOrDefault(x.Id)));
 
         return ResultEntity<IEnumerable<CardInvoiceResponse>>.Success(response, MessageKeys.OperationSuccess);
     }

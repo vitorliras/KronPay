@@ -1,5 +1,6 @@
 using Application.Abstractions.Common;
 using Application.DTOs.Card.CardPurchases;
+using Application.Services.Card;
 using Application.UseCases.Card.CardPurchases;
 using Domain.Entities.Card;
 using Domain.Entities.Transactions;
@@ -23,7 +24,7 @@ public class DeactivateCardPurchaseUseCaseTests
         _currentUser.Setup(c => c.UserId).Returns(1);
         _uow.Setup(u => u.CommitAsync(It.IsAny<CancellationToken?>())).ReturnsAsync(true);
         _sut = new DeactivateCardPurchaseUseCase(
-            _purchaseRepo.Object, _invoiceRepo.Object, _uow.Object, _currentUser.Object);
+            _purchaseRepo.Object, _invoiceRepo.Object, new CardInvoiceReconciler(_invoiceRepo.Object), _uow.Object, _currentUser.Object);
     }
 
     [Fact]
@@ -94,6 +95,71 @@ public class DeactivateCardPurchaseUseCaseTests
         settledAug.Status.ShouldBe("Q");
         paidJul.TotalAmount.ShouldBe(99.90m);
         paidAug.TotalAmount.ShouldBe(99.90m);
+    }
+
+    [Fact]
+    public async Task Fatura_reaberta_que_fica_sem_pendencia_volta_a_ser_paga_mantendo_a_data_do_pagamento()
+    {
+        var purchase = Purchase(9, "uber", 20m, 1);
+        var invoice = Invoice(30, 2026, 10, 1075.25m, paid: true);
+        var paidAt = invoice.PaidAt;
+        invoice.Reopen();
+        invoice.AddAmount(20m);
+
+        var settled = Installment(40, Purchase(1, "hotel", 1075.25m, 1), invoice, 1, 1075.25m, settled: true);
+        var pending = Installment(41, purchase, invoice, 1, 20m);
+
+        _purchaseRepo.Setup(r => r.GetByIdAsync(9, 1)).ReturnsAsync(purchase);
+        _purchaseRepo.Setup(r => r.GetInstallmentsByPurchaseAsync(9, 1)).ReturnsAsync(new[] { pending });
+        _invoiceRepo.Setup(r => r.GetByIdAsync(30, 1)).ReturnsAsync(invoice);
+        _invoiceRepo.Setup(r => r.GetInstallmentsByInvoiceAsync(30, 1)).ReturnsAsync(new[] { settled, pending });
+
+        var result = await _sut.ExecuteAsync(new DeactivateCardPurchaseRequest(9));
+
+        result.IsSuccess.ShouldBeTrue();
+        invoice.Status.ShouldBe("P");
+        invoice.PaidAt.ShouldBe(paidAt);
+        invoice.TotalAmount.ShouldBe(1075.25m);
+    }
+
+    [Fact]
+    public async Task Fatura_reaberta_que_ainda_tem_parcela_pendente_continua_aberta()
+    {
+        var purchase = Purchase(9, "uber", 20m, 1);
+        var other = Purchase(10, "livro", 50m, 1);
+        var invoice = Invoice(30, 2026, 10, 1075.25m, paid: true);
+        invoice.Reopen();
+        invoice.AddAmount(70m);
+
+        var settled = Installment(40, Purchase(1, "hotel", 1075.25m, 1), invoice, 1, 1075.25m, settled: true);
+        var pending = Installment(41, purchase, invoice, 1, 20m);
+        var stillPending = Installment(42, other, invoice, 1, 50m);
+
+        _purchaseRepo.Setup(r => r.GetByIdAsync(9, 1)).ReturnsAsync(purchase);
+        _purchaseRepo.Setup(r => r.GetInstallmentsByPurchaseAsync(9, 1)).ReturnsAsync(new[] { pending });
+        _invoiceRepo.Setup(r => r.GetByIdAsync(30, 1)).ReturnsAsync(invoice);
+        _invoiceRepo.Setup(r => r.GetInstallmentsByInvoiceAsync(30, 1)).ReturnsAsync(new[] { settled, pending, stillPending });
+
+        await _sut.ExecuteAsync(new DeactivateCardPurchaseRequest(9));
+
+        invoice.Status.ShouldBe("A");
+    }
+
+    [Fact]
+    public async Task Fatura_aberta_sem_nenhuma_parcela_quitada_nao_vira_paga()
+    {
+        var purchase = Purchase(9, "uber", 20m, 1);
+        var invoice = Invoice(30, 2026, 10, 20m);
+        var pending = Installment(41, purchase, invoice, 1, 20m);
+
+        _purchaseRepo.Setup(r => r.GetByIdAsync(9, 1)).ReturnsAsync(purchase);
+        _purchaseRepo.Setup(r => r.GetInstallmentsByPurchaseAsync(9, 1)).ReturnsAsync(new[] { pending });
+        _invoiceRepo.Setup(r => r.GetByIdAsync(30, 1)).ReturnsAsync(invoice);
+        _invoiceRepo.Setup(r => r.GetInstallmentsByInvoiceAsync(30, 1)).ReturnsAsync(new[] { pending });
+
+        await _sut.ExecuteAsync(new DeactivateCardPurchaseRequest(9));
+
+        invoice.Status.ShouldBe("A");
     }
 
     private static CardPurchase Purchase(int id, string description, decimal total, short installmentsCount)

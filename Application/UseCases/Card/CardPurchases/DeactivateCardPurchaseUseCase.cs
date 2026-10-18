@@ -1,6 +1,7 @@
 using Application.Abstractions;
 using Application.Abstractions.Common;
 using Application.DTOs.Card.CardPurchases;
+using Application.Services.Card;
 using Domain.Entities.Card;
 using Domain.Interfaces;
 using Domain.Interfaces.Card;
@@ -15,17 +16,20 @@ public sealed class DeactivateCardPurchaseUseCase
 {
     private readonly ICardPurchaseRepository _purchaseRepository;
     private readonly ICardInvoiceRepository _invoiceRepository;
+    private readonly CardInvoiceReconciler _reconciler;
     private readonly IUnitOfWork _uow;
     private readonly ICurrentUserService _currentUser;
 
     public DeactivateCardPurchaseUseCase(
         ICardPurchaseRepository purchaseRepository,
         ICardInvoiceRepository invoiceRepository,
+        CardInvoiceReconciler reconciler,
         IUnitOfWork uow,
         ICurrentUserService currentUser)
     {
         _purchaseRepository = purchaseRepository;
         _invoiceRepository = invoiceRepository;
+        _reconciler = reconciler;
         _uow = uow;
         _currentUser = currentUser;
     }
@@ -59,6 +63,12 @@ public sealed class DeactivateCardPurchaseUseCase
 
             invoice.SubtractAmount(installment.Amount);
             installment.Cancel();
+        }
+
+        foreach (var (invoiceId, invoice) in openInvoices)
+        {
+            var cancelledIds = installments.Where(i => i.CardInvoiceId == invoiceId).Select(i => i.Id).ToList();
+            await _reconciler.RestorePaidWhenFullySettledAsync(invoice, userId, cancelledIds);
         }
 
         purchase.Deactivate();

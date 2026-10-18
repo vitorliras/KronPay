@@ -1,3 +1,4 @@
+using Application.UseCases.AiChat;
 using Application.Abstractions.AI;
 using Application.Executors;
 using Application.Services.AI;
@@ -27,9 +28,17 @@ public static class DependencyInjection
         services.AddScoped<TransactionCategoryMemoryBuilder>();
         services.AddScoped<ImportedTransactionClassificationService>();
         services.AddScoped<CardPurchaseRegistrar>();
+        services.AddScoped<CardInvoiceReconciler>();
         services.AddScoped<SpendingAggregator>();
         services.AddScoped<FinancialProfileBuilder>();
         services.AddScoped<ChatActionCollector>();
+        services.AddScoped<ChatAttachmentContext>();
+        services.AddScoped<ChatAttachmentAnalyzer>();
+        services.AddScoped<ChatAttachmentToolService>();
+        services.AddScoped<CardInvoicePaymentDetector>();
+        services.AddScoped<AttachmentDuplicateDetector>();
+        services.AddScoped<TransactionDraftCategorizer>();
+        services.AddScoped<UploadChatAttachmentsUseCase>();
         services.AddScoped<IChatToolbox, ChatToolbox>();
         services.AddScoped<CardPurchasePreviewBuilder>();
 

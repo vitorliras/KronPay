@@ -3,6 +3,7 @@ namespace Shared.AI;
 public static class AiChatActionTypes
 {
     public const string Navigate = "navigate";
+    public const string NavigateNow = "navigate_now";
     public const string StartTour = "start_tour";
     public const string ConfirmInvoicePayment = "confirm_invoice_payment";
     public const string OpenTransactionsModal = "open_transactions_modal";

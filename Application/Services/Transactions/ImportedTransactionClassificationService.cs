@@ -162,6 +162,7 @@ public sealed class ImportedTransactionClassificationService
             return original with
             {
                 CategoryId = suggestion.SuggestedCategoryId.Value,
+                CategoryItemId = suggestion.SuggestedCategoryItemId,
                 ClassificationSource = suggestion.Source
             };
         }

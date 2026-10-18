@@ -8,6 +8,7 @@ public sealed class AiChatRequestValidator : AbstractValidator<AiChatRequest>
 {
     public const int MaxMessages = 50;
     public const int MaxMessageLength = 1000;
+    public const int MaxAttachmentIds = 10;
 
     public AiChatRequestValidator()
     {
@@ -15,6 +16,10 @@ public sealed class AiChatRequestValidator : AbstractValidator<AiChatRequest>
             .NotEmpty().WithMessage(MessageKeys.InvalidDescription)
             .Must(m => m is null || m.Count <= MaxMessages).WithMessage(MessageKeys.TextTooLong)
             .Must(m => m is null || m.Count == 0 || IsRole(m[^1].Role, "user")).WithMessage(MessageKeys.InvalidDescription);
+
+        RuleFor(x => x.AttachmentIds)
+            .Must(ids => ids is null || (ids.Count <= MaxAttachmentIds && ids.All(id => !string.IsNullOrWhiteSpace(id) && id.Length <= 64)))
+            .WithMessage(MessageKeys.ChatAttachmentTooMany);
 
         RuleForEach(x => x.Messages)
             .ChildRules(message =>
